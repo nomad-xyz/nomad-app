@@ -1,5 +1,5 @@
 <template>
-  <transaction-header :status="status" :time-remaining="timeRemaining" />
+  <transaction-header :status="status" :minutes-remaining="minutesRemaining" />
   <div class="w-full mt-8">
     <div class="flex items-center justify-between mb-8">
       <copy-hash class="text-xl font-medium" :address="$route.params.id" />
@@ -12,6 +12,7 @@
         <n-text class="uppercase ml-2">IN PROGRESS</n-text>
       </n-text>
     </div>
+    <!-- <div @click="process" class="bg-white text-black p-3">Process tx</div> -->
 
     <detail title="AMOUNT">
       <n-text v-if="amount">{{ amount }} {{ tokenSymbol }}</n-text>
@@ -155,29 +156,29 @@ export default defineComponent({
   },
 
   computed: {
-    explorerLink() {
+    explorerLink(): string {
       const n = networks[this.$route.params.network as string]
       return `${n.blockExplorer}/tx/${this.$route.params.id}`
     },
-    timeRemaining() {
-      if (!this.destNet) return '—'
+    minutesRemaining(): number | undefined {
+      if (!this.destNet) return
       const confirmationMinutes =
         networks[this.destNet].confirmationTimeInMinutes
       const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
 
       // if status doesn't exist
-      if (!this.status && this.status !== 0) return '—'
+      if (!this.status && this.status !== 0) return
       if (this.status < 2) {
-        return `${confirmationMinutes + bufferMinutes} minutes`
+        return confirmationMinutes + bufferMinutes
       } else if (this.status === 2 && this.confirmAt) {
         const remaining = minutesTilConfirmation(this.confirmAt)
         if (!remaining) {
-          return `${bufferMinutes} minutes`
+          return bufferMinutes
         } else {
-          return `${remaining + bufferMinutes} minutes`
+          return remaining + bufferMinutes
         }
       }
-      return `${bufferMinutes} minutes`
+      return bufferMinutes
     },
   },
 })

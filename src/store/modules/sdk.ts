@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { ethers, BigNumber } from 'ethers'
+import { ethers, BigNumber, BytesLike } from 'ethers'
 import { mainnet, dev, NomadContext } from '@nomad-xyz/sdk'
 import { TransferMessage } from '@nomad-xyz/sdk/nomad/messages/BridgeMessage'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
@@ -13,6 +13,7 @@ import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
 import { NetworkMetadata } from '@/config/config.types'
 
 const isProduction = process.env.VUE_APP_NOMAD_ENVIRONMENT === 'production'
+const s3URL = 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/'
 
 function _instantiateNomad(isProduction: boolean): NomadContext {
   // configure for mainnet/testnet
@@ -193,6 +194,35 @@ const actions = <ActionTree<SDKState, RootState>>{
 
     commit(types.SET_SENDING, false)
     return null
+  },
+  async processTx ({ dispatch }, tx: any) {
+    // register signer
+    await dispatch('registerSigner', networks['kovan'])
+
+    // get transfer message
+    const { origin, hash } = tx
+    const message = await TransferMessage.singleFromTransactionHash(nomad, origin, hash)
+
+    // get proof
+    const res = await fetch(`${s3URL}${origin}_${message.leafIndex.toString()}`)
+    const data = (await res.json()) as any
+    console.log('proof: ', data)
+
+    // get replica contract
+    const core = nomad.getCore(message.origin)
+    const replica = core?.replicas.get(message.destination)!.contract
+
+    // connect signer
+    const signer = nomad.getSigner(3000)
+    replica!.connect(signer!)
+
+    // prove and process
+    try {
+      await replica!.proveAndProcess(data.message as BytesLike, data.proof.path, data.proof.index)
+      console.log('PROCESSED!!!!')
+    } catch(e) {
+      console.log(e)
+    }
   },
 }
 
