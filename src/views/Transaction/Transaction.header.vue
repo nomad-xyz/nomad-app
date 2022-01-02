@@ -9,7 +9,7 @@
       <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
     <!-- Manual process -->
-    <span class="flex flex-col items-center" v-else-if="status === 2 && readyToProcess">
+    <span class="flex flex-col items-center" v-else-if="status === 2 && readyToManualProcess">
       <n-text class="text-4xl mb-2">Ready to process</n-text>
       <n-text
         @click="process"
@@ -20,10 +20,8 @@
     </span>
     <!-- in progress -->
     <span class="flex flex-col items-center" v-else-if="status < 3">
-      <div>
-        <n-text class="text-4xl mb-2">{{ minutesRemaining ? `${minutesRemaining} minutes` : '—' }}</n-text>
-        <n-text class="uppercase opacity-60">Est. time remaining</n-text>
-      </div>
+      <n-text class="text-4xl mb-2">{{ minutesRemaining ? `${minutesRemaining} minutes` : '—' }}</n-text>
+      <n-text class="uppercase opacity-60">Est. time remaining</n-text>
 
       <!-- dropdown status stepper -->
       <n-icon
@@ -78,9 +76,12 @@ import {
   NProgress,
 } from 'naive-ui'
 import { ChevronDown } from '@vicons/ionicons5'
+import { BigNumber } from 'ethers'
 
 import { useStore } from '@/store'
+import { networks } from '@/config'
 import {
+  minutesTilConfirmation,
   BUFFER_CONFIRMATION_TIME_IN_MINUTES,
 } from '@/utils/time'
 
@@ -89,9 +90,12 @@ export default defineComponent({
     status: {
       type: Number,
     },
-    minutesRemaining: {
-      type: Number,
+    confirmAt: {
+      type: BigNumber,
     },
+    destinationNetwork: {
+      type: String
+    }
   },
   components: {
     NText,
@@ -128,19 +132,45 @@ export default defineComponent({
       }
       return 1
     },
-    // TODO: calculate from confirmAt, more accurate
-    // TODO: use actual confirmationTime from network
+    confirmationTime(): number | undefined {
+      if (!this.destinationNetwork) return
+      return networks[this.destinationNetwork].confirmationTimeInMinutes
+    },
+    minutesRemaining(): number | undefined {
+      if (!this.confirmationTime) return
+      const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
+
+      // if status doesn't exist
+      if (!this.status && this.status !== 0) return
+      if (this.status < 2) {
+        return this.confirmationTime + bufferMinutes
+      } else if (this.status === 2 && this.confirmAt) {
+        const remaining = minutesTilConfirmation(this.confirmAt)
+        if (!remaining) {
+          return bufferMinutes
+        } else {
+          return remaining + bufferMinutes
+        }
+      }
+      return bufferMinutes
+    },
     confirmationProgress(): number {
-      const confirmationMinutes = this.minutesRemaining! - BUFFER_CONFIRMATION_TIME_IN_MINUTES
-      console.log(confirmationMinutes, ' minutes remaining')
-      const fraction = (15 - confirmationMinutes) / 15
+      if (!this.confirmationTime) return 0
+      if (!this.confirmAt) return 0
+      const confirmationMinutesRemaining = minutesTilConfirmation(this.confirmAt!)
+      console.log(confirmationMinutesRemaining, ' minutes remaining')
+      const fraction = (this.confirmationTime - confirmationMinutesRemaining) / this.confirmationTime
       return fraction * 100
     },
-    // TODO: check network as well as confirmation time
-    // TODO: use confirmAt
-    readyToProcess(): boolean {
-      if (!this.minutesRemaining) return false
-      return this.minutesRemaining === BUFFER_CONFIRMATION_TIME_IN_MINUTES
+    readyToManualProcess(): boolean {
+      // networks not subsidized, TODO: put in config
+      const manualProcessNets = ['ethereum', 'rinkeby']
+      if (!this.confirmAt) return false
+      // get timestamp in seconds
+      const now = BigNumber.from(Date.now()).div(1000)
+      // check if confirmAt time has passed
+      // check if network is one that needs manual processing
+      return now.gt(this.confirmAt) && (this.destinationNetwork! in manualProcessNets)
     },
   }
 })

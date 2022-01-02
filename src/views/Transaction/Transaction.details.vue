@@ -1,5 +1,5 @@
 <template>
-  <transaction-header :status="status" :minutes-remaining="minutesRemaining" />
+  <transaction-header :status="status" :confirm-at="confirmAt" :destination-network="destNet" />
   <div class="w-full mt-8">
     <div class="flex items-center justify-between mb-8">
       <copy-hash class="text-xl font-medium" :address="$route.params.id" />
@@ -12,7 +12,6 @@
         <n-text class="uppercase ml-2">IN PROGRESS</n-text>
       </n-text>
     </div>
-    <!-- <div @click="process" class="bg-white text-black p-3">Process tx</div> -->
 
     <detail title="AMOUNT">
       <n-text v-if="amount">{{ amount }} {{ tokenSymbol }}</n-text>
@@ -58,10 +57,6 @@ import { networks } from '@/config'
 import Detail from '@/components/Detail.vue'
 import CopyHash from '@/components/CopyHash.vue'
 import TransactionHeader from './Transaction.header.vue'
-import {
-  minutesTilConfirmation,
-  BUFFER_CONFIRMATION_TIME_IN_MINUTES,
-} from '@/utils/time'
 
 interface ComponentData {
   transferMessage: TransferMessage | null
@@ -159,26 +154,6 @@ export default defineComponent({
     explorerLink(): string {
       const n = networks[this.$route.params.network as string]
       return `${n.blockExplorer}/tx/${this.$route.params.id}`
-    },
-    minutesRemaining(): number | undefined {
-      if (!this.destNet) return
-      const confirmationMinutes =
-        networks[this.destNet].confirmationTimeInMinutes
-      const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
-
-      // if status doesn't exist
-      if (!this.status && this.status !== 0) return
-      if (this.status < 2) {
-        return confirmationMinutes + bufferMinutes
-      } else if (this.status === 2 && this.confirmAt) {
-        const remaining = minutesTilConfirmation(this.confirmAt)
-        if (!remaining) {
-          return bufferMinutes
-        } else {
-          return remaining + bufferMinutes
-        }
-      }
-      return bufferMinutes
     },
   },
 })
