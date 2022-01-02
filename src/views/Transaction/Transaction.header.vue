@@ -170,7 +170,7 @@ export default defineComponent({
       const now = BigNumber.from(Date.now()).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
-      return now.gt(this.confirmAt) && (this.destinationNetwork! in manualProcessNets)
+      return now.gt(this.confirmAt) && manualProcessNets.includes(this.destinationNetwork!)
     },
   }
 })
