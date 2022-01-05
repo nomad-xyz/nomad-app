@@ -9,13 +9,21 @@
       <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
     <!-- Manual process -->
-    <span class="flex flex-col items-center" v-else-if="status === 2 && readyToManualProcess">
-      <n-text class="text-4xl mb-2">Ready to process</n-text>
+    <span
+      class="flex flex-col items-center max-w-xs" 
+      v-else-if="status === 2 && readyToManualProcess"
+    >
+      <n-text class="mb-2 opacity-80 text-center">Your transaction is ready to be processed. Please click below to pay the associated destination gas fees and complete your transfer.</n-text>
       <n-text
         @click="process"
-        class="uppercase opacity-60 border border-white rounded-full py-1 px-4 mt-1 cursor-pointer"
+        class="flex flex-row items-center uppercase mt-1 cursor-pointer"
       >
-        Click to process
+        Process transfer
+        <img
+          src="@/assets/icons/arrow-right-up.svg"
+          alt="open"
+          class="ml-2 cursor-pointer"
+        />
       </n-text>
     </span>
     <!-- in progress -->
