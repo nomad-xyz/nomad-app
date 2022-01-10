@@ -118,7 +118,7 @@ export default defineComponent({
     this.destAddr = fromBytes32(message.recipient)
     // get token
     const token = await this.store.getters.resolveRepresentation(
-      message.origin,
+      message.destination,
       message.token
     )
     // token symbol

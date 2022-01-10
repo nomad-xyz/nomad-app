@@ -209,12 +209,8 @@ const actions = <ActionTree<SDKState, RootState>>{
     console.log('proof: ', data)
 
     // get replica contract
-    const core = nomad.getCore(message.origin)
-    const replica = core?.replicas.get(message.destination)!.contract
-
-    // connect signer
-    const signer = nomad.getSigner(3000)
-    replica!.connect(signer!)
+    const core = nomad.mustGetCore(message.origin)
+    const replica = core?.getReplica(message.destination)
 
     // prove and process
     try {
@@ -266,7 +262,7 @@ const getters = <GetterTree<SDKState, RootState>>{
     let bridgeToken
 
     try {
-      await nomad.resolveRepresentation(network, token)
+      bridgeToken = await nomad.resolveRepresentation(network, token)
     } catch (e) {
       console.error(e)
     }
