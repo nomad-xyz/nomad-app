@@ -175,8 +175,8 @@ export const connextConfig: SdkBaseChainConfigParams = {
     // moonbasealpha
     providers: [
       'https://moonbeam-alpha.api.onfinality.io/rpc?apikey=44e80fe3-d9ce-40f2-8336-6089e751b625',
-      'https://moonbeam.api.onfinality.io/public',
-      'https://rpc.api.moonbeam.network'
+      'https://moonbeam-alpha.api.onfinality.io/public',
+      'https://rpc.api.moonbase.moonbeam.network'
     ]
   },
 }
