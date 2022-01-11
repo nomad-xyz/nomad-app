@@ -9,7 +9,6 @@ import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 
 import testnetTokens from './tokens.dev'
 import { TokenMetadata, NetworkMetadata } from './config.types'
-import representationsDev from './representations.dev'
 
 export const tokens: { [key: string]: TokenMetadata } = {
   WETH: {
@@ -149,8 +148,6 @@ export const networks: { [key: string]: NetworkMetadata } = {
   //   confirmationTimeInMinutes: 15,
   // },
 }
-
-export const representations = representationsDev
 
 export const connextPools: { [key: string]: string[] } = {
   moonbasealpha: ['kTEST', 'mbTEST'],

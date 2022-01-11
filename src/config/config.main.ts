@@ -8,7 +8,6 @@ import { SdkBaseChainConfigParams } from "@connext/nxtp-sdk";
 
 import mainnetTokens from "./tokens.main";
 import { TokenMetadata, NetworkMetadata } from "./config.types";
-import representationsMain from "./representations.main";
 
 export const tokens: { [key: string]: TokenMetadata } = {
   WETH: {
@@ -79,7 +78,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     iconColors: ["#53CBC8", "#e84195"],
     decimals: 18,
     coinGeckoId: "moonbeam",
-    tokenIdentifier: mainnetTokens.GLMR,
+    tokenIdentifier: mainnetTokens.WGLMR,
     nativeOnly: true,
     minAmt: 10,
   },
@@ -113,10 +112,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
   },
 };
 
-export const representations = representationsMain;
-
 export const connextPools: { [key: string]: string[] } = {
-  celo: ["WETH", "USDC", "USDT", "DAI"],
+  moonbeam: ["WETH", "USDC", "USDT", "DAI"],
   ethereum: ["WETH", "USDC", "USDT", "DAI"],
 };
 

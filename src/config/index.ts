@@ -8,7 +8,6 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 export const tokens = chooseConfig(environment).tokens
 export const networks = chooseConfig(environment).networks
-export const representations = chooseConfig(environment).representations
 export const connextConfig = chooseConfig(environment).connextConfig
 export const connextPools = chooseConfig(environment).connextPools
 export const s3URL = environment === 'development' ? 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/' : 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/'
@@ -17,7 +16,6 @@ export const connextScanURL = environment === 'development' ? 'https://testnet.c
 function chooseConfig(environment: string | undefined): {
   tokens: { [key: string]: TokenMetadata }
   networks: { [key: string]: NetworkMetadata }
-  representations: { [key: string]: Record<string, string> }
   connextConfig: SdkBaseChainConfigParams
   connextPools: { [key: string]: string[] }
 } {
