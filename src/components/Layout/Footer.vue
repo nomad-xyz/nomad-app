@@ -80,7 +80,7 @@ export default defineComponent({
     ],
     products: [
       {
-        href: 'https://www.docs.nomad.xyz',
+        href: 'https://docs.nomad.xyz',
         label: 'Docs',
       },
       {
