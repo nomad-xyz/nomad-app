@@ -1,28 +1,28 @@
-import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
+import { TokenIdentifier } from "@nomad-xyz/sdk/nomad";
 
-export type MainnetNetwork = 'ethereum' | 'moonbeam'
-export type TestnetNetwork = 'kovan' | 'moonbasealpha'
+export type MainnetNetwork = "ethereum" | "moonbeam";
+export type TestnetNetwork = "kovan" | "moonbasealpha" | "astar";
 
 export type TokenMetadata = {
-  nativeNetwork: MainnetNetwork | TestnetNetwork
-  symbol: string
-  name: string
-  icon: string
-  iconColors?: string[]
-  decimals: number
-  coinGeckoId: string
-  tokenIdentifier: TokenIdentifier
-  nativeOnly: boolean
-  minAmt: number
-}
+  nativeNetwork: MainnetNetwork | TestnetNetwork;
+  symbol: string;
+  name: string;
+  icon: string;
+  iconColors?: string[];
+  decimals: number;
+  coinGeckoId: string;
+  tokenIdentifier: TokenIdentifier;
+  nativeOnly: boolean;
+  minAmt: number;
+};
 
 export type NetworkMetadata = {
-  name: MainnetNetwork | TestnetNetwork
-  chainID: number // for metamask
-  domainID: number // nomad domain ID
-  rpcUrl: string
-  nativeToken: TokenMetadata
-  blockExplorer: string
-  icon: string
-  confirmationTimeInMinutes: number
-}
+  name: MainnetNetwork | TestnetNetwork;
+  chainID: number; // for metamask
+  domainID: number; // nomad domain ID
+  rpcUrl: string;
+  nativeToken: TokenMetadata;
+  blockExplorer: string;
+  icon: string;
+  confirmationTimeInMinutes: number;
+};
