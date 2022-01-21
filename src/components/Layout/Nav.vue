@@ -9,7 +9,7 @@
     </router-link>
 
     <!-- right side of nav -->
-    <div class="flex items-center">
+    <div class="flex items-center" v-if="showButton">
       <!-- metamask not installed -->
       <nomad-button
         v-if="!metamaskInstalled"
@@ -79,6 +79,7 @@ import { NText, NIcon, NTooltip, NSwitch, NDivider } from 'naive-ui'
 import { ChevronDown } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
 import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -95,9 +96,11 @@ export default defineComponent({
   }),
   setup: () => {
     const store = useStore()
+    const route = useRoute()
     return {
       walletConnected: computed(() => store.state.wallet.connected),
       connextDisabled: computed(() => store.state.userInput.disableConnext),
+      showButton: computed(() => !['PrivacyPolicy', 'TermsOfUse'].includes(route.name as string)),
       store,
     }
   },
