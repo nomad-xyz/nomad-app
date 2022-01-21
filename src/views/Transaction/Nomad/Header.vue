@@ -1,7 +1,7 @@
 <template>
   <!-- Note about process gas fees -->
   <n-alert
-    v-if="readyToManualProcess"
+    v-if="readyToManualProcess && showAlerts"
     title="Important"
     type="default"
     class="mb-5 rounded-md"
@@ -24,7 +24,7 @@
   </n-alert>
   <!-- Return to process -->
   <n-alert
-    v-else-if="destinationNetwork === hubNetwork.name"
+    v-else-if="destinationNetwork === hubNetwork.name && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -46,7 +46,7 @@
   </n-alert>
   <!-- Processing is subsidized -->
   <n-alert
-    v-if="status < 3 && destinationNetwork !== hubNetwork.name"
+    v-else-if="destinationNetwork !== hubNetwork.name && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -208,6 +208,7 @@ export default defineComponent({
   },
   data: () => ({
     PROCESS_TIME_IN_MINUTES,
+    hubNetwork,
     showStatus: false,
   }),
   setup: () => {
@@ -239,6 +240,10 @@ export default defineComponent({
     },
   },
   computed: {
+    showAlerts() {
+      if (!this.status) return false
+      return this.status >= 0 && this.status !== 3
+    },
     stepperStatus(): number {
       if (this.status === 0) {
         return 1

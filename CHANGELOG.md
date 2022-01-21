@@ -6,6 +6,7 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - support hub and spoke on network select UI
+- support 3 testnets
 
 v1.0.4 (Jan 21st, 2022)
 --------------------------------

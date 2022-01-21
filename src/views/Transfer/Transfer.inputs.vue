@@ -20,8 +20,8 @@
           <n-text class="font-bold text-base capitalize">
             {{ originNetwork || 'Select Network' }}
           </n-text>
+          <img src="@/assets/icons/select.svg" class="ml-1" />
         </div>
-        <img src="@/assets/icons/select.svg" />
       </div>
 
       <n-divider class="divider" />
@@ -66,8 +66,8 @@
           <n-text class="font-bold text-base capitalize">
             {{ destinationNetwork || 'Select Network' }}
           </n-text>
+          <img src="@/assets/icons/select.svg" class="ml-1" />
         </div>
-        <img src="@/assets/icons/select.svg" />
       </div>
 
       <n-divider class="divider" />
