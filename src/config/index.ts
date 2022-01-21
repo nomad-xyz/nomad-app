@@ -12,16 +12,14 @@ export const tokens = currentEnv.tokens
 export const networks = currentEnv.networks
 export const connextConfig = currentEnv.connextConfig
 export const connextPools = currentEnv.connextPools
-export const s3URL =
-  environment === 'development'
-    ? 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/'
-    : 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/'
-export const connextScanURL =
-  environment === 'development'
-    ? 'https://testnet.connextscan.io/'
-    : 'https://connextscan.io/'
-export const BUFFER_CONFIRMATION_TIME_IN_MINUTES =
-  environment === 'development' ? 5 : 25
+export const hubNetwork = currentEnv.hubNetwork
+export const s3URL = environment === 'development'
+  ? 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/'
+  : 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/'
+export const connextScanURL = environment === 'development'
+  ? 'https://testnet.connextscan.io/'
+  : 'https://connextscan.io/'
+export const BUFFER_CONFIRMATION_TIME_IN_MINUTES = environment === 'development' ? 5 : 25
 export const PROCESS_TIME_IN_MINUTES = environment === 'development' ? 2 : 10
 export const isProduction = environment === 'production'
 
@@ -30,6 +28,7 @@ function chooseConfig(environment: string | undefined): {
   networks: { [key: string]: NetworkMetadata }
   connextConfig: SdkBaseChainConfigParams
   connextPools: { [key: string]: string[] }
+  hubNetwork: NetworkMetadata
 } {
   console.log('Env: ', environment)
   switch (environment) {

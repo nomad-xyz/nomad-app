@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from 'ethers'
 
-import { networks, tokens } from '@/config'
+import { networks, tokens, hubNetwork } from '@/config'
 import { NetworkMetadata, TokenMetadata } from '@/config/config.types'
 import { connextPools } from '@/config/index'
 
@@ -63,26 +63,14 @@ export function filterDestinationNetworks(
   options: { [key: string]: NetworkMetadata },
   originNetworkName: string
 ): NetworkMetadata[] {
-  const optionValues = Object.values(options)
+  const originNetworkIsHub = isEthereumNetwork(originNetworkName)
 
-  return optionValues.length === 2
-    ? optionValues
-    : Object.values(options).filter(
+  // otherwise, origin network is spoke so only show hub as an option
+  return originNetworkIsHub
+    ? Object.values(options).filter(
         (option: NetworkMetadata) => option.name !== originNetworkName
       )
-}
-
-// to be used when there are only 2 networks and you want
-// to get the *other* network name given the input network name
-export function getOnlyOtherNetwork(network: string): string {
-  const networkValues = Object.values(networks)
-
-  if (networkValues.length !== 2) {
-    // don't throw an error since the user can easily fix
-    console.error('Should only be used when there are *exactly* 2 networks')
-  }
-
-  return networkValues.find((n) => n.name !== network)!.name
+    : [hubNetwork]
 }
 
 // NETWORK
@@ -134,6 +122,11 @@ export function getNetworkDomainIDByName(networkName: string): number {
   const network = networks[networkName]
   return network.domainID
 }
+
+/**
+ * Given a network name, return a boolean if that network is the hub network's name
+ */
+export const isEthereumNetwork = (networkName: string) => networkName === hubNetwork.name
 
 // TOKEN
 
@@ -216,3 +209,4 @@ export function checkConnext(network: string, token: string): boolean {
   }
   return false
 }
+

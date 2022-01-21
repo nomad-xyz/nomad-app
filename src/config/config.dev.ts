@@ -150,6 +150,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
   // },
 }
 
+export const hubNetwork = networks.kovan
+
 export const connextPools: { [key: string]: string[] } = {
   moonbasealpha: ['kTEST', 'mbTEST'],
   kovan: ['kTEST', 'mbTEST'],

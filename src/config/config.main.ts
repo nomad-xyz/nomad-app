@@ -163,6 +163,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
   },
 }
 
+export const hubNetwork = networks.ethereum
+
 export const connextPools: { [key: string]: string[] } = {
   moonbeam: ['WETH', 'USDC', 'USDT', 'DAI'],
   ethereum: ['ETH', 'USDC', 'USDT', 'DAI'],

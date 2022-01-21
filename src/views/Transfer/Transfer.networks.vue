@@ -72,7 +72,7 @@ export default defineComponent({
           : networks
       ),
       title: computed(() =>
-        props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT CHAIN'
+        props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT ORIGIN'
       ),
     }
   },
