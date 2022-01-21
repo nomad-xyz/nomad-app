@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from 'ethers'
+import { BigNumber, utils } from 'ethers'
 
 import { networks, tokens, hubNetwork } from '@/config'
 import { NetworkMetadata, TokenMetadata } from '@/config/config.types'
@@ -44,7 +44,7 @@ export function toDecimals(
   tokenDecimals: number,
   numDecimals?: number
 ): string {
-  const decimal = ethers.utils.formatUnits(amnt, tokenDecimals)
+  const decimal = utils.formatUnits(amnt, tokenDecimals)
   if (decimal === '0.0') {
     return '0'
   }
@@ -99,8 +99,6 @@ export function getNetworkByChainID(
       return networks[network]
     }
   }
-  // unsupported network
-  console.error(`network not found: ${chainID}`)
 }
 
 /**
@@ -112,7 +110,7 @@ export function getNetworkByDomainID(domainID: number): NetworkMetadata {
       return networks[network]
     }
   }
-  throw new Error(`network not found: ${domainID}`)
+  throw new Error(`network with domain ${domainID} not found`)
 }
 
 /**
@@ -145,10 +143,10 @@ export const nullToken: TokenMetadata = {
   minAmt: 0,
 }
 
-export function getTokenByName(name: string): TokenMetadata | undefined {
+export function getTokenBySymbol(symbol: string): TokenMetadata | undefined {
   for (const t in tokens) {
     const token = tokens[t]
-    if (token.name === name) {
+    if (token.symbol === symbol) {
       return token
     }
   }
@@ -158,7 +156,7 @@ export function getTokenByName(name: string): TokenMetadata | undefined {
 // determines if the token is native to the selected origin network
 export function isNativeToken(network: string, token: TokenMetadata): boolean {
   const nativeToken = networks[network].nativeToken
-  return nativeToken.name === token.name
+  return nativeToken.symbol === token.symbol
 }
 
 // VALIDATION
@@ -168,7 +166,7 @@ export function isNativeToken(network: string, token: TokenMetadata): boolean {
  */
 export function isValidAddress(address: string): boolean {
   try {
-    const isValid = ethers.utils.isAddress(address)
+    const isValid = utils.isAddress(address)
     return isValid
   } catch (e) {
     return false

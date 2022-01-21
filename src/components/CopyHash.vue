@@ -40,7 +40,7 @@ export default defineComponent({
     NTooltip,
     NText,
   },
-  data(props) {
+  data() {
     return {
       truncatedAddress: computed(() => truncateAddr(this.address)),
       copyText: 'copy',
@@ -48,7 +48,11 @@ export default defineComponent({
   },
   methods: {
     handleCopy() {
-      navigator.clipboard.writeText(this.address!).then(
+      if (!this.address) {
+        this.copyText = 'error'
+        return
+      }
+      navigator.clipboard.writeText(this.address).then(
         () => {
           console.log('Async: Copying to clipboard was successful!')
           this.copyText = 'copied'

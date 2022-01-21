@@ -58,10 +58,10 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // set network, if supported
     const { chainId } = await provider.ready
-    try {
-      const network = getNetworkByChainID(chainId)!
+    const network = getNetworkByChainID(chainId)
+    if (network) {
       dispatch('setWalletNetwork', network.name)
-    } catch (e) {
+    } else {
       console.log('network not supported')
     }
 
@@ -93,7 +93,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('getBalanceFromWallet')
   },
 
-  async switchNetwork({ dispatch, state, commit }, networkName: string) {
+  async switchNetwork({ dispatch, state }, networkName: string) {
     console.log('set wallet network')
     if (!state.connected) {
       dispatch('connectWallet')
@@ -129,7 +129,7 @@ const actions = <ActionTree<WalletState, RootState>>{
               },
             ],
           })
-        } catch (addError: any) {
+        } catch (addError: unknown) {
           // TODO: handle "add" error, alert?
           console.error(addError)
           throw addError

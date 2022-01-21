@@ -205,7 +205,7 @@ export default defineComponent({
     displayGasFee() {
       const { nativeToken } = networks[this.originNetwork]
       if (this.originGasFee) {
-        return toDecimals(this.originGasFee!, nativeToken.decimals - 9, 6)
+        return toDecimals(this.originGasFee, nativeToken.decimals - 9, 6)
       }
     },
   },

@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { ethers, BigNumber, BytesLike } from 'ethers'
+import { providers, BigNumber, BytesLike } from 'ethers'
 import { mainnet, staging, dev, NomadContext } from '@nomad-xyz/sdk'
 import { TransferMessage } from '@nomad-xyz/sdk/nomad/messages/BridgeMessage'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
@@ -116,7 +116,7 @@ const actions = <ActionTree<SDKState, RootState>>{
         const provider = nomad.getProvider(network.name)
         try {
           balance = await getERC20Balance(
-            provider as ethers.providers.Web3Provider,
+            provider as providers.Web3Provider,
             token.tokenIdentifier.id as string,
             address
           )
@@ -150,7 +150,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   registerSigner({ commit }, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const provider = new providers.Web3Provider(window.ethereum)
     const newSigner = provider.getSigner()
 
     nomad.clearSigners()
@@ -228,13 +228,22 @@ const actions = <ActionTree<SDKState, RootState>>{
     const core = nomad.getCore(message.destination)
     const replica = core?.getReplica(message.origin)
 
+    if (!replica) {
+      console.error('missing replica, unable to process transaction')
+      return
+    }
+
     // connect signer
     const signer = nomad.getSigner(message.origin)
-    replica!.connect(signer!)
+    if (!signer) {
+      console.error('missing signer, unable to process transaction')
+      return
+    }
+    replica.connect(signer)
 
     // prove and process
     try {
-      const receipt = await replica!.proveAndProcess(
+      const receipt = await replica.proveAndProcess(
         data.message as BytesLike,
         data.proof.path,
         data.proof.index
@@ -277,16 +286,16 @@ const getters = <GetterTree<SDKState, RootState>>{
       return message as TransferMessage
     },
 
-  resolveDomain: (state: SDKState) => (network: string) => {
+  resolveDomain: () => (network: string) => {
     return nomad.resolveDomain(network)
   },
 
-  resolveDomainName: (state: SDKState) => (network: number) => {
+  resolveDomainName: () => (network: number) => {
     return nomad.resolveDomainName(network)
   },
 
   resolveRepresentation:
-    (state: SDKState) => async (network: string, token: TokenIdentifier) => {
+    () => async (network: string, token: TokenIdentifier) => {
       let bridgeToken
 
       try {
