@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="header transition-all duration-400 px-5 py-8 bg-[#5185d0]"
-  >
+  <div class="header transition-all duration-400 px-5 py-8 bg-[#5185d0]">
     <div class="flex flex-col items-center">
       <n-spin stroke="#fff" class="mb-3" />
       <n-text class="uppercase opacity-60">Waiting for Router</n-text>
@@ -25,10 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import {
-  NText,
-  NSpin,
-} from 'naive-ui'
+import { NText, NSpin } from 'naive-ui'
 
 export default defineComponent({
   components: {

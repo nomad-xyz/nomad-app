@@ -22,19 +22,13 @@
           <img src="@/assets/icons/select.svg" class="ml-1" />
         </div>
         <!-- token balance, show if token selected -->
-        <n-text
-          v-if="this.token.symbol"
-          class="opacity-60 text-xs"
-        >
+        <n-text v-if="this.token.symbol" class="opacity-60 text-xs">
           <span v-if="originNetwork">
             Balance: {{ balance ? toDecimals(balance, token.decimals, 6) : 0 }}
           </span>
           <span v-else>
-            Balance unavailable
             <n-tooltip trigger="hover">
-              <template #trigger>
-                ?
-              </template>
+              <template #trigger>Balance unavailable</template>
               Select origin network to view balance
             </n-tooltip>
           </span>
@@ -149,7 +143,12 @@ export default defineComponent({
           'Amount exceeds balance',
           (value: number) => {
             // only show this error if the balance is not zero since we'll already show the no funds message
-            if (this.balance && !this.balance.isZero() && this.amt && this.token.symbol) {
+            if (
+              this.balance &&
+              !this.balance.isZero() &&
+              this.amt &&
+              this.token.symbol
+            ) {
               const amtBN = ethers.utils.parseUnits(
                 value.toString(),
                 this.token.decimals

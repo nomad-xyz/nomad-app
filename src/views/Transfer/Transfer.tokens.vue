@@ -80,7 +80,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang='stylus'>
+<style scoped lang="stylus">
 .tokens-container
   height 90%
   max-height 300px

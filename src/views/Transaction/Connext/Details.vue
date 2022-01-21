@@ -31,7 +31,11 @@
 
     <!-- link to block explorer -->
     <div class="flex flex-row">
-      <a :href="explorerLink" class="flex items-center hover:underline" target="_blank">
+      <a
+        :href="explorerLink"
+        class="flex items-center hover:underline"
+        target="_blank"
+      >
         <n-text>Block Explorer</n-text>
         <img
           src="@/assets/icons/arrow-right-up.svg"

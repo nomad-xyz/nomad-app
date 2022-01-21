@@ -53,7 +53,7 @@ export default defineComponent({
       $scope: 'bridge',
       $stopPropagation: true,
     })
-    
+
     return {
       sending: computed(() => store.state.sdk.sending),
       preparingSwap: computed(() => store.state.connext.preparingSwap),
@@ -65,7 +65,7 @@ export default defineComponent({
 
   data() {
     return {
-      connextAvail: false
+      connextAvail: false,
     }
   },
 
@@ -87,7 +87,7 @@ export default defineComponent({
 
         // if asset not supported, return false
         const { token, destinationNetwork } = this.store.state.userInput
-        if(!checkConnext(destinationNetwork, token.symbol)) {
+        if (!checkConnext(destinationNetwork, token.symbol)) {
           this.connextAvail = false
           return
         }

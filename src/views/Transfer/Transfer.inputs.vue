@@ -171,7 +171,9 @@ export default defineComponent({
       destinationAddr: computed(() => store.state.userInput.destinationAddress),
       originGasFee: computed(() => store.state.userInput.gasEst),
       originNetwork: computed(() => store.state.userInput.originNetwork),
-      destinationNetwork: computed(() => store.state.userInput.destinationNetwork),
+      destinationNetwork: computed(
+        () => store.state.userInput.destinationNetwork
+      ),
       store,
       v$,
     }
@@ -195,7 +197,10 @@ export default defineComponent({
       // if there are only 2 networks, set the destination
       // network since it's the only other network option
       if (Object.keys(networks).length === 2) {
-        this.store.dispatch('setDestinationNetwork', getOnlyOtherNetwork(network.name))
+        this.store.dispatch(
+          'setDestinationNetwork',
+          getOnlyOtherNetwork(network.name)
+        )
       } else if (network.name === this.destinationNetwork) {
         this.store.dispatch('setDestinationNetwork', null)
       }

@@ -130,7 +130,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
     chainID: 1287,
     domainID: 5000,
     nativeToken: tokens.DEV,
-    rpcUrl: 'https://moonbeam-alpha.api.onfinality.io/rpc?apikey=44e80fe3-d9ce-40f2-8336-6089e751b625',
+    rpcUrl:
+      'https://moonbeam-alpha.api.onfinality.io/rpc?apikey=44e80fe3-d9ce-40f2-8336-6089e751b625',
     blockExplorer: 'https://moonbase-blockscout.testnet.moonbeam.network',
     icon: DEVIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
@@ -172,6 +173,6 @@ export const connextConfig: SdkBaseChainConfigParams = {
     // moonbasealpha
     providers: [
       'https://moonbeam-alpha.api.onfinality.io/rpc?apikey=44e80fe3-d9ce-40f2-8336-6089e751b625',
-    ]
+    ],
   },
 }

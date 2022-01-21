@@ -1,8 +1,10 @@
 <template>
   <div v-if="active.length" class="active-txs">
     <div class="flex flex-row items-center p-2 mb-3 justify-between">
-      <n-text class="uppercase text-lg font-semibold">Active Connext Transactions</n-text>
-      <n-text class="opacity-70 text-lg">{{ active.length}}</n-text>
+      <n-text class="uppercase text-lg font-semibold">
+        Active Connext Transactions
+      </n-text>
+      <n-text class="opacity-70 text-lg">{{ active.length }}</n-text>
     </div>
     <n-data-table
       :bordered="false"
@@ -28,29 +30,23 @@ const createColumns = () => {
     {
       title: 'Transaction',
       key: 'transaction',
-      render (tx: any) {
-        return h(
-          TransactionMain,
-          {
-            status: tx.status,
-            hash: tx.key,
-            expired: tx.expired,
-          }
-        )
-      }
+      render(tx: any) {
+        return h(TransactionMain, {
+          status: tx.status,
+          hash: tx.key,
+          expired: tx.expired,
+        })
+      },
     },
     {
       title: 'Networks',
       key: 'networks',
-      render (tx: any) {
-        return h(
-          Networks,
-          {
-            originChainId: tx.sendingChain,
-            destinationChainId: tx.receivingChain,
-          }
-        )
-      }
+      render(tx: any) {
+        return h(Networks, {
+          originChainId: tx.sendingChain,
+          destinationChainId: tx.receivingChain,
+        })
+      },
     },
     // {
     //   title: 'Amount',
@@ -64,17 +60,14 @@ const createColumns = () => {
     {
       title: 'Status',
       key: 'status',
-      render (tx: any) {
-        return h(
-          Actions,
-          {
-            txAction: tx.action,
-            hash: tx.key,
-            status: tx.status,
-            expired: tx.expired,
-          },
-        )
-      }
+      render(tx: any) {
+        return h(Actions, {
+          txAction: tx.action,
+          hash: tx.key,
+          status: tx.status,
+          expired: tx.expired,
+        })
+      },
     },
   ]
 }
@@ -89,8 +82,8 @@ export default defineComponent({
     return {
       active: [],
       pagination: {
-        pageSize: 5
-      }
+        pageSize: 5,
+      },
     }
   },
 
@@ -116,7 +109,7 @@ export default defineComponent({
       if (activeTxs.length) {
         this.active = activeTxs
       }
-      console.log("Active Connext Txs: ", this.active)
+      console.log('Active Connext Txs: ', this.active)
     },
   },
 })

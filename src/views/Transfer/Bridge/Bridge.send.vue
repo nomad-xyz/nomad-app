@@ -107,7 +107,7 @@ export default defineComponent({
       if (!this.metamaskInstalled) {
         this.notification.info({
           title: 'Install Metamask',
-          content: 'Please install Metamask to continue'
+          content: 'Please install Metamask to continue',
         })
         return
       }

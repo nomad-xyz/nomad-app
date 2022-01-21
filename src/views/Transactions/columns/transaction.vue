@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-row">
-    <div class="loader-bg flex justify-center items-center mr-2" :class="{ orange: expired, green: ready }">
-      <n-icon
-        class="cursor-pointer opacity-70"
-        size="25"
-      >
+    <div
+      class="loader-bg flex justify-center items-center mr-2"
+      :class="{ orange: expired, green: ready }"
+    >
+      <n-icon class="cursor-pointer opacity-70" size="25">
         <close-outline v-if="expired" />
         <arrow-redo-outline v-else-if="ready" />
         <hourglass-outline v-else />
@@ -22,7 +22,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { NIcon } from 'naive-ui'
-import { HourglassOutline, ArrowRedoOutline, CloseOutline } from '@vicons/ionicons5'
+import {
+  HourglassOutline,
+  ArrowRedoOutline,
+  CloseOutline,
+} from '@vicons/ionicons5'
 import CopyHash from '@/components/CopyHash.vue'
 
 export default defineComponent({
@@ -36,13 +40,13 @@ export default defineComponent({
     CopyHash,
     HourglassOutline,
     ArrowRedoOutline,
-    CloseOutline
+    CloseOutline,
   },
   computed: {
     ready() {
       return this.status === 'ReceiverTransactionPrepared'
-    }
-  }
+    },
+  },
 })
 </script>
 

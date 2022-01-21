@@ -8,11 +8,7 @@
         <div class="uppercase mb-1">{{ title }}</div>
         <slot />
       </div>
-      <n-icon
-        class="cursor-pointer"
-        size="20"
-        @click="dismissDisclaimer"
-      >
+      <n-icon class="cursor-pointer" size="20" @click="dismissDisclaimer">
         <close-outline />
       </n-icon>
     </div>
@@ -46,7 +42,7 @@ export default defineComponent({
   methods: {
     dismissDisclaimer() {
       this.store.dispatch('dismissDisclaimer')
-    }
-  }
+    },
+  },
 })
 </script>

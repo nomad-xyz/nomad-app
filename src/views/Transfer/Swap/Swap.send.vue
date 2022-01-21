@@ -13,10 +13,13 @@
     <div class="flex flex-col">
       <div class="flex flex-row justify-between">
         <n-text>Your transfer will be filled by Connext.</n-text>
-        <nomad-button primary class="small" @click="useNomad">Use Nomad</nomad-button>
+        <nomad-button primary class="small" @click="useNomad">
+          Use Nomad
+        </nomad-button>
       </div>
       <n-text class="opacity-50">
-        For an additional fee, Connext will swap tokens for an ultra-fast cross-chain transfer.
+        For an additional fee, Connext will swap tokens for an ultra-fast
+        cross-chain transfer.
         <a
           href="https://docs.connext.network/Integration/SystemOverview/howitworks"
           target="_blank"
@@ -77,7 +80,7 @@ export default defineComponent({
       required: true,
     },
   },
-  data () {
+  data() {
     return {
       quoteInitiated: false,
     }
@@ -104,7 +107,7 @@ export default defineComponent({
       if (!this.metamaskInstalled) {
         this.notification.info({
           title: 'Install Metamask',
-          content: 'Please install Metamask to continue'
+          content: 'Please install Metamask to continue',
         })
         return
       }
@@ -119,10 +122,10 @@ export default defineComponent({
       // get transfer quote
       try {
         await this.store.dispatch('getTransferQuote')
-      } catch(e: any) {
+      } catch (e: any) {
         this.notification.info({
           title: 'Error preparing transfer',
-          content: e.message
+          content: e.message,
         })
         this.quoteInitiated = false
       }
@@ -131,7 +134,7 @@ export default defineComponent({
       await this.store.dispatch('prepareTransfer')
       this.notification.success({
         title: 'Success',
-        content: 'Transaction dispatched'
+        content: 'Transaction dispatched',
       })
     },
   },

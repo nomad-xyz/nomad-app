@@ -6,7 +6,11 @@ import { BigNumber, utils } from 'ethers'
 import { RootState } from '@/store'
 import { networks, isProduction } from '@/config'
 import * as types from '@/store/mutation-types'
-import { MainnetNetwork, TestnetNetwork, TokenMetadata } from '@/config/config.types'
+import {
+  MainnetNetwork,
+  TestnetNetwork,
+  TokenMetadata,
+} from '@/config/config.types'
 import instantiateConnextSDK from '@/utils/connext'
 
 let connextSDK: NxtpSdk
@@ -85,11 +89,18 @@ const actions = <ActionTree<ConnextState, RootState>>{
       // if sending ETH from Ethereum, get ETH as send asset
       sendingAsset = '0x0000000000000000000000000000000000000000'
     } else {
-      const contract = await rootGetters.resolveRepresentation(originNetwork, token.tokenIdentifier)
+      const contract = await rootGetters.resolveRepresentation(
+        originNetwork,
+        token.tokenIdentifier
+      )
       sendingAsset = contract.address
     }
     if (!sendingAsset) {
-      console.error('No asset deployed for ', originNetwork, token.tokenIdentifier)
+      console.error(
+        'No asset deployed for ',
+        originNetwork,
+        token.tokenIdentifier
+      )
       return
     }
 
@@ -99,11 +110,18 @@ const actions = <ActionTree<ConnextState, RootState>>{
       // if sending WETH to Ethereum, get ETH as receiving asset
       receivingAsset = '0x0000000000000000000000000000000000000000'
     } else {
-      const contract = await rootGetters.resolveRepresentation(destinationNetwork, token.tokenIdentifier)
+      const contract = await rootGetters.resolveRepresentation(
+        destinationNetwork,
+        token.tokenIdentifier
+      )
       receivingAsset = contract.address
     }
     if (!receivingAsset) {
-      console.error('No asset deployed for ', destinationNetwork, token.tokenIdentifier)
+      console.error(
+        'No asset deployed for ',
+        destinationNetwork,
+        token.tokenIdentifier
+      )
       return
     }
     // get amount in decimals
@@ -115,7 +133,9 @@ const actions = <ActionTree<ConnextState, RootState>>{
       receivingAssetId: receivingAsset,
       receivingAddress: destinationAddress,
       amount: amountBN?.toString(),
-      preferredRouters: isProduction ? [] : ['0x087f402643731b20883fc5dba71b37f6f00e69b9']
+      preferredRouters: isProduction
+        ? []
+        : ['0x087f402643731b20883fc5dba71b37f6f00e69b9'],
     }
   },
 
@@ -131,7 +151,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     console.log('Checking liquidity: ', payload)
     try {
       await connextSDK.getTransferQuote(payload)
-    } catch(e: any) {
+    } catch (e: any) {
       commit(types.SET_CHECKING_LIQUIDITY, false)
       // should return, don't show error when just checking availability
       return false
@@ -199,16 +219,25 @@ const actions = <ActionTree<ConnextState, RootState>>{
     commit(types.SET_FEE, undefined)
   },
 
-  async finishTransfer({ dispatch, rootState }, activeTransaction: ActiveTransaction) {
-    const { crosschainTx, status, bidSignature, encodedBid, encryptedCallData } = activeTransaction
+  async finishTransfer(
+    { dispatch, rootState },
+    activeTransaction: ActiveTransaction
+  ) {
+    const {
+      crosschainTx,
+      status,
+      bidSignature,
+      encodedBid,
+      encryptedCallData,
+    } = activeTransaction
     const { receiving, invariant } = crosschainTx!
     const receivingTxData =
       typeof receiving === 'object'
-      ? {
-        ...invariant,
-        ...receiving,
-      }
-      : undefined
+        ? {
+            ...invariant,
+            ...receiving,
+          }
+        : undefined
 
     if (status === NxtpSdkEvents.ReceiverTransactionPrepared) {
       if (!connextSDK) {
@@ -218,14 +247,25 @@ const actions = <ActionTree<ConnextState, RootState>>{
         await dispatch('connectWallet')
       }
 
-      const finish = await connextSDK.fulfillTransfer({ bidSignature, encodedBid, encryptedCallData, txData: receivingTxData! }, true)
+      const finish = await connextSDK.fulfillTransfer(
+        {
+          bidSignature,
+          encodedBid,
+          encryptedCallData,
+          txData: receivingTxData!,
+        },
+        true
+      )
       console.log('finish: ', finish)
     } else {
       console.log('not ready to claim')
     }
   },
 
-  async cancelTransfer({ dispatch, rootState }, activeTransaction: ActiveTransaction) {
+  async cancelTransfer(
+    { dispatch, rootState },
+    activeTransaction: ActiveTransaction
+  ) {
     const { sending, invariant } = activeTransaction.crosschainTx
     const sendingTxData = {
       ...invariant,
@@ -240,7 +280,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     }
 
     await connextSDK.cancel(
-      { signature: "0x", txData: sendingTxData },
+      { signature: '0x', txData: sendingTxData },
       activeTransaction.crosschainTx.invariant.sendingChainId
     )
   },
@@ -258,11 +298,17 @@ const getters = <GetterTree<ConnextState, RootState>>{
       const variant = tx.crosschainTx.receiving ?? tx.crosschainTx.sending
       return {
         sentAmount: utils.formatEther(tx.crosschainTx.sending?.amount ?? '0'),
-        receivedAmount: utils.formatEther(tx.crosschainTx.receiving?.amount ?? '0'),
+        receivedAmount: utils.formatEther(
+          tx.crosschainTx.receiving?.amount ?? '0'
+        ),
         // gasAmount: gasAmount,
         status: tx.status,
-        sendingChain: parseInt(tx.crosschainTx.invariant.sendingChainId.toString()),
-        receivingChain: parseInt(tx.crosschainTx.invariant.receivingChainId.toString()),
+        sendingChain: parseInt(
+          tx.crosschainTx.invariant.sendingChainId.toString()
+        ),
+        receivingChain: parseInt(
+          tx.crosschainTx.invariant.receivingChainId.toString()
+        ),
         // asset: tx.crosschainTx,
         key: tx.crosschainTx.invariant.transactionId,
         preparedAt: tx.preparedTimestamp,
@@ -325,7 +371,7 @@ const getters = <GetterTree<ConnextState, RootState>>{
     console.log('??????', tx1)
     const tx2 = await connextSDK.querySubgraph(4, query)
     console.log('??????', tx2)
-  }
+  },
 }
 
 export default {

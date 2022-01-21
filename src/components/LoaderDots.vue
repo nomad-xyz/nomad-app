@@ -48,5 +48,4 @@ export default defineComponent({})
 
 .spin
   animation rotation 1s infinite
-
 </style>
