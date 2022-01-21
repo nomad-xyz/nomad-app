@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { ethers, BigNumber, BytesLike } from 'ethers'
+import { providers, BigNumber, BytesLike } from 'ethers'
 import { mainnet, staging, dev, NomadContext } from '@nomad-xyz/sdk'
 import { TransferMessage } from '@nomad-xyz/sdk/nomad/messages/BridgeMessage'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
@@ -116,7 +116,7 @@ const actions = <ActionTree<SDKState, RootState>>{
         const provider = nomad.getProvider(network.name)
         try {
           balance = await getERC20Balance(
-            provider as ethers.providers.Web3Provider,
+            provider as providers.Web3Provider,
             token.tokenIdentifier.id as string,
             address
           )
@@ -150,7 +150,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   registerSigner({ commit }, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const provider = new providers.Web3Provider(window.ethereum)
     const newSigner = provider.getSigner()
 
     nomad.clearSigners()

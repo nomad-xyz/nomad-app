@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from 'ethers'
+import { BigNumber, utils } from 'ethers'
 
 import { networks, tokens, hubNetwork } from '@/config'
 import { NetworkMetadata, TokenMetadata } from '@/config/config.types'
@@ -44,7 +44,7 @@ export function toDecimals(
   tokenDecimals: number,
   numDecimals?: number
 ): string {
-  const decimal = ethers.utils.formatUnits(amnt, tokenDecimals)
+  const decimal = utils.formatUnits(amnt, tokenDecimals)
   if (decimal === '0.0') {
     return '0'
   }
@@ -166,7 +166,7 @@ export function isNativeToken(network: string, token: TokenMetadata): boolean {
  */
 export function isValidAddress(address: string): boolean {
   try {
-    const isValid = ethers.utils.isAddress(address)
+    const isValid = utils.isAddress(address)
     return isValid
   } catch (e) {
     return false

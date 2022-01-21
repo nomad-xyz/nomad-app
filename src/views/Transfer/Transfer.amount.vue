@@ -76,7 +76,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { NText, NTooltip } from 'naive-ui'
-import { ethers, BigNumber } from 'ethers'
+import { utils, BigNumber } from 'ethers'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 
@@ -149,7 +149,7 @@ export default defineComponent({
               this.amt &&
               this.token.symbol
             ) {
-              const amtBN = ethers.utils.parseUnits(
+              const amtBN = utils.parseUnits(
                 value.toString(),
                 this.token.decimals
               )
