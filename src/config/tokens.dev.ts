@@ -3,6 +3,11 @@ import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
 // IMPORTANT make name same as tokens[token].symbol value
 
 const WETH: TokenIdentifier = {
+  domain: 'rinkeby',
+  id: '0xc778417e063141139fce010982780140aa0cd5ab',
+}
+
+const kWETH: TokenIdentifier = {
   domain: 'kovan',
   id: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
 }
@@ -39,6 +44,7 @@ const TEST: TokenIdentifier = {
 
 export default {
   WETH,
+  kWETH,
   WBTC,
   USDC,
   USDT,

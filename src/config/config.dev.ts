@@ -12,9 +12,9 @@ import { TokenMetadata, NetworkMetadata } from './config.types'
 
 export const tokens: { [key: string]: TokenMetadata } = {
   WETH: {
-    nativeNetwork: 'kovan',
+    nativeNetwork: 'rinkeby',
     symbol: 'WETH',
-    name: 'Kovan WETH',
+    name: 'Rinkeby WETH',
     icon: wETHIcon,
     iconColors: ['#C0CEF7', '#7594EE'],
     decimals: 18,
@@ -26,12 +26,36 @@ export const tokens: { [key: string]: TokenMetadata } = {
   ETH: {
     nativeNetwork: 'kovan',
     symbol: 'ETH',
-    name: 'Kovan ETH',
+    name: 'Rinkeby ETH',
     icon: wETHIcon,
     iconColors: ['#C0CEF7', '#7594EE'],
     decimals: 18,
     coinGeckoId: 'ethereum',
     tokenIdentifier: testnetTokens.WETH,
+    nativeOnly: true,
+    minAmt: 0.0028,
+  },
+  kWETH: {
+    nativeNetwork: 'kovan',
+    symbol: 'WETH',
+    name: 'Kovan WETH',
+    icon: wETHIcon,
+    iconColors: ['#C0CEF7', '#7594EE'],
+    decimals: 18,
+    coinGeckoId: 'weth',
+    tokenIdentifier: testnetTokens.kWETH,
+    nativeOnly: false,
+    minAmt: 0.0028,
+  },
+  kETH: {
+    nativeNetwork: 'kovan',
+    symbol: 'ETH',
+    name: 'Kovan ETH',
+    icon: wETHIcon,
+    iconColors: ['#C0CEF7', '#7594EE'],
+    decimals: 18,
+    coinGeckoId: 'ethereum',
+    tokenIdentifier: testnetTokens.kWETH,
     nativeOnly: true,
     minAmt: 0.0028,
   },
@@ -114,6 +138,17 @@ export const tokens: { [key: string]: TokenMetadata } = {
 const DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES = 2
 
 export const networks: { [key: string]: NetworkMetadata } = {
+  rinkeby: {
+    name: 'rinkeby',
+    chainID: 4,
+    domainID: 2000,
+    nativeToken: tokens.ETH,
+    rpcUrl:
+      'https://eth-rinkeby.alchemyapi.io/v2/-uKtZgu7bWLDEuW3EaOZ0f6eKpqiH-Tj',
+    blockExplorer: 'https://rinkeby.etherscan.io',
+    icon: wETHIcon,
+    confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
+  },
   kovan: {
     name: 'kovan',
     chainID: 42,
