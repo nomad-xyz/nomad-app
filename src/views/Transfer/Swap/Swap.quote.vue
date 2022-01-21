@@ -12,7 +12,7 @@
     Estimated Received:
     <div class="flex flex-row">
       <div v-if="total">{{ total.toString() }}</div>
-      <loader-bounce v-else/>
+      <loader-bounce v-else />
       <div class="ml-1">{{ token.symbol }}</div>
     </div>
   </div>
@@ -39,7 +39,9 @@ export default defineComponent({
     return {
       fee: computed(() => {
         const { decimals } = store.state.userInput.token
-        return store.state.connext.fee ? toDecimals(store.state.connext.fee, decimals, 6) : undefined
+        return store.state.connext.fee
+          ? toDecimals(store.state.connext.fee, decimals, 6)
+          : undefined
       }),
       token: computed(() => store.state.userInput.token),
       amount: computed(() => store.state.userInput.sendAmount),

@@ -11,7 +11,16 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Reducing the gas limit on a process transaction may result in a failed transaction. By design, the gas limit must be estimated much higher. In reality, the gas price will be aproximately 1/5 the estimate. <a href="https://docs.nomad.xyz/bridge/faq.html#why-is-gas-estimate-so-high-to-get-my-funds-on-ethereum" target="_blank" class="underline">Read more</a>
+    Reducing the gas limit on a process transaction may result in a failed
+    transaction. By design, the gas limit must be estimated much higher. In
+    reality, the gas price will be aproximately 1/5 the estimate.
+    <a
+      href="https://docs.nomad.xyz/bridge/faq.html#why-is-gas-estimate-so-high-to-get-my-funds-on-ethereum"
+      target="_blank"
+      class="underline"
+    >
+      Read more
+    </a>
   </n-alert>
   <!-- Return to process -->
   <n-alert
@@ -25,7 +34,15 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Return to this page once bridging is complete to collect your funds on Ethereum. <a href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad" target="_blank" class="underline">Read more</a>
+    Return to this page once bridging is complete to collect your funds on
+    Ethereum.
+    <a
+      href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
+      target="_blank"
+      class="underline"
+    >
+      Read more
+    </a>
   </n-alert>
   <!-- Processing is subsidized -->
   <n-alert
@@ -39,7 +56,15 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Good news! Transfers to Moonbeam are subsidized, so funds will be deposited in your account automatically once bridging is complete. <a href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad" target="_blank" class="underline">Read more</a>
+    Good news! Transfers to Moonbeam are subsidized, so funds will be deposited
+    in your account automatically once bridging is complete.
+    <a
+      href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
+      target="_blank"
+      class="underline"
+    >
+      Read more
+    </a>
   </n-alert>
 
   <div
@@ -53,10 +78,13 @@
     </span>
     <!-- Manual process -->
     <span
-      class="flex flex-col items-center max-w-xs" 
+      class="flex flex-col items-center max-w-xs"
       v-else-if="status === 2 && readyToManualProcess"
     >
-      <n-text class="mb-2 opacity-80 text-center">Your funds have been bridged back to Ethereum! Please click below to submit a transaction to complete your transfer.</n-text>
+      <n-text class="mb-2 opacity-80 text-center">
+        Your funds have been bridged back to Ethereum! Please click below to
+        submit a transaction to complete your transfer.
+      </n-text>
       <n-text
         @click="process"
         class="flex flex-row items-center uppercase mt-1 cursor-pointer"
@@ -94,12 +122,20 @@
       </div>
       <div>
         <n-collapse-transition :show="showStatus">
-          <n-steps vertical :current="stepperStatus" size="small" class="mt-2 px-1">
+          <n-steps
+            vertical
+            :current="stepperStatus"
+            size="small"
+            class="mt-2 px-1"
+          >
             <n-step value="0" title="Dispatched" />
             <n-step value="1" title="Included" />
             <n-step value="2" title="Relayed" />
-            <n-step value="3" title="Confirmation Time" >
-              <div v-if="status === 2 && minutesRemaining" class="flex flex-row">
+            <n-step value="3" title="Confirmation Time">
+              <div
+                v-if="status === 2 && minutesRemaining"
+                class="flex flex-row"
+              >
                 <n-progress
                   type="line"
                   color="#fff"
@@ -154,7 +190,7 @@ export default defineComponent({
       type: BigNumber,
     },
     destinationNetwork: {
-      type: String
+      type: String,
     },
   },
   components: {
@@ -185,12 +221,15 @@ export default defineComponent({
   methods: {
     async process() {
       try {
-        const receipt = await this.store.dispatch('processTx', { origin: this.$route.params.network, hash: this.$route.params.id })
+        const receipt = await this.store.dispatch('processTx', {
+          origin: this.$route.params.network,
+          hash: this.$route.params.id,
+        })
         this.notification.success({
           title: 'Success',
           content: 'Transaction dispatched',
         })
-      } catch(e: any) {
+      } catch (e: any) {
         this.notification.warning({
           title: 'Error Dispatching Transaction',
           content: e.message,
@@ -236,9 +275,13 @@ export default defineComponent({
     confirmationProgress(): number {
       if (!this.confirmationTime) return 0
       if (!this.confirmAt) return 0
-      const confirmationMinutesRemaining = minutesTilConfirmation(this.confirmAt!)
+      const confirmationMinutesRemaining = minutesTilConfirmation(
+        this.confirmAt!
+      )
       console.log(confirmationMinutesRemaining, ' minutes remaining')
-      const fraction = (this.confirmationTime - confirmationMinutesRemaining) / this.confirmationTime
+      const fraction =
+        (this.confirmationTime - confirmationMinutesRemaining) /
+        this.confirmationTime
       return Math.floor(fraction * 100)
     },
     readyToManualProcess(): boolean {
@@ -249,9 +292,12 @@ export default defineComponent({
       const now = BigNumber.from(Date.now()).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
-      return now.gt(this.confirmAt) && manualProcessNets.includes(this.destinationNetwork!)
+      return (
+        now.gt(this.confirmAt) &&
+        manualProcessNets.includes(this.destinationNetwork!)
+      )
     },
-  }
+  },
 })
 </script>
 

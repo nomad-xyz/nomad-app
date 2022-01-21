@@ -20,7 +20,7 @@ export default defineComponent({
     destinationChainId: {
       type: Number,
       required: true,
-    }
+    },
   },
   components: {
     NText,
@@ -39,7 +39,7 @@ export default defineComponent({
         return network.name
       }
       return this.destinationChainId
-    }
-  }
+    },
+  },
 })
 </script>

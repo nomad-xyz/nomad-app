@@ -21,7 +21,7 @@ module.exports = {
       {
         singleQuote: true,
         semi: false,
-      }
+      },
     ],
   },
   overrides: [

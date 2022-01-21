@@ -12,6 +12,12 @@ export type CoinGeckoIds = typeof coinGeckoIds[number]
 
 // UI DISPLAY
 
+export type NaiveOption = {
+  label: string
+  value: string
+  key: string
+}
+
 /**
  * Shortens address for UI display
  * 0x0000...0000
@@ -62,8 +68,8 @@ export function filterDestinationNetworks(
   return optionValues.length === 2
     ? optionValues
     : Object.values(options).filter(
-      (option: NetworkMetadata) => option.name !== originNetworkName
-    )
+        (option: NetworkMetadata) => option.name !== originNetworkName
+      )
 }
 
 // to be used when there are only 2 networks and you want
@@ -76,7 +82,7 @@ export function getOnlyOtherNetwork(network: string): string {
     console.error('Should only be used when there are *exactly* 2 networks')
   }
 
-  return networkValues.find(n => n.name !== network)!.name
+  return networkValues.find((n) => n.name !== network)!.name
 }
 
 // NETWORK
@@ -84,12 +90,12 @@ export function getOnlyOtherNetwork(network: string): string {
 /**
  * Loops over list of networks to create select options
  */
-export function generateNetworkOptions () {
-  return Object.keys(networks).map(n => {
+export function generateNetworkOptions(): NaiveOption[] {
+  return Object.keys(networks).map((n) => {
     return {
       label: n,
       value: n,
-      key: n
+      key: n,
     }
   })
 }
@@ -97,7 +103,9 @@ export function generateNetworkOptions () {
 /**
  * Retrieves network config given a chain ID
  */
-export function getNetworkByChainID(chainID: number): NetworkMetadata | undefined {
+export function getNetworkByChainID(
+  chainID: number
+): NetworkMetadata | undefined {
   for (const network in networks) {
     if (networks[network].chainID === chainID) {
       return networks[network]
@@ -122,7 +130,7 @@ export function getNetworkByDomainID(domainID: number): NetworkMetadata {
 /**
  * Given a network name, return the domainID
  */
-export function getNetworkDomainIDByName(networkName: string) {
+export function getNetworkDomainIDByName(networkName: string): number {
   const network = networks[networkName]
   return network.domainID
 }

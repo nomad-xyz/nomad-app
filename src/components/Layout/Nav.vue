@@ -28,11 +28,10 @@
         trigger="click"
       >
         <template #trigger>
-          <nomad-button
-            class="btn-wallet-connected"
-            :disabled="buttonDisabled"
-          >
-            <n-text class="mr-2 btn-connected-wallet-text uppercase">Wallet</n-text>
+          <nomad-button class="btn-wallet-connected" :disabled="buttonDisabled">
+            <n-text class="mr-2 btn-connected-wallet-text uppercase"
+              >Wallet</n-text
+            >
             <n-text>
               {{ truncatedAddress }}
             </n-text>
@@ -42,11 +41,12 @@
           </nomad-button>
         </template>
         <!-- user settings -->
-        <div
-          style="min-width: 200px;"
-          class="pb-2"
-        >
-          <router-link to="/tx" class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2">Search Transaction</router-link>
+        <div style="min-width: 200px" class="pb-2">
+          <router-link
+            to="/tx"
+            class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
+            >Search Transaction</router-link
+          >
           <n-divider class="divider" />
           <div class="flex flex-row justify-between w-full p-2">
             <n-text>Enable Connext</n-text>
@@ -118,7 +118,7 @@ export default defineComponent({
     },
     installMetamask() {
       window.open('https://metamask.io/download.html', '_blank')
-    }
+    },
   },
   computed: {
     truncatedAddress(): string {

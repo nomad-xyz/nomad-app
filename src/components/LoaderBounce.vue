@@ -1,8 +1,17 @@
 <template>
   <div class="dots-container">
-    <div class="shape shape1" :style="`background-color: ${color || 'white'}`"></div>
-    <div class="shape shape2" :style="`background-color: ${color || 'white'}`"></div>
-    <div class="shape shape3" :style="`background-color: ${color || 'white'}`"></div>
+    <div
+      class="shape shape1"
+      :style="`background-color: ${color || 'white'}`"
+    ></div>
+    <div
+      class="shape shape2"
+      :style="`background-color: ${color || 'white'}`"
+    ></div>
+    <div
+      class="shape shape3"
+      :style="`background-color: ${color || 'white'}`"
+    ></div>
   </div>
 </template>
 
@@ -11,7 +20,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
-    color: String
+    color: String,
   },
 })
 </script>
@@ -46,5 +55,4 @@ export default defineComponent({
   animation bounce 1s infinite 0.2s
 .shape3
   animation bounce 1s infinite 0.4s
-
 </style>

@@ -3,14 +3,18 @@ import { NxtpSdk } from '@connext/nxtp-sdk'
 import { Logger } from '@connext/nxtp-utils'
 
 import { connextConfig, isProduction } from '@/config'
-import { MainnetNetwork, TestnetNetwork, TokenMetadata } from '@/config/config.types'
+import {
+  MainnetNetwork,
+  TestnetNetwork,
+  TokenMetadata,
+} from '@/config/config.types'
 
 export type SwapData = {
-  origin: MainnetNetwork | TestnetNetwork;
-  destination: MainnetNetwork | TestnetNetwork;
-  destinationAddress: string;
-  token: TokenMetadata;
-  amount: number;
+  origin: MainnetNetwork | TestnetNetwork
+  destination: MainnetNetwork | TestnetNetwork
+  destinationAddress: string
+  token: TokenMetadata
+  amount: number
 }
 
 export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
@@ -31,14 +35,14 @@ export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
   // silenced in production
   const logger = new Logger({
     name: 'shuturface',
-    level: isProduction ? 'silent' : 'warn'
+    level: isProduction ? 'silent' : 'warn',
   })
 
   // Instantiate SDK
   const sdk = await NxtpSdk.create({
     chainConfig: connextConfig,
     signer: _signer,
-    logger
+    logger,
   })
 
   return sdk
@@ -72,14 +76,14 @@ export async function mintTestERC20(address: string, signer?: ethers.Signer) {
       'https://raw.githubusercontent.com/connext/nxtp/main/packages/contracts/deployments.json'
     )
   } catch (e) {
-    throw new Error('Couldn\'t fetch ERC20 contracts')
+    throw new Error("Couldn't fetch ERC20 contracts")
   }
 
   let deployments
   try {
     deployments = await response.json()
   } catch (e) {
-    throw new Error('Couldn\'t parse ERC20 contracts')
+    throw new Error("Couldn't parse ERC20 contracts")
   }
 
   const { address: rAddress, abi: rAbi } =

@@ -4,7 +4,13 @@
   >
     <div class="pb-5 md:pb-0">
       <div class="flex items-center opacity-70 mb-2">
-        <a v-for="s in socials" :key="s.href" :href="s.href" target="_blank" class="mr-4">
+        <a
+          v-for="s in socials"
+          :key="s.href"
+          :href="s.href"
+          target="_blank"
+          class="mr-4"
+        >
           <n-icon size="18" color="rgba(255, 255, 255imti/footer-links, 0.6)">
             <component :is="s.icon"></component>
           </n-icon>
@@ -70,7 +76,7 @@ export default defineComponent({
       {
         icon: shallowRef(LogoDiscord),
         href: 'https://discord.gg/RurtmJApqm',
-        alt: 'discord'
+        alt: 'discord',
       },
       {
         icon: shallowRef(LogoMedium),

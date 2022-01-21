@@ -1,7 +1,7 @@
 <template>
   <!-- search transaction -->
   <n-card
-    style="width: 400px; backgroundColor: #2f2f2f;"
+    style="width: 400px; backgroundcolor: #2f2f2f"
     title="Search Transaction"
     :bordered="false"
     size="huge"
@@ -14,9 +14,7 @@
       tab-style="min-width: 80px;"
       justify-content="space-evenly"
     >
-      <n-tab-pane
-        :name="panels[0]"
-      >
+      <n-tab-pane :name="panels[0]">
         <!-- Tx Hash -->
         <div
           class="border border-white border-opacity-50 rounded-md flex flex-row px-2 py-1 mb-4"
@@ -27,11 +25,14 @@
             class="w-full border-0 outline-none bg-transparent"
           />
         </div>
-        <nomad-button primary @click="goConnext" class="w-full flex justify-center">GO TO TRANSACTION DETAILS</nomad-button>
+        <nomad-button
+          primary
+          @click="goConnext"
+          class="w-full flex justify-center"
+          >GO TO TRANSACTION DETAILS</nomad-button
+        >
       </n-tab-pane>
-      <n-tab-pane
-        :name="panels[1]"
-      >
+      <n-tab-pane :name="panels[1]">
         <!-- Origin network select -->
         <n-popselect
           v-model:value="originNetwork"
@@ -63,10 +64,15 @@
             class="w-full border-0 outline-none bg-transparent"
           />
         </div>
-        <nomad-button primary @click="goNomad" class="w-full flex justify-center">GO TO TRANSACTION DETAILS</nomad-button>
+        <nomad-butto
+          primary
+          @click="goNomad"
+          class="w-full flex justify-center"
+        >
+          GO TO TRANSACTION DETAILS
+        </nomad-butto>
       </n-tab-pane>
     </n-tabs>
-
   </n-card>
 </template>
 
@@ -90,7 +96,7 @@ export default defineComponent({
       panels: ['Connext', 'Nomad'],
       originNetwork: '',
       txHash: '',
-      options: generateNetworkOptions()
+      options: generateNetworkOptions(),
     }
   },
   setup() {
@@ -120,7 +126,7 @@ export default defineComponent({
           duration: 3000,
         })
       }
-    }
-  }
+    },
+  },
 })
 </script>

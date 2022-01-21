@@ -31,12 +31,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
-    component: PrivacyPolicy
+    component: PrivacyPolicy,
   },
   {
     path: '/terms',
     name: 'TermsOfUse',
-    component: TermsOfUse
+    component: TermsOfUse,
   },
   {
     path: '/:pathMatch(.*)*',

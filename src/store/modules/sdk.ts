@@ -83,7 +83,7 @@ const actions = <ActionTree<SDKState, RootState>>{
       console.log('nomad after instantiating', nomad)
     } catch (e) {
       console.error(e)
-      throw new Error('Couldn\'t setup Nomad')
+      throw new Error("Couldn't setup Nomad")
     }
   },
 
@@ -163,20 +163,11 @@ const actions = <ActionTree<SDKState, RootState>>{
     nomad.registerSigner(networkName, newSigner)
   },
 
-  async send(
-    { commit },
-    payload: SendData
-  ): Promise<TransferMessage | null> {
+  async send({ commit }, payload: SendData): Promise<TransferMessage | null> {
     console.log('sending...', payload)
     commit(types.SET_SENDING, true)
-    const {
-      isNative,
-      originNetwork,
-      destNetwork,
-      asset,
-      amnt,
-      recipient,
-    } = payload
+    const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
+      payload
 
     const originDomain = nomad.resolveDomain(originNetwork)
     const destDomain = nomad.resolveDomain(destNetwork)
@@ -201,7 +192,7 @@ const actions = <ActionTree<SDKState, RootState>>{
           destDomain,
           asset,
           amnt,
-          recipient,
+          recipient
         )
       }
       console.log('tx sent!!!!!!!!!!!!', transferMessage)
@@ -214,10 +205,14 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_SENDING, false)
     return null
   },
-  async processTx ({ dispatch }, tx: any) {
+  async processTx({ dispatch }, tx: any) {
     // get transfer message
     const { origin, hash } = tx
-    const message = await TransferMessage.singleFromTransactionHash(nomad, origin, hash)
+    const message = await TransferMessage.singleFromTransactionHash(
+      nomad,
+      origin,
+      hash
+    )
 
     const destNetwork = getNetworkByDomainID(message.destination)
     await dispatch('switchNetwork', destNetwork.name)
@@ -239,10 +234,14 @@ const actions = <ActionTree<SDKState, RootState>>{
 
     // prove and process
     try {
-      const receipt = await replica!.proveAndProcess(data.message as BytesLike, data.proof.path, data.proof.index)
+      const receipt = await replica!.proveAndProcess(
+        data.message as BytesLike,
+        data.proof.path,
+        data.proof.index
+      )
       console.log('PROCESSED!!!!')
       return receipt
-    } catch(e) {
+    } catch (e) {
       console.log(e)
     }
   },
@@ -259,22 +258,24 @@ const getters = <GetterTree<SDKState, RootState>>{
     }
   },
 
-  getTxMessage: () => async (tx: TXData): Promise<TransferMessage> => {
-    const { network, hash } = tx
-    let message
+  getTxMessage:
+    () =>
+    async (tx: TXData): Promise<TransferMessage> => {
+      const { network, hash } = tx
+      let message
 
-    try {
-      message = await TransferMessage.singleFromTransactionHash(
-        nomad,
-        network,
-        hash
-      )
-    } catch (e) {
-      console.error(e)
-    }
+      try {
+        message = await TransferMessage.singleFromTransactionHash(
+          nomad,
+          network,
+          hash
+        )
+      } catch (e) {
+        console.error(e)
+      }
 
-    return message as TransferMessage
-  },
+      return message as TransferMessage
+    },
 
   resolveDomain: (state: SDKState) => (network: string) => {
     return nomad.resolveDomain(network)
@@ -284,17 +285,18 @@ const getters = <GetterTree<SDKState, RootState>>{
     return nomad.resolveDomainName(network)
   },
 
-  resolveRepresentation: (state: SDKState) => async (network: string, token: TokenIdentifier) => {
-    let bridgeToken
+  resolveRepresentation:
+    (state: SDKState) => async (network: string, token: TokenIdentifier) => {
+      let bridgeToken
 
-    try {
-      bridgeToken = await nomad.resolveRepresentation(network, token)
-    } catch (e) {
-      console.error(e)
-    }
+      try {
+        bridgeToken = await nomad.resolveRepresentation(network, token)
+      } catch (e) {
+        console.error(e)
+      }
 
-    return bridgeToken
-  },
+      return bridgeToken
+    },
 }
 
 export default {

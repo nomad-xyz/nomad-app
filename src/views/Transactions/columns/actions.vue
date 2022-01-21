@@ -26,11 +26,7 @@
       target="_blank"
     >
       View
-      <img
-        src="@/assets/icons/arrow-right-up.svg"
-        alt="open"
-        class="ml"
-      />
+      <img src="@/assets/icons/arrow-right-up.svg" alt="open" class="ml" />
     </a>
   </div>
 </template>
@@ -46,7 +42,7 @@ export default defineComponent({
   props: {
     txAction: {
       type: Object,
-      required: true
+      required: true,
     },
     hash: {
       type: String,
@@ -62,7 +58,7 @@ export default defineComponent({
   },
   data() {
     return {
-      disabled: false
+      disabled: false,
     }
   },
   setup: () => {
@@ -87,17 +83,17 @@ export default defineComponent({
       try {
         await this.store.dispatch('cancelTransfer', this.txAction)
         this.notification.info({
-          title: 'Transfer cancelled'
+          title: 'Transfer cancelled',
         })
-      } catch(e) {
+      } catch (e) {
         this.notification.info({
           title: 'Error',
-          content: 'An error occurred while cancelling your transfer.'
+          content: 'An error occurred while cancelling your transfer.',
         })
         console.error(e)
       }
       this.disabled = false
-    }
+    },
   },
   components: {
     NomadButton,
@@ -108,8 +104,8 @@ export default defineComponent({
     },
     explorerLink() {
       return `${connextScanURL}tx/${this.hash}`
-    }
-  }
+    },
+  },
 })
 </script>
 
