@@ -185,7 +185,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   // },
 }
 
-export const hubNetwork = networks.kovan
+export const hubNetwork = networks.rinkeby
 
 export const connextPools: { [key: string]: string[] } = {
   moonbasealpha: ['kTEST', 'mbTEST'],
