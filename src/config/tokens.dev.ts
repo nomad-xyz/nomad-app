@@ -1,5 +1,4 @@
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
-import { TokenMetadata } from './config.types'
 
 // IMPORTANT make name same as tokens[token].symbol value
 

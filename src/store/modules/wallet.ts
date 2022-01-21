@@ -129,7 +129,7 @@ const actions = <ActionTree<WalletState, RootState>>{
               },
             ],
           })
-        } catch (addError: any) {
+        } catch (addError: unknown) {
           // TODO: handle "add" error, alert?
           console.error(addError)
           throw addError

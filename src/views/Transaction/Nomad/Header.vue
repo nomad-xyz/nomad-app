@@ -230,10 +230,10 @@ export default defineComponent({
           title: 'Success',
           content: 'Transaction dispatched',
         })
-      } catch (e: any) {
+      } catch (e: unknown) {
         this.notification.warning({
           title: 'Error Dispatching Transaction',
-          content: e.message,
+          content: (e as Error).message,
         })
       }
     },

@@ -48,7 +48,8 @@ export default defineComponent({
   },
   methods: {
     handleCopy() {
-      navigator.clipboard.writeText(this.address!).then(
+      if (!this.address) return
+      navigator.clipboard.writeText(this.address).then(
         () => {
           console.log('Async: Copying to clipboard was successful!')
           this.copyText = 'copied'

@@ -228,13 +228,22 @@ const actions = <ActionTree<SDKState, RootState>>{
     const core = nomad.getCore(message.destination)
     const replica = core?.getReplica(message.origin)
 
+    if (!replica) {
+      console.error('missing replica, unable to process transaction')
+      return
+    }
+
     // connect signer
     const signer = nomad.getSigner(message.origin)
-    replica!.connect(signer!)
+    if (!signer) {
+      console.error('missing signer, unable to process transaction')
+      return
+    }
+    replica.connect(signer)
 
     // prove and process
     try {
-      const receipt = await replica!.proveAndProcess(
+      const receipt = await replica.proveAndProcess(
         data.message as BytesLike,
         data.proof.path,
         data.proof.index

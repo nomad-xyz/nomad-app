@@ -128,9 +128,9 @@ const actions = <ActionTree<ConnextState, RootState>>{
     // get amount in decimals
     const amountBN = utils.parseUnits(sendAmount?.toString(), token.decimals)
     return {
-      sendingChainId: sendingChainId as any,
+      sendingChainId: sendingChainId,
       sendingAssetId: sendingAsset,
-      receivingChainId: receivingChainId as any,
+      receivingChainId: receivingChainId,
       receivingAssetId: receivingAsset,
       receivingAddress: destinationAddress,
       amount: amountBN?.toString(),
@@ -152,7 +152,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     console.log('Checking liquidity: ', payload)
     try {
       await connextSDK.getTransferQuote(payload)
-    } catch (e: any) {
+    } catch (e: unknown) {
       commit(types.SET_CHECKING_LIQUIDITY, false)
       // should return, don't show error when just checking availability
       return false
@@ -231,7 +231,11 @@ const actions = <ActionTree<ConnextState, RootState>>{
       encodedBid,
       encryptedCallData,
     } = activeTransaction
-    const { receiving, invariant } = crosschainTx!
+    if (!activeTransaction || !crosschainTx) {
+      console.error('Missing data, unable to fulfill Connext transfer')
+      return
+    }
+    const { receiving, invariant } = crosschainTx
     const receivingTxData =
       typeof receiving === 'object'
         ? {
@@ -318,7 +322,7 @@ const getters = <GetterTree<ConnextState, RootState>>{
       }
     })
   },
-  getTransaction: (state: ConnextState) => async (txHash: string) => {
+  getTransaction: (state: ConnextState) => async () => {
     connextSDK = await instantiateConnextSDK()
     const query = `
       {

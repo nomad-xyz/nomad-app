@@ -122,10 +122,10 @@ export default defineComponent({
       // get transfer quote
       try {
         await this.store.dispatch('getTransferQuote')
-      } catch (e: any) {
+      } catch (e: unknown) {
         this.notification.info({
           title: 'Error preparing transfer',
-          content: e.message,
+          content: (e as Error).message,
         })
         this.quoteInitiated = false
       }
