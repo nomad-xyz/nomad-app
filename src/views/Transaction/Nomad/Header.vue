@@ -24,7 +24,7 @@
   </n-alert>
   <!-- Return to process -->
   <n-alert
-    v-else-if="destinationNetwork === 'ethereum'"
+    v-else-if="destinationNetwork === hubNetwork.name"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -46,7 +46,7 @@
   </n-alert>
   <!-- Processing is subsidized -->
   <n-alert
-    v-if="status < 3 && destinationNetwork === 'moonbeam'"
+    v-if="status < 3 && destinationNetwork !== hubNetwork.name"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -180,6 +180,7 @@ import {
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
 import { minutesTilConfirmation } from '@/utils/time'
+import { hubNetwork } from '@/config/config.dev'
 
 export default defineComponent({
   props: {
@@ -285,17 +286,14 @@ export default defineComponent({
       return Math.floor(fraction * 100)
     },
     readyToManualProcess(): boolean {
-      // networks not subsidized, TODO: put in config
-      const manualProcessNets = ['ethereum', 'kovan']
+      // hub is not subsidized
+      const destinationNetworkIsHub = this.destinationNetwork === hubNetwork.name
       if (!this.confirmAt) return false
       // get timestamp in seconds
       const now = BigNumber.from(Date.now()).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
-      return (
-        now.gt(this.confirmAt) &&
-        manualProcessNets.includes(this.destinationNetwork!)
-      )
+      return now.gt(this.confirmAt) && destinationNetworkIsHub
     },
   },
 })
