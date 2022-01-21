@@ -58,10 +58,10 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // set network, if supported
     const { chainId } = await provider.ready
-    try {
-      const network = getNetworkByChainID(chainId)!
+    const network = getNetworkByChainID(chainId)
+    if (network) {
       dispatch('setWalletNetwork', network.name)
-    } catch (e) {
+    } else {
       console.log('network not supported')
     }
 

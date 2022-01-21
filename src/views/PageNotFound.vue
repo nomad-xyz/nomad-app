@@ -7,8 +7,7 @@
     </router-link>
     <router-link to="/tx" class="text-lg hover:underline cursor-pointer">
       Search Transaction
-    </router-link
-    >
+    </router-link>
   </div>
 </template>
 

@@ -42,13 +42,13 @@ export default defineComponent({
       if (ethereum) {
         ethereum.on('chainChanged', async (chainId: number) => {
           console.log('network change')
-          try {
-            // get name of network and set in store
-            const id = BigNumber.from(chainId).toNumber()
-            const network = getNetworkByChainID(id)!.name
+          // get name of network and set in store
+          const id = BigNumber.from(chainId).toNumber()
+          const network = getNetworkByChainID(id)
+          if (network) {
             // network supported, setting wallet network
-            await store.dispatch('setWalletNetwork', network)
-          } catch (e) {
+            await store.dispatch('setWalletNetwork', network.name)
+          } else {
             // network not supported, clearing network
             await store.dispatch('setWalletNetwork', '')
           }

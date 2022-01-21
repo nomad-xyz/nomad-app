@@ -99,8 +99,6 @@ export function getNetworkByChainID(
       return networks[network]
     }
   }
-  // unsupported network
-  console.error(`network not found: ${chainID}`)
 }
 
 /**
@@ -112,7 +110,7 @@ export function getNetworkByDomainID(domainID: number): NetworkMetadata {
       return networks[network]
     }
   }
-  throw new Error(`network not found: ${domainID}`)
+  throw new Error(`network with domain ${domainID} not found`)
 }
 
 /**

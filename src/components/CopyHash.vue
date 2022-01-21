@@ -40,7 +40,7 @@ export default defineComponent({
     NTooltip,
     NText,
   },
-  data(props) {
+  data() {
     return {
       truncatedAddress: computed(() => truncateAddr(this.address)),
       copyText: 'copy',
