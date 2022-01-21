@@ -286,16 +286,15 @@ const getters = <GetterTree<SDKState, RootState>>{
       return message as TransferMessage
     },
 
-  resolveDomain: (state: SDKState) => (network: string) => {
+  resolveDomain: () => (network: string) => {
     return nomad.resolveDomain(network)
   },
 
-  resolveDomainName: (state: SDKState) => (network: number) => {
+  resolveDomainName: () => (network: number) => {
     return nomad.resolveDomainName(network)
   },
 
-  resolveRepresentation:
-    (state: SDKState) => async (network: string, token: TokenIdentifier) => {
+  resolveRepresentation: () => async (network: string, token: TokenIdentifier) => {
       let bridgeToken
 
       try {

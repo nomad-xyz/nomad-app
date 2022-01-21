@@ -93,7 +93,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('getBalanceFromWallet')
   },
 
-  async switchNetwork({ dispatch, state, commit }, networkName: string) {
+  async switchNetwork({ dispatch, state }, networkName: string) {
     console.log('set wallet network')
     if (!state.connected) {
       dispatch('connectWallet')

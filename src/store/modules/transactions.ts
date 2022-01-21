@@ -54,7 +54,7 @@ const transactionsModule = {
       }
       commit(types.REMOVE_TRANSACTION, copy)
     },
-    addSearchTransaction({ state, commit, dispatch }, transaction: TXData) {
+    addSearchTransaction({ state, commit }, transaction: TXData) {
       const found = state.transactions.find((t) => t.hash === transaction.hash)
       if (!found) {
         commit(types.SET_TRANSACTION, transaction)

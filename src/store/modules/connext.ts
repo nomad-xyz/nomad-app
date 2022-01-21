@@ -292,7 +292,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
 }
 
 const getters = <GetterTree<ConnextState, RootState>>{
-  getActiveConnextTxs: (state: ConnextState) => async () => {
+  getActiveConnextTxs: () => async () => {
     if (!connextSDK) {
       connextSDK = await instantiateConnextSDK()
       console.log('connext after instantiating', connextSDK)
@@ -322,7 +322,8 @@ const getters = <GetterTree<ConnextState, RootState>>{
       }
     })
   },
-  getTransaction: (state: ConnextState) => async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getTransaction: () => async () => {
     connextSDK = await instantiateConnextSDK()
     const query = `
       {
