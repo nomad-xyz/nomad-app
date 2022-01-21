@@ -136,7 +136,7 @@ export default defineComponent({
           () => {
             if (!this.token.symbol) return true
             if (!this.balance) return true
-            return !this.balance!.isZero()
+            return !this.balance.isZero()
           }
         ),
         sufficientFunds: helpers.withMessage(
@@ -169,31 +169,31 @@ export default defineComponent({
     selectToken(token: TokenMetadata) {
       this.store.dispatch('setToken', token)
       this.showTokenSelect = false
-      this.updateAmtInUSD(token.coinGeckoId, this.amt)
+      this.updateAmtInUSD(token.coinGeckoId)
 
       // reset form errors after selecting a new token
       this.v$.$reset()
     },
-    async updateAmtInUSD(coinGeckoId: string, amt: number | null) {
+    async updateAmtInUSD(coinGeckoId: string) {
       if (!this.amt) {
         this.amtInUSD = ''
         return
       }
-      const amtInUSD = (await getMinAmount(coinGeckoId)) * amt!
+      const amtInUSD = (await getMinAmount(coinGeckoId)) * this.amt
       this.amtInUSD = amtInUSD.toFixed(2).toString()
     },
   },
   watch: {
     token(newToken) {
       // update the usd amt if the token if changed outside of this component
-      this.updateAmtInUSD(newToken.coinGeckoId, this.amt)
+      this.updateAmtInUSD(newToken.coinGeckoId)
     },
     async amt(newAmt) {
       this.v$.amt.$touch()
       this.store.dispatch('setSendAmount', newAmt || 0)
       if (this.token.coinGeckoId) {
         // TODO: we might want to debounce this function depending on performance
-        await this.updateAmtInUSD(this.token.coinGeckoId, this.amt)
+        await this.updateAmtInUSD(this.token.coinGeckoId)
       }
     },
   },

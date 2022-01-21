@@ -131,7 +131,7 @@ export default defineComponent({
       const payload = {
         isNative: isNativeToken(originNetwork, token),
         originNetwork: getNetworkDomainIDByName(originNetwork),
-        destNetwork: getNetworkDomainIDByName(destinationNetwork!),
+        destNetwork: getNetworkDomainIDByName(destinationNetwork),
         asset: token.tokenIdentifier,
         amnt: utils.parseUnits(sendAmount.toString(), token.decimals),
         recipient: destinationAddress,

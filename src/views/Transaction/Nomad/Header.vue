@@ -222,7 +222,7 @@ export default defineComponent({
   methods: {
     async process() {
       try {
-        const receipt = await this.store.dispatch('processTx', {
+        await this.store.dispatch('processTx', {
           origin: this.$route.params.network,
           hash: this.$route.params.id,
         })
@@ -277,7 +277,7 @@ export default defineComponent({
       if (!this.confirmationTime) return 0
       if (!this.confirmAt) return 0
       const confirmationMinutesRemaining = minutesTilConfirmation(
-        this.confirmAt!
+        this.confirmAt
       )
       console.log(confirmationMinutesRemaining, ' minutes remaining')
       const fraction =
@@ -286,9 +286,9 @@ export default defineComponent({
       return Math.floor(fraction * 100)
     },
     readyToManualProcess(): boolean {
+      if (!this.confirmAt || !this.destinationNetwork) return false
       // hub is not subsidized
       const destinationNetworkIsHub = this.destinationNetwork === hubNetwork.name
-      if (!this.confirmAt) return false
       // get timestamp in seconds
       const now = BigNumber.from(Date.now()).div(1000)
       // check if confirmAt time has passed
