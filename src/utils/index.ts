@@ -143,10 +143,10 @@ export const nullToken: TokenMetadata = {
   minAmt: 0,
 }
 
-export function getTokenByName(name: string): TokenMetadata | undefined {
+export function getTokenBySymbol(symbol: string): TokenMetadata | undefined {
   for (const t in tokens) {
     const token = tokens[t]
-    if (token.name === name) {
+    if (token.symbol === symbol) {
       return token
     }
   }
@@ -156,7 +156,7 @@ export function getTokenByName(name: string): TokenMetadata | undefined {
 // determines if the token is native to the selected origin network
 export function isNativeToken(network: string, token: TokenMetadata): boolean {
   const nativeToken = networks[network].nativeToken
-  return nativeToken.name === token.name
+  return nativeToken.symbol === token.symbol
 }
 
 // VALIDATION
