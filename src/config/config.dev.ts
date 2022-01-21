@@ -24,7 +24,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     minAmt: 0.0028,
   },
   ETH: {
-    nativeNetwork: 'kovan',
+    nativeNetwork: 'rinkeby',
     symbol: 'ETH',
     name: 'Rinkeby ETH',
     icon: wETHIcon,
