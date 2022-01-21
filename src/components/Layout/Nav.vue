@@ -100,7 +100,7 @@ export default defineComponent({
     return {
       walletConnected: computed(() => store.state.wallet.connected),
       connextDisabled: computed(() => store.state.userInput.disableConnext),
-      showButton: computed(() => !['PrivacyPolicy', 'TermsOfUse'].includes(route.name as string)),
+      showButton: computed(() => ['Bridge'].includes(route.name as string)),
       store,
     }
   },
@@ -138,6 +138,9 @@ export default defineComponent({
 </script>
 
 <style lang="stylus">
+nav
+  background-color var(--bg)
+
 .network-text-container
   &:hover
     background-color: rgba(255, 255, 255, 0.05)
