@@ -294,7 +294,8 @@ const getters = <GetterTree<SDKState, RootState>>{
     return nomad.resolveDomainName(network)
   },
 
-  resolveRepresentation: () => async (network: string, token: TokenIdentifier) => {
+  resolveRepresentation:
+    () => async (network: string, token: TokenIdentifier) => {
       let bridgeToken
 
       try {

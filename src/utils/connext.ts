@@ -1,4 +1,4 @@
-import { ethers, utils, providers } from 'ethers'
+import { providers } from 'ethers'
 import { NxtpSdk } from '@connext/nxtp-sdk'
 import { Logger } from '@connext/nxtp-utils'
 
