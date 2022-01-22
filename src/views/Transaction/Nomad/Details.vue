@@ -142,10 +142,14 @@ export default defineComponent({
   methods: {
     async getStatus(message: TransferMessage) {
       if (!message) return
-      this.confirmAt = await message.confirmAt()
-      const status = (await message.events()).status
-      console.log('status: ', status)
-      this.status = status
+      const process = await message.getProcess();
+      if (process) {
+        this.status = 3
+      } else {
+        this.confirmAt = await message.confirmAt()
+        this.status = (await message.events()).status
+        console.log('status: ', this.status)
+      }
     },
   },
 
