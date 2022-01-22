@@ -46,15 +46,10 @@
     class="header transition-all duration-400 px-5 py-8"
     :class="[status < 3 ? 'bg-[#5185d0]' : 'bg-[#2fbb72]']"
   >
-    <!-- loading -->
-    <span class="flex flex-col items-center" v-if="status < 0">
-      <n-spin stroke="#fff" class="mb-3" />
-      <n-text class="uppercase opacity-60">Loading . . .</n-text>
-    </span>
     <!-- Manual process -->
     <span
       class="flex flex-col items-center max-w-xs" 
-      v-else-if="status === 2 && readyToManualProcess"
+      v-if="readyToManualProcess"
     >
       <n-text class="mb-2 opacity-80 text-center">Your funds have been bridged back to Ethereum! Please click below to submit a transaction to complete your transfer.</n-text>
       <n-text
@@ -68,6 +63,11 @@
           class="ml-2 cursor-pointer"
         />
       </n-text>
+    </span>
+    <!-- loading -->
+    <span class="flex flex-col items-center" v-else-if="status < 0">
+      <n-spin stroke="#fff" class="mb-3" />
+      <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
     <!-- in progress -->
     <span class="flex flex-col items-center" v-else-if="status < 3">

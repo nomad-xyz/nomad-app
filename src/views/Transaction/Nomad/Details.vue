@@ -130,24 +130,22 @@ export default defineComponent({
     this.amount = await utils.formatUnits(amountBN, await token!.decimals())
     // status
     await this.getStatus(message)
+    this.confirmAt = await message.confirmAt()
 
     setInterval(() => {
       if (this.status < 3) {
         this.getStatus(message)
       }
-    }, 60000)
+    }, 30000)
   },
 
   methods: {
     async getStatus(message: TransferMessage) {
       if (!message) return
+      this.confirmAt = await message.confirmAt()
       const status = (await message.events()).status
       console.log('status: ', status)
       this.status = status
-      // if status is 2, get confirmAt timestamp
-      if (this.status === 2 && !this.confirmAt) {
-        this.confirmAt = await message.confirmAt()
-      }
     },
   },
 
