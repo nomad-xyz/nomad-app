@@ -9,7 +9,7 @@
 
     <!-- bridge inputs overlay -->
     <div class="bridge-inputs-container absolute w-full">
-      <transfer-inputs class="bridge-inputs mx-8" />
+      <transfer-inputs class="bridge-inputs mx-8" :connext-avail="connextAvail" />
     </div>
 
     <!-- bottom drawer -->
