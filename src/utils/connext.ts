@@ -25,7 +25,8 @@ export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
     throw new Error('Metamask not installed')
   }
 
-  await ethereum.request({ method: 'eth_requestAccounts' })
+  // TODO: uncomment and update to support wallet connect
+  // await ethereum.request({ method: 'eth_requestAccounts' })
 
   const provider = new providers.Web3Provider(ethereum)
   const _signer = provider.getSigner()

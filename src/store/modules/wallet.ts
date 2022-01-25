@@ -6,15 +6,17 @@ import { MutationTree, ActionTree } from 'vuex'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks } from '@/config/index'
-import * as mmUtils from '@/utils/metamask'
 import { fromBytes32, getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
 import { tokens } from '@/config'
 import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
+import { getWalletConnectProvider } from '@/utils/walletConnect'
+import { getWalletProvider } from '@/utils/wallet'
 
 export interface WalletState {
   connected: boolean
   address: string
+  type: string
 }
 
 type TokenPayload = {
@@ -25,6 +27,7 @@ type TokenPayload = {
 const state = (): WalletState => ({
   connected: false,
   address: localStorage.getItem('wallet_address') || '',
+  type: ''
 })
 
 const mutations = <MutationTree<WalletState>>{
@@ -38,28 +41,30 @@ const mutations = <MutationTree<WalletState>>{
     state.address = address
     localStorage.setItem('wallet_address', address)
   },
+
+  [types.SET_WALLET_TYPE](state: WalletState, type: string) {
+    console.log('{dispatch} set wallet type: ', type)
+    state.type = type
+  }
 }
 
 const actions = <ActionTree<WalletState, RootState>>{
-  async connectWallet({ dispatch, commit, state }) {
+  async connectWallet({ dispatch, commit, state}, walletType?: string) {
     // check if already connected
     if (state.connected) {
       console.log('already connected to wallet')
       return
     }
 
-    // if window.ethereum does not exist, do not connect
-    const { ethereum } = window
-    if (!ethereum) return
+    const provider = await getWalletProvider(walletType || state.type)
 
-    // connect Metamask
-    await window.ethereum.request({ method: 'eth_requestAccounts' })
+    console.log(provider, provider.enable)
 
-    // get provider/signer
-    const provider = await mmUtils.getMetamaskProvider()
+    // enable session
+    await provider.enable()
+
     const signer = await provider.getSigner()
 
-    // get and set address
     const address = await signer.getAddress()
     dispatch('setWalletAddress', address)
     dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
@@ -73,9 +78,88 @@ const actions = <ActionTree<WalletState, RootState>>{
       console.log('network not supported')
     }
 
+    // set wallet type if passed in, otherwise should already be set
+    if (walletType) {
+      commit(types.SET_WALLET_TYPE, walletType)
+    }
+
     // wallet connected
     commit(types.SET_WALLET_CONNECTION, true)
   },
+
+  // async connectWalletConnectWallet({ dispatch, commit, state }) {
+  //   // check if already connected
+  //   if (state.connected) {
+  //     console.log('already connected to wallet')
+  //     return
+  //   }
+
+  //   const provider = await getWalletConnectProvider()
+
+  //   //  Enable session (triggers QR Code modal)
+  //   await provider.enable();
+
+  //   // wrap in ethers web 3 provider to use below
+  //   const web3provider = new providers.Web3Provider(provider)
+
+  //   const signer = await web3provider.getSigner()
+
+  //   // get and set address
+  //   const address = await signer.getAddress()
+  //   dispatch('setWalletAddress', address)
+  //   dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
+
+  //   // set network, if supported
+  //   const { chainId } = await web3provider.ready
+  //   const network = getNetworkByChainID(chainId)
+  //   if (network) {
+  //     dispatch('setWalletNetwork', network.name)
+  //   } else {
+  //     console.log('network not supported')
+  //   }
+
+  //   // wallet connected
+  //   commit(types.SET_WALLET_CONNECTION, true)
+  // },
+  // async connectMetamaskWallet({ dispatch, commit, state }) {
+  //   // check if already connected
+  //   if (state.connected) {
+  //     console.log('already connected to wallet')
+  //     return
+  //   }
+
+  //   // if window.ethereum does not exist, do not connect
+  //   const { ethereum } = window
+  //   if (!ethereum) return
+
+  //   // connect Metamask
+  //   ethereum.enable()
+
+  //   // commented out in favor of enable() to keep api consistent
+  //   // with wallet connect usage to make consolidating easier
+  //   // await window.ethereum.request({ method: 'eth_requestAccounts' })
+
+  //   // get provider/signer
+  //   const provider = await mmUtils.getMetamaskProvider()
+  //   const signer = await provider.getSigner()
+
+  //   // get and set address
+  //   const address = await signer.getAddress()
+  //   dispatch('setWalletAddress', address)
+  //   dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
+
+  //   // set network, if supported
+  //   const { chainId } = await provider.ready
+  //   const network = getNetworkByChainID(chainId)
+  //   if (network) {
+  //     dispatch('setWalletNetwork', network.name)
+  //   } else {
+  //     console.log('network not supported')
+  //   }
+
+  //   // wallet connected
+  //   commit(types.SET_WALLET_CONNECTION, true)
+  // },
 
   setWalletAddress({ commit }, address: string) {
     commit(types.SET_WALLET_ADDRESS, address)
@@ -107,22 +191,30 @@ const actions = <ActionTree<WalletState, RootState>>{
       await dispatch('connectWallet')
     }
 
+    const provider = await getWalletConnectProvider() as any
+    // const web3provider = new providers.Web3Provider(provider)
+
+
     // if window.ethereum does not exist, do not instantiate nomad
-    const { ethereum } = window
-    if (!ethereum) return
+    // const { ethereum } = window
+    // if (!ethereum) return
 
     const network = networks[networkName]
     const hexChainId = '0x' + network.chainID.toString(16)
     try {
-      await ethereum.request({
+      await provider.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: hexChainId }],
       })
+      // await ethereum.request({
+      //   method: 'wallet_switchEthereumChain',
+      //   params: [{ chainId: hexChainId }],
+      // })
     } catch (switchError: any) {
       // This error code indicates that the chain has not been added to MetaMask.
       if (switchError.code === 4902) {
         try {
-          await ethereum.request({
+          await provider.request({
             method: 'wallet_addEthereumChain',
             params: [
               {
