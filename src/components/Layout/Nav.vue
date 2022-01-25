@@ -11,18 +11,18 @@
     <!-- right side of nav -->
     <div class="flex items-center" v-if="showButton">
       <!-- metamask not installed -->
-      <nomad-button
+      <!-- <nomad-button
         v-if="!metamaskInstalled"
         class="uppercase"
         primary
         @click="installMetamask"
       >
         Install Metamask
-      </nomad-button>
+      </nomad-button> -->
 
       <!-- connected -->
       <n-tooltip
-        v-else-if="walletConnected"
+        v-if="walletConnected"
         placement="bottom-end"
         :show-arrow="false"
         trigger="click"
@@ -76,10 +76,15 @@
         class="uppercase"
         :disabled="buttonDisabled"
         primary
-        @click="handleConnect"
+        @click="showConnectWalletModal = true"
       >
         Connect Wallet
       </nomad-button>
+
+      <!-- connect wallet modal -->
+      <n-modal :show="showConnectWalletModal">
+        <connect-wallet v-on:close-modal="showConnectWalletModal = false"/>
+      </n-modal>
     </div>
   </nav>
 </template>
@@ -87,9 +92,10 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { truncateAddr } from '@/utils'
-import { NText, NIcon, NTooltip, NSwitch, NDivider } from 'naive-ui'
+import { NText, NIcon, NTooltip, NSwitch, NDivider, NModal } from 'naive-ui'
 import { ChevronDown, HelpCircleOutline } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
+import ConnectWallet from '@/components/ConnectWallet.vue'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
 
@@ -100,12 +106,15 @@ export default defineComponent({
     NTooltip,
     NSwitch,
     NDivider,
+    NModal,
     ChevronDown,
     HelpCircleOutline,
     NomadButton,
+    ConnectWallet,
   },
   data: () => ({
     buttonDisabled: false,
+    showConnectWalletModal: false,
   }),
   setup: () => {
     const store = useStore()
@@ -118,17 +127,17 @@ export default defineComponent({
     }
   },
   methods: {
-    async handleConnect() {
-      this.buttonDisabled = true
-      try {
-        await this.store.dispatch('connectWallet')
-      } catch (error) {
-        // TODO: determine how we want to handle wallet connect errors
-        console.log('error', error)
-      } finally {
-        this.buttonDisabled = false
-      }
-    },
+    // async handleConnect() {
+    //   this.buttonDisabled = true
+    //   try {
+    //     await this.store.dispatch('connectWallet')
+    //   } catch (error) {
+    //     // TODO: determine how we want to handle wallet connect errors
+    //     console.log('error', error)
+    //   } finally {
+    //     this.buttonDisabled = false
+    //   }
+    // },
     handleConnextSetting(val: boolean) {
       this.store.dispatch('setDisableConnext', !val)
     },

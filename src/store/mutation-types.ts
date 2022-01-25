@@ -1,6 +1,7 @@
 // wallet
 export const SET_WALLET_CONNECTION = 'wallet/SET_WALLET_CONNECTION'
 export const SET_WALLET_ADDRESS = 'wallet/SET_WALLET_ADDRESS'
+export const SET_WALLET_TYPE = 'wallet/SET_WALLET_TYPE'
 
 // userInput
 export const SET_DISABLE_CONNEXT = 'userInput/SET_DISABLE_CONNEXT'
