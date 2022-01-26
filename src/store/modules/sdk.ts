@@ -11,6 +11,7 @@ import { networks, s3URL } from '@/config/index'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
 import { NetworkMetadata } from '@/config/config.types'
+import { getWalletProvider } from '@/utils/wallet'
 
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 function getNomadContext() {
@@ -147,10 +148,10 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_BALANCE, balance)
   },
 
-  registerSigner({ commit }, network: NetworkMetadata) {
+  async registerSigner({ commit }, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
-    const provider = new providers.Web3Provider(window.ethereum)
+    const provider = await getWalletProvider();
     const newSigner = provider.getSigner()
 
     nomad.clearSigners()

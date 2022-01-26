@@ -10,9 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { BigNumber } from 'ethers'
 import { useStore } from '@/store'
-import { getNetworkByChainID } from '@/utils'
 
 import { RouterView } from 'vue-router'
 import Nav from '@/components/Layout/Nav.vue'
@@ -31,35 +29,28 @@ export default defineComponent({
     // instantiate Nomad
     await store.dispatch('instantiateNomad')
 
-    if (ethereum && ethereum.isMetamask) {
-      // check if user is connected
-      const connected = ethereum.isConnected()
-      if (connected) {
-        // TODO: fix connect wallet button flicker
-        // await store.dispatch('connectWallet')
-      }
-
-      if (ethereum) {
-        ethereum.on('chainChanged', async (chainId: number) => {
-          console.log('network change')
-          // get name of network and set in store
-          const id = BigNumber.from(chainId).toNumber()
-          const network = getNetworkByChainID(id)
-          if (network) {
-            // network supported, setting wallet network
-            await store.dispatch('setWalletNetwork', network.name)
-          } else {
-            // network not supported, clearing network
-            await store.dispatch('setWalletNetwork', '')
-          }
-          // TODO: update token? balance, etc
-        })
-        ethereum.on('accountsChanged', () => {
-          // everything changes, easiest to reload
-          location.reload()
-        })
-      }
-    }
+    // TODO: need to figure out where to put these
+    // listeners now maybe inside utils/wallet?
+    //
+    // provider.on('chainChanged', async (chainId: number) => {
+    //   console.log('network change')
+    //   // get name of network and set in store
+    //   const id = BigNumber.from(chainId).toNumber()
+    //   const network = getNetworkByChainID(id)
+    //   if (network) {
+    //     // network supported, setting wallet network
+    //     await store.dispatch('setWalletNetwork', network.name)
+    //   } else {
+    //     // network not supported, clearing network
+    //     await store.dispatch('setWalletNetwork', '')
+    //   }
+    //   // TODO: update token? balance, etc
+    // })
+    //
+    // provider.on('accountsChanged', () => {
+    //   // everything changes, easiest to reload
+    //   location.reload()
+    // })
   },
 })
 </script>
