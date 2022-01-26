@@ -1,12 +1,11 @@
 import { getMetamaskProvider } from '@/utils/metamask'
 import { getWalletConnectProvider } from '@/utils/walletConnect'
 import { Web3Provider } from '@ethersproject/providers'
-import { providers } from 'ethers'
 
-const ethereumEnable = () => {
+const ethereumEnable = async () => {
   const { ethereum } = window
   if (!ethereum) return
-  ethereum.enable()
+  await ethereum.request({ method: 'eth_requestAccounts' })
 }
 
 export const WALLET = {
@@ -16,12 +15,9 @@ export const WALLET = {
 
 let wallet: any = null
 
-const copyOf = (o: Record<string, unknown>) => {
-  return { ...o }
-}
-
-export async function getWalletProvider(walletType: string): Promise<any> {
+export async function getWalletProvider(walletType?: string): Promise<any> {
   if (wallet) return wallet
+  if (!wallet && !walletType) return
 
   let provider
 
@@ -29,17 +25,18 @@ export async function getWalletProvider(walletType: string): Promise<any> {
 
   if (walletType === WALLET.METAMASK) {
     provider = await getMetamaskProvider()
-    console.log('provider.getSigner', provider.getSigner)
     wallet = provider
     wallet.enable = ethereumEnable
+    wallet.request = window.ethereum.request
   } else if (walletType === WALLET.WALLETCONNECT) {
     provider = await getWalletConnectProvider()
 
     // wallet connect provider does not have the web3 provider functions
-    const web3Provider = new providers.Web3Provider(provider)
+    const web3Provider = new Web3Provider(provider)
 
     wallet = web3Provider
     wallet.enable = provider.enable
+    wallet.request = provider.request
   }
 
   console.log('wallet', wallet)

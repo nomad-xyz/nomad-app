@@ -82,7 +82,7 @@
       </nomad-button>
 
       <!-- connect wallet modal -->
-      <n-modal :show="showConnectWalletModal">
+      <n-modal :show="showConnectWalletModal" @maskClick="showConnectWalletModal = false">
         <connect-wallet v-on:close-modal="showConnectWalletModal = false"/>
       </n-modal>
     </div>
@@ -127,34 +127,24 @@ export default defineComponent({
     }
   },
   methods: {
-    // async handleConnect() {
-    //   this.buttonDisabled = true
-    //   try {
-    //     await this.store.dispatch('connectWallet')
-    //   } catch (error) {
-    //     // TODO: determine how we want to handle wallet connect errors
-    //     console.log('error', error)
-    //   } finally {
-    //     this.buttonDisabled = false
-    //   }
-    // },
     handleConnextSetting(val: boolean) {
       this.store.dispatch('setDisableConnext', !val)
     },
-    installMetamask() {
-      window.open('https://metamask.io/download.html', '_blank')
-    },
+    // TODO: determine what to do when user has neither metamask or wallet connect
+    // installMetamask() {
+    //   window.open('https://metamask.io/download.html', '_blank')
+    // },
   },
   computed: {
     truncatedAddress(): string {
       const { address, connected } = this.store.state.wallet
       return connected ? truncateAddr(address) : ''
     },
-    metamaskInstalled(): boolean {
-      const { ethereum } = window
-      if (!ethereum) return false
-      return !ethereum.isMetamask
-    },
+    // metamaskInstalled(): boolean {
+    //   const { ethereum } = window
+    //   if (!ethereum) return false
+    //   return !ethereum.isMetamask
+    // },
   },
 })
 </script>
