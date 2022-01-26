@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { h, defineComponent } from 'vue'
+import { h, defineComponent, computed } from 'vue'
 import { NDataTable, NText } from 'naive-ui'
 
 import { useStore } from '@/store'
@@ -72,6 +72,14 @@ const createColumns = () => {
   ]
 }
 
+type ComponentData = {
+  active: Array<unknown>
+  pagination: {
+    pageSize: number
+  }
+  pollActiveTxs: number | null
+}
+
 export default defineComponent({
   components: {
     NDataTable,
@@ -84,7 +92,8 @@ export default defineComponent({
       pagination: {
         pageSize: 5,
       },
-    }
+      pollActiveTxs: null
+    } as ComponentData
   },
 
   setup: () => {
@@ -92,15 +101,12 @@ export default defineComponent({
     return {
       store,
       columns: createColumns(),
+      walletConnected: computed(() => store.state.wallet.connected),
     }
   },
 
-  async mounted() {
-    // await this.store.getters.getTransaction()
-    this.getActive()
-    setInterval(async () => {
-      this.getActive()
-    }, 15000)
+  unmounted() {
+    this.clearPollActiveTxs()
   },
 
   methods: {
@@ -110,6 +116,24 @@ export default defineComponent({
         this.active = activeTxs
       }
       console.log('Active Connext Txs: ', this.active)
+    },
+
+    clearPollActiveTxs() {
+      if (this.pollActiveTxs) {
+        window.clearInterval(this.pollActiveTxs)
+        this.pollActiveTxs = null
+      }
+    },
+  },
+
+  watch: {
+    walletConnected(newWalletConnected) {
+      if (newWalletConnected) {
+        this.getActive()
+        this.pollActiveTxs = window.setInterval(this.getActive, 15000)
+      } else {
+        this.clearPollActiveTxs()
+      }
     },
   },
 })
