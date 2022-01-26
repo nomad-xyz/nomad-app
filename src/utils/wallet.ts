@@ -30,7 +30,7 @@ let wallet: Wallet
 export async function getWalletProvider(walletType?: string): Promise<Wallet> {
   if (wallet) return wallet
 
-  let provider
+  let provider: any
 
   if (walletType === WALLET.METAMASK) {
     provider = await getMetamaskProvider()
@@ -53,6 +53,9 @@ export async function getWalletProvider(walletType?: string): Promise<Wallet> {
     wallet = web3Provider as any
     wallet.enable = provider.enable
     wallet.request = provider.request
+    wallet.on = (evt: string, listener: () => void) => {
+      provider.on(evt, listener)
+    }
   }
 
   console.log('getWalletProvider', wallet)

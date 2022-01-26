@@ -80,11 +80,6 @@ const actions = <ActionTree<WalletState, RootState>>{
       // TODO: update token? balance, etc
     })
 
-    provider.on('accountsChanged', () => {
-      // everything changes, easiest to reload
-      location.reload()
-    })
-
     const signer = await provider.getSigner()
     const address = await signer.getAddress()
     dispatch('setWalletAddress', address)

@@ -3,6 +3,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 export async function getWalletConnectProvider() {
   // Create WalletConnect Provider
   const provider = new WalletConnectProvider({
+    // TODO: add logic for using dev vs prod values
     rpc: {
       1: 'https://eth-mainnet.alchemyapi.io/v2/rud551ngiIel2fRYbWmsnhwAE1FGgCLG',
       42: 'https://eth-kovan.alchemyapi.io/v2/QKnfLTfe7CkGA80yAVsCdh8ZatQCsfHI',
