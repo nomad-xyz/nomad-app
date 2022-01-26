@@ -24,33 +24,9 @@ export default defineComponent({
   },
   async mounted() {
     const store = useStore()
-    const { ethereum } = window
 
     // instantiate Nomad
     await store.dispatch('instantiateNomad')
-
-    // TODO: need to figure out where to put these
-    // listeners now maybe inside utils/wallet?
-    //
-    // provider.on('chainChanged', async (chainId: number) => {
-    //   console.log('network change')
-    //   // get name of network and set in store
-    //   const id = BigNumber.from(chainId).toNumber()
-    //   const network = getNetworkByChainID(id)
-    //   if (network) {
-    //     // network supported, setting wallet network
-    //     await store.dispatch('setWalletNetwork', network.name)
-    //   } else {
-    //     // network not supported, clearing network
-    //     await store.dispatch('setWalletNetwork', '')
-    //   }
-    //   // TODO: update token? balance, etc
-    // })
-    //
-    // provider.on('accountsChanged', () => {
-    //   // everything changes, easiest to reload
-    //   location.reload()
-    // })
   },
 })
 </script>

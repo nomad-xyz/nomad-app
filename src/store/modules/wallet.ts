@@ -11,6 +11,7 @@ import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
 import { tokens } from '@/config'
 import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
 import { getWalletProvider } from '@/utils/wallet'
+import { BigNumber } from 'ethers'
 
 export interface WalletState {
   connected: boolean
@@ -63,6 +64,26 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // enable session
     await provider.enable()
+
+    provider.on('chainChanged', async (chainId: number) => {
+      console.log('network change')
+      // get name of network and set in store
+      const id = BigNumber.from(chainId).toNumber()
+      const network = getNetworkByChainID(id)
+      if (network) {
+        // network supported, setting wallet network
+        await dispatch('setWalletNetwork', network.name)
+      } else {
+        // network not supported, clearing network
+        await dispatch('setWalletNetwork', '')
+      }
+      // TODO: update token? balance, etc
+    })
+
+    provider.on('accountsChanged', () => {
+      // everything changes, easiest to reload
+      location.reload()
+    })
 
     const signer = await provider.getSigner()
     const address = await signer.getAddress()

@@ -21,7 +21,8 @@ type Wallet = Partial<Record<string, unknown>> & {
   enable: () => Promise<void | string[]>
   request: (args: any) => Promise<any>
   getSigner: () => Promise<Signer>
-  ready: Promise<Record<string, unknown> & { chainId: number}>
+  ready: Promise<Record<string, unknown> & { chainId: number }>
+  on: (eventName: string, listener: any) => void
 }
 
 let wallet: Wallet
@@ -37,6 +38,12 @@ export async function getWalletProvider(walletType?: string): Promise<Wallet> {
     wallet = provider as any
     wallet.enable = ethereumEnable
     wallet.request = window.ethereum.request
+
+    // NOTE: Need to wrap this in a function for some reason
+    // just doing wallet.on = window.ethereum.on does not work
+    wallet.on = (evt: string, listener: () => void) => {
+      window.ethereum.on(evt, listener)
+    }
   } else if (walletType === WALLET.WALLETCONNECT) {
     provider = await getWalletConnectProvider()
 
