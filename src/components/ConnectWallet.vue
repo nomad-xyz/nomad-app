@@ -6,20 +6,18 @@
   >
     <div
       class="wallet-select flex align-center justify-between rounded-md bg-translucent m-2"
+      @click="handleMetamaskButtonClick"
     >
       <div class="w-full flex items-center justify-center">
         <img
-          src="@/assets/metamask-logo-2.svg"
+          src="@/assets/metamask-logo.svg"
           width="200"
         />
       </div>
         <!-- class="w-full" -->
       <div class="wallet-connect flex flex-col justify-center items-center">
         <div class="m-2">Metamask</div>
-        <nomad-button
-          primary
-          @click="handleMetamaskButtonClick"
-        >
+        <nomad-button primary>
           Connect
         </nomad-button>
       </div>
@@ -27,6 +25,7 @@
 
     <div
       class="wallet-select flex align-center justify-center rounded-md bg-translucent m-2"
+      @click="handleWalletConnectButtonClick"
     >
       <div class="bg-walletconnect rounded-md w-full flex items-center justify-center p-4 m-2">
         <img
@@ -37,10 +36,7 @@
       </div>
       <div class="wallet-connect flex flex-col justify-center items-center">
         <div class="m-2">Wallet Connect</div>
-        <nomad-button
-          primary
-          @click="handleWalletConnectButtonClick"
-        >
+        <nomad-button primary>
           Connect
         </nomad-button>
       </div>
