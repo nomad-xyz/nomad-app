@@ -1,5 +1,6 @@
 import { getMetamaskProvider } from '@/utils/metamask'
 import { getWalletConnectProvider } from '@/utils/walletConnect'
+import { Signer } from 'ethers'
 import { Web3Provider } from '@ethersproject/providers'
 
 const ethereumEnable = async () => {
@@ -10,22 +11,30 @@ const ethereumEnable = async () => {
 
 export const WALLET = {
   METAMASK: 'METAMASK',
-  WALLETCONNECT: 'WALLETCONNECT'
+  WALLETCONNECT: 'WALLETCONNECT',
 }
 
-let wallet: any = null
+// Not sure the best way to type this is yet
+// we use the shared methods between metamask (window.ethereum)
+// and ethersjs web3provider wrapped walletConnect
+type Wallet = Partial<Record<string, unknown>> & {
+  enable: () => Promise<void | string[]>
+  request: (args: any) => Promise<any>
+  getSigner: () => Promise<Signer>
+  ready: Promise<Record<string, unknown> & { chainId: number}>
+}
 
-export async function getWalletProvider(walletType?: string): Promise<any> {
+let wallet: Wallet
+
+export async function getWalletProvider(walletType?: string): Promise<Wallet> {
   if (wallet) return wallet
-  if (!wallet && !walletType) return
 
   let provider
 
-  console.log('walletType', walletType)
-
   if (walletType === WALLET.METAMASK) {
     provider = await getMetamaskProvider()
-    wallet = provider
+
+    wallet = provider as any
     wallet.enable = ethereumEnable
     wallet.request = window.ethereum.request
   } else if (walletType === WALLET.WALLETCONNECT) {
@@ -34,12 +43,12 @@ export async function getWalletProvider(walletType?: string): Promise<any> {
     // wallet connect provider does not have the web3 provider functions
     const web3Provider = new Web3Provider(provider)
 
-    wallet = web3Provider
+    wallet = web3Provider as any
     wallet.enable = provider.enable
     wallet.request = provider.request
   }
 
-  console.log('wallet', wallet)
+  console.log('getWalletProvider', wallet)
 
   return wallet
 }

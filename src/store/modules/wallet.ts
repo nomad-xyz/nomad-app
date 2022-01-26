@@ -86,7 +86,6 @@ const actions = <ActionTree<WalletState, RootState>>{
     // wallet connected
     commit(types.SET_WALLET_CONNECTION, true)
 
-    // return provider for convenience
     return provider
   },
 
