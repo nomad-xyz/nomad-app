@@ -52,7 +52,7 @@ import { defineComponent } from 'vue'
 import { NCard } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import { useStore } from '@/store'
-import { WALLET } from '@/utils/wallet'
+import { WalletType } from '@/utils/wallet'
 
 export default defineComponent({
   components: {
@@ -75,7 +75,7 @@ export default defineComponent({
       this.disableWalletConnectButton = true
 
       try {
-        await this.store.dispatch('connectWallet', WALLET.WALLETCONNECT)
+        await this.store.dispatch('connectWallet', WalletType.WalletConnect)
       } catch (error) {
         // TODO: determine how we want to handle connect wallet errors
         console.log('connect wallet error', error)
@@ -88,7 +88,7 @@ export default defineComponent({
       this.disableMetamaskButton = true
 
       try {
-        await this.store.dispatch('connectWallet', WALLET.METAMASK)
+        await this.store.dispatch('connectWallet', WalletType.Metamask)
       } catch (error) {
         // TODO: determine how we want to handle metamask errors
         console.log('metamask error', error)

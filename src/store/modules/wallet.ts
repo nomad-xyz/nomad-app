@@ -10,13 +10,13 @@ import { fromBytes32, getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
 import { tokens } from '@/config'
 import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
-import { getWalletProvider } from '@/utils/wallet'
+import { getWalletProvider, WalletType } from '@/utils/wallet'
 import { BigNumber } from 'ethers'
 
 export interface WalletState {
   connected: boolean
   address: string
-  type: string
+  type: WalletType | undefined
 }
 
 type TokenPayload = {
@@ -27,7 +27,7 @@ type TokenPayload = {
 const state = (): WalletState => ({
   connected: false,
   address: localStorage.getItem('wallet_address') || '',
-  type: ''
+  type: undefined,
 })
 
 const mutations = <MutationTree<WalletState>>{
@@ -42,15 +42,15 @@ const mutations = <MutationTree<WalletState>>{
     localStorage.setItem('wallet_address', address)
   },
 
-  [types.SET_WALLET_TYPE](state: WalletState, type: string) {
+  [types.SET_WALLET_TYPE](state: WalletState, type: WalletType) {
     console.log('{dispatch} set wallet type: ', type)
     state.type = type
-    localStorage.setItem('wallet_type', type)
+    localStorage.setItem('wallet_type', `${type}`)
   },
 }
 
 const actions = <ActionTree<WalletState, RootState>>{
-  async connectWallet({ dispatch, commit, state}, walletType?: string) {
+  async connectWallet({ dispatch, commit, state}, walletType?: WalletType) {
     // check if already connected
     if (state.connected) {
       console.log('already connected to wallet')

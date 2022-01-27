@@ -9,9 +9,9 @@ const ethereumEnable = async () => {
   await ethereum.request({ method: 'eth_requestAccounts' })
 }
 
-export const WALLET = {
-  METAMASK: 'METAMASK',
-  WALLETCONNECT: 'WALLETCONNECT',
+export enum WalletType {
+  Metamask = 0,
+  WalletConnect = 1,
 }
 
 // Not sure the best way to type this is yet
@@ -27,12 +27,12 @@ type Wallet = Partial<Record<string, unknown>> & {
 
 let wallet: Wallet
 
-export async function getWalletProvider(walletType?: string): Promise<Wallet> {
+export async function getWalletProvider(walletType?: WalletType): Promise<Wallet> {
   if (wallet) return wallet
 
   let provider: any
 
-  if (walletType === WALLET.METAMASK) {
+  if (walletType === WalletType.Metamask) {
     provider = await getMetamaskProvider()
 
     wallet = provider as any
@@ -44,7 +44,7 @@ export async function getWalletProvider(walletType?: string): Promise<Wallet> {
     wallet.on = (evt: string, listener: () => void) => {
       window.ethereum.on(evt, listener)
     }
-  } else if (walletType === WALLET.WALLETCONNECT) {
+  } else if (walletType === WalletType.WalletConnect) {
     provider = await getWalletConnectProvider()
 
     // wallet connect provider does not have the web3 provider functions
