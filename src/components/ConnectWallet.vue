@@ -1,19 +1,18 @@
 <template>
   <n-modal :show="showConnectWalletModal" @maskClick="closeConnectWalletModal">
     <n-card
-      style="width: 95%; max-width: 450px; background-color: #2F2F2F;"
+      style="width: 95%; max-width: 450px; background-color: #2f2f2f"
       class="rounded-md"
       size="small"
     >
       <div
         class="wallet-select flex align-center justify-between rounded-md bg-translucent m-2"
-        @click="metamaskInstalled() ? handleMetamaskButtonClick() : installMetamask()"
+        @click="
+          metamaskInstalled() ? handleMetamaskButtonClick() : installMetamask()
+        "
       >
         <div class="w-full flex items-center justify-center">
-          <img
-            src="@/assets/metamask-logo.svg"
-            width="200"
-          />
+          <img src="@/assets/metamask-logo.svg" width="200" />
         </div>
         <div class="wallet-connect flex flex-col justify-center items-center">
           <div class="m-2">Metamask</div>
@@ -27,7 +26,9 @@
         class="wallet-select flex align-center justify-center rounded-md bg-translucent m-2"
         @click="handleWalletConnectButtonClick"
       >
-        <div class="bg-walletconnect rounded-md w-full flex items-center justify-center p-4 m-2">
+        <div
+          class="bg-walletconnect rounded-md w-full flex items-center justify-center p-4 m-2"
+        >
           <img
             src="@/assets/walletconnect-logo.svg"
             width="200"
@@ -36,9 +37,7 @@
         </div>
         <div class="wallet-connect flex flex-col justify-center items-center">
           <div class="m-2">Wallet Connect</div>
-          <nomad-button primary>
-            Connect
-          </nomad-button>
+          <nomad-button primary>Connect</nomad-button>
         </div>
       </div>
     </n-card>
@@ -58,7 +57,7 @@ export default defineComponent({
     NCard,
     NomadButton,
   },
-  data: () =>  ({
+  data: () => ({
     disableMetamaskButton: false,
     disableWalletConnectButton: false,
   }),
@@ -66,7 +65,9 @@ export default defineComponent({
     const store = useStore()
 
     return {
-      showConnectWalletModal: computed(() => store.state.wallet.showConnectWalletModal),
+      showConnectWalletModal: computed(
+        () => store.state.wallet.showConnectWalletModal
+      ),
       store,
     }
   },

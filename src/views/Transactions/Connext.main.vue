@@ -92,7 +92,7 @@ export default defineComponent({
       pagination: {
         pageSize: 5,
       },
-      pollActiveTxs: null
+      pollActiveTxs: null,
     } as ComponentData
   },
 

@@ -14,7 +14,7 @@
           v-for="token in tokens"
           :key="token.symbol"
           class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
-          :class="{ 'disabled': shouldSwitchToNative(token) }"
+          :class="{ disabled: shouldSwitchToNative(token) }"
           @click="select(token)"
         >
           <div class="flex flex-row items-center">

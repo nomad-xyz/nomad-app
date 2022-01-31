@@ -27,7 +27,9 @@ type Wallet = Partial<Record<string, unknown>> & {
 
 let wallet: Wallet | undefined
 
-export async function getWalletProvider(walletType?: WalletType): Promise<Wallet> {
+export async function getWalletProvider(
+  walletType?: WalletType
+): Promise<Wallet> {
   if (wallet) return wallet
 
   let provider: any

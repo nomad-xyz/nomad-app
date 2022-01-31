@@ -187,7 +187,7 @@ export const connextConfig: SdkBaseChainConfigParams = {
   },
 }
 
-export const walletConnectRPCConfig: Record<number, string>  = {
+export const walletConnectRPCConfig: Record<number, string> = {
   1: 'https://eth-mainnet.alchemyapi.io/v2/rud551ngiIel2fRYbWmsnhwAE1FGgCLG',
-  1284: 'https://moonbeam.api.onfinality.io/rpc?apikey=499ab348-13c8-4f4e-bebd-ce2af1141d74'
+  1284: 'https://moonbeam.api.onfinality.io/rpc?apikey=499ab348-13c8-4f4e-bebd-ce2af1141d74',
 }

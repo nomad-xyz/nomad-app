@@ -151,7 +151,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async registerSigner({ commit }, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
-    const provider = await getWalletProvider();
+    const provider = await getWalletProvider()
     const newSigner = await provider.getSigner()
 
     nomad.clearSigners()
