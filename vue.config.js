@@ -7,6 +7,8 @@ module.exports = {
         process: 'process/browser',
       }),
     ],
+    transpileDependencies: true,
+    devTool: 'source-map',
   }),
   // options...
   devServer: {
