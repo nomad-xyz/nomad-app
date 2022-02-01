@@ -190,7 +190,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     domainID: 8000,
     nativeToken: tokens.wADA,
     rpcUrl:
-      'http://use-util.cloud.milkomeda.com:8545',
+      'https://use-util.cloud.milkomeda.com:8555',
     blockExplorer: 'http://use-util.cloud.milkomeda.com:4000',
     icon: wADAIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
