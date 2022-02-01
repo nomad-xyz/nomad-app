@@ -7,12 +7,11 @@ module.exports = {
         process: 'process/browser',
       }),
     ],
-    transpileDependencies: true,
-    devTool: 'source-map',
   }),
   // options...
   devServer: {
     proxy: 'http://localhost:8080/',
   },
+  devTool: 'source-map',
   transpileDependencies: ['@sinclair/typebox'],
 }
