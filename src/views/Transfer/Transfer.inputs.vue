@@ -155,7 +155,7 @@ export default defineComponent({
   props: {
     connextAvail: {
       type: Boolean,
-    }
+    },
   },
   components: {
     NText,
@@ -226,8 +226,8 @@ export default defineComponent({
       if (!this.destinationNetwork) return false
       if (this.connextAvail) return true
       return this.destinationNetwork === hubNetwork.name
-    }
-  }
+    },
+  },
 })
 </script>
 

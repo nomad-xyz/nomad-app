@@ -21,15 +21,16 @@ export interface WalletState {
 }
 
 type TokenPayload = {
-  network: MainnetNetwork | TestnetNetwork,
+  network: MainnetNetwork | TestnetNetwork
   tokenId: TokenIdentifier
 }
 
 const state = (): WalletState => ({
   connected: false,
   address: localStorage.getItem('wallet_address') || '',
-  type: (localStorage.getItem('wallet_type') as unknown as WalletType) || undefined,
-  showConnectWalletModal: false
+  type:
+    (localStorage.getItem('wallet_type') as unknown as WalletType) || undefined,
+  showConnectWalletModal: false,
 })
 
 const mutations = <MutationTree<WalletState>>{
@@ -50,14 +51,23 @@ const mutations = <MutationTree<WalletState>>{
     localStorage.setItem('wallet_type', `${type}`)
   },
 
-  [types.SET_SHOW_CONNECT_WALLET_MODAL](state: WalletState, showConnectWalletModal: boolean) {
-    console.log('{dispatch} set show connect wallet modal: ', showConnectWalletModal)
+  [types.SET_SHOW_CONNECT_WALLET_MODAL](
+    state: WalletState,
+    showConnectWalletModal: boolean
+  ) {
+    console.log(
+      '{dispatch} set show connect wallet modal: ',
+      showConnectWalletModal
+    )
     state.showConnectWalletModal = showConnectWalletModal
   },
 }
 
 const actions = <ActionTree<WalletState, RootState>>{
-  async connectWallet({ dispatch, commit, state, rootState }, walletType?: WalletType) {
+  async connectWallet(
+    { dispatch, commit, state, rootState },
+    walletType?: WalletType
+  ) {
     // check if already connected
     if (state.connected) {
       console.log('already connected to wallet')
@@ -72,7 +82,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     // enable session
     try {
       await provider.enable()
-    } catch(e) {
+    } catch (e) {
       resetWallet()
       localStorage.removeItem('wallet_type')
       console.error(e)
@@ -101,7 +111,8 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // set network, if supported
     const { chainId } = await provider.ready
-    const network = rootState.userInput.originNetwork || getNetworkByChainID(chainId)?.name
+    const network =
+      rootState.userInput.originNetwork || getNetworkByChainID(chainId)?.name
     if (network) {
       dispatch('setWalletNetwork', network)
     } else {
@@ -153,7 +164,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
   async switchNetwork({ dispatch, state }, networkName: string) {
     console.log('set wallet network:')
-    let provider; 
+    let provider
 
     const network = networks[networkName]
     const hexChainId = '0x' + network.chainID.toString(16)
@@ -219,7 +230,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     const { address } = await rootGetters.resolveRepresentation(
       payload.network,
-      payload.tokenId,
+      payload.tokenId
     )
 
     let token
@@ -244,9 +255,9 @@ const actions = <ActionTree<WalletState, RootState>>{
         },
       },
     })
-  
+
     return !!wasAdded
-  }
+  },
 }
 
 export default {
