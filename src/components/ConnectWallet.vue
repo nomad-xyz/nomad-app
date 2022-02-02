@@ -36,7 +36,7 @@
           />
         </div>
         <div class="wallet-connect flex flex-col justify-center items-center">
-          <div class="m-2">Wallet Connect</div>
+          <div class="m-2">WalletConnect</div>
           <nomad-button primary>Connect</nomad-button>
         </div>
       </div>
