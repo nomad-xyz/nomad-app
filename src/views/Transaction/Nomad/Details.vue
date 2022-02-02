@@ -19,21 +19,30 @@
     </div>
 
     <detail title="AMOUNT">
-      <n-text v-if="amount" class="flex flex-row">
-        <span>{{ amount }} {{ tokenSymbol }}</span>
-        <span
-          class="opacity-70 flex flex-row ml-2 cursor-pointer"
-          @click="addToken"
-        >
-          add
-          <img
-            src="@/assets/icons/arrow-right-up.svg"
-            alt="open"
-            class="opacity-70"
-          />
-        </span>
-      </n-text>
-      <n-text v-else>{{ nullVal }}</n-text>
+      <n-tooltip
+        trigger="hover"
+        placement="right"
+        :style="{ padding: '0 5px 3px 5px' }"
+      >
+        <template #trigger>
+          <n-text v-if="amount" class="inline-flex flex-row cursor-pointer">
+            <span>{{ amount }} {{ tokenSymbol }}</span>
+            <span
+              class="opacity-70 flex flex-row ml-2"
+              @click="addToken"
+            >
+              add
+              <img
+                src="@/assets/icons/arrow-right-up.svg"
+                alt="open"
+                class="opacity-70"
+              />
+            </span>
+          </n-text>
+          <n-text v-else>{{ nullVal }}</n-text>
+        </template>
+        add token details to wallet
+      </n-tooltip>
     </detail>
     <detail :title="`ORIGIN: ${$route.params.network.toUpperCase()}`">
       <copy-hash v-if="originAddr" :address="originAddr" />
@@ -71,7 +80,7 @@
 import { defineComponent } from 'vue'
 import { utils, BigNumber } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk/nomad'
-import { NText, NDivider } from 'naive-ui'
+import { NText, NDivider, NTooltip } from 'naive-ui'
 
 import { useStore } from '@/store'
 import { truncateAddr, fromBytes32 } from '@/utils'
@@ -101,6 +110,7 @@ export default defineComponent({
     Detail,
     NText,
     NDivider,
+    NTooltip,
     CopyHash,
   },
 
