@@ -42,12 +42,14 @@
             <a
               href="https://docs.nomad.xyz/bridge/nomad-gui.html"
               target="_blank"
-              class="flex flex-row items-center cursor-pointer mr-2"
+              class="flex flex-row items-center cursor-pointer mr-2 underline"
             >
               <n-text>Fast bridging with Connext</n-text>
-              <n-icon size="17" class="ml-1">
-                <help-circle-outline />
-              </n-icon>
+              <img
+                src="@/assets/icons/arrow-right-up.svg"
+                alt="open"
+                class="opacity-70"
+              />
             </a>
             <n-switch
               :value="!connextDisabled"
@@ -81,7 +83,7 @@
 import { defineComponent, computed } from 'vue'
 import { truncateAddr } from '@/utils'
 import { NText, NIcon, NTooltip, NSwitch, NDivider } from 'naive-ui'
-import { ChevronDown, HelpCircleOutline } from '@vicons/ionicons5'
+import { ChevronDown } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
 import ConnectWallet from '@/components/ConnectWallet.vue'
 import { useStore } from '@/store'
@@ -95,7 +97,6 @@ export default defineComponent({
     NSwitch,
     NDivider,
     ChevronDown,
-    HelpCircleOutline,
     NomadButton,
     ConnectWallet,
   },
