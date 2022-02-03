@@ -59,8 +59,8 @@
     class="text-center text-red-500 flex flex-col"
   >
     <span
-      v-for="(error, index) of v$.amt.$errors"
-      :key="index"
+      v-for="error of v$.amt.$errors"
+      :key="error.$message"
       class="error-msg"
       >{{ error.$message }}</span
     >
@@ -78,7 +78,7 @@ import { defineComponent, computed } from 'vue'
 import { NText, NTooltip } from 'naive-ui'
 import { utils, BigNumber } from 'ethers'
 import useVuelidate from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { helpers } from '@vuelidate/validators'
 
 import { useStore } from '@/store'
 import { getMinAmount, toDecimals } from '@/utils'
@@ -125,7 +125,16 @@ export default defineComponent({
   validations() {
     return {
       amt: {
-        required: helpers.withMessage('Enter an amount to bridge', required),
+        required: helpers.withMessage(
+          'Enter an amount to bridge',
+          // if there is a token selected, but not an amount or if the amount is 0
+          () => {
+            // console.log('this.balance', this.balance, this.balance!.isZero())
+            if (!this.token.symbol) return true
+            if (this.balance && this.balance.isZero()) return true
+            return !!this.amt
+          }
+        ),
         noToken: helpers.withMessage(
           'No token selected',
           () => !!this.token.symbol
@@ -181,6 +190,11 @@ export default defineComponent({
       }
       const amtInUSD = (await getMinAmount(coinGeckoId)) * this.amt
       this.amtInUSD = amtInUSD.toFixed(2).toString()
+    },
+
+    // helper to be called by the parent component (see bridge() in Transfer.main)
+    async validate() {
+      return await this.v$.$validate()
     },
   },
   watch: {

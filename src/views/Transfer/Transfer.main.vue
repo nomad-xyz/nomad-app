@@ -4,7 +4,7 @@
     <!-- color blur section -->
     <div class="bridge pt-8 pb-28 px-5 relative">
       <bg-blur class="absolute inset-0 w-full h-full z-negative" />
-      <transfer-amount />
+      <transfer-amount ref="transferAmount" />
     </div>
 
     <!-- bridge inputs overlay -->
@@ -18,7 +18,7 @@
     <!-- bottom drawer -->
     <div class="drawer pt-24 pb-5 px-8">
       <transfer-pending v-if="sending || preparingSwap" />
-      <bridge-send v-else-if="!connextAvail" :v$="v$" />
+      <bridge-send v-else-if="!connextAvail" :v$="v$" :bridge="bridge" />
       <swap-send v-else :v$="v$" />
     </div>
   </div>
@@ -37,6 +37,13 @@ import TransferInputs from './Transfer.inputs.vue'
 import TransferPending from './Transfer.pending.vue'
 import BridgeSend from './Bridge/Bridge.send.vue'
 import SwapSend from './Swap/Swap.send.vue'
+import { useNotification } from 'naive-ui'
+import { utils } from 'ethers'
+import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
+
+interface TransferAmountInterface {
+  validate: () => Promise<boolean>
+}
 
 export default defineComponent({
   components: {
@@ -50,6 +57,7 @@ export default defineComponent({
 
   setup: () => {
     const store = useStore()
+    const notification = useNotification()
 
     // contains validation scope, collects validations from children components but does not emit up to parent
     const v$ = useVuelidate({
@@ -61,6 +69,7 @@ export default defineComponent({
       sending: computed(() => store.state.sdk.sending),
       preparingSwap: computed(() => store.state.connext.preparingSwap),
       userInput: computed(() => store.state.userInput),
+      notification,
       store,
       v$,
     }
@@ -70,6 +79,61 @@ export default defineComponent({
     return {
       connextAvail: false,
     }
+  },
+
+  methods: {
+    // use Nomad to bridge tokens
+    async bridge() {
+      // validate component inputs and child inputs, return if invalid
+      const childInputsValid = await (
+        this.$refs.transferAmount as TransferAmountInterface
+      ).validate()
+      const inputsValid = await this.v$.$validate()
+      if (!inputsValid && !childInputsValid) return
+
+      const {
+        sendAmount,
+        token,
+        destinationAddress,
+        originNetwork,
+        destinationNetwork,
+      } = this.userInput
+
+      // using dynamic import here to prevent circular dependency
+      const { networks } = await import('@/config')
+
+      // set signer
+      this.store.dispatch('registerSigner', networks[originNetwork])
+
+      // set up for tx
+      const payload = {
+        isNative: isNativeToken(originNetwork, token),
+        originNetwork: getNetworkDomainIDByName(originNetwork),
+        destNetwork: getNetworkDomainIDByName(destinationNetwork),
+        asset: token.tokenIdentifier,
+        amnt: utils.parseUnits(sendAmount.toString(), token.decimals),
+        recipient: destinationAddress,
+      }
+
+      // send tx
+      // null if not successful
+      const transferMessage = await this.store.dispatch('send', payload)
+
+      // handle tx success/error
+      if (transferMessage) {
+        console.log('transferMessage', transferMessage)
+        const txHash = transferMessage.receipt.transactionHash
+        this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
+        this.store.dispatch('clearInputs')
+      } else {
+        // TODO: better error
+        this.notification.warning({
+          title: 'Transaction send failed',
+          content:
+            'We encountered an error while dispatching your transaction.',
+        })
+      }
+    },
   },
 
   watch: {

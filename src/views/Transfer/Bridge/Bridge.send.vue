@@ -62,10 +62,8 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { NText, NDivider, useNotification } from 'naive-ui'
-import { utils } from 'ethers'
 import { networks, BUFFER_CONFIRMATION_TIME_IN_MINUTES } from '@/config'
 import { useStore } from '@/store'
-import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
 import NomadButton from '@/components/Button.vue'
 
 export default defineComponent({
@@ -77,6 +75,10 @@ export default defineComponent({
   props: {
     v$: {
       type: Object,
+      required: true,
+    },
+    bridge: {
+      type: Function,
       required: true,
     },
   },
@@ -99,55 +101,6 @@ export default defineComponent({
       notification,
       store,
     }
-  },
-
-  methods: {
-    // use Nomad to bridge tokens
-    async bridge() {
-      // validate inputs, return if invalid
-      const inputsValid = await this.v$.$validate()
-      if (!inputsValid) return
-
-      const {
-        sendAmount,
-        token,
-        destinationAddress,
-        originNetwork,
-        destinationNetwork,
-      } = this.userInput
-
-      // set signer
-      this.store.dispatch('registerSigner', networks[originNetwork])
-
-      // set up for tx
-      const payload = {
-        isNative: isNativeToken(originNetwork, token),
-        originNetwork: getNetworkDomainIDByName(originNetwork),
-        destNetwork: getNetworkDomainIDByName(destinationNetwork),
-        asset: token.tokenIdentifier,
-        amnt: utils.parseUnits(sendAmount.toString(), token.decimals),
-        recipient: destinationAddress,
-      }
-
-      // send tx
-      // null if not successful
-      const transferMessage = await this.store.dispatch('send', payload)
-
-      // handle tx success/error
-      if (transferMessage) {
-        console.log('transferMessage', transferMessage)
-        const txHash = transferMessage.receipt.transactionHash
-        this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
-        this.store.dispatch('clearInputs')
-      } else {
-        // TODO: better error
-        this.notification.warning({
-          title: 'Transaction send failed',
-          content:
-            'We encountered an error while dispatching your transaction.',
-        })
-      }
-    },
   },
 })
 </script>
