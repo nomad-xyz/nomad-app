@@ -109,7 +109,18 @@
       <div v-if="claimGasFee" class="flex flex-row justify-between">
         <n-text class="opacity-50">Gas Fee</n-text>
         <div>
-          <n-tag type="info" round>Paid on claim</n-tag>
+          <a
+            href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
+            target="_blank"
+            class="flex align-center underline"
+          >
+            Paid on claim
+            <img
+              src="@/assets/icons/arrow-right-up.svg"
+              alt="open"
+              class="opacity-70"
+            />
+          </a>
         </div>
       </div>
     </div>
@@ -133,7 +144,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { NText, NDivider, NButton, NTag } from 'naive-ui'
+import { NText, NDivider, NButton } from 'naive-ui'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
@@ -159,7 +170,6 @@ export default defineComponent({
   },
   components: {
     NText,
-    NTag,
     NDivider,
     NButton,
     NetworkSelect,
