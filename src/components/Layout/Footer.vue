@@ -93,6 +93,10 @@ export default defineComponent({
         href: 'https://github.com/nomad-xyz/nomad-monorepo',
         label: 'GitHub',
       },
+      {
+        href: 'https://discord.gg/pqd4p9Mnre',
+        label: 'Support',
+      },
     ],
     legals: [
       {

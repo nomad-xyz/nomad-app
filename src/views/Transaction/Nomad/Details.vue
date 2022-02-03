@@ -164,11 +164,15 @@ export default defineComponent({
       this.amount = await utils.formatUnits(amountBN, tokenDecimals)
     }
     // status
-    await this.getStatus(message)
+    try {
+      await this.getStatus(message)
+    } catch(e) {
+      console.error(e)
+    }
 
-    setInterval(() => {
+    setInterval(async() => {
       if (this.status < 3) {
-        this.getStatus(message)
+        await this.getStatus(message)
       }
     }, 30000)
   },

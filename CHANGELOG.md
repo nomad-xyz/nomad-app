@@ -6,9 +6,21 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - add token to metamask from tx details
+- support wallet connect
+
+v1.0.7 (Feb 3rd, 2022) [HOTFIX]
+--------------------------------
+- bump sdk from v1.2.5 -> v1.3.2
+
+v1.0.6 (Jan 28th, 2022)
+--------------------------------
+- fix status poll
+- bump sdk from v1.2.4 -> v1.2.5
+
+v1.0.5 (Jan 24th, 2022)
+--------------------------------
 - support hub and spoke on network select UI
 - support 3 testnets
-- support wallet connect
 
 v1.0.4 (Jan 21st, 2022)
 --------------------------------

@@ -156,7 +156,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     domainID: 1650811245,
     rpcUrl:
       'https://moonbeam-api.us-east-1.bwarelabs.com/5dc337ad-29bc-4ccc-be11-c505107d2838',
-    nativeToken: tokens.WGLMR,
+    nativeToken: tokens.GLMR,
     blockExplorer: 'https://blockscout.moonbeam.network',
     icon: DEVIcon,
     confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
