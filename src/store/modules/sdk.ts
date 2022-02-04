@@ -63,7 +63,7 @@ export interface SDKState {
 const state: SDKState = {
   balance: null,
   sending: false,
-  blacklist: new Set([5000]),
+  blacklist: new Set(),
 }
 
 const mutations = <MutationTree<SDKState>>{
@@ -96,11 +96,10 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('checkFailedHomes')
   },
 
-  async checkFailedHomes({ state, commit }) {
+  async checkFailedHomes({ commit }) {
     await nomad.checkHomes(Object.keys(networks))
     const blacklist = nomad.blacklist()
-    console.log(blacklist)
-    // commit(types.SET_BLACKLIST, blacklist)
+    commit(types.SET_BLACKLIST, blacklist)
   },
 
   async getBalanceFromWallet({ rootState, commit }) {
