@@ -19,7 +19,7 @@ const WBTC: TokenIdentifier = {
 
 const USDC: TokenIdentifier = {
   domain: 'kovan',
-  id: '0xb7a4f3e9097c08da09517b5ab877f7a917224ede',
+  id: '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b',
 }
 
 const USDT: TokenIdentifier = {
