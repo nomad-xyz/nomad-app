@@ -18,7 +18,7 @@ const WBTC: TokenIdentifier = {
 }
 
 const USDC: TokenIdentifier = {
-  domain: 'kovan',
+  domain: 'rinkeby',
   id: '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b',
 }
 
