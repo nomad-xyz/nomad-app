@@ -15,9 +15,10 @@ export const SET_DESTINATION_NETWORK = 'userInput/SET_DESTINATION_NETWORK'
 export const SET_TOKEN = 'wallet/SET_WALLET_TOKEN'
 export const SET_GAS_EST = 'userInput/SET_GAS_EST'
 
-// multi-provider
-export const SET_BALANCE = 'mp/SET_BALANCE'
-export const SET_SENDING = 'mp/SET_SENDING'
+// sdk
+export const SET_BALANCE = 'sdk/SET_BALANCE'
+export const SET_SENDING = 'sdk/SET_SENDING'
+export const SET_BLACKLIST = 'sdk/SET_BLACKLIST'
 
 // transactions
 export const SET_TRANSACTION = 'transactions/SET_TRANSACTION'

@@ -125,7 +125,13 @@ export default defineComponent({
   validations() {
     return {
       amt: {
-        required: helpers.withMessage('Enter an amount to bridge', required),
+        required: helpers.withMessage(
+          'Enter an amount to bridge',
+          () => {
+            if (!this.amt) return false
+            return this.amt > 0
+          }
+        ),
         noToken: helpers.withMessage(
           'No token selected',
           () => !!this.token.symbol

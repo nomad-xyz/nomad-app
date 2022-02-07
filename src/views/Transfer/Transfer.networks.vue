@@ -63,14 +63,15 @@ export default defineComponent({
     const store = useStore()
 
     return {
-      networks: computed(() =>
-        props.isSelectingDestination
+      networks: computed(() => {
+        const activeNetworks = store.getters.activeNetworks()
+        return props.isSelectingDestination
           ? filterDestinationNetworks(
-              networks,
+              activeNetworks,
               store.state.userInput.originNetwork
             )
-          : networks
-      ),
+          : activeNetworks
+      }),
       title: computed(() =>
         props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT ORIGIN'
       ),
