@@ -8,8 +8,8 @@
         title="Under maintenance, temporarily unavailable:"
       >
         <span
-          v-for="(domain, i) in failedHomes"
-          :key="i"
+          v-for="domain in failedHomes"
+          :key="domain"
           class="capitalize mr-2"
         >
           {{ getNetworkByDomainID(domain).name }}
