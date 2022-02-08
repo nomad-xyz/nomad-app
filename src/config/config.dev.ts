@@ -195,7 +195,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     domainID: 8000,
     nativeToken: tokens.wADA,
     rpcUrl: VUE_APP_MILKOMEDA_RPC!,
-    blockExplorer: 'http://use-util.cloud.milkomeda.com:4000',
+    blockExplorer: 'https://rpc-proxy-partner-devnet.milkomeda.com/',
     icon: wADAIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
