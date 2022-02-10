@@ -146,10 +146,10 @@ export const tokens: { [key: string]: TokenMetadata } = {
     minAmt: 10,
     wrappedAsset: 'wADA',
   },
-  wwADA: {
+  wmilkADA: {
     nativeNetwork: 'milkomedatestnet',
-    symbol: 'wwADA',
-    name: 'wwADA',
+    symbol: 'wmilkADA',
+    name: 'wmilkADA',
     icon: wADAIcon,
     iconColors: ['#6684CD', '#0033AC'],
     decimals: 18,
