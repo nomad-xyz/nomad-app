@@ -129,9 +129,9 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: false,
     minAmt: 10,
   },
-  mADA: {
+  wADA: {
     nativeNetwork: 'milkomedatestnet',
-    symbol: 'mADA',
+    symbol: 'wADA',
     name: 'wADA',
     icon: wADAIcon,
     iconColors: ['#6684CD', '#0033AC'],
@@ -141,10 +141,10 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: true,
     minAmt: 10,
   },
-  wADA: {
+  milkADA: {
     nativeNetwork: 'milkomedatestnet',
-    symbol: 'wADA',
-    name: 'wADA',
+    symbol: 'milkADA',
+    name: 'milkADA',
     icon: wADAIcon,
     iconColors: ['#6684CD', '#0033AC'],
     decimals: 18,
