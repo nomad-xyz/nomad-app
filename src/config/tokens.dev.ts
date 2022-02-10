@@ -52,6 +52,11 @@ const wtEVMOS: TokenIdentifier = {
   id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
 }
 
+const wwADA: TokenIdentifier = {
+  domain: 'milkomedatestnet',
+  id: '0x6942F4eD908bF1F294e25497624ad228d178D54C',
+}
+
 export default {
   WETH,
   kWETH,
@@ -63,4 +68,5 @@ export default {
   TEST,
   wADA,
   wtEVMOS,
+  wwADA,
 }
