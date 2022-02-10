@@ -137,10 +137,7 @@ export const nullToken: TokenMetadata = {
   icon: '',
   decimals: 0,
   coinGeckoId: '',
-  tokenIdentifier: {
-    domain: '',
-    id: '',
-  },
+  tokenIdentifier: null,
   nativeOnly: false,
   minAmt: 0,
 }

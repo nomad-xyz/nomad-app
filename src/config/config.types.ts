@@ -15,7 +15,7 @@ export type TokenMetadata = {
   iconColors?: string[]
   decimals: number
   coinGeckoId: string
-  tokenIdentifier: TokenIdentifier
+  tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
   minAmt: number
 }

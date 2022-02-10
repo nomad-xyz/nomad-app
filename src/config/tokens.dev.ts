@@ -42,9 +42,14 @@ const TEST: TokenIdentifier = {
   id: '0xe71678794fff8846bff855f716b0ce9d9a78e844',
 }
 
-const wADA: TokenIdentifier = {
+// const wwADA: TokenIdentifier = {
+//   domain: 'milkomedatestnet',
+//   id: '0x1a40217B16E7329E27FDC9cED672e1F264e07Cc2',
+// }
+
+const wwADA: TokenIdentifier = {
   domain: 'milkomedatestnet',
-  id: '0x1a40217B16E7329E27FDC9cED672e1F264e07Cc2',
+  id: '0x6942F4eD908bF1F294e25497624ad228d178D54C',
 }
 
 export default {
@@ -56,5 +61,5 @@ export default {
   DAI,
   DEV,
   TEST,
-  wADA,
+  wwADA,
 }

@@ -115,7 +115,7 @@ const actions = <ActionTree<SDKState, RootState>>{
     const token = rootState.userInput.token
 
     let balance
-    if (token.tokenIdentifier.domain === networkName) {
+    if (token.nativeNetwork === networkName) {
       if (isNativeToken(networkName, token)) {
         console.log('getting native token balance')
         try {
@@ -127,6 +127,9 @@ const actions = <ActionTree<SDKState, RootState>>{
         }
       } else {
         console.log('getting balance of ERC20 token: ', token.name)
+        if (!token.tokenIdentifier) {
+          throw new Error('Native token, no token identifier')
+        }
         const provider = nomad.getProvider(network.name)
         try {
           balance = await getERC20Balance(
@@ -142,6 +145,9 @@ const actions = <ActionTree<SDKState, RootState>>{
       }
     } else {
       console.log('getting representational token balance')
+      if (!token.tokenIdentifier) {
+        throw new Error('Native token, no token identifier')
+      }
       try {
         balance = await getBalance(
           nomad,
