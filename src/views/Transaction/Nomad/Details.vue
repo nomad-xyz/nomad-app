@@ -71,7 +71,7 @@
 import { defineComponent } from 'vue'
 import { utils, BigNumber } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk/nomad'
-import { NText, NDivider } from 'naive-ui'
+import { NText, NDivider, useNotification } from 'naive-ui'
 
 import { useStore } from '@/store'
 import { truncateAddr, fromBytes32 } from '@/utils'
@@ -106,7 +106,11 @@ export default defineComponent({
 
   setup: () => {
     const store = useStore()
-    return { store }
+    const notification = useNotification()
+    return {
+      notification,
+      store,
+    }
   },
 
   data() {
@@ -198,7 +202,11 @@ export default defineComponent({
       }
       try {
         await this.store.dispatch('addToken', payload)
-      } catch (error) {
+      } catch (error: any) {
+        this.notification.warning({
+          title: 'Error adding token to Metamask',
+          content: error.message,
+        })
         console.error(error)
       }
     },

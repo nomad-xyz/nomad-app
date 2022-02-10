@@ -169,7 +169,7 @@ const actions = <ActionTree<WalletState, RootState>>{
       params: {
         type: 'ERC20',
         options: {
-          token: token.address,
+          address: token.address,
           symbol,
           decimals,
         },
