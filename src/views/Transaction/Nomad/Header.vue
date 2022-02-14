@@ -34,7 +34,8 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Return to this page once bridging is complete to collect your funds on <span class="capitalize">{{ hubNetwork.name }}</span>.
+    Return to this page once bridging is complete to collect your funds on
+    <span class="capitalize">{{ hubNetwork.name }}</span>.
     <a
       href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
       target="_blank"
@@ -55,7 +56,10 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Good news! Transfers to <span class="capitalize">{{ destinationNetwork }}</span> are subsidized, so funds will be deposited in your account automatically once bridging is complete.
+    Good news! Transfers to
+    <span class="capitalize">{{ destinationNetwork }}</span> are subsidized, so
+    funds will be deposited in your account automatically once bridging is
+    complete.
     <a
       href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
       target="_blank"
@@ -80,7 +84,9 @@
       v-else-if="readyToManualProcess"
     >
       <n-text class="mb-2 opacity-80 text-center">
-        Your funds have been bridged back to <span class="capitalize">{{ hubNetwork.name }}</span>! Please click below to submit a transaction to complete your transfer.
+        Your funds have been bridged back to
+        <span class="capitalize">{{ hubNetwork.name }}</span>!
+        Please click below to submit a transaction to complete your transfer.
       </n-text>
       <n-text
         @click="process"
