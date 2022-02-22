@@ -12,7 +12,11 @@ import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 import mainnetTokens from './tokens.main'
 import { TokenMetadata, NetworkMetadata } from './config.types'
 
-const { VUE_APP_ETHEREUM_RPC, VUE_APP_MOONBEAM_RPC } = process.env
+const {
+  VUE_APP_ETHEREUM_RPC,
+  VUE_APP_MOONBEAM_RPC,
+  VUE_APP_EVMOS_TESTNET_RPC,
+} = process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
   WBTC: {

@@ -4,6 +4,7 @@ import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import DEVIcon from '@/assets/token-logos/DEV.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
+import wEvmosIcon from '@/assets/token-logos/wEVMOS.jpeg'
 import ConnextIcon from '@/assets/icons/connext.svg'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
@@ -17,6 +18,7 @@ const {
   VUE_APP_KOVAN_RPC,
   VUE_APP_MOONBASEALPHA_RPC,
   VUE_APP_MILKOMEDA_RPC,
+  VUE_APP_EVMOS_TESTNET_RPC,
 } = process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
@@ -165,6 +167,18 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: false,
     minAmt: 10,
   },
+  wEVMOS: {
+    nativeNetwork: 'evmostestnet',
+    symbol: 'wEVMOS',
+    name: 'wEVMOS',
+    icon: wEvmosIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: testnetTokens.wEVMOS,
+    nativeOnly: true,
+    minAmt: 10,
+  },
 }
 
 // default confirmation time for dev, set on each network below
@@ -211,18 +225,16 @@ export const networks: { [key: string]: NetworkMetadata } = {
     icon: wADAIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
-  // TODO: re-add once evmos testnet has been added here (https://github.com/nomad-xyz/nomad-monorepo/blob/main/typescript/nomad-provider/src/nomad/domains/dev.ts)
-  // Currently will error otherwise.
-  // evmos: {
-  //   name: 'Evmos Testnet',
-  //   chainID: 9000,
-  //   domainID: 2000,
-  //   nativeToken: tokens.PHOTON,
-  //   rpcUrl: 'https://ethereum.rpc.evmos.dev',
-  //   blockExplorer: 'https://evm.evmos.org',
-  //   icon: wETHIcon, // TODO: update with correct icon
-  //   confirmationTimeInMinutes: 15,
-  // },
+  evmostestnet: {
+    name: 'evmostestnet',
+    chainID: 9000,
+    domainID: 9000,
+    nativeToken: tokens.wEVMOS,
+    rpcUrl: 'https://evmos-evm-rpc.tk/',
+    blockExplorer: 'https://evm.evmos.org',
+    icon: wETHIcon, // TODO: update with correct icon
+    confirmationTimeInMinutes: 15,
+  },
 }
 
 export const hubNetwork = networks.rinkeby
@@ -246,5 +258,9 @@ export const connextConfig: SdkBaseChainConfigParams = {
   1287: {
     // moonbasealpha
     providers: [VUE_APP_MOONBASEALPHA_RPC!],
+  },
+  9000: {
+    // evmos testnet
+    providers: [VUE_APP_EVMOS_TESTNET_RPC!]
   },
 }

@@ -6,6 +6,7 @@ export type TestnetNetwork =
   | 'moonbasealpha'
   | 'rinkeby'
   | 'milkomedatestnet'
+  | 'evmostestnet'
 
 export type TokenMetadata = {
   nativeNetwork: MainnetNetwork | TestnetNetwork
