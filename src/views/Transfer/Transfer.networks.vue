@@ -10,8 +10,8 @@
       <div
         v-for="network in networks"
         :key="network.name"
-        class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
-        @click="select(network)"
+        v-bind:class="networkClasses(network.isActive)"
+        @click="network.isActive ? false : select(network)"
       >
         <div class="bg-black bg-opacity-50 rounded-lg p-2">
           <img :src="network.icon" class="h-6" />
@@ -36,6 +36,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { NModal, NCard, NText, NButton } from 'naive-ui'
+import { isProduction } from '@/config'
 import { NetworkMetadata } from '@/config/config.types'
 import { filterDestinationNetworks } from '@/utils'
 import { useStore } from '@/store'
@@ -63,13 +64,49 @@ export default defineComponent({
 
     return {
       networks: computed(() => {
-        const activeNetworks = store.getters.activeNetworks()
-        return props.isSelectingDestination
-          ? filterDestinationNetworks(
+        const activeNetworks = store.getters.activeNetworks() 
+
+        // We want to show the inactive destination networks greyed out if in testnet.
+        // This is more a business request for partners to see other networks :p
+        if (isProduction) {
+          const networks = props.isSelectingDestination
+            ? filterDestinationNetworks(
               activeNetworks,
               store.state.userInput.originNetwork
             )
-          : activeNetworks
+            : activeNetworks
+          
+          // in prod, only show the filtered destination networks as active
+          return networks.map((n: NetworkMetadata) => ({ ...n, isActive: true }))
+        } else {
+          if (props.isSelectingDestination) {
+            return activeNetworks.map((n: NetworkMetadata) => ({ ...n, isActive: true }))
+          } else {
+            const activeDestinationNetworks = filterDestinationNetworks(
+              activeNetworks,
+              store.state.userInput.originNetwork
+            ).map((n) => ({
+              ...n,
+              isActive: true
+            }))
+
+            const activeNetworkIds = [
+              ...new Set(
+                activeDestinationNetworks.map((n: NetworkMetadata) => ({ name: n.name }))
+              )
+            ]
+
+            return activeDestinationNetworks.concat(
+              activeNetworks.filter((n: NetworkMetadata) => n.name in activeNetworkIds)
+            )
+          }
+        }
+      }),
+      networkClasses: computed((isActive: boolean) => {
+        const baseClasses = "flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+        return isActive
+          ?  baseClasses + ' bg-opacity-10'
+          : baseClasses
       }),
       title: computed(() =>
         props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT ORIGIN'
