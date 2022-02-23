@@ -52,7 +52,7 @@ const wmilkADA: TokenIdentifier = {
   id: '0x6942F4eD908bF1F294e25497624ad228d178D54C',
 }
 
-const wEVMOS: TokenIdentifier = {
+const wtEVMOS: TokenIdentifier = {
   domain: 'evmostestnet',
   id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C'
 }
@@ -67,6 +67,6 @@ export default {
   DEV,
   TEST,
   wADA,
-  wEVMOS,
+  wtEVMOS,
   wmilkADA,
 }

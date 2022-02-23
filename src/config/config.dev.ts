@@ -167,10 +167,10 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: false,
     minAmt: 10,
   },
-  EVMOS: {
+  tEVMOS: {
     nativeNetwork: 'evmostestnet',
-    symbol: 'EVMOS',
-    name: 'EVMOS',
+    symbol: 'tEVMOS',
+    name: 'tEVMOS',
     icon: wEvmosIcon,
     iconColors: ['#454545', '#000'],
     decimals: 18,
@@ -179,15 +179,15 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: true,
     minAmt: 10,
   },
-  wEVMOS: {
+  wtEVMOS: {
     nativeNetwork: 'evmostestnet',
-    symbol: 'wEVMOS',
-    name: 'wEVMOS',
+    symbol: 'wtEVMOS',
+    name: 'wtEVMOS',
     icon: wEvmosIcon,
     iconColors: ['#454545', '#000'],
     decimals: 18,
     coinGeckoId: 'evmos',
-    tokenIdentifier: testnetTokens.wEVMOS,
+    tokenIdentifier: testnetTokens.wtEVMOS,
     nativeOnly: false,
     minAmt: 10,
   },
@@ -241,7 +241,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     name: 'evmostestnet',
     chainID: 9000,
     domainID: 9000,
-    nativeToken: tokens.wEVMOS,
+    nativeToken: tokens.tEVMOS,
     rpcUrl: VUE_APP_EVMOS_TESTNET_RPC!,
     blockExplorer: 'https://evm.evmos.org',
     icon: wETHIcon, // TODO: update with correct icon
