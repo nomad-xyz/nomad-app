@@ -244,8 +244,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
     nativeToken: tokens.tEVMOS,
     rpcUrl: VUE_APP_EVMOS_TESTNET_RPC!,
     blockExplorer: 'https://evm.evmos.org',
-    icon: wETHIcon, // TODO: update with correct icon
-    confirmationTimeInMinutes: 15,
+    icon: wEvmosIcon, // TODO: update with correct icon
+    confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
 }
 
