@@ -6,6 +6,7 @@ import DEVIcon from '@/assets/token-logos/DEV.png'
 import WBTCIcon from '@/assets/token-logos/WBTC.png'
 import FRAXIcon from '@/assets/token-logos/FRAX.png'
 import FXSIcon from '@/assets/token-logos/FXS.png'
+import wADAIcon from '@/assets/token-logos/wADA.png'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 
@@ -15,7 +16,7 @@ import { TokenMetadata, NetworkMetadata } from './config.types'
 const {
   VUE_APP_ETHEREUM_RPC,
   VUE_APP_MOONBEAM_RPC,
-  VUE_APP_EVMOS_TESTNET_RPC,
+  VUE_APP_MILKOMEDA_RPC,
 } = process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
@@ -139,6 +140,42 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: false,
     minAmt: 10,
   },
+  milkADA: {
+    nativeNetwork: 'milkomeda',
+    symbol: 'milkADA',
+    name: 'milkADA',
+    icon: wADAIcon,
+    iconColors: ['#6684CD', '#0033AC'],
+    decimals: 18,
+    coinGeckoId: 'cardano',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    minAmt: 10,
+  },
+  wmilkADA: {
+    nativeNetwork: 'milkomeda',
+    symbol: 'wmilkADA',
+    name: 'wmilkADA',
+    icon: wADAIcon,
+    iconColors: ['#6684CD', '#0033AC'],
+    decimals: 18,
+    coinGeckoId: 'cardano',
+    tokenIdentifier: mainnetTokens.wmilkADA,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  wADA: {
+    nativeNetwork: 'milkomeda',
+    symbol: 'wADA',
+    name: 'wADA',
+    icon: wADAIcon,
+    iconColors: ['#6684CD', '#0033AC'],
+    decimals: 18,
+    coinGeckoId: 'cardano',
+    tokenIdentifier: mainnetTokens.wADA,
+    nativeOnly: false,
+    minAmt: 10,
+  },
 }
 
 // default confirmation time for prod, set on each network below
@@ -164,6 +201,16 @@ export const networks: { [key: string]: NetworkMetadata } = {
     blockExplorer: 'https://blockscout.moonbeam.network',
     icon: DEVIcon,
     confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
+  },
+  milkomeda: {
+    name: 'milkomeda',
+    chainID: 2001,
+    domainID: 0,
+    nativeToken: tokens.milkADA,
+    rpcUrl: VUE_APP_MILKOMEDA_RPC!,
+    blockExplorer: 'https://rpc.c1.milkomeda.com:4000',
+    icon: wADAIcon,
+    confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES
   },
 }
 

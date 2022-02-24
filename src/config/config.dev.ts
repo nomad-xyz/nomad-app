@@ -17,7 +17,7 @@ const {
   VUE_APP_RINKEBY_RPC,
   VUE_APP_KOVAN_RPC,
   VUE_APP_MOONBASEALPHA_RPC,
-  VUE_APP_MILKOMEDA_RPC,
+  VUE_APP_MILKOMEDA_TESTNET_RPC,
   VUE_APP_EVMOS_TESTNET_RPC,
 } = process.env
 
@@ -232,7 +232,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     chainID: 200101,
     domainID: 8000,
     nativeToken: tokens.milkADA,
-    rpcUrl: VUE_APP_MILKOMEDA_RPC!,
+    rpcUrl: VUE_APP_MILKOMEDA_TESTNET_RPC!,
     blockExplorer: 'http://use-util.cloud.milkomeda.com:4000',
     icon: wADAIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
