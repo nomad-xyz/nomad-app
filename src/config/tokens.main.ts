@@ -43,12 +43,12 @@ const WGLMR: TokenIdentifier = {
 
 const wADA: TokenIdentifier = {
   domain: 'milkomeda',
-  id: '',
+  id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
 const wmilkADA: TokenIdentifier = {
   domain: 'milkomeda',
-  id: '',
+  id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
 export default {
