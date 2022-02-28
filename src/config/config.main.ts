@@ -172,6 +172,7 @@ const PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES = 30
 export const networks: { [key: string]: NetworkMetadata } = {
   ethereum: {
     name: 'ethereum',
+    displayName: 'Ethereum',
     chainID: 1,
     domainID: 6648936,
     rpcUrl: VUE_APP_ETHEREUM_RPC!,
@@ -182,6 +183,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   },
   moonbeam: {
     name: 'moonbeam',
+    displayName: 'Moonbeam',
     chainID: 1284,
     domainID: 1650811245,
     rpcUrl: VUE_APP_MOONBEAM_RPC!,
@@ -192,6 +194,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   },
   milkomedac1: {
     name: 'milkomedac1',
+    displayName: 'Milkomeda C1',
     chainID: 2001,
     domainID: 25393,
     nativeToken: tokens.milkADA,

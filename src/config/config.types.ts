@@ -23,6 +23,7 @@ export type TokenMetadata = {
 
 export type NetworkMetadata = {
   name: MainnetNetwork | TestnetNetwork
+  displayName: string
   chainID: number // for metamask
   domainID: number // nomad domain ID
   rpcUrl: string

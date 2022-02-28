@@ -17,7 +17,7 @@
           <img :src="network.icon" class="h-6" />
         </div>
         <div class="flex flex-col ml-2">
-          <n-text class="capitalize">{{ network.name }}</n-text>
+          <n-text>{{ network.displayName }}</n-text>
         </div>
       </div>
       <!-- TODO: support secondary nomad-button and use here -->

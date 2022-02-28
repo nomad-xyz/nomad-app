@@ -18,7 +18,7 @@
         <n-text class="opacity-50">Origin</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base capitalize">
-            {{ originNetwork || 'Select Network' }}
+            {{ getDisplayName(originNetwork) }}
           </n-text>
           <img src="@/assets/icons/select.svg" class="ml-1" />
         </div>
@@ -64,7 +64,7 @@
         <n-text class="opacity-50">Destination</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base capitalize">
-            {{ destinationNetwork || 'Select Network' }}
+            {{ getDisplayName(destinationNetwork) }}
           </n-text>
           <img src="@/assets/icons/select.svg" class="ml-1" />
         </div>
@@ -230,6 +230,10 @@ export default defineComponent({
         return toDecimals(this.originGasFee, nativeToken.decimals - 9, 6)
       }
     },
+    getDisplayName(name: string) {
+      if (!name) return 'Select Network'
+      return networks[name].displayName
+    }
   },
   computed: {
     claimGasFee() {
