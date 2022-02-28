@@ -135,7 +135,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
   },
   milkADA: {
     nativeNetwork: 'milkomedatestnet',
-    symbol: 'milkADA',
+    symbol: 'mADA',
     name: 'milkADA',
     icon: wADAIcon,
     iconColors: ['#6684CD', '#0033AC'],
@@ -145,18 +145,6 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: true,
     minAmt: 10,
     wrappedAsset: 'wADA',
-  },
-  wmilkADA: {
-    nativeNetwork: 'milkomedatestnet',
-    symbol: 'wmilkADA',
-    name: 'wmilkADA',
-    icon: wADAIcon,
-    iconColors: ['#6684CD', '#0033AC'],
-    decimals: 18,
-    coinGeckoId: 'cardano',
-    tokenIdentifier: testnetTokens.wADA,
-    nativeOnly: false,
-    minAmt: 10,
   },
   wADA: {
     nativeNetwork: 'milkomedatestnet',
