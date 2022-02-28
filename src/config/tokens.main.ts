@@ -41,8 +41,8 @@ const WGLMR: TokenIdentifier = {
   id: '0xAcc15dC74880C9944775448304B263D191c6077F',
 }
 
-const wADA: TokenIdentifier = {
-  domain: 'milkomeda',
+const WADA: TokenIdentifier = {
+  domain: 'milkomedac1',
   id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
@@ -55,5 +55,5 @@ export default {
   FRAX,
   FXS,
   WGLMR,
-  wADA,
+  WADA,
 }
