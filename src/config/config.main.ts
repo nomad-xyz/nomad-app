@@ -170,7 +170,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     symbol: 'wSTR',
     name: 'wSTR',
     icon: WSTRIcon,
-    iconColors: ['#6684CD', '#0033AC'],
+    iconColors: ['#454545', '#000'],
     decimals: 18,
     coinGeckoId: 'wrapped-star',
     tokenIdentifier: mainnetTokens.WSTR,
