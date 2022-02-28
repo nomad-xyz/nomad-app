@@ -193,7 +193,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   milkomeda: {
     name: 'milkomeda',
     chainID: 2001,
-    domainID: 0,
+    domainID: 25393,
     nativeToken: tokens.milkADA,
     rpcUrl: VUE_APP_MILKOMEDA_RPC!,
     blockExplorer: 'https://rpc.c1.milkomeda.com:4000',
