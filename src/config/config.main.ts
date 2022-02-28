@@ -142,7 +142,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
   },
   milkADA: {
     nativeNetwork: 'milkomedac1',
-    symbol: 'milkADA',
+    symbol: 'mADA',
     name: 'milkADA',
     icon: wADAIcon,
     iconColors: ['#6684CD', '#0033AC'],
