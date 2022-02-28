@@ -46,11 +46,6 @@ const wADA: TokenIdentifier = {
   id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
-const wmilkADA: TokenIdentifier = {
-  domain: 'milkomeda',
-  id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
-}
-
 export default {
   WETH,
   WBTC,
@@ -61,5 +56,4 @@ export default {
   FXS,
   WGLMR,
   wADA,
-  wmilkADA
 }

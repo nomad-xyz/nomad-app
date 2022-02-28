@@ -152,18 +152,6 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: true,
     minAmt: 10,
   },
-  wmilkADA: {
-    nativeNetwork: 'milkomeda',
-    symbol: 'wmilkADA',
-    name: 'wmilkADA',
-    icon: wADAIcon,
-    iconColors: ['#6684CD', '#0033AC'],
-    decimals: 18,
-    coinGeckoId: 'cardano',
-    tokenIdentifier: mainnetTokens.wmilkADA,
-    nativeOnly: false,
-    minAmt: 10,
-  },
   wADA: {
     nativeNetwork: 'milkomeda',
     symbol: 'wADA',
