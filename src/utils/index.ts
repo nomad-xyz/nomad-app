@@ -60,7 +60,7 @@ export function toDecimals(
 
 // loops over list of networks to create select options (excluding fromNetwork)
 export function filterDestinationNetworks(
-  options: { [key: string]: NetworkMetadata },
+  options: NetworkMetadata[],
   originNetworkName: string
 ): NetworkMetadata[] {
   const originNetworkIsHub = isEthereumNetwork(originNetworkName)
@@ -71,6 +71,48 @@ export function filterDestinationNetworks(
         (option: NetworkMetadata) => option.name !== originNetworkName
       )
     : [hubNetwork]
+}
+
+export function formatNetworksForSelection(
+  activeNetworks: NetworkMetadata[],
+  isProduction: boolean,
+  isSelectingDestination: boolean,
+  originNetwork: string
+): (NetworkMetadata & { isActive: boolean })[] {
+  // We want to show the inactive destination networks greyed out if in testnet.
+  // This is more a business request for partners to see other networks :p
+  if (isProduction) {
+    const networks = isSelectingDestination
+      ? filterDestinationNetworks(activeNetworks, originNetwork)
+      : activeNetworks
+
+    // in prod, only show the filtered destination networks as active
+    return networks.map((n: NetworkMetadata) => ({ ...n, isActive: true }))
+  } else {
+    if (isSelectingDestination) {
+      const activeDestinationNetworks = filterDestinationNetworks(
+        activeNetworks,
+        originNetwork
+      ).map((n) => ({ ...n, isActive: true }))
+
+      // unique set of active network names
+      const activeNetworkNames = new Set(
+        activeDestinationNetworks.map((n: NetworkMetadata) => n.name)
+      )
+
+      // list of inactive destination networks (notice isActive is false)
+      const inactiveDestinationNetworks = activeNetworks
+        .filter((n: NetworkMetadata) => !activeNetworkNames.has(n.name))
+        .map((n: NetworkMetadata) => ({ ...n, isActive: false }))
+
+      return activeDestinationNetworks.concat(inactiveDestinationNetworks)
+    } else {
+      return activeNetworks.map((n: NetworkMetadata) => ({
+        ...n,
+        isActive: true,
+      }))
+    }
+  }
 }
 
 // NETWORK
