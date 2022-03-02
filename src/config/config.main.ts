@@ -142,7 +142,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     minAmt: 10,
   },
   milkADA: {
-    nativeNetwork: 'milkomedac1',
+    nativeNetwork: 'milkomedaC1',
     symbol: 'mADA',
     name: 'milkADA',
     icon: wADAIcon,
@@ -154,7 +154,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     minAmt: 10,
   },
   wADA: {
-    nativeNetwork: 'milkomedac1',
+    nativeNetwork: 'milkomedaC1',
     symbol: 'wADA',
     name: 'wADA',
     icon: wADAIcon,
@@ -205,8 +205,8 @@ export const networks: { [key: string]: NetworkMetadata } = {
     icon: DEVIcon,
     confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
-  milkomedac1: {
-    name: 'milkomedac1',
+  milkomedaC1: {
+    name: 'milkomedaC1',
     displayName: 'Milkomeda C1',
     chainID: 2001,
     domainID: 25393,

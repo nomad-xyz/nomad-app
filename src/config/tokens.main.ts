@@ -42,7 +42,7 @@ const WGLMR: TokenIdentifier = {
 }
 
 const WADA: TokenIdentifier = {
-  domain: 'milkomedac1',
+  domain: 'milkomedaC1',
   id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
