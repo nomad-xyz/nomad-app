@@ -7,6 +7,7 @@ import WBTCIcon from '@/assets/token-logos/WBTC.png'
 import FRAXIcon from '@/assets/token-logos/FRAX.png'
 import FXSIcon from '@/assets/token-logos/FXS.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
+import WSTRIcon from '@/assets/token-logos/WSTR.png'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 
@@ -161,6 +162,18 @@ export const tokens: { [key: string]: TokenMetadata } = {
     decimals: 18,
     coinGeckoId: 'cardano',
     tokenIdentifier: mainnetTokens.WADA,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  WSTR: {
+    nativeNetwork: 'ethereum',
+    symbol: 'wSTR',
+    name: 'wSTR',
+    icon: WSTRIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'wrapped-star',
+    tokenIdentifier: mainnetTokens.WSTR,
     nativeOnly: false,
     minAmt: 10,
   },

@@ -46,6 +46,11 @@ const WADA: TokenIdentifier = {
   id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
 }
 
+const WSTR: TokenIdentifier = {
+  domain: 'ethereum',
+  id: '0xf0dc76c22139ab22618ddfb498be1283254612b1',
+}
+
 export default {
   WETH,
   WBTC,
@@ -56,4 +61,5 @@ export default {
   FXS,
   WGLMR,
   WADA,
+  WSTR,
 }
