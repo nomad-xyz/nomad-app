@@ -64,7 +64,9 @@ export default defineComponent({
     return {
       networks: computed(() => store.getters.activeNetworks()),
       title: computed(() => {
-        return props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT ORIGIN'
+        return props.isSelectingDestination
+          ? 'SELECT DESTINATION'
+          : 'SELECT ORIGIN'
       }),
       store,
     }
@@ -74,7 +76,7 @@ export default defineComponent({
     otherNetwork() {
       const { originNetwork, destinationNetwork } = this.store.state.userInput
       return this.isSelectingDestination ? originNetwork : destinationNetwork
-    }
+    },
   },
 
   methods: {
@@ -101,11 +103,6 @@ export default defineComponent({
         return n.name === this.otherNetwork
       })
       return !connections.includes(network.name)
-    },
-    networkClasses(isActive: boolean) {
-      const baseClasses =
-        'flex flex-row items-center p-2 rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-5'
-      return isActive ? baseClasses : baseClasses + ' opacity-40'
     },
   },
 })
