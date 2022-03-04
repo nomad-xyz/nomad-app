@@ -186,6 +186,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   ethereum: {
     name: 'ethereum',
     displayName: 'Ethereum',
+    connections: ['moonbeam', 'milkomedaC1'],
     chainID: 1,
     domainID: 6648936,
     rpcUrl: VUE_APP_ETHEREUM_RPC!,
@@ -197,6 +198,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   moonbeam: {
     name: 'moonbeam',
     displayName: 'Moonbeam',
+    connections: ['ethereum'],
     chainID: 1284,
     domainID: 1650811245,
     rpcUrl: VUE_APP_MOONBEAM_RPC!,
@@ -208,6 +210,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   milkomedaC1: {
     name: 'milkomedaC1',
     displayName: 'Milkomeda C1',
+    connections: ['ethereum'],
     chainID: 2001,
     domainID: 25393,
     nativeToken: tokens.milkADA,

@@ -188,6 +188,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   rinkeby: {
     name: 'rinkeby',
     displayName: 'Rinkeby',
+    connections: ['kovan', 'moonbasealpha', 'milkomedatestnet', 'evmostestnet'],
     chainID: 4,
     domainID: 2000,
     nativeToken: tokens.ETH,
@@ -199,6 +200,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   kovan: {
     name: 'kovan',
     displayName: 'Kovan',
+    connections: ['rinkeby'],
     chainID: 42,
     domainID: 3000,
     nativeToken: tokens.kETH,
@@ -210,6 +212,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   moonbasealpha: {
     name: 'moonbasealpha',
     displayName: 'Moonbase Alpha',
+    connections: ['rinkeby'],
     chainID: 1287,
     domainID: 5000,
     nativeToken: tokens.DEV,
@@ -221,6 +224,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   milkomedatestnet: {
     name: 'milkomedatestnet',
     displayName: 'Milkomeda Testnet',
+    connections: ['rinkeby'],
     chainID: 200101,
     domainID: 8000,
     nativeToken: tokens.milkADA,
@@ -232,6 +236,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   evmostestnet: {
     name: 'evmostestnet',
     displayName: 'Evmos Testnet',
+    connections: ['rinkeby'],
     chainID: 9000,
     domainID: 9000,
     nativeToken: tokens.tEVMOS,
