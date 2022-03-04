@@ -211,17 +211,20 @@ export default defineComponent({
     }
   },
   methods: {
-    selectOriginNetwork(network: NetworkMetadata) {
+    selectOriginNetwork(network: NetworkMetadata, isActive: boolean) {
       this.v$.originNetwork.$touch()
       this.store.dispatch('switchNetwork', network.name)
-      this.store.dispatch('setDestinationNetwork', null)
-
+      if (!isActive) {
+        this.store.dispatch('setDestinationNetwork', null)
+      }
       this.showSelectOriginNetwork = false
     },
-    selectDestinationNetwork(network: NetworkMetadata) {
+    selectDestinationNetwork(network: NetworkMetadata, isActive: boolean) {
       this.v$.destinationNetwork.$touch()
       this.store.dispatch('setDestinationNetwork', network.name)
-
+      if (!isActive) {
+        this.store.dispatch('setOriginNetwork', null)
+      }
       this.showSelectDestinationNetwork = false
     },
     displayGasFee() {
@@ -233,7 +236,7 @@ export default defineComponent({
     getDisplayName(name: string) {
       if (!name) return 'Select Network'
       return networks[name].displayName
-    }
+    },
   },
   computed: {
     claimGasFee() {

@@ -59,60 +59,59 @@ export function toDecimals(
 }
 
 // loops over list of networks to create select options (excluding fromNetwork)
-export function filterDestinationNetworks(
+export function filterNetworks(
   options: NetworkMetadata[],
-  originNetworkName: string
+  originOrDestinationNetworkName: string
 ): NetworkMetadata[] {
-  const originNetworkIsHub = isEthereumNetwork(originNetworkName)
+  const networkIsHub = isEthereumNetwork(originOrDestinationNetworkName)
 
-  // otherwise, origin network is spoke so only show hub as an option
-  return originNetworkIsHub
+  return networkIsHub
     ? Object.values(options).filter(
-        (option: NetworkMetadata) => option.name !== originNetworkName
+        (option: NetworkMetadata) =>
+          option.name !== originOrDestinationNetworkName
       )
-    : [hubNetwork]
+    : // otherwise, other network is spoke so only show hub as an option
+      [hubNetwork]
 }
 
 export function formatNetworksForSelection(
   activeNetworks: NetworkMetadata[],
-  isProduction: boolean,
   isSelectingDestination: boolean,
-  originNetwork: string
+  originNetwork: string,
+  destinationNetwork: string
 ): (NetworkMetadata & { isActive: boolean })[] {
-  // We want to show the inactive destination networks greyed out if in testnet.
-  // This is more a business request for partners to see other networks :p
-  if (isProduction) {
-    const networks = isSelectingDestination
-      ? filterDestinationNetworks(activeNetworks, originNetwork)
-      : activeNetworks
+  // helper mapping functions to set all networks to active or inactive
+  const allNetworksAsActive = (n: NetworkMetadata) => ({ ...n, isActive: true })
+  const allNetworksAsInactive = (n: NetworkMetadata) => ({
+    ...n,
+    isActive: false,
+  })
 
-    // in prod, only show the filtered destination networks as active
-    return networks.map((n: NetworkMetadata) => ({ ...n, isActive: true }))
-  } else {
-    if (isSelectingDestination) {
-      const activeDestinationNetworks = filterDestinationNetworks(
-        activeNetworks,
-        originNetwork
-      ).map((n) => ({ ...n, isActive: true }))
-
-      // unique set of active network names
-      const activeNetworkNames = new Set(
-        activeDestinationNetworks.map((n: NetworkMetadata) => n.name)
-      )
-
-      // list of inactive destination networks (notice isActive is false)
-      const inactiveDestinationNetworks = activeNetworks
-        .filter((n: NetworkMetadata) => !activeNetworkNames.has(n.name))
-        .map((n: NetworkMetadata) => ({ ...n, isActive: false }))
-
-      return activeDestinationNetworks.concat(inactiveDestinationNetworks)
-    } else {
-      return activeNetworks.map((n: NetworkMetadata) => ({
-        ...n,
-        isActive: true,
-      }))
-    }
+  // if selecting a network, but the other hasn't been selected yet then show all networks as active
+  if (
+    (isSelectingDestination && !originNetwork) ||
+    (!isSelectingDestination && !destinationNetwork)
+  ) {
+    return activeNetworks.map(allNetworksAsActive)
   }
+
+  const filteredActiveNetworks = filterNetworks(
+    activeNetworks,
+    isSelectingDestination ? originNetwork : destinationNetwork
+  ).map(allNetworksAsActive)
+
+  // unique set of active network names
+  const activeNetworkNames = new Set(
+    filteredActiveNetworks.map((n: NetworkMetadata) => n.name)
+  )
+
+  // list of inactive networks (notice mapping all networks as inactive)
+  const inactiveNetworks = activeNetworks
+    .filter((n: NetworkMetadata) => !activeNetworkNames.has(n.name))
+    .map(allNetworksAsInactive)
+
+  // return all networks, active then inactive to show in the network modal
+  return filteredActiveNetworks.concat(inactiveNetworks)
 }
 
 // NETWORK

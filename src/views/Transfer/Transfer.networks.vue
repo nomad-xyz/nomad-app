@@ -11,7 +11,7 @@
         v-for="network in networks"
         :key="network.name"
         v-bind:class="networkClasses(network.isActive)"
-        @click="network.isActive && select(network)"
+        @click="select(network, network.isActive)"
       >
         <div class="bg-black bg-opacity-50 rounded-lg p-2">
           <img :src="network.icon" class="h-6" />
@@ -36,7 +36,6 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { NModal, NCard, NText, NButton } from 'naive-ui'
-import { isProduction } from '@/config'
 import { NetworkMetadata } from '@/config/config.types'
 import { formatNetworksForSelection } from '@/utils'
 import { useStore } from '@/store'
@@ -66,13 +65,11 @@ export default defineComponent({
       networks: computed(() => {
         const activeNetworks = store.getters.activeNetworks()
 
-        console.log('activeNetworks', activeNetworks)
-
         return formatNetworksForSelection(
           activeNetworks,
-          isProduction,
           props.isSelectingDestination,
-          store.state.userInput.originNetwork
+          store.state.userInput.originNetwork,
+          store.state.userInput.destinationNetwork
         )
       }),
       title: computed(() =>
@@ -82,14 +79,13 @@ export default defineComponent({
   },
 
   methods: {
-    select(network: NetworkMetadata) {
-      this.$emit('selectNetwork', network)
+    select(network: NetworkMetadata, isActive: boolean) {
+      this.$emit('selectNetwork', network, isActive)
     },
     networkClasses(isActive: boolean) {
-      const baseClasses = 'flex flex-row items-center p-2 rounded-lg'
-      return isActive
-        ? baseClasses + ' cursor-pointer hover:bg-white hover:bg-opacity-5'
-        : baseClasses + ' opacity-10 cursor-not-allowed'
+      const baseClasses =
+        'flex flex-row items-center p-2 rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-5'
+      return isActive ? baseClasses : baseClasses + ' opacity-40'
     },
   },
 })
