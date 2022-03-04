@@ -58,62 +58,6 @@ export function toDecimals(
   return decimal.slice(0, end)
 }
 
-// loops over list of networks to create select options (excluding fromNetwork)
-export function filterNetworks(
-  options: NetworkMetadata[],
-  originOrDestinationNetworkName: string
-): NetworkMetadata[] {
-  const networkIsHub = isEthereumNetwork(originOrDestinationNetworkName)
-
-  return networkIsHub
-    ? Object.values(options).filter(
-        (option: NetworkMetadata) =>
-          option.name !== originOrDestinationNetworkName
-      )
-    : // otherwise, other network is spoke so only show hub as an option
-      [hubNetwork]
-}
-
-export function formatNetworksForSelection(
-  activeNetworks: NetworkMetadata[],
-  isSelectingDestination: boolean,
-  originNetwork: string,
-  destinationNetwork: string
-): (NetworkMetadata & { isActive: boolean })[] {
-  // helper mapping functions to set all networks to active or inactive
-  const allNetworksAsActive = (n: NetworkMetadata) => ({ ...n, isActive: true })
-  const allNetworksAsInactive = (n: NetworkMetadata) => ({
-    ...n,
-    isActive: false,
-  })
-
-  // if selecting a network, but the other hasn't been selected yet then show all networks as active
-  if (
-    (isSelectingDestination && !originNetwork) ||
-    (!isSelectingDestination && !destinationNetwork)
-  ) {
-    return activeNetworks.map(allNetworksAsActive)
-  }
-
-  const filteredActiveNetworks = filterNetworks(
-    activeNetworks,
-    isSelectingDestination ? originNetwork : destinationNetwork
-  ).map(allNetworksAsActive)
-
-  // unique set of active network names
-  const activeNetworkNames = new Set(
-    filteredActiveNetworks.map((n: NetworkMetadata) => n.name)
-  )
-
-  // list of inactive networks (notice mapping all networks as inactive)
-  const inactiveNetworks = activeNetworks
-    .filter((n: NetworkMetadata) => !activeNetworkNames.has(n.name))
-    .map(allNetworksAsInactive)
-
-  // return all networks, active then inactive to show in the network modal
-  return filteredActiveNetworks.concat(inactiveNetworks)
-}
-
 // NETWORK
 
 /**

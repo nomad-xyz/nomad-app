@@ -7,9 +7,10 @@ export type TestnetNetwork =
   | 'rinkeby'
   | 'milkomedatestnet'
   | 'evmostestnet'
+export type NetworkName = MainnetNetwork | TestnetNetwork
 
 export type TokenMetadata = {
-  nativeNetwork: MainnetNetwork | TestnetNetwork
+  nativeNetwork: NetworkName
   symbol: string
   name: string
   icon: string
@@ -22,8 +23,9 @@ export type TokenMetadata = {
 }
 
 export type NetworkMetadata = {
-  name: MainnetNetwork | TestnetNetwork
+  name: NetworkName
   displayName: string
+  connections: NetworkName[]
   chainID: number // for metamask
   domainID: number // nomad domain ID
   rpcUrl: string
