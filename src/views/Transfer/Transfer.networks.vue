@@ -10,7 +10,8 @@
       <div
         v-for="network in networks"
         :key="network.name"
-        class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+        class="flex flex-row items-center p-2 rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-5"
+        :class="{ 'opacity-40': unavailable(network) }"
         @click="select(network)"
       >
         <div class="bg-black bg-opacity-50 rounded-lg p-2">
@@ -37,11 +38,10 @@
 import { computed, defineComponent } from 'vue'
 import { NModal, NCard, NText, NButton } from 'naive-ui'
 import { NetworkMetadata } from '@/config/config.types'
-import { filterDestinationNetworks } from '@/utils'
 import { useStore } from '@/store'
 
 export default defineComponent({
-  emits: ['selectNetwork', 'hide'],
+  emits: ['hide'],
 
   props: {
     show: {
@@ -62,24 +62,47 @@ export default defineComponent({
     const store = useStore()
 
     return {
-      networks: computed(() => {
-        const activeNetworks = store.getters.activeNetworks()
+      networks: computed(() => store.getters.activeNetworks()),
+      title: computed(() => {
         return props.isSelectingDestination
-          ? filterDestinationNetworks(
-              activeNetworks,
-              store.state.userInput.originNetwork
-            )
-          : activeNetworks
+          ? 'SELECT DESTINATION'
+          : 'SELECT ORIGIN'
       }),
-      title: computed(() =>
-        props.isSelectingDestination ? 'SELECT DESTINATION' : 'SELECT ORIGIN'
-      ),
+      store,
     }
+  },
+
+  computed: {
+    otherNetwork() {
+      const { originNetwork, destinationNetwork } = this.store.state.userInput
+      return this.isSelectingDestination ? originNetwork : destinationNetwork
+    },
   },
 
   methods: {
     select(network: NetworkMetadata) {
-      this.$emit('selectNetwork', network)
+      const isUnavailable = this.unavailable(network)
+      if (this.isSelectingDestination) {
+        if (isUnavailable) {
+          this.store.dispatch('setOriginNetwork', null)
+        }
+        this.store.dispatch('setDestinationNetwork', network.name)
+      } else {
+        if (isUnavailable) {
+          this.store.dispatch('setDestinationNetwork', null)
+        }
+        this.store.dispatch('switchNetwork', network.name)
+      }
+      this.$emit('hide')
+    },
+    unavailable(network: NetworkMetadata): boolean {
+      if (!this.otherNetwork) return false
+      if (network.name === this.otherNetwork) return true
+
+      const { connections } = this.networks.find((n: NetworkMetadata) => {
+        return n.name === this.otherNetwork
+      })
+      return !connections.includes(network.name)
     },
   },
 })

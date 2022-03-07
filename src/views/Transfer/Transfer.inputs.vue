@@ -128,7 +128,6 @@
     <!-- origin network select modal -->
     <network-select
       :show="showSelectOriginNetwork"
-      @selectNetwork="selectOriginNetwork"
       @hide="this.showSelectOriginNetwork = false"
     />
 
@@ -136,7 +135,6 @@
     <network-select
       :show="showSelectDestinationNetwork"
       isSelectingDestination
-      @selectNetwork="selectDestinationNetwork"
       @hide="this.showSelectDestinationNetwork = false"
     />
   </div>
@@ -211,19 +209,6 @@ export default defineComponent({
     }
   },
   methods: {
-    selectOriginNetwork(network: NetworkMetadata) {
-      this.v$.originNetwork.$touch()
-      this.store.dispatch('switchNetwork', network.name)
-      this.store.dispatch('setDestinationNetwork', null)
-
-      this.showSelectOriginNetwork = false
-    },
-    selectDestinationNetwork(network: NetworkMetadata) {
-      this.v$.destinationNetwork.$touch()
-      this.store.dispatch('setDestinationNetwork', network.name)
-
-      this.showSelectDestinationNetwork = false
-    },
     displayGasFee() {
       const { nativeToken } = networks[this.originNetwork]
       if (this.originGasFee) {
@@ -233,7 +218,7 @@ export default defineComponent({
     getDisplayName(name: string) {
       if (!name) return 'Select Network'
       return networks[name].displayName
-    }
+    },
   },
   computed: {
     claimGasFee() {

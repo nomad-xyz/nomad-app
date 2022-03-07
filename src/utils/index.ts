@@ -58,21 +58,6 @@ export function toDecimals(
   return decimal.slice(0, end)
 }
 
-// loops over list of networks to create select options (excluding fromNetwork)
-export function filterDestinationNetworks(
-  options: { [key: string]: NetworkMetadata },
-  originNetworkName: string
-): NetworkMetadata[] {
-  const originNetworkIsHub = isEthereumNetwork(originNetworkName)
-
-  // otherwise, origin network is spoke so only show hub as an option
-  return originNetworkIsHub
-    ? Object.values(options).filter(
-        (option: NetworkMetadata) => option.name !== originNetworkName
-      )
-    : [hubNetwork]
-}
-
 // NETWORK
 
 /**
