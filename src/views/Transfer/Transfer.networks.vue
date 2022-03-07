@@ -12,7 +12,7 @@
         :key="network.name"
         class="flex flex-row items-center p-2 rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-5"
         :class="{ 'opacity-40': unavailable(network) }"
-        @click="select(network, network.isActive)"
+        @click="select(network)"
       >
         <div class="bg-black bg-opacity-50 rounded-lg p-2">
           <img :src="network.icon" class="h-6" />
