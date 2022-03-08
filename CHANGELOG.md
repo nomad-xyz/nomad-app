@@ -10,8 +10,9 @@ Unreleased
 v1.0.9 (Mar 7th, 2022)
 --------------------------------
 - silence metamask not installed sentry errors
-- show other network options in network selection
-- a bunch of other things since we last released (need to do a better job of keeping this up to date)
+- shows all networks during selection
+- adds network connections to config
+- updates Moonbase alpha rpc
 
 v1.0.8 (Feb 7th, 2022)
 --------------------------------
