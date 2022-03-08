@@ -7,6 +7,13 @@ Unreleased
 --------------------------------
 - WalletConnect support
 
+v1.0.9 (Mar 7th, 2022)
+--------------------------------
+- silence metamask not installed sentry errors
+- shows all networks during selection
+- adds network connections to config
+- updates Moonbase alpha rpc
+
 v1.0.8 (Feb 7th, 2022)
 --------------------------------
 - add token to metamask from tx details
