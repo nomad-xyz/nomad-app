@@ -6,6 +6,7 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - WalletConnect support
+- support CQT token in token selection modal
 
 v1.1.0 (Mar 9th, 2022)
 --------------------------------
