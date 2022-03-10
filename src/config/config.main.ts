@@ -8,17 +8,15 @@ import FRAXIcon from '@/assets/token-logos/FRAX.png'
 import FXSIcon from '@/assets/token-logos/FXS.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
 import WSTRIcon from '@/assets/token-logos/WSTR.png'
+import CQTIcon from '@/assets/token-logos/CQT.png'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 
 import mainnetTokens from './tokens.main'
 import { TokenMetadata, NetworkMetadata } from './config.types'
 
-const {
-  VUE_APP_ETHEREUM_RPC,
-  VUE_APP_MOONBEAM_RPC,
-  VUE_APP_MILKOMEDA_RPC,
-} = process.env
+const { VUE_APP_ETHEREUM_RPC, VUE_APP_MOONBEAM_RPC, VUE_APP_MILKOMEDA_RPC } =
+  process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
   WBTC: {
@@ -177,6 +175,18 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: false,
     minAmt: 10,
   },
+  CQT: {
+    nativeNetwork: 'ethereum',
+    symbol: 'CQT',
+    name: 'CQT',
+    icon: CQTIcon,
+    iconColors: ['#00D8D5', '#FF4C8B'],
+    decimals: 18,
+    coinGeckoId: 'covalent',
+    tokenIdentifier: mainnetTokens.CQT,
+    nativeOnly: false,
+    minAmt: 10,
+  },
 }
 
 // default confirmation time for prod, set on each network below
@@ -217,7 +227,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     rpcUrl: VUE_APP_MILKOMEDA_RPC!,
     blockExplorer: 'https://rpc.c1.milkomeda.com:4000',
     icon: wADAIcon,
-    confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES
+    confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
 }
 

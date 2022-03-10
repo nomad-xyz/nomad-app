@@ -51,6 +51,11 @@ const WSTR: TokenIdentifier = {
   id: '0xf0dc76c22139ab22618ddfb498be1283254612b1',
 }
 
+const CQT: TokenIdentifier = {
+  domain: 'ethereum',
+  id: '0xD417144312DbF50465b1C641d016962017Ef6240',
+}
+
 export default {
   WETH,
   WBTC,
@@ -62,4 +67,5 @@ export default {
   WGLMR,
   WADA,
   WSTR,
+  CQT,
 }
