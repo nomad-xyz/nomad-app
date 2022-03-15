@@ -9,11 +9,6 @@ Unreleased
 - fix bug in tx detail page where tx was not yet available from indexer
 - bump SDK for new dev deploy
 
-v1.4.0 (Apr 18th, 2022)
---------------------------------
-- SDK upgrade
-- Fix failedHomes banner display
-
 v1.4.1 (Apr 19th, 2022)
 --------------------------------
 - Robust network validation
