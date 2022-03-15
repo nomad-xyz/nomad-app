@@ -6,6 +6,9 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - WalletConnect support
+
+v1.1.1 (Mar 15th, 2022)
+--------------------------------
 - update connext package
 
 v1.1.0 (Mar 9th, 2022)
