@@ -15,28 +15,6 @@ v1.1.0 (Mar 9th, 2022)
 --------------------------------
 - support CQT token in token selection modal
 
-v1.2.1 (Apr 7th, 2022)
---------------------------------
-- add transfer review screen
-- allow easy toggle between nomad/connext
-- upgrade connext package
-- fix connext instantiation in development
-- fix hanging on 'checking availability'
-- fix bug sending native assets
-- add transfer alerts
-- add link to Bridge Guide
-- remove ability to turn off Connext completely
-- remove connextPools whitelist of assets (just check liquidity by doing quote)
-- update Moonbeam explorer url
-
-v1.1.1 (Mar 15th, 2022)
---------------------------------
-- update connext package
-
-v1.1.0 (Mar 9th, 2022)
---------------------------------
-- support CQT token in token selection modal
-
 v1.0.9 (Mar 7th, 2022)
 --------------------------------
 - silence metamask not installed sentry errors
