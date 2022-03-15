@@ -159,6 +159,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     try {
       await connextSDK.getTransferQuote(payload)
     } catch (e: unknown) {
+      console.log('error getting transfer quote', e)
       commit(types.SET_CHECKING_LIQUIDITY, false)
       // should return, don't show error when just checking availability
       return false
