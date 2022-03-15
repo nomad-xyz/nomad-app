@@ -136,7 +136,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     commit(types.SET_QUOTE, undefined)
   },
 
-  async getTransferQuote({ rootState, commit, dispatch }) {
+  async getTransferQuote({ commit, dispatch }) {
     const payload = await dispatch('formatDataForTransfer')
     console.log('Preparing for transfer quote: ', payload)
     const quote = await connextSDK.getTransferQuote(payload)
