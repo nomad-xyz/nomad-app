@@ -6,6 +6,10 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - WalletConnect support
+- update connext package
+
+v1.1.0 (Mar 9th, 2022)
+--------------------------------
 - support CQT token in token selection modal
 
 v1.2.1 (Apr 7th, 2022)
