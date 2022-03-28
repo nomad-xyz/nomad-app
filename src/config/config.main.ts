@@ -213,7 +213,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     domainID: 1650811245,
     rpcUrl: VUE_APP_MOONBEAM_RPC!,
     nativeToken: tokens.GLMR,
-    blockExplorer: 'https://blockscout.moonbeam.network',
+    blockExplorer: 'https://moonbeam.moonscan.io',
     icon: DEVIcon,
     confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
