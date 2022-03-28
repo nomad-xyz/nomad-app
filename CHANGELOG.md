@@ -14,7 +14,7 @@ v1.2.1 (Apr 7th, 2022)
 - allow easy toggle between nomad/connext
 - upgrade connext package
 - fix connext instantiation in development
-- fix hanging on 'checking availability'
+- fix hanging on "checking availability"
 - fix bug sending native assets
 - add transfer alerts
 - add link to Bridge Guide
