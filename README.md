@@ -6,7 +6,7 @@ Nomad is a novel interoperability protocol designed to lower costs and increase 
 
 Connext is a network of liquidity pools on different chains. Users swap value between these pools, similar to AMM DEXes like Uniswap. Connext provides liquidity pools for Nomad assets, meaning users can receive funds on the destination chain much faster (less than 10 minutes) for an additional fee.
 
-Further documentation available [here](https://docs.nomad.xyz/bridge).
+Further documentation available [here.](https://docs.nomad.xyz/bridge)
 
  - [Nomad SDK](https://www.npmjs.com/package/@nomad-xyz/sdk)
  - [Connext SDK](https://www.npmjs.com/package/@connext/nxtp-sdk)
