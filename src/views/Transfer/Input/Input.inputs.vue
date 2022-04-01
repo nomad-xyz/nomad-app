@@ -2,7 +2,7 @@
   <div
     class="bg-black bg-opacity-50 p-4 rounded-lg flex flex-row inputs-container"
   >
-    <div class="flex-grow relative">
+    <div class="origin flex-grow relative">
       <!-- origin network not selected -->
       <p
         class="validation-err text-red-500 text-xs"
@@ -34,7 +34,7 @@
     </div>
 
     <!-- arrow -->
-    <img src="@/assets/icons/bridge-arrow.svg" class="mx-4" />
+    <img src="@/assets/icons/bridge-arrow.svg" class="arrow mx-4" />
 
     <!-- right -->
     <div class="flex-grow relative">
@@ -185,4 +185,12 @@ export default defineComponent({
 
 .divider
   margin 10px 0 !important
+
+@media (max-width 600px)
+  .inputs-container
+    flex-direction column !important
+  .arrow
+    display none
+  .origin
+    margin-bottom 40px
 </style>
