@@ -4,20 +4,20 @@
     <transfer />
 
     <!-- active connext transfers table -->
-    <connext-active />
+    <!-- <connext-active /> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import Transfer from '@/views/Transfer/Transfer.main.vue'
-import ConnextActive from '@/views/Transactions/Connext.main.vue'
+import Transfer from '@/views/Transfer/Input/Input.main.vue'
+// import ConnextActive from '@/views/Transactions/Connext.main.vue'
 
 export default defineComponent({
   components: {
     Transfer,
-    ConnextActive,
+    // ConnextActive,
   },
 })
 </script>
