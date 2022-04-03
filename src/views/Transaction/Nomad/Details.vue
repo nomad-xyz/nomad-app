@@ -35,7 +35,7 @@
       </n-text>
       <n-text v-else>{{ nullVal }}</n-text>
     </detail>
-    <detail :title="`ORIGIN: ${$route.params.network.toUpperCase()}`">
+    <detail :title="`ORIGIN: ${originNet.toUpperCase()}`">
       <copy-hash v-if="originAddr" :address="originAddr" />
       <n-text v-else>{{ nullVal }}</n-text>
     </detail>
@@ -89,6 +89,7 @@ interface ComponentData {
   tokenSymbol: string
   tokenId: TokenIdentifier
   destNet: string
+  originNet: string
   originAddr: string
   destAddr: string
   timeSent: string
@@ -122,6 +123,7 @@ export default defineComponent({
       amount: '',
       tokenSymbol: '',
       destNet: '',
+      originNet: '',
       originAddr: '',
       destAddr: '',
       timeSent: '19:12 PM UTC, 12/23/2021',
@@ -131,9 +133,14 @@ export default defineComponent({
   },
 
   async mounted() {
+    const { network, id } = this.$route.params
+    this.originNet = network as NetworkName
+    if (network === 'milkomedac1') {
+      this.originNet = 'milkomedaC1'
+    }
     const txData = {
-      network: this.$route.params.network as NetworkName,
-      hash: this.$route.params.id,
+      network: this.originNet,
+      hash: id,
     }
     const message = await this.store.getters.getTxMessage(txData)
     this.transferMessage = message
@@ -215,7 +222,7 @@ export default defineComponent({
 
   computed: {
     explorerLink(): string {
-      const n = networks[this.$route.params.network as NetworkName]
+      const n = networks[this.originNet]
       return `${n.blockExplorer}/tx/${this.$route.params.id}`
     },
   },
