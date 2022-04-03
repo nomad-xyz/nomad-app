@@ -244,7 +244,13 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('registerSigner', destNetwork)
 
     // get proof
-    const res = await fetch(`${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`)
+    let res
+    try {
+      res = await fetch(`${s3URL}${origin}_${message.leafIndex.toString()}`)
+    } catch(e) {
+      res = await fetch(`${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`)
+    }
+    if (!res) throw new Error('Not able to fetch proof')
     const data = (await res.json()) as any
     console.log('proof: ', data)
 

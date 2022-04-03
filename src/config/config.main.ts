@@ -225,7 +225,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     domainID: 25393,
     nativeToken: tokens.milkADA,
     rpcUrl: VUE_APP_MILKOMEDA_RPC!,
-    blockExplorer: 'https://rpc.c1.milkomeda.com:4000',
+    blockExplorer: 'https://explorer-mainnet-cardano-evm.c1.milkomeda.com',
     icon: wADAIcon,
     confirmationTimeInMinutes: PROD_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
