@@ -227,9 +227,14 @@ export default defineComponent({
   methods: {
     async process() {
       try {
+        const { network, id } = this.$route.params
+        let originNet = network as NetworkName
+        if (network === 'milkomedac1') {
+          originNet = 'milkomedaC1'
+        }
         const receipt = await this.store.dispatch('processTx', {
-          origin: this.$route.params.network as NetworkName,
-          hash: this.$route.params.id,
+          origin: originNet,
+          hash: id,
         })
         if (receipt) {
           this.notification.success({
