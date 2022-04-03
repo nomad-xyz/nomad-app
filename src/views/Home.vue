@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xl relative">
+  <div class="w-full max-w-xl relative">
     <!-- transfer card -->
     <transfer />
 
@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import Transfer from '@/views/Transfer/Input/Input.main.vue'
+import Transfer from '@/views/Transfer/Transfer.main.vue'
 // import ConnextActive from '@/views/Transactions/Connext.main.vue'
 
 export default defineComponent({

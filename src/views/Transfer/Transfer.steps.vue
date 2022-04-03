@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-end w-full py-5 px-8">
+  <div class="flex flex-row justify-end">
     <div
       v-for="step in [1,2]"
       :key="step"

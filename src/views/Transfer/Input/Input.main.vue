@@ -4,7 +4,9 @@
     <!-- color blur section -->
     <div class="bridge">
       <bg-blur class="absolute inset-0 w-full h-full z-negative" />
-      <transfer-steps :current="1" class="absolute top-0" />
+      <div class="absolute top-0 w-full flex justify-end py-5 px-8">
+        <transfer-steps :current="1" />
+      </div>
       <transfer-amount />
     </div>
 
@@ -28,12 +30,14 @@ import { useVuelidate } from '@vuelidate/core'
 import { useStore } from '@/store'
 
 import BgBlur from './Input.bgblur.vue'
-import TransferSteps from './Input.steps.vue'
+import TransferSteps from '../Transfer.steps.vue'
 import TransferAmount from './Input.amount.vue'
 import TransferInputs from './Input.inputs.vue'
 import NomadButton from '@/components/Button.vue'
 
 export default defineComponent({
+  emits: ['next'],
+
   components: {
     BgBlur,
     TransferSteps,
@@ -60,6 +64,7 @@ export default defineComponent({
   methods: {
     next () {
       // TODO:
+      this.$emit('next')
       return
     },
   },
