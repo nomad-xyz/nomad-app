@@ -1,5 +1,5 @@
 <template>
-  <nomad-button>Send</nomad-button>
+  <nomad-button primary class="w-full flex justify-center mt-4">Send</nomad-button>
 </template>
 
 <script lang="ts">

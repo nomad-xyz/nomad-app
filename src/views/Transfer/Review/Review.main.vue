@@ -1,7 +1,7 @@
 <template>
   <div class="review w-full rounded-md p-7">
     <!-- header -->
-    <div class="flex flex-row w-full justify-between items-center">
+    <div class="flex flex-row w-full justify-between items-center px-5 pb-7">
       <breadcrumb @click="this.$emit('back')"/>
       <span class="uppercase">Review & Bridge</span>
       <transfer-steps :current="2" />
