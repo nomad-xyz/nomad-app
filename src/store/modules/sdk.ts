@@ -10,7 +10,7 @@ import * as types from '@/store/mutation-types'
 import { networks, s3URL } from '@/config/index'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
-import { NetworkMetadata } from '@/config/config.types'
+import { NetworkMetadata, NetworkName } from '@/config/config.types'
 
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 function getNomadContext() {
@@ -229,7 +229,7 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_SENDING, false)
     return null
   },
-  async processTx({ dispatch }, tx: any) {
+  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string;}) {
     // get transfer message
     const { origin, hash } = tx
     const message = await TransferMessage.singleFromTransactionHash(
