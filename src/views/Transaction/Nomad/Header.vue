@@ -179,11 +179,12 @@ import { BigNumber } from 'ethers'
 import { useStore } from '@/store'
 import {
   networks,
+  hubNetwork,
   BUFFER_CONFIRMATION_TIME_IN_MINUTES,
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
 import { minutesTilConfirmation } from '@/utils/time'
-import { hubNetwork } from '@/config'
+import { NetworkName } from '@/config/config.types'
 
 export default defineComponent({
   props: {
@@ -227,7 +228,7 @@ export default defineComponent({
     async process() {
       try {
         const receipt = await this.store.dispatch('processTx', {
-          origin: this.$route.params.network,
+          origin: this.$route.params.network as NetworkName,
           hash: this.$route.params.id,
         })
         if (receipt) {

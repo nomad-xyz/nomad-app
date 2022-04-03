@@ -79,6 +79,7 @@ import { networks } from '@/config'
 import Detail from '@/views/Transaction/Detail.vue'
 import CopyHash from '@/components/CopyHash.vue'
 import StatusHeader from './Header.vue'
+import { NetworkName } from '@/config/config.types'
 
 interface ComponentData {
   transferMessage: TransferMessage | null
@@ -131,7 +132,7 @@ export default defineComponent({
 
   async mounted() {
     const txData = {
-      network: this.$route.params.network,
+      network: this.$route.params.network as NetworkName,
       hash: this.$route.params.id,
     }
     const message = await this.store.getters.getTxMessage(txData)
@@ -214,7 +215,7 @@ export default defineComponent({
 
   computed: {
     explorerLink(): string {
-      const n = networks[this.$route.params.network as string]
+      const n = networks[this.$route.params.network as NetworkName]
       return `${n.blockExplorer}/tx/${this.$route.params.id}`
     },
   },
