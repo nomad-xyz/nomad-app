@@ -1,6 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
-import { mainnet, staging, dev, NomadContext } from '@nomad-xyz/sdk'
 import { TransferMessage } from '@nomad-xyz/sdk/nomad/messages/BridgeMessage'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
 
@@ -13,35 +12,18 @@ import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
 import { NetworkMetadata, NetworkName } from '@/config/config.types'
 
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
-function getNomadContext() {
-  switch (environment) {
-    case 'development':
-      return dev
 
-    case 'staging':
-      return staging
+let nomad: any
 
-    case 'production':
-      return mainnet
-
-    default:
-      return dev
-  }
-}
-
-function _instantiateNomad(): NomadContext {
-  // configure for mainnet/testnet
-  const nomadContext: NomadContext = getNomadContext()
-
-  // register rpc provider and signer for each network
+(async () => {
+  const sdk = await import('@nomad-xyz/sdk-bridge')
+  const context = new sdk.BridgeContext(environment)
   Object.values(networks).forEach(({ name, rpcUrl }) => {
-    nomadContext.registerRpcProvider(name, rpcUrl)
+    context.registerRpcProvider(name, rpcUrl)
   })
-
-  return nomadContext
-}
-
-let nomad: NomadContext
+  console.log(context)
+  nomad = context
+})
 
 export interface SendData {
   isNative: boolean
@@ -83,18 +65,6 @@ const mutations = <MutationTree<SDKState>>{
 }
 
 const actions = <ActionTree<SDKState, RootState>>{
-  async instantiateNomad({ dispatch }) {
-    console.log('instantiateNomad: ', environment)
-    try {
-      nomad = _instantiateNomad()
-      console.log('nomad after instantiating', nomad)
-    } catch (e) {
-      console.error(e)
-      throw new Error("Couldn't setup Nomad")
-    }
-    await dispatch('checkFailedHomes')
-  },
-
   async checkFailedHomes({ commit }) {
     await nomad.checkHomes(Object.keys(networks))
     const blacklist = nomad.blacklist()
