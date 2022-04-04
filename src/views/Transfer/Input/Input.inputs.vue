@@ -150,7 +150,6 @@ export default defineComponent({
     return {
       originAddr: computed(() => store.state.wallet.address),
       destinationAddr: computed(() => store.state.userInput.destinationAddress),
-      originGasFee: computed(() => store.state.userInput.gasEst),
       originNetwork: computed(() => store.state.userInput.originNetwork),
       destinationNetwork: computed(
         () => store.state.userInput.destinationNetwork

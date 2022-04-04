@@ -53,15 +53,19 @@
         </div>
       </review-detail>
       <review-detail title="Gas Fee">
-        <div>1000 GWEI (ETH)</div>
+        <div>{{ originGasFee }} GWEI ({{ nativeAssetSymbol(userInput.originNetwork) }})</div>
       </review-detail>
       <review-detail title="Tx Fee">
         <div>1000 GWEI (ETH)</div>
       </review-detail>
-      <review-detail title="Processing Gas Fee" :borderBottom="false">
-        <!-- TODO: get native asset -->
+      <review-detail
+        v-if="isEthereumNetwork(userInput.destinationNetwork)"
+        title="Processing Gas Fee"
+        :borderBottom="false"
+      >
+        <!-- TODO: show gas fee -->
         <div class="flex flex-row items-center">
-          ~1000 GWEI (ETH)
+          ~1000 GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
           <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
             <alert-circle />
           </n-icon>
@@ -79,6 +83,9 @@ import { defineComponent, computed } from 'vue'
 import { NIcon } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
+import { networks } from '@/config'
+import { toDecimals, isEthereumNetwork } from '@/utils'
+import { NetworkName } from '@/config/config.types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TransferSteps from '../Transfer.steps.vue'
@@ -101,12 +108,24 @@ export default defineComponent({
     const store = useStore()
     return {
       userInput: computed(() => store.state.userInput),
+      originGasFee: computed(() => {
+        const { gasEst } = store.state.userInput
+        if (!gasEst) return
+        return toDecimals(gasEst, 9, 4)
+      }),
       store,
     }
   },
   data: () => ({
     protocol: 'nomad',
   }),
+
+  methods: {
+    isEthereumNetwork,
+    nativeAssetSymbol(network: NetworkName) {
+      return networks[network].nativeToken.symbol
+    }
+  }
 })
 </script>
 
