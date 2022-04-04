@@ -31,13 +31,13 @@
       <review-detail title="From">
         <div>
           <span class="mr-1 capitalize">{{ userInput.originNetwork }}</span>
-          <span class="opacity-50">| 0x979...678</span>
+          <span class="opacity-50">| {{ truncateAddr(walletAddress) }}</span>
         </div>
       </review-detail>
       <review-detail title="To">
         <div>
           <span class="mr-1 capitalize">{{ userInput.destinationNetwork }}</span>
-          <span class="opacity-50">| 0x979...678</span>
+          <span class="opacity-50">| {{ truncateAddr(userInput.destinationAddr || walletAddress) }}</span>
         </div>
       </review-detail>
       <review-detail title="Send amount">
@@ -52,20 +52,22 @@
           {{ userInput.sendAmount }} {{ userInput.token.nativeOnly ? 'W' : '' }}{{ userInput.token.symbol }}
         </div>
       </review-detail>
-      <review-detail title="Gas Fee">
+      <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
         <div>{{ originGasFee }} GWEI ({{ nativeAssetSymbol(userInput.originNetwork) }})</div>
       </review-detail>
-      <review-detail title="Tx Fee">
-        <div>1000 GWEI (ETH)</div>
+      <review-detail v-if="protocol === 'connext'" title="Gas Fee">
+        <div>{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
+      </review-detail>
+      <review-detail v-if="protocol === 'connext'" title="Tx Fee">
+        <div>TODO GWEI (ETH)</div>
       </review-detail>
       <review-detail
-        v-if="isEthereumNetwork(userInput.destinationNetwork)"
+        v-if="protocol === 'nomad' && isEthereumNetwork(userInput.destinationNetwork)"
         title="Processing Gas Fee"
         :borderBottom="false"
       >
-        <!-- TODO: show gas fee -->
         <div class="flex flex-row items-center">
-          ~1000 GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
+          ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
           <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
             <alert-circle />
           </n-icon>
@@ -74,7 +76,7 @@
     </div>
 
     <!-- Send -->
-    <review-send />
+    <review-send :protocol="protocol" />
   </div>
 </template>
 
@@ -84,7 +86,7 @@ import { NIcon } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
-import { toDecimals, isEthereumNetwork } from '@/utils'
+import { toDecimals, isEthereumNetwork, truncateAddr } from '@/utils'
 import { NetworkName } from '@/config/config.types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
@@ -108,6 +110,7 @@ export default defineComponent({
     const store = useStore()
     return {
       userInput: computed(() => store.state.userInput),
+      walletAddress: computed(() => store.state.wallet.address),
       originGasFee: computed(() => {
         const { gasEst } = store.state.userInput
         if (!gasEst) return
@@ -122,6 +125,7 @@ export default defineComponent({
 
   methods: {
     isEthereumNetwork,
+    truncateAddr,
     nativeAssetSymbol(network: NetworkName) {
       return networks[network].nativeToken.symbol
     }
