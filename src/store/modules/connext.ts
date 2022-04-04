@@ -65,7 +65,7 @@ const mutations = <MutationTree<ConnextState>>{
 
 const actions = <ActionTree<ConnextState, RootState>>{
   async instantiateConnext() {
-    console.log('called on mount, production = ', isProduction)
+    console.log('Instantiate Connext, production = ', isProduction)
     connextSDK = await instantiateConnextSDK()
     console.log('connext after instantiating', connextSDK)
   },
@@ -151,13 +151,14 @@ const actions = <ActionTree<ConnextState, RootState>>{
     commit(types.SET_FEE, undefined)
   },
 
-  async checkTransferLiquidity({ dispatch, commit }): Promise<boolean> {
+  async checkTransferLiquidity({ dispatch, commit }): Promise<any> {
     commit(types.SET_CHECKING_LIQUIDITY, true)
     const payload = await dispatch('formatDataForTransfer')
     payload.dryRun = true
     console.log('Checking liquidity: ', payload)
+    let quote
     try {
-      await connextSDK.getTransferQuote(payload)
+      quote = await connextSDK.getTransferQuote(payload)
     } catch (e: unknown) {
       console.log('error getting transfer quote', e)
       commit(types.SET_CHECKING_LIQUIDITY, false)
@@ -165,7 +166,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       return false
     }
     commit(types.SET_CHECKING_LIQUIDITY, false)
-    return true
+    return quote
   },
 
   async getTransferQuote({ rootState, commit, dispatch }) {

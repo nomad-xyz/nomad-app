@@ -259,12 +259,16 @@ export const connextConfig: SdkBaseChainConfigParams = {
     // kovan
     providers: [VUE_APP_KOVAN_RPC!],
   },
+  4: {
+    // rinkeby
+    providers: [VUE_APP_RINKEBY_RPC!],
+  },
   1287: {
     // moonbasealpha
     providers: [VUE_APP_MOONBASEALPHA_RPC!],
   },
-  9000: {
-    // evmos testnet
-    providers: [VUE_APP_EVMOS_TESTNET_RPC!]
-  },
+  // 9000: {
+  //   // evmos testnet
+  //   providers: [VUE_APP_EVMOS_TESTNET_RPC!]
+  // },
 }
