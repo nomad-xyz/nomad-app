@@ -8,7 +8,7 @@
     </div>
 
     <!-- protocol select -->
-    <div class="flex flex-row mb-6">
+    <div class="flex flex-row">
       <protocol
         :selected="protocol === 'nomad'"
         name="nomad"
@@ -27,33 +27,35 @@
       />
     </div>
     <!-- transfer details -->
-    <review-detail title="From">
-      <div>
-        <span class="mr">Ethereum</span>
-        <span class="opacity-50">| 0x979...678</span>
-      </div>
-    </review-detail>
-    <review-detail title="To">
-      <div>
-        <span class="mr">Moonbeam</span>
-        <span class="opacity-50">| 0x979...678</span>
-      </div>
-    </review-detail>
-    <review-detail title="Send amount">
-      <div>7.5 ETH</div>
-    </review-detail>
-    <review-detail title="Receive Amount">
-      <div>7.5 wETH</div>
-    </review-detail>
-    <review-detail title="Gas Fee">
-      <div>1000 GWEI</div>
-    </review-detail>
-    <review-detail title="Tx Fee">
-      <div>1000 GWEI</div>
-    </review-detail>
-    <review-detail title="Processing Gas Fee" :borderBottom="false">
-      <div>~1000 GWEI</div>
-    </review-detail>
+    <div class="p-4">
+      <review-detail title="From">
+        <div>
+          <span class="mr-1">Ethereum</span>
+          <span class="opacity-50">| 0x979...678</span>
+        </div>
+      </review-detail>
+      <review-detail title="To">
+        <div>
+          <span class="mr-1">Moonbeam</span>
+          <span class="opacity-50">| 0x979...678</span>
+        </div>
+      </review-detail>
+      <review-detail title="Send amount">
+        <div>7.5 ETH</div>
+      </review-detail>
+      <review-detail title="Receive Amount">
+        <div>7.5 wETH</div>
+      </review-detail>
+      <review-detail title="Gas Fee">
+        <div>1000 GWEI</div>
+      </review-detail>
+      <review-detail title="Tx Fee">
+        <div>1000 GWEI</div>
+      </review-detail>
+      <review-detail title="Processing Gas Fee" :borderBottom="false">
+        <div>~1000 GWEI</div>
+      </review-detail>
+    </div>
 
     <!-- Send -->
     <review-send />
