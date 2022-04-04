@@ -249,12 +249,6 @@ export const networks: { [key: string]: NetworkMetadata } = {
 
 export const hubNetwork = networks.rinkeby
 
-export const connextPools: { [key: string]: string[] } = {
-  moonbasealpha: ['kTEST', 'mbTEST'],
-  kovan: ['kTEST', 'mbTEST'],
-  rinkeby: [],
-}
-
 export const connextConfig: SdkBaseChainConfigParams = {
   // must have Ethereum for some reason
   1: {

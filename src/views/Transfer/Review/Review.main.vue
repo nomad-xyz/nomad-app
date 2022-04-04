@@ -59,7 +59,7 @@
         <div>{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Tx Fee">
-        <div>TODO GWEI (ETH)</div>
+        <div>{{ connextFee }} GWEI ({{ userInput.token.symbol}})</div>
       </review-detail>
       <review-detail
         v-if="protocol === 'nomad' && isEthereumNetwork(userInput.destinationNetwork)"
@@ -115,6 +115,12 @@ export default defineComponent({
         const { gasEst } = store.state.userInput
         if (!gasEst) return
         return toDecimals(gasEst, 9, 4)
+      }),
+      connextFee: computed(() => {
+        const { decimals } = store.state.userInput.token
+        return store.state.connext.fee
+          ? toDecimals(store.state.connext.fee, decimals, 6)
+          : undefined
       }),
       store,
     }
