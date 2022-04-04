@@ -55,13 +55,13 @@ export default defineComponent({
 	}
 }
 .active {
-  --pink: rgba(238,119,82,0.1);
-  --purple: rgba(231,60,126,0.1);
+  --orange: rgba(238,119,82,0.1);
+  --pink: rgba(231,60,126,0.1);
   --blue: rgba(35,166,213,0.1);
   --green: rgba(35,213,171,0.1);
   border: 1px solid white;
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
-	background-image: linear-gradient(-45deg, var(--pink), var(--purple), var(--blue), var(--green));
+	background-image: linear-gradient(-45deg, var(--orange), var(--pink), var(--blue), var(--green));
   background-size: 400%;
   animation: gradient 15s ease infinite;
 }

@@ -11,7 +11,6 @@ import { TokenMetadata } from '@/config/config.types'
 import { nullToken } from '@/utils'
 
 export interface UserInputState {
-  disableConnext: boolean
   destinationAddress: string
   sendAmount: number
   originNetwork: string
@@ -21,7 +20,6 @@ export interface UserInputState {
 }
 
 const state: UserInputState = {
-  disableConnext: localStorage.getItem('disable_connext') === 'true',
   destinationAddress: '',
   sendAmount: 0,
   originNetwork: '',
@@ -31,17 +29,6 @@ const state: UserInputState = {
 }
 
 const mutations = <MutationTree<UserInputState>>{
-  [types.SET_DISABLE_CONNEXT](state: UserInputState, disable: boolean) {
-    console.log('{dispatch} set disableConnext: ', disable)
-    state.disableConnext = disable
-    localStorage.setItem('disable_connext', `${disable}`)
-  },
-
-  [types.OVERRIDE_CONNEXT](state: UserInputState) {
-    console.log('temp disable connext')
-    state.disableConnext = true
-  },
-
   [types.SET_DESTINATION_ADDRESS](state: UserInputState, address: string) {
     console.log('{dispatch} set destination address: ', address)
     state.destinationAddress = address
@@ -74,14 +61,6 @@ const mutations = <MutationTree<UserInputState>>{
 }
 
 const actions = <ActionTree<UserInputState, RootState>>{
-  setDisableConnext({ commit }, disable) {
-    commit(types.SET_DISABLE_CONNEXT, disable)
-  },
-
-  overrideConnext({ commit }) {
-    commit(types.OVERRIDE_CONNEXT)
-  },
-
   async setDestinationAddress({ commit }, address: string) {
     commit(types.SET_DESTINATION_ADDRESS, address)
   },
