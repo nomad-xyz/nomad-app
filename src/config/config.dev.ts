@@ -269,8 +269,8 @@ export const connextConfig: SdkBaseChainConfigParams = {
     // moonbasealpha
     providers: [VUE_APP_MOONBASEALPHA_RPC!],
   },
-  9000: {
-    // evmos testnet
-    providers: [VUE_APP_EVMOS_TESTNET_RPC!]
-  },
+  // 9000: {
+  //   // evmos testnet
+  //   providers: [VUE_APP_EVMOS_TESTNET_RPC!]
+  // },
 }
