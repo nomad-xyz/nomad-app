@@ -1,9 +1,10 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
 import { NomadContext } from '@nomad-xyz/sdk'
-import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
-import { Address } from '@nomad-xyz/sdk/utils'
+import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { ERC20__factory } from '@nomad-xyz/contract-interfaces/bridge'
+
+type Address = string
 
 export async function getBalances(
   context: NomadContext,

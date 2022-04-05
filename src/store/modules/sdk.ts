@@ -1,7 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
-import { TransferMessage } from '@nomad-xyz/sdk/nomad/messages/BridgeMessage'
-import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
+import { TransferMessage, TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 
 import { TXData } from './transactions'
 import { RootState } from '@/store'
