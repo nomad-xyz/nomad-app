@@ -29,6 +29,9 @@ module.exports = defineConfig({
       new webpack.ProvidePlugin({
         process: 'process/browser',
       }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
+      }),
     ],
     devtool: 'source-map',
     experiments: {
