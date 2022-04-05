@@ -1,4 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
+const webpack = require('webpack');
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -11,12 +12,12 @@ module.exports = defineConfig({
         },
       ],
     },
-    // plugins: [
-    //   new webpack.ProvidePlugin({
-    //     process: 'process/browser',
-    //   }),
-    // ],
-    // devtool: 'source-map',
+    plugins: [
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+      }),
+    ],
+    devtool: 'source-map',
     experiments: {
       syncWebAssembly: true,
     },

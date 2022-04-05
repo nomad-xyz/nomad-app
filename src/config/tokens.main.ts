@@ -1,4 +1,4 @@
-import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
+import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 
 // IMPORTANT make name same as tokens[token].symbol value
 const WETH: TokenIdentifier = {
