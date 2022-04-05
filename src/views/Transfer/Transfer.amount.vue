@@ -192,7 +192,7 @@ export default defineComponent({
       this.updateAmtInUSD(newToken.coinGeckoId)
     },
     async amt(newAmt) {
-      this.v$.amt.$touch()
+      // this.v$.amt.$touch()
       this.store.dispatch('setSendAmount', newAmt || 0)
       if (this.token.coinGeckoId) {
         // TODO: we might want to debounce this function depending on performance
