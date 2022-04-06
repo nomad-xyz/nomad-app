@@ -64,7 +64,7 @@
         </div>
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Gas Fee">
-        <div v-if="fee">{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
+        <div v-if="fee">{{ fee }} GWEI ({{ userInput.token.symbol }})</div>
         <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Tx Fee">
@@ -105,7 +105,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { NIcon, NSkeleton } from 'naive-ui'
+import { NIcon, NSkeleton, useNotification } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
@@ -132,6 +132,7 @@ export default defineComponent({
   },
   setup: () => {
     const store = useStore()
+    const notification = useNotification()
     return {
       userInput: computed(() => store.state.userInput),
       walletAddress: computed(() => store.state.wallet.address),
@@ -148,6 +149,7 @@ export default defineComponent({
       }),
       fee: computed(() => store.state.connext.fee),
       store,
+      notification,
     }
   },
   data: () => ({
@@ -172,7 +174,9 @@ export default defineComponent({
       try {
         await this.store.dispatch('getTransferQuote')
       } catch (e) {
-        // TODO: show alert
+        this.notification.info({
+          title: 'Fast bridging with Connext is unavailable for this transfer.'
+        })
         console.log(e)
         this.protocol = 'nomad'
       }

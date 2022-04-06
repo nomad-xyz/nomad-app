@@ -128,7 +128,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     icon: DEVIcon,
     iconColors: ['#53CBC8', '#e84195'],
     decimals: 18,
-    coinGeckoId: 'dai', // TODO:
+    coinGeckoId: 'moonbeam',
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
@@ -246,7 +246,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
     nativeToken: tokens.tEVMOS,
     rpcUrl: VUE_APP_EVMOS_TESTNET_RPC!,
     blockExplorer: 'https://evm.evmos.org',
-    icon: wEvmosIcon, // TODO: update with correct icon
+    icon: wEvmosIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
 }
