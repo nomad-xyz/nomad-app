@@ -18,10 +18,11 @@ import { useStore } from '@/store'
 import { useNotification, NSpin } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
-import { networks } from '@/config'
+import { networks, connextScanURL } from '@/config'
 import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
 
 export default defineComponent({
+  emits: ['back'],
   props: {
     protocol: {
       // TODO: make better type
@@ -54,12 +55,15 @@ export default defineComponent({
       }
       await this.store.dispatch('switchNetwork', this.userInput.originNetwork)
       if (this.protocol === 'nomad') {
-        this.bridge()
+        await this.bridge()
       } else if (this.protocol === 'connext') {
-        this.swap()
+        await this.swap()
       } else {
         console.error('no protocol selected')
       }
+      // clear user input and switch back to input screen
+      this.store.dispatch('clearInputs')
+      this.$emit('back')
     },
     async bridge() {
       const {
@@ -88,7 +92,6 @@ export default defineComponent({
         console.log('transferMessage', transferMessage)
         const txHash = transferMessage.receipt.transactionHash
         this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
-        this.store.dispatch('clearInputs')
       } else {
         // TODO: better error
         this.notification.warning({
@@ -101,15 +104,17 @@ export default defineComponent({
     async swap() {
       try {
         const transfer = await this.store.dispatch('prepareTransfer')
+        const txLink = `${connextScanURL}tx/${transfer.transactionId}`
         this.notification.success({
           title: 'Success',
           content: () =>
             h(NotificationLink, {
               text: 'Transaction dispatched successfully!',
               linkText: 'View on Connextscan',
-              link: `https://connextscan.io/tx/${transfer.transactionId}`,
+              link: txLink,
             }),
         })
+        window.open(txLink, '_blank')
       } catch (e: any) {
         this.notification.error({
           title: 'Error sending Connext transaction',

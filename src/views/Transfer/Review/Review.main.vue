@@ -25,88 +25,93 @@
         @click="selectConnext"
       />
     </div>
-    <!-- transfer details -->
-    <div class="p-4">
-      <review-detail title="From">
-        <div>
-          <span class="mr-1 capitalize">{{ userInput.originNetwork }}</span>
-          <span class="opacity-50">| {{ truncateAddr(walletAddress) }}</span>
-        </div>
-      </review-detail>
-      <review-detail title="To">
-        <div>
-          <span class="mr-1 capitalize">
-            {{ userInput.destinationNetwork }}
-          </span>
-          <span class="opacity-50">
-            | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
-          </span>
-        </div>
-      </review-detail>
-      <review-detail title="Send amount">
-        <div class="flex flex-row items-center">
-          <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ userInput.sendAmount }} {{ userInput.token.symbol }}
-        </div>
-      </review-detail>
-      <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
-        <div>
-          {{ originGasFee }} GWEI ({{
-            nativeAssetSymbol(userInput.originNetwork)
-          }})
-        </div>
-      </review-detail>
-      <review-detail v-if="protocol === 'connext'" title="Tx Fees">
-        <div v-if="connextFee">
-          {{ connextFee }} {{ userInput.token.symbol }}
-        </div>
-        <n-skeleton v-else :width="150" :height="21" round size="small" />
-      </review-detail>
-      <review-detail
-        v-if="
-          protocol === 'nomad' &&
-          isEthereumNetwork(userInput.destinationNetwork)
-        "
-        title="Processing Gas Fee"
-        :borderBottom="false"
-      >
-        <div class="flex flex-row items-center transform translate-y-1">
-          ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
-          <a
-            href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
-            target="_blank"
-          >
-            <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
-              <alert-circle />
-            </n-icon>
-          </a>
-        </div>
-      </review-detail>
-      <review-detail
-        v-if="protocol === 'nomad'"
-        title="Receive Amount"
-        :borderBottom="false"
-      >
-        <div class="flex flex-row items-center">
-          <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
-        </div>
-      </review-detail>
-      <review-detail
-        v-if="protocol === 'connext'"
-        title="Est. Receive Amount"
-        :borderBottom="false"
-      >
-        <div v-if="connextFee" class="flex flex-row items-center">
-          <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ connextReceiveAmt() }} {{ receiveAssetSymbol(userInput.token) }}
-        </div>
-        <n-skeleton v-else :width="150" :height="21" round size="small" />
-      </review-detail>
-    </div>
 
-    <!-- Send -->
-    <review-send :protocol="protocol" />
+    <transfer-pending v-if="sending || preparingSwap" />
+
+    <!-- transfer details -->
+    <div v-else>
+      <div class="p-4">
+        <review-detail title="From">
+          <div>
+            <span class="mr-1 capitalize">{{ userInput.originNetwork }}</span>
+            <span class="opacity-50">| {{ truncateAddr(walletAddress) }}</span>
+          </div>
+        </review-detail>
+        <review-detail title="To">
+          <div>
+            <span class="mr-1 capitalize">
+              {{ userInput.destinationNetwork }}
+            </span>
+            <span class="opacity-50">
+              | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
+            </span>
+          </div>
+        </review-detail>
+        <review-detail title="Send amount">
+          <div class="flex flex-row items-center">
+            <img :src="userInput.token.icon" class="h-4 mr-1" />
+            {{ userInput.sendAmount }} {{ userInput.token.symbol }}
+          </div>
+        </review-detail>
+        <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
+          <div>
+            {{ originGasFee }} GWEI ({{
+              nativeAssetSymbol(userInput.originNetwork)
+            }})
+          </div>
+        </review-detail>
+        <review-detail v-if="protocol === 'connext'" title="Tx Fees">
+          <div v-if="connextFee">
+            {{ connextFee }} {{ userInput.token.symbol }}
+          </div>
+          <n-skeleton v-else :width="150" :height="21" round size="small" />
+        </review-detail>
+        <review-detail
+          v-if="
+            protocol === 'nomad' &&
+            isEthereumNetwork(userInput.destinationNetwork)
+          "
+          title="Processing Gas Fee"
+          :borderBottom="false"
+        >
+          <div class="flex flex-row items-center transform translate-y-1">
+            ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
+            <a
+              href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
+              target="_blank"
+            >
+              <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
+                <alert-circle />
+              </n-icon>
+            </a>
+          </div>
+        </review-detail>
+        <review-detail
+          v-if="protocol === 'nomad'"
+          title="Receive Amount"
+          :borderBottom="false"
+        >
+          <div class="flex flex-row items-center">
+            <img :src="userInput.token.icon" class="h-4 mr-1" />
+            {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
+          </div>
+        </review-detail>
+        <review-detail
+          v-if="protocol === 'connext'"
+          title="Est. Receive Amount"
+          :borderBottom="false"
+        >
+          <div v-if="connextFee" class="flex flex-row items-center">
+            <img :src="userInput.token.icon" class="h-4 mr-1" />
+            {{ connextReceiveAmt() }} {{ receiveAssetSymbol(userInput.token) }}
+          </div>
+          <n-skeleton v-else :width="150" :height="21" round size="small" />
+        </review-detail>
+      </div>
+
+      <!-- Send -->
+      <review-send :protocol="protocol" @back="$emit('back')" />
+    </div>
   </div>
 </template>
 
@@ -121,6 +126,7 @@ import { NetworkName, TokenMetadata } from '@/config/config.types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TransferSteps from '../Transfer.steps.vue'
+import TransferPending from '../Transfer.pending.vue'
 import Protocol from './Review.protocol.vue'
 import ReviewDetail from './Review.detail.vue'
 import ReviewSend from './Review.send.vue'
@@ -136,6 +142,7 @@ export default defineComponent({
     Protocol,
     ReviewDetail,
     ReviewSend,
+    TransferPending,
   },
   setup: () => {
     const store = useStore()
@@ -153,6 +160,8 @@ export default defineComponent({
         const { quote } = store.state.connext
         return quote ? toDecimals(quote.totalFee, decimals, 6) : undefined
       }),
+      sending: computed(() => store.state.sdk.sending),
+      preparingSwap: computed(() => store.state.connext.preparingSwap),
       store,
       notification,
     }
