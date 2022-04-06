@@ -19,7 +19,7 @@ module.exports = defineConfig({
       rules: [
         {
           test: /\.wasm$/,
-          type: 'webassembly/async',
+          type: 'webassembly/sync',
         },
       ],
     },
@@ -33,7 +33,7 @@ module.exports = defineConfig({
     ],
     devtool: 'source-map',
     experiments: {
-      asyncWebAssembly: true,
+      syncWebAssembly: true,
     },
   },
 });

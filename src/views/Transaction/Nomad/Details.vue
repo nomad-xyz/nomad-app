@@ -70,7 +70,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { utils, BigNumber } from 'ethers'
-import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
+import { TokenIdentifier } from '@/utils'
 import { NText, NDivider, useNotification } from 'naive-ui'
 
 import { useStore } from '@/store'
@@ -82,7 +82,7 @@ import StatusHeader from './Header.vue'
 import { NetworkName } from '@/config/config.types'
 
 interface ComponentData {
-  transferMessage: TransferMessage | null
+  transferMessage: any | null
   status: number
   confirmAt: BigNumber | null
   amount: string
@@ -184,7 +184,7 @@ export default defineComponent({
   },
 
   methods: {
-    async getStatus(message: TransferMessage) {
+    async getStatus(message: any) {
       if (!message) return
       const process = await message.getProcess()
       if (process) {
@@ -197,7 +197,7 @@ export default defineComponent({
         this.status = 2
         this.confirmAt = confirmAt
         console.log('status: 2')
-        console.log('confirm at: ', this.confirmAt.toString())
+        // console.log('confirm at: ', this.confirmAt.toString())
         return
       }
       this.status = (await message.events()).status

@@ -1,4 +1,4 @@
-import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
+import { TokenIdentifier } from '@/utils'
 
 export type MainnetNetwork = 'ethereum' | 'moonbeam' | 'milkomedaC1'
 export type TestnetNetwork =
