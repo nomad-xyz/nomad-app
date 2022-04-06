@@ -9,7 +9,7 @@
     </div>
     Est. {{ time }}
     <div class="opacity-50 mb-2">{{ description }}</div>
-    <div class="p-2 rounded-md bg-white bg-opacity-10 inline-block">
+    <div v-if="fee" class="p-2 rounded-md bg-white bg-opacity-10 inline-block">
       {{ fee }}
     </div>
   </div>
@@ -38,7 +38,7 @@ export default defineComponent({
     },
     fee: {
       type: String,
-      required: true,
+      required: false,
     },
   },
 })

@@ -1,11 +1,13 @@
 <template>
   <nomad-button
     primary
-    :disabled="disabled"
+    :disabled="disableSend"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
+    :class="{ 'bg-opacity-70': disableSend }"
     @click="send"
   >
-    Send
+    <n-spin v-if="protocol === 'connext' && !quote" stroke="rgba(0,0,0,0.5)" />
+    <span v-else>Send</span>
   </nomad-button>
 </template>
 
@@ -13,7 +15,7 @@
 import { defineComponent, computed, h } from 'vue'
 import { utils } from 'ethers'
 import { useStore } from '@/store'
-import { useNotification } from 'naive-ui'
+import { useNotification, NSpin } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
 import { networks } from '@/config'
@@ -26,13 +28,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
   },
   components: {
     NomadButton,
+    NSpin,
   },
   setup: () => {
     const store = useStore()
@@ -126,6 +125,9 @@ export default defineComponent({
       if (!ethereum) return false
       return !ethereum.isMetamask
     },
+    disableSend(): boolean {
+      return this.protocol === 'connext' && !this.quote
+    }
   },
 })
 </script>

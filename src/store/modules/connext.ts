@@ -92,7 +92,12 @@ const actions = <ActionTree<ConnextState, RootState>>{
       // if sending ETH from Ethereum, get ETH as send asset and wETH as receive asset
       console.log('send native token')
       sendingAsset = nativeTokenId
-      receivingAsset = tokens[token.wrappedAsset!].tokenIdentifier!.id
+      const wrappedIdentifier = tokens[token.wrappedAsset!].tokenIdentifier!
+      const receiving = await rootGetters.resolveRepresentation(
+        destinationNetwork,
+        wrappedIdentifier
+      )
+      receivingAsset = receiving.address
     }
 
     if (!sendingAsset || !receivingAsset) {

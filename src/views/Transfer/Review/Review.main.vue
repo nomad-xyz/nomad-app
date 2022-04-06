@@ -22,7 +22,6 @@
         name="connext"
         time="7-10 min"
         description="Swaps existing liquidity between chains"
-        fee="0.5% TX fee"
         @click="selectConnext"
       />
     </div>
@@ -107,10 +106,7 @@
     </div>
 
     <!-- Send -->
-    <review-send
-      :disabled="protocol === 'connext' && !connextFee"
-      :protocol="protocol"
-    />
+    <review-send :protocol="protocol" />
   </div>
 </template>
 
