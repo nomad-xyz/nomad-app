@@ -12,7 +12,7 @@ import { defineComponent, computed, h } from 'vue'
 import { useStore } from '@/store'
 import { useNotification } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
-import ConnextLink from './ConnextLink.vue'
+import NotificationLink from '@/components/NotificationLink.vue'
 
 export default defineComponent({
   props: {
@@ -57,9 +57,9 @@ export default defineComponent({
         const transfer = await this.store.dispatch('prepareTransfer')
         this.notification.success({
           title: 'Success',
-          content: () => h(ConnextLink, {
+          content: () => h(NotificationLink, {
             text: 'Transaction dispatched successfully!',
-            linkText: 'View on Connextscan.',
+            linkText: 'View on Connextscan',
             link: `https://connextscan.io/tx/${transfer.transactionId}`
           })
         })
