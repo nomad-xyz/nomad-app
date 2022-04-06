@@ -22,6 +22,19 @@ const {
 } = process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
+  // Only for use with connext in dev environment
+  kTEST: {
+    nativeNetwork: 'kovan',
+    symbol: 'kTEST',
+    name: 'Kovan TEST',
+    icon: ConnextIcon,
+    iconColors: ['#62BBEF', '#8470E2'],
+    decimals: 18,
+    coinGeckoId: 'dai',
+    tokenIdentifier: testnetTokens.TEST,
+    nativeOnly: false,
+    minAmt: 10,
+  },
   WETH: {
     nativeNetwork: 'rinkeby',
     symbol: 'WETH',
@@ -118,19 +131,6 @@ export const tokens: { [key: string]: TokenMetadata } = {
     coinGeckoId: 'dai', // TODO:
     tokenIdentifier: null,
     nativeOnly: true,
-    minAmt: 10,
-  },
-  // Only for use with connext in dev environment
-  kTEST: {
-    nativeNetwork: 'kovan',
-    symbol: 'kTEST',
-    name: 'Kovan TEST',
-    icon: ConnextIcon,
-    iconColors: ['#62BBEF', '#8470E2'],
-    decimals: 18,
-    coinGeckoId: 'dai',
-    tokenIdentifier: testnetTokens.TEST,
-    nativeOnly: false,
     minAmt: 10,
   },
   milkADA: {

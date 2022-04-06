@@ -17,8 +17,7 @@
         class="w-full uppercase mt-6 bg-white text-black h-11 flex justify-center"
         @click="next"
       >
-        <n-spin v-if="checkingLiquidity" stroke="black" />
-        <span v-else>Next</span>
+        <span>Next</span>
       </nomad-button>
     </div>
   </div>
@@ -27,7 +26,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { NSpin } from 'naive-ui'
 
 import { useStore } from '@/store'
 
@@ -41,7 +39,6 @@ export default defineComponent({
   emits: ['next'],
 
   components: {
-    NSpin,
     BgBlur,
     TransferSteps,
     TransferAmount,
@@ -60,7 +57,6 @@ export default defineComponent({
 
     return {
       userInput: computed(() => store.state.userInput),
-      checkingLiquidity: computed(() => store.state.connext.checkingLiquidity),
       store,
       v$,
     }

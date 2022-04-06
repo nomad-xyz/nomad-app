@@ -49,7 +49,7 @@
       <review-detail title="Receive Amount">
         <div class="flex flex-row items-center">
           <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ userInput.sendAmount }} {{ userInput.token.nativeOnly ? 'W' : '' }}{{ userInput.token.symbol }}
+          {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
         </div>
       </review-detail>
       <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
@@ -89,7 +89,7 @@ import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
 import { toDecimals, isEthereumNetwork, truncateAddr } from '@/utils'
-import { NetworkName } from '@/config/config.types'
+import { NetworkName, TokenMetadata } from '@/config/config.types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TransferSteps from '../Transfer.steps.vue'
@@ -139,8 +139,15 @@ export default defineComponent({
     nativeAssetSymbol(network: NetworkName) {
       return networks[network].nativeToken.symbol
     },
+    receiveAssetSymbol(token: TokenMetadata) {
+      if (token.nativeOnly) {
+        return token.wrappedAsset
+      }
+      return token.symbol
+    },
     async selectConnext () {
       this.protocol = 'connext'
+      if (this.fee) return
       try {
         await this.store.dispatch('getTransferQuote')
       } catch(e) {

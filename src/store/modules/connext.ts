@@ -25,7 +25,6 @@ export type SwapData = {
 }
 
 export interface ConnextState {
-  checkingLiquidity: boolean
   preparingSwap: boolean
   quote: any
   fee: BigNumber | undefined
@@ -33,7 +32,6 @@ export interface ConnextState {
 }
 
 const state: ConnextState = {
-  checkingLiquidity: false,
   preparingSwap: false,
   quote: undefined,
   fee: undefined,
@@ -41,10 +39,6 @@ const state: ConnextState = {
 }
 
 const mutations = <MutationTree<ConnextState>>{
-  [types.SET_CHECKING_LIQUIDITY](state: ConnextState, checking: boolean) {
-    console.log('{dispatch} checking liquidity: ', checking)
-    state.checkingLiquidity = checking
-  },
   [types.SET_PREPARING_SWAP](state: ConnextState, preparing: boolean) {
     console.log('{dispatch} preparing swap: ', preparing)
     state.preparingSwap = preparing
@@ -151,24 +145,6 @@ const actions = <ActionTree<ConnextState, RootState>>{
   resetTransferQuote({ commit }) {
     commit(types.SET_QUOTE, undefined)
     commit(types.SET_FEE, undefined)
-  },
-
-  async checkTransferLiquidity({ dispatch, commit }): Promise<any> {
-    commit(types.SET_CHECKING_LIQUIDITY, true)
-    const payload = await dispatch('formatDataForTransfer')
-    payload.dryRun = true
-    console.log('Checking liquidity: ', payload)
-    let quote
-    try {
-      quote = await connextSDK.getTransferQuote(payload)
-    } catch (e: unknown) {
-      console.log('error getting transfer quote', e)
-      commit(types.SET_CHECKING_LIQUIDITY, false)
-      // should return, don't show error when just checking availability
-      return false
-    }
-    commit(types.SET_CHECKING_LIQUIDITY, false)
-    return quote
   },
 
   async getTransferQuote({ rootState, commit, dispatch }) {
