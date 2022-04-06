@@ -68,11 +68,16 @@
         title="Processing Gas Fee"
         :borderBottom="false"
       >
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center transform translate-y-1">
           ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
-          <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
-            <alert-circle />
-          </n-icon>
+          <a
+            href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
+            target="_blank"
+          >
+            <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
+              <alert-circle />
+            </n-icon>
+          </a>
         </div>
       </review-detail>
     </div>
