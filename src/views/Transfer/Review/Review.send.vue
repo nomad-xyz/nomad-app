@@ -3,12 +3,16 @@
     primary
     :disabled="disabled"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
+    @click="send"
   >Send</nomad-button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed, h } from 'vue'
+import { useStore } from '@/store'
+import { useNotification } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
+import ConnextLink from './ConnextLink.vue'
 
 export default defineComponent({
   props: {
@@ -25,6 +29,16 @@ export default defineComponent({
   components: {
     NomadButton,
   },
+  setup: () => {
+    const store = useStore()
+    const notification = useNotification()
+    return {
+      fee: computed(() => store.state.connext.fee),
+      quote: computed(() => store.state.connext.quote),
+      store,
+      notification,
+    }
+  },
   methods: {
     send () {
       if (this.protocol === 'nomad') {
@@ -32,14 +46,30 @@ export default defineComponent({
       } else if (this.protocol === 'connext') {
         this.swap()
       } else {
-        console.log('no protocol selected')
+        console.error('no protocol selected')
       }
     },
     bridge () {
       console.log('bridge with nomad')
     },
-    swap () {
-      console.log('swap with Connext')
+    async swap () {
+      try {
+        const transfer = await this.store.dispatch('prepareTransfer')
+        this.notification.success({
+          title: 'Success',
+          content: () => h(ConnextLink, {
+            text: 'Transaction dispatched successfully!',
+            linkText: 'View on Connextscan.',
+            link: `https://connextscan.io/tx/${transfer.transactionId}`
+          })
+        })
+      } catch (e: any) {
+        this.notification.error({
+          title: 'Error sending Connext transaction',
+          description: e.message,
+          duration: 3000,
+        })
+      }
     },
   }
 })

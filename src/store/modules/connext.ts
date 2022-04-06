@@ -175,6 +175,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     console.log('transfer', transfer.transactionId)
     // TODO emit alert
     commit(types.SET_PREPARING_SWAP, false)
+    return transfer
 
     // // wait for receiver prepared event
     // const prepared = await connextSDK.waitFor(
