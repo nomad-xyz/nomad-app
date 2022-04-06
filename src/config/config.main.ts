@@ -127,7 +127,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
-    wrappedAsset: 'WGLMR'
+    wrappedAsset: 'WGLMR',
   },
   WGLMR: {
     nativeNetwork: 'moonbeam',

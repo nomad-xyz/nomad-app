@@ -81,7 +81,8 @@ const actions = <ActionTree<ConnextState, RootState>>{
     let sendingAsset
     console.log(originNetwork, token.symbol)
     // get token identifier for wrapped version of native assets
-    const tokenIdentifier = token.tokenIdentifier || tokens[token.wrappedAsset!].tokenIdentifier
+    const tokenIdentifier =
+      token.tokenIdentifier || tokens[token.wrappedAsset!].tokenIdentifier
     if (
       originNetwork === hubNetwork.name &&
       token.symbol === tokens.ETH.symbol
@@ -96,11 +97,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       sendingAsset = contract.address
     }
     if (!sendingAsset) {
-      console.error(
-        'No asset deployed for ',
-        originNetwork,
-        tokenIdentifier
-      )
+      console.error('No asset deployed for ', originNetwork, tokenIdentifier)
       return
     }
 

@@ -244,7 +244,9 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('registerSigner', destNetwork)
 
     // get proof
-    const res = await fetch(`${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`)
+    const res = await fetch(
+      `${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`
+    )
     const data = (await res.json()) as any
     console.log('proof: ', data)
 

@@ -1,9 +1,7 @@
 import * as Sentry from '@sentry/vue'
 import { App } from 'vue'
 
-const eventsToSilence = new Set([
-  'Metamask not installed'
-])
+const eventsToSilence = new Set(['Metamask not installed'])
 
 /* eslint-disable-next-line  @typescript-eslint/explicit-module-boundary-types */
 const initSentry = (app: App) => {

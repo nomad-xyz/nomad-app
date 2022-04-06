@@ -2,7 +2,7 @@
   <div class="review w-full rounded-md p-7">
     <!-- header -->
     <div class="flex flex-row w-full justify-between items-center px-5 pb-7">
-      <breadcrumb @click="this.$emit('back')"/>
+      <breadcrumb @click="this.$emit('back')" />
       <span class="uppercase">Review & Bridge</span>
       <transfer-steps :current="2" />
     </div>
@@ -36,8 +36,12 @@
       </review-detail>
       <review-detail title="To">
         <div>
-          <span class="mr-1 capitalize">{{ userInput.destinationNetwork }}</span>
-          <span class="opacity-50">| {{ truncateAddr(userInput.destinationAddr || walletAddress) }}</span>
+          <span class="mr-1 capitalize">
+            {{ userInput.destinationNetwork }}
+          </span>
+          <span class="opacity-50">
+            | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
+          </span>
         </div>
       </review-detail>
       <review-detail title="Send amount">
@@ -53,18 +57,27 @@
         </div>
       </review-detail>
       <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
-        <div>{{ originGasFee }} GWEI ({{ nativeAssetSymbol(userInput.originNetwork) }})</div>
+        <div>
+          {{ originGasFee }} GWEI ({{
+            nativeAssetSymbol(userInput.originNetwork)
+          }})
+        </div>
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Gas Fee">
         <div v-if="fee">{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
         <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Tx Fee">
-        <div v-if="fee">{{ connextFee }} GWEI ({{ userInput.token.symbol}})</div>
+        <div v-if="fee">
+          {{ connextFee }} GWEI ({{ userInput.token.symbol }})
+        </div>
         <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
       <review-detail
-        v-if="protocol === 'nomad' && isEthereumNetwork(userInput.destinationNetwork)"
+        v-if="
+          protocol === 'nomad' &&
+          isEthereumNetwork(userInput.destinationNetwork)
+        "
         title="Processing Gas Fee"
         :borderBottom="false"
       >
@@ -83,7 +96,10 @@
     </div>
 
     <!-- Send -->
-    <review-send :disabled="protocol === 'connext' && !fee" :protocol="protocol" />
+    <review-send
+      :disabled="protocol === 'connext' && !fee"
+      :protocol="protocol"
+    />
   </div>
 </template>
 
@@ -150,18 +166,18 @@ export default defineComponent({
       }
       return token.symbol
     },
-    async selectConnext () {
+    async selectConnext() {
       this.protocol = 'connext'
       if (this.fee) return
       try {
         await this.store.dispatch('getTransferQuote')
-      } catch(e) {
+      } catch (e) {
         // TODO: show alert
         console.log(e)
         this.protocol = 'nomad'
       }
     },
-  }
+  },
 })
 </script>
 

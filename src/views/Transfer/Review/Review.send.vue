@@ -4,7 +4,9 @@
     :disabled="disabled"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
     @click="send"
-  >Send</nomad-button>
+  >
+    Send
+  </nomad-button>
 </template>
 
 <script lang="ts">
@@ -15,22 +17,19 @@ import { useNotification } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
 import { networks } from '@/config'
-import {
-  isNativeToken,
-  getNetworkDomainIDByName,
-} from '@/utils'
+import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
 
 export default defineComponent({
   props: {
     protocol: {
       // TODO: make better type
       type: String,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   components: {
     NomadButton,
@@ -47,7 +46,7 @@ export default defineComponent({
     }
   },
   methods: {
-    async send () {
+    async send() {
       if (!this.metamaskInstalled) {
         this.notification.info({
           title: 'Install Metamask',
@@ -64,7 +63,7 @@ export default defineComponent({
         console.error('no protocol selected')
       }
     },
-    async bridge () {
+    async bridge() {
       const {
         sendAmount,
         token,
@@ -101,16 +100,17 @@ export default defineComponent({
         })
       }
     },
-    async swap () {
+    async swap() {
       try {
         const transfer = await this.store.dispatch('prepareTransfer')
         this.notification.success({
           title: 'Success',
-          content: () => h(NotificationLink, {
-            text: 'Transaction dispatched successfully!',
-            linkText: 'View on Connextscan',
-            link: `https://connextscan.io/tx/${transfer.transactionId}`
-          })
+          content: () =>
+            h(NotificationLink, {
+              text: 'Transaction dispatched successfully!',
+              linkText: 'View on Connextscan',
+              link: `https://connextscan.io/tx/${transfer.transactionId}`,
+            }),
         })
       } catch (e: any) {
         this.notification.error({
@@ -130,7 +130,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped lang="stylus">
-
-</style>

@@ -3,10 +3,7 @@
     <span>{{ text }}</span>
     <a :href="link" target="_blank" class="flex flex-row text-white">
       <span class="underline">{{ linkText }}</span>
-      <img
-        src="@/assets/icons/arrow-right-up.svg"
-        alt="open"
-      />
+      <img src="@/assets/icons/arrow-right-up.svg" alt="open" />
     </a>
   </div>
 </template>
@@ -18,16 +15,16 @@ export default defineComponent({
   props: {
     text: {
       type: String,
-      required: true
+      required: true,
     },
     linkText: {
       type: String,
-      required: true
+      required: true,
     },
     link: {
       type: String,
-      required: true
+      required: true,
     },
-  }
+  },
 })
 </script>

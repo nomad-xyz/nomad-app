@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-row justify-between px py-2"
-    :class="{ 'border-b border-opacity-5' : borderBottom }"
+    :class="{ 'border-b border-opacity-5': borderBottom }"
   >
     <div class="opacity-50 capitalize">{{ title }}</div>
     <slot />
@@ -15,12 +15,12 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     borderBottom: {
       type: Boolean,
-      default: true
-    }
-  }
+      default: true,
+    },
+  },
 })
 </script>

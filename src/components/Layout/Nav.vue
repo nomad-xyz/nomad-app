@@ -100,7 +100,8 @@ export default defineComponent({
     return {
       walletConnected: computed(() => store.state.wallet.connected),
       showButton: computed(() =>
-        ['Bridge', 'NomadTransaction'].includes(route.name as string)),
+        ['Bridge', 'NomadTransaction'].includes(route.name as string)
+      ),
       store,
     }
   },

@@ -145,7 +145,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     nativeOnly: true,
     minAmt: 10,
     wrappedAsset: 'wADA',
-  }, 
+  },
   wADA: {
     nativeNetwork: 'milkomedatestnet',
     symbol: 'wADA',
@@ -169,7 +169,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
-    wrappedAsset: 'wtEVMOS'
+    wrappedAsset: 'wtEVMOS',
   },
   wtEVMOS: {
     nativeNetwork: 'evmostestnet',

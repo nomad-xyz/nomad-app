@@ -63,7 +63,7 @@ export default defineComponent({
   },
 
   methods: {
-    async next () {
+    async next() {
       const valid = await this.v$.$validate()
       if (valid) this.$emit('next')
     },

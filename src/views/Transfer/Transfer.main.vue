@@ -14,11 +14,7 @@ export default defineComponent({
     TransferReview,
   },
   data: () => ({
-    step: 1
-  })
+    step: 1,
+  }),
 })
 </script>
-
-<style scoped>
-
-</style>
