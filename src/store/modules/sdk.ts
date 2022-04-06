@@ -1,7 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
-import { TransferMessage, TokenIdentifier } from '@nomad-xyz/sdk-bridge'
-
+import { TokenIdentifier } from '@/utils'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
@@ -12,9 +11,11 @@ import { NetworkMetadata, NetworkName } from '@/config/config.types'
 
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 
+export let nomadSDK: any
 let nomad: any
 
 import('@nomad-xyz/sdk-bridge').then(sdk => {
+  nomadSDK = sdk
   const context = new sdk.BridgeContext(environment)
   Object.values(networks).forEach(({ name, rpcUrl }) => {
     context.registerRpcProvider(name, rpcUrl)
@@ -154,7 +155,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async send(
     { commit, dispatch },
     payload: SendData
-  ): Promise<TransferMessage | null> {
+  ): Promise<typeof nomadSDK.TransferMessage | null> {
     console.log('sending...', payload)
     commit(types.SET_SENDING, true)
     const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
@@ -200,7 +201,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async processTx({ dispatch }, tx: { origin: NetworkName; hash: string;}) {
     // get transfer message
     const { origin, hash } = tx
-    const message = await TransferMessage.singleFromTransactionHash(
+    const message = await nomadSDK.TransferMessage.singleFromTransactionHash(
       nomad,
       origin,
       hash
@@ -273,12 +274,12 @@ const getters = <GetterTree<SDKState, RootState>>{
 
   getTxMessage:
     () =>
-    async (tx: TXData): Promise<TransferMessage> => {
+    async (tx: TXData): Promise<typeof nomadSDK.TransferMessage> => {
       const { network, hash } = tx
       let message
 
       try {
-        message = await TransferMessage.singleFromTransactionHash(
+        message = await nomadSDK.TransferMessage.singleFromTransactionHash(
           nomad,
           network,
           hash
@@ -287,7 +288,7 @@ const getters = <GetterTree<SDKState, RootState>>{
         console.error(e)
       }
 
-      return message as TransferMessage
+      return message as typeof nomadSDK.TransferMessage
     },
 
   resolveDomain: () => (network: string) => {

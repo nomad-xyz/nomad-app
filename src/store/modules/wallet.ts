@@ -8,8 +8,7 @@ import * as types from '@/store/mutation-types'
 import { networks } from '@/config/index'
 import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
-import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
-import { tokens } from '@/config'
+import { TokenIdentifier } from '@/utils'
 import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
 
 export interface WalletState {

@@ -3,6 +3,7 @@ import AppWrapper from './AppWrapper.vue'
 import router from './router'
 import initSentry from './services/sentry'
 import { store, key } from './store'
+import '@/store/modules/sdk'
 
 import './index.css'
 

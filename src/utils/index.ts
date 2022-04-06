@@ -1,4 +1,4 @@
-import { BigNumber, utils } from 'ethers'
+import { BigNumber, utils, BytesLike } from 'ethers'
 
 import { networks, tokens, hubNetwork } from '@/config'
 import { NetworkMetadata, TokenMetadata } from '@/config/config.types'
@@ -16,6 +16,11 @@ export type NaiveOption = {
   label: string
   value: string
   key: string
+}
+
+export type TokenIdentifier = {
+  domain: string | number
+  id: BytesLike
 }
 
 /**
