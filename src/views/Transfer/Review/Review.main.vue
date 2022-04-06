@@ -190,7 +190,8 @@ export default defineComponent({
       } catch (e) {
         this.notification.info({
           title: 'Unavailable',
-          description: 'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.',
+          description:
+            'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.',
           duration: 5000,
         })
         console.log(e)
@@ -201,7 +202,7 @@ export default defineComponent({
       const fees = Number.parseFloat(this.connextFee!)
       const total = this.userInput.sendAmount - fees
       return total.toFixed(6)
-    }
+    },
   },
 })
 </script>

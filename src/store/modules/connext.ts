@@ -88,7 +88,10 @@ const actions = <ActionTree<ConnextState, RootState>>{
         token.tokenIdentifier
       )
       receivingAsset = receiving.address
-    } else if (token.nativeOnly && networks[originNetwork].nativeToken.symbol === token.symbol) {
+    } else if (
+      token.nativeOnly &&
+      networks[originNetwork].nativeToken.symbol === token.symbol
+    ) {
       // if sending ETH from Ethereum, get ETH as send asset and wETH as receive asset
       console.log('send native token')
       sendingAsset = nativeTokenId

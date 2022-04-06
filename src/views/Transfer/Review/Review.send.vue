@@ -93,7 +93,6 @@ export default defineComponent({
         const txHash = transferMessage.receipt.transactionHash
         this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
       } else {
-        // TODO: better error
         this.notification.warning({
           title: 'Transaction send failed',
           content:
@@ -114,7 +113,7 @@ export default defineComponent({
               link: txLink,
             }),
         })
-        window.open(txLink, '_blank')
+        // window.open(txLink, '_blank')
       } catch (e: any) {
         this.notification.error({
           title: 'Error sending Connext transaction',
@@ -132,7 +131,7 @@ export default defineComponent({
     },
     disableSend(): boolean {
       return this.protocol === 'connext' && !this.quote
-    }
+    },
   },
 })
 </script>
