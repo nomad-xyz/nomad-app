@@ -175,7 +175,8 @@ export default defineComponent({
         await this.store.dispatch('getTransferQuote')
       } catch (e) {
         this.notification.info({
-          title: 'Fast bridging with Connext is unavailable for this transfer.'
+          title: 'Unavailable',
+          description: 'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.'
         })
         console.log(e)
         this.protocol = 'nomad'

@@ -87,8 +87,8 @@
     >
       <n-text class="mb-2 opacity-80 text-center">
         Your funds have been bridged back to
-        <span class="capitalize">{{ hubNetwork.name }}</span
-        >! Please click below to submit a transaction to complete your transfer.
+        <span class="capitalize">{{ hubNetwork.name }}!</span>
+        Please click below to submit a transaction to complete your transfer.
       </n-text>
       <n-text
         @click="process"

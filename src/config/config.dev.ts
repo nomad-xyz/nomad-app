@@ -4,7 +4,7 @@ import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import DEVIcon from '@/assets/token-logos/DEV.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
-import wEvmosIcon from '@/assets/token-logos/wEVMOS.jpeg'
+import wEvmosIcon from '@/assets/token-logos/wEVMOS.png'
 import ConnextIcon from '@/assets/icons/connext.svg'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
