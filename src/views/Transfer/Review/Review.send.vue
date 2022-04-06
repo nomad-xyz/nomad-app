@@ -38,7 +38,6 @@ export default defineComponent({
     const store = useStore()
     const notification = useNotification()
     return {
-      fee: computed(() => store.state.connext.fee),
       quote: computed(() => store.state.connext.quote),
       userInput: computed(() => store.state.userInput),
       store,

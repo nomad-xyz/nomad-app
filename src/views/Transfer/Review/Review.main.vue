@@ -50,12 +50,6 @@
           {{ userInput.sendAmount }} {{ userInput.token.symbol }}
         </div>
       </review-detail>
-      <review-detail title="Receive Amount">
-        <div class="flex flex-row items-center">
-          <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
-        </div>
-      </review-detail>
       <review-detail v-if="protocol === 'nomad'" title="Gas Fee">
         <div>
           {{ originGasFee }} GWEI ({{
@@ -63,13 +57,9 @@
           }})
         </div>
       </review-detail>
-      <review-detail v-if="protocol === 'connext'" title="Gas Fee">
-        <div v-if="fee">{{ fee }} GWEI ({{ userInput.token.symbol }})</div>
-        <n-skeleton v-else :width="150" :height="21" round size="small" />
-      </review-detail>
-      <review-detail v-if="protocol === 'connext'" title="Tx Fee">
-        <div v-if="fee">
-          {{ connextFee }} GWEI ({{ userInput.token.symbol }})
+      <review-detail v-if="protocol === 'connext'" title="Tx Fees">
+        <div v-if="connextFee">
+          {{ connextFee }} {{ userInput.token.symbol }}
         </div>
         <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
@@ -93,11 +83,32 @@
           </a>
         </div>
       </review-detail>
+      <review-detail
+        v-if="protocol === 'nomad'"
+        title="Receive Amount"
+        :borderBottom="false"
+      >
+        <div class="flex flex-row items-center">
+          <img :src="userInput.token.icon" class="h-4 mr-1" />
+          {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
+        </div>
+      </review-detail>
+      <review-detail
+        v-if="protocol === 'connext'"
+        title="Receive Amount"
+        :borderBottom="false"
+      >
+        <div v-if="connextFee" class="flex flex-row items-center">
+          <img :src="userInput.token.icon" class="h-4 mr-1" />
+          {{ userInput.sendAmount - connextFee }} {{ receiveAssetSymbol(userInput.token) }}
+        </div>
+        <n-skeleton v-else :width="150" :height="21" round size="small" />
+      </review-detail>
     </div>
 
     <!-- Send -->
     <review-send
-      :disabled="protocol === 'connext' && !fee"
+      :disabled="protocol === 'connext' && !connextFee"
       :protocol="protocol"
     />
   </div>
@@ -143,11 +154,9 @@ export default defineComponent({
       }),
       connextFee: computed(() => {
         const { decimals } = store.state.userInput.token
-        return store.state.connext.fee
-          ? toDecimals(store.state.connext.fee, decimals, 6)
-          : undefined
+        const { quote } = store.state.connext
+        return quote ? toDecimals(quote.totalFee, decimals, 6) : undefined
       }),
-      fee: computed(() => store.state.connext.fee),
       store,
       notification,
     }
@@ -170,13 +179,14 @@ export default defineComponent({
     },
     async selectConnext() {
       this.protocol = 'connext'
-      if (this.fee) return
+      if (this.connextFee) return
       try {
         await this.store.dispatch('getTransferQuote')
       } catch (e) {
         this.notification.info({
           title: 'Unavailable',
-          description: 'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.'
+          description: 'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.',
+          duration: 5000,
         })
         console.log(e)
         this.protocol = 'nomad'

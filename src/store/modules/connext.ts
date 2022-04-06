@@ -12,9 +12,11 @@ import {
   TokenMetadata,
 } from '@/config/config.types'
 import instantiateConnextSDK from '@/utils/connext'
-import { hubNetwork, tokens } from '@/config'
+import { tokens } from '@/config'
 
 let connextSDK: NxtpSdk
+
+const nativeTokenId = '0x0000000000000000000000000000000000000000'
 
 export type SwapData = {
   origin: MainnetNetwork | TestnetNetwork
@@ -27,14 +29,12 @@ export type SwapData = {
 export interface ConnextState {
   preparingSwap: boolean
   quote: any
-  fee: BigNumber | undefined
   prepared: any
 }
 
 const state: ConnextState = {
   preparingSwap: false,
   quote: undefined,
-  fee: undefined,
   prepared: undefined,
 }
 
@@ -46,10 +46,6 @@ const mutations = <MutationTree<ConnextState>>{
   [types.SET_QUOTE](state: ConnextState, quote: any) {
     console.log('{dispatch} set quote: ', quote)
     state.quote = quote
-  },
-  [types.SET_FEE](state: ConnextState, fee: BigNumber) {
-    console.log('{dispatch} set fee estimate: ', fee)
-    state.fee = fee
   },
   [types.SET_PREPARED](state: ConnextState, prepared: any) {
     console.log('{dispatch} set prepared: ', prepared)
@@ -77,53 +73,33 @@ const actions = <ActionTree<ConnextState, RootState>>{
     const sendingChainId = networks[originNetwork].chainID
     const receivingChainId = networks[destinationNetwork].chainID
 
-    // get sending asset address
     let sendingAsset
-    console.log(originNetwork, token.symbol)
-    // get token identifier for wrapped version of native assets
-    const tokenIdentifier =
-      token.tokenIdentifier || tokens[token.wrappedAsset!].tokenIdentifier
-    if (
-      originNetwork === hubNetwork.name &&
-      token.symbol === tokens.ETH.symbol
-    ) {
-      // if sending ETH from Ethereum, get ETH as send asset
-      sendingAsset = '0x0000000000000000000000000000000000000000'
-    } else {
-      const contract = await rootGetters.resolveRepresentation(
+    let receivingAsset
+
+    // token is ERC20 and not native asset
+    if (!token.nativeOnly && token.tokenIdentifier) {
+      const sending = await rootGetters.resolveRepresentation(
         originNetwork,
-        tokenIdentifier
+        token.tokenIdentifier
       )
-      sendingAsset = contract.address
+      sendingAsset = sending.address
+      const receiving = await rootGetters.resolveRepresentation(
+        destinationNetwork,
+        token.tokenIdentifier
+      )
+      receivingAsset = receiving.address
+    } else if (token.nativeOnly && networks[originNetwork].nativeToken.symbol === token.symbol) {
+      // if sending ETH from Ethereum, get ETH as send asset and wETH as receive asset
+      console.log('send native token')
+      sendingAsset = nativeTokenId
+      receivingAsset = tokens[token.wrappedAsset!].tokenIdentifier!.id
     }
-    if (!sendingAsset) {
-      console.error('No asset deployed for ', originNetwork, tokenIdentifier)
+
+    if (!sendingAsset || !receivingAsset) {
+      console.error('Sending or Receiving asset not defined')
       return
     }
 
-    // get receiving asset address
-    let receivingAsset
-    if (
-      destinationNetwork === hubNetwork.name &&
-      token.symbol === tokens.WETH.symbol
-    ) {
-      // if sending WETH to Ethereum, get ETH as receiving asset
-      receivingAsset = '0x0000000000000000000000000000000000000000'
-    } else {
-      const contract = await rootGetters.resolveRepresentation(
-        destinationNetwork,
-        tokenIdentifier
-      )
-      receivingAsset = contract.address
-    }
-    if (!receivingAsset) {
-      console.error(
-        'No asset deployed for ',
-        destinationNetwork,
-        tokenIdentifier
-      )
-      return
-    }
     // get amount in decimals
     const amountBN = utils.parseUnits(sendAmount?.toString(), token.decimals)
     return {
@@ -136,6 +112,15 @@ const actions = <ActionTree<ConnextState, RootState>>{
       preferredRouters: isProduction
         ? []
         : ['0x087f402643731b20883fc5dba71b37f6f00e69b9'],
+      // sendingChainId: sendingChainId,
+      // sendingAssetId: '0xe71678794fff8846bFF855f716b0Ce9d9a78E844',
+      // receivingChainId: receivingChainId,
+      // receivingAssetId: '0x9aC2c46d7AcC21c881154D57c0Dc1c55a3139198',
+      // receivingAddress: destinationAddress,
+      // amount: amountBN?.toString(),
+      // preferredRouters: isProduction
+      //   ? []
+      //   : ['0x087f402643731b20883fc5dba71b37f6f00e69b9'],
     }
   },
 
@@ -148,15 +133,8 @@ const actions = <ActionTree<ConnextState, RootState>>{
     const payload = await dispatch('formatDataForTransfer')
     console.log('Preparing for transfer quote: ', payload)
     const quote = await connextSDK.getTransferQuote(payload)
-
-    const { sendAmount, token } = rootState.userInput
-    // estimate fee
-    const amountBN = utils.parseUnits(sendAmount.toString(), token.decimals)
-    const feeEstimate = amountBN.sub(quote.bid.amountReceived)
-
     // set in store
     commit(types.SET_QUOTE, quote)
-    commit(types.SET_FEE, feeEstimate)
   },
 
   async prepareTransfer({ state, commit }) {
