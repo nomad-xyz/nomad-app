@@ -23,7 +23,7 @@
         time="7-10 min"
         description="Swaps existing liquidity between chains"
         fee="0.5% TX fee"
-        @click="protocol = 'connext'"
+        @click="selectConnext"
       />
     </div>
     <!-- transfer details -->
@@ -56,10 +56,12 @@
         <div>{{ originGasFee }} GWEI ({{ nativeAssetSymbol(userInput.originNetwork) }})</div>
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Gas Fee">
-        <div>{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
+        <div v-if="fee">{{ 'TODO' }} GWEI ({{ userInput.token.symbol }})</div>
+        <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
       <review-detail v-if="protocol === 'connext'" title="Tx Fee">
-        <div>{{ connextFee }} GWEI ({{ userInput.token.symbol}})</div>
+        <div v-if="fee">{{ connextFee }} GWEI ({{ userInput.token.symbol}})</div>
+        <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
       <review-detail
         v-if="protocol === 'nomad' && isEthereumNetwork(userInput.destinationNetwork)"
@@ -76,13 +78,13 @@
     </div>
 
     <!-- Send -->
-    <review-send :protocol="protocol" />
+    <review-send :disabled="protocol === 'connext' && !fee" :protocol="protocol" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { NIcon } from 'naive-ui'
+import { NIcon, NSkeleton } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
@@ -100,6 +102,7 @@ export default defineComponent({
   components: {
     Breadcrumb,
     NIcon,
+    NSkeleton,
     AlertCircle,
     TransferSteps,
     Protocol,
@@ -122,6 +125,7 @@ export default defineComponent({
           ? toDecimals(store.state.connext.fee, decimals, 6)
           : undefined
       }),
+      fee: computed(() => store.state.connext.fee),
       store,
     }
   },
@@ -134,7 +138,17 @@ export default defineComponent({
     truncateAddr,
     nativeAssetSymbol(network: NetworkName) {
       return networks[network].nativeToken.symbol
-    }
+    },
+    async selectConnext () {
+      this.protocol = 'connext'
+      try {
+        await this.store.dispatch('getTransferQuote')
+      } catch(e) {
+        // TODO: show alert
+        console.log(e)
+        this.protocol = 'nomad'
+      }
+    },
   }
 })
 </script>

@@ -20,6 +20,7 @@ export type TokenMetadata = {
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
   minAmt: number
+  wrappedAsset?: string
 }
 
 export type NetworkMetadata = {

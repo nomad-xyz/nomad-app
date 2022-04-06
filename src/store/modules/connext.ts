@@ -86,6 +86,8 @@ const actions = <ActionTree<ConnextState, RootState>>{
     // get sending asset address
     let sendingAsset
     console.log(originNetwork, token.symbol)
+    // get token identifier for wrapped version of native assets
+    const tokenIdentifier = token.tokenIdentifier || tokens[token.wrappedAsset!].tokenIdentifier
     if (
       originNetwork === hubNetwork.name &&
       token.symbol === tokens.ETH.symbol
@@ -95,7 +97,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     } else {
       const contract = await rootGetters.resolveRepresentation(
         originNetwork,
-        token.tokenIdentifier
+        tokenIdentifier
       )
       sendingAsset = contract.address
     }
@@ -103,7 +105,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       console.error(
         'No asset deployed for ',
         originNetwork,
-        token.tokenIdentifier
+        tokenIdentifier
       )
       return
     }
@@ -119,7 +121,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     } else {
       const contract = await rootGetters.resolveRepresentation(
         destinationNetwork,
-        token.tokenIdentifier
+        tokenIdentifier
       )
       receivingAsset = contract.address
     }
@@ -127,7 +129,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       console.error(
         'No asset deployed for ',
         destinationNetwork,
-        token.tokenIdentifier
+        tokenIdentifier
       )
       return
     }

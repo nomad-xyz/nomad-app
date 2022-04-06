@@ -1,6 +1,7 @@
 <template>
   <nomad-button
     primary
+    :disabled="disabled"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
   >Send</nomad-button>
 </template>
@@ -16,6 +17,10 @@ export default defineComponent({
       type: String,
       required: true
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     NomadButton,

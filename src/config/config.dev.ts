@@ -45,6 +45,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 0.0028,
+    wrappedAsset: 'WETH',
   },
   kWETH: {
     nativeNetwork: 'kovan',
@@ -69,6 +70,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 0.0028,
+    wrappedAsset: 'kWETH',
   },
   USDT: {
     nativeNetwork: 'kovan',
@@ -142,6 +144,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'wADA',
   }, 
   wADA: {
     nativeNetwork: 'milkomedatestnet',
@@ -166,6 +169,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'wtEVMOS'
   },
   wtEVMOS: {
     nativeNetwork: 'evmostestnet',

@@ -62,15 +62,14 @@ export default defineComponent({
       userInput: computed(() => store.state.userInput),
       checkingLiquidity: computed(() => store.state.connext.checkingLiquidity),
       store,
+      v$,
     }
   },
 
   methods: {
     async next () {
-      const quote = await this.store.dispatch('checkTransferLiquidity')
-      console.log(quote)
-      this.$emit('next')
-      return
+      const valid = await this.v$.$validate()
+      if (valid) this.$emit('next')
     },
   },
 })
