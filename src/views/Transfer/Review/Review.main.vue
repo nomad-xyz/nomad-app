@@ -94,12 +94,12 @@
       </review-detail>
       <review-detail
         v-if="protocol === 'connext'"
-        title="Receive Amount"
+        title="Est. Receive Amount"
         :borderBottom="false"
       >
         <div v-if="connextFee" class="flex flex-row items-center">
           <img :src="userInput.token.icon" class="h-4 mr-1" />
-          {{ userInput.sendAmount - connextFee }} {{ receiveAssetSymbol(userInput.token) }}
+          {{ connextReceiveAmt() }} {{ receiveAssetSymbol(userInput.token) }}
         </div>
         <n-skeleton v-else :width="150" :height="21" round size="small" />
       </review-detail>
@@ -188,6 +188,11 @@ export default defineComponent({
         this.protocol = 'nomad'
       }
     },
+    connextReceiveAmt() {
+      const fees = Number.parseFloat(this.connextFee!)
+      const total = this.userInput.sendAmount - fees
+      return total.toFixed(6)
+    }
   },
 })
 </script>
