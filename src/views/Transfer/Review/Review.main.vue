@@ -72,15 +72,14 @@
             isEthereumNetwork(userInput.destinationNetwork)
           "
           title="Processing Gas Fee"
-          :borderBottom="false"
         >
-          <div class="flex flex-row items-center transform translate-y-1">
+          <div class="flex flex-row items-center transform">
             ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
             <a
               href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
               target="_blank"
             >
-              <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer">
+              <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer translate-y-1">
                 <alert-circle />
               </n-icon>
             </a>
