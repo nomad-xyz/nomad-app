@@ -134,7 +134,6 @@ const actions = <ActionTree<ConnextState, RootState>>{
 
   resetTransferQuote({ commit }) {
     commit(types.SET_QUOTE, undefined)
-    commit(types.SET_FEE, undefined)
   },
 
   async getTransferQuote({ rootState, commit, dispatch }) {
@@ -186,7 +185,6 @@ const actions = <ActionTree<ConnextState, RootState>>{
     // clear state
     commit(types.SET_QUOTE, undefined)
     commit(types.SET_PREPARED, undefined)
-    commit(types.SET_FEE, undefined)
   },
 
   async finishTransfer(

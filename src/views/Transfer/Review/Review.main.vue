@@ -2,7 +2,7 @@
   <div class="review w-full rounded-md p-7">
     <!-- header -->
     <div class="flex flex-row w-full justify-between items-center px-5 pb-7">
-      <breadcrumb @click="this.$emit('back')" />
+      <breadcrumb @click="back" />
       <span class="uppercase">Review & Bridge</span>
       <transfer-steps :current="2" />
     </div>
@@ -203,6 +203,11 @@ export default defineComponent({
       const total = this.userInput.sendAmount - fees
       return total.toFixed(6)
     },
+    back() {
+      if (this.sending || this.preparingSwap) return
+      this.store.dispatch('resetTransferQuote')
+      this.$emit('back')
+    }
   },
 })
 </script>
