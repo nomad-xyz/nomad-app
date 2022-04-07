@@ -227,18 +227,17 @@ const actions = <ActionTree<SDKState, RootState>>{
 
     // get replica contract
     const core = nomad.getCore(message.destination)
-    const replica = core?.getReplica(message.origin)
+    const originName = nomad.resolveDomainName(message.origin)
+    const replica = core?.getReplica(originName)
 
     if (!replica) {
-      console.error('missing replica, unable to process transaction')
-      return
+      throw new Error('missing replica, unable to process transaction')
     }
 
     // connect signer
     const signer = nomad.getSigner(message.destination)
     if (!signer) {
-      console.error('missing signer, unable to process transaction')
-      return
+      throw new Error('missing signer, unable to process transaction')
     }
     replica.connect(signer)
 

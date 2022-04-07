@@ -244,6 +244,7 @@ export default defineComponent({
           })
         }
       } catch (e: unknown) {
+        console.error(e)
         this.notification.warning({
           title: 'Error Dispatching Transaction',
           content: (e as Error).message,
