@@ -22,6 +22,7 @@
         name="connext"
         time="7-10 min"
         description="Swaps existing liquidity between chains"
+        :fee="connextAdditionalFee"
         @click="selectConnext"
       />
     </div>
@@ -92,7 +93,7 @@
         >
           <div class="flex flex-row items-center">
             <img :src="userInput.token.icon" class="h-4 mr-1" />
-            {{ userInput.sendAmount }} {{ receiveAssetSymbol(userInput.token) }}
+            {{ userInput.sendAmount }} {{ receiveAssetSymbol() }}
           </div>
         </review-detail>
         <review-detail
@@ -102,7 +103,7 @@
         >
           <div v-if="connextFee" class="flex flex-row items-center">
             <img :src="userInput.token.icon" class="h-4 mr-1" />
-            {{ connextReceiveAmt() }} {{ receiveAssetSymbol(userInput.token) }}
+            {{ connextReceiveAmt() }} {{ receiveAssetSymbol() }}
           </div>
           <n-skeleton v-else :width="150" :height="21" round size="small" />
         </review-detail>
@@ -116,12 +117,13 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import { BigNumber } from 'ethers'
 import { NIcon, NSkeleton, useNotification } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
 import { toDecimals, isEthereumNetwork, truncateAddr } from '@/utils'
-import { NetworkName, TokenMetadata } from '@/config/config.types'
+import { NetworkName } from '@/config/config.types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TransferSteps from '../Transfer.steps.vue'
@@ -159,6 +161,7 @@ export default defineComponent({
         const { quote } = store.state.connext
         return quote ? toDecimals(quote.totalFee, decimals, 6) : undefined
       }),
+      quote: computed(() => store.state.connext.quote),
       sending: computed(() => store.state.sdk.sending),
       preparingSwap: computed(() => store.state.connext.preparingSwap),
       store,
@@ -175,7 +178,8 @@ export default defineComponent({
     nativeAssetSymbol(network: NetworkName) {
       return networks[network].nativeToken.symbol
     },
-    receiveAssetSymbol(token: TokenMetadata) {
+    receiveAssetSymbol() {
+      const { token } = this.userInput
       if (token.nativeOnly) {
         return token.wrappedAsset
       }
@@ -208,6 +212,16 @@ export default defineComponent({
       this.$emit('back')
     }
   },
+  computed: {
+    connextAdditionalFee() {
+      if (!this.quote) return
+      const relayerFee = BigNumber.from(this.quote.metaTxRelayerFee)
+      const routerFee = BigNumber.from(this.quote.routerFee)
+      const total = relayerFee.add(routerFee)
+      const formatted = toDecimals(total, 18, 4)
+      return `${formatted} ${this.userInput.token.symbol}`
+    }
+  }
 })
 </script>
 
