@@ -4,7 +4,7 @@ import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import DEVIcon from '@/assets/token-logos/DEV.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
-import wEvmosIcon from '@/assets/token-logos/wEVMOS.jpeg'
+import wEvmosIcon from '@/assets/token-logos/wEVMOS.png'
 import ConnextIcon from '@/assets/icons/connext.svg'
 
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
@@ -22,6 +22,19 @@ const {
 } = process.env
 
 export const tokens: { [key: string]: TokenMetadata } = {
+  // Only for use with connext in dev environment
+  kTEST: {
+    nativeNetwork: 'kovan',
+    symbol: 'kTEST',
+    name: 'Kovan TEST',
+    icon: ConnextIcon,
+    iconColors: ['#62BBEF', '#8470E2'],
+    decimals: 18,
+    coinGeckoId: 'dai',
+    tokenIdentifier: testnetTokens.TEST,
+    nativeOnly: false,
+    minAmt: 10,
+  },
   WETH: {
     nativeNetwork: 'rinkeby',
     symbol: 'WETH',
@@ -45,6 +58,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 0.0028,
+    wrappedAsset: 'WETH',
   },
   kWETH: {
     nativeNetwork: 'kovan',
@@ -69,6 +83,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 0.0028,
+    wrappedAsset: 'kWETH',
   },
   USDT: {
     nativeNetwork: 'kovan',
@@ -113,22 +128,9 @@ export const tokens: { [key: string]: TokenMetadata } = {
     icon: DEVIcon,
     iconColors: ['#53CBC8', '#e84195'],
     decimals: 18,
-    coinGeckoId: 'dai', // TODO:
+    coinGeckoId: 'moonbeam',
     tokenIdentifier: null,
     nativeOnly: true,
-    minAmt: 10,
-  },
-  // Only for use with connext in dev environment
-  kTEST: {
-    nativeNetwork: 'kovan',
-    symbol: 'kTEST',
-    name: 'Kovan TEST',
-    icon: ConnextIcon,
-    iconColors: ['#62BBEF', '#8470E2'],
-    decimals: 18,
-    coinGeckoId: 'dai',
-    tokenIdentifier: testnetTokens.TEST,
-    nativeOnly: false,
     minAmt: 10,
   },
   milkADA: {
@@ -142,7 +144,8 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
-  }, 
+    wrappedAsset: 'wADA',
+  },
   wADA: {
     nativeNetwork: 'milkomedatestnet',
     symbol: 'wADA',
@@ -166,6 +169,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'wtEVMOS',
   },
   wtEVMOS: {
     nativeNetwork: 'evmostestnet',
@@ -242,18 +246,12 @@ export const networks: { [key: string]: NetworkMetadata } = {
     nativeToken: tokens.tEVMOS,
     rpcUrl: VUE_APP_EVMOS_TESTNET_RPC!,
     blockExplorer: 'https://evm.evmos.org',
-    icon: wEvmosIcon, // TODO: update with correct icon
+    icon: wEvmosIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
 }
 
 export const hubNetwork = networks.rinkeby
-
-export const connextPools: { [key: string]: string[] } = {
-  moonbasealpha: ['kTEST', 'mbTEST'],
-  kovan: ['kTEST', 'mbTEST'],
-  rinkeby: [],
-}
 
 export const connextConfig: SdkBaseChainConfigParams = {
   // must have Ethereum for some reason
@@ -265,12 +263,16 @@ export const connextConfig: SdkBaseChainConfigParams = {
     // kovan
     providers: [VUE_APP_KOVAN_RPC!],
   },
+  4: {
+    // rinkeby
+    providers: [VUE_APP_RINKEBY_RPC!],
+  },
   1287: {
     // moonbasealpha
     providers: [VUE_APP_MOONBASEALPHA_RPC!],
   },
-  9000: {
-    // evmos testnet
-    providers: [VUE_APP_EVMOS_TESTNET_RPC!]
-  },
+  // 9000: {
+  //   // evmos testnet
+  //   providers: [VUE_APP_EVMOS_TESTNET_RPC!]
+  // },
 }

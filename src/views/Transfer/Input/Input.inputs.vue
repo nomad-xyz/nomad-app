@@ -2,7 +2,7 @@
   <div
     class="bg-black bg-opacity-50 p-4 rounded-lg flex flex-row inputs-container"
   >
-    <div class="flex-grow relative">
+    <div class="origin flex-grow relative">
       <!-- origin network not selected -->
       <p
         class="validation-err text-red-500 text-xs"
@@ -31,21 +31,10 @@
         <n-text class="opacity-50">Address</n-text>
         <n-text>{{ truncateAddr(originAddr) || '—' }}</n-text>
       </div>
-
-      <n-divider class="divider" />
-
-      <!-- gas fee -->
-      <div class="flex flex-row justify-between">
-        <n-text class="opacity-50">Gas Fee (GWEI)</n-text>
-        <div v-if="originNetwork && originGasFee">
-          <n-text>{{ displayGasFee() }}</n-text>
-        </div>
-        <n-text v-else>—</n-text>
-      </div>
     </div>
 
     <!-- arrow -->
-    <img src="@/assets/icons/bridge-arrow.svg" class="mx-4" />
+    <img src="@/assets/icons/bridge-arrow.svg" class="arrow mx-4" />
 
     <!-- right -->
     <div class="flex-grow relative">
@@ -102,27 +91,6 @@
           @hide="showEditRecipient = false"
         />
       </div>
-
-      <n-divider class="divider" v-if="claimGasFee" />
-
-      <!-- gas fee -->
-      <div v-if="claimGasFee" class="flex flex-row justify-between">
-        <n-text class="opacity-50">Gas Fee</n-text>
-        <div>
-          <a
-            href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
-            target="_blank"
-            class="flex align-center underline"
-          >
-            Paid on claim
-            <img
-              src="@/assets/icons/arrow-right-up.svg"
-              alt="open"
-              class="opacity-70"
-            />
-          </a>
-        </div>
-      </div>
     </div>
 
     <!-- origin network select modal -->
@@ -147,11 +115,10 @@ import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 
 import { useStore } from '@/store'
-import { truncateAddr, toDecimals, isValidAddress } from '@/utils/index'
-import { NetworkMetadata } from '@/config/config.types'
-import { networks, hubNetwork } from '@/config'
-import NetworkSelect from './Transfer.networks.vue'
-import EditRecipient from './Transfer.recipient.vue'
+import { truncateAddr, isValidAddress } from '@/utils/index'
+import { networks } from '@/config'
+import NetworkSelect from './Input.networks.vue'
+import EditRecipient from './Input.recipient.vue'
 
 interface ComponentData {
   showSelectOriginNetwork: boolean
@@ -161,11 +128,6 @@ interface ComponentData {
 }
 
 export default defineComponent({
-  props: {
-    connextAvail: {
-      type: Boolean,
-    },
-  },
   components: {
     NText,
     NDivider,
@@ -188,7 +150,6 @@ export default defineComponent({
     return {
       originAddr: computed(() => store.state.wallet.address),
       destinationAddr: computed(() => store.state.userInput.destinationAddress),
-      originGasFee: computed(() => store.state.userInput.gasEst),
       originNetwork: computed(() => store.state.userInput.originNetwork),
       destinationNetwork: computed(
         () => store.state.userInput.destinationNetwork
@@ -209,22 +170,9 @@ export default defineComponent({
     }
   },
   methods: {
-    displayGasFee() {
-      const { nativeToken } = networks[this.originNetwork]
-      if (this.originGasFee) {
-        return toDecimals(this.originGasFee, nativeToken.decimals - 9, 6)
-      }
-    },
     getDisplayName(name: string) {
       if (!name) return 'Select Network'
       return networks[name].displayName
-    },
-  },
-  computed: {
-    claimGasFee() {
-      if (!this.destinationNetwork) return false
-      if (this.connextAvail) return true
-      return this.destinationNetwork === hubNetwork.name
     },
   },
 })
@@ -236,4 +184,12 @@ export default defineComponent({
 
 .divider
   margin 10px 0 !important
+
+@media (max-width 600px)
+  .inputs-container
+    flex-direction column !important
+  .arrow
+    display none
+  .origin
+    margin-bottom 40px
 </style>

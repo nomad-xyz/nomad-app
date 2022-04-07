@@ -35,7 +35,9 @@
       </n-icon>
     </template>
     Return to this page once bridging is complete to collect your funds on
-    <span class="capitalize">{{ hubNetwork.name }}</span>.
+    <span class="capitalize">
+      {{ hubNetwork.name }}
+    </span>
     <a
       href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
       target="_blank"
@@ -85,7 +87,7 @@
     >
       <n-text class="mb-2 opacity-80 text-center">
         Your funds have been bridged back to
-        <span class="capitalize">{{ hubNetwork.name }}</span>!
+        <span class="capitalize">{{ hubNetwork.name }}!</span>
         Please click below to submit a transaction to complete your transfer.
       </n-text>
       <n-text

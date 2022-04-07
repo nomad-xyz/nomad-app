@@ -2,7 +2,6 @@ import { BigNumber, utils } from 'ethers'
 
 import { networks, tokens, hubNetwork } from '@/config'
 import { NetworkMetadata, TokenMetadata } from '@/config/config.types'
-import { connextPools } from '@/config/index'
 
 const coinGeckoIds = Object.values(tokens).map((t) => t.coinGeckoId)
 
@@ -178,15 +177,4 @@ export function getNetworkIcon(network: string): string {
   }
 
   return ''
-}
-
-// connext
-export function checkConnext(network: string, token: string): boolean {
-  if (!network || !token) return false
-  const availableTokens = connextPools[network]
-  if (availableTokens.length) {
-    const found = availableTokens.find((e) => e === token)
-    return !!found
-  }
-  return false
 }

@@ -47,8 +47,9 @@ export default defineComponent({
     const store = useStore()
     const { ethereum } = window
 
-    // instantiate Nomad
+    // instantiate Nomad & Connext
     await store.dispatch('instantiateNomad')
+    await store.dispatch('instantiateConnext')
 
     if (ethereum && ethereum.isMetamask) {
       // check if user is connected

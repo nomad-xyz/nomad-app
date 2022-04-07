@@ -11,7 +11,6 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  // TODO: pass input data up to parent component
   data() {
     return {
       val: null,

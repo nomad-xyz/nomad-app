@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xl relative">
+  <div class="w-full max-w-xl relative">
     <!-- transfer card -->
     <transfer />
 

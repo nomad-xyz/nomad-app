@@ -49,7 +49,7 @@ const wADA: TokenIdentifier = {
 
 const wtEVMOS: TokenIdentifier = {
   domain: 'evmostestnet',
-  id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C'
+  id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
 }
 
 export default {

@@ -9,7 +9,6 @@ import { networks } from '@/config/index'
 import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk/nomad'
-import { tokens } from '@/config'
 import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
 
 export interface WalletState {

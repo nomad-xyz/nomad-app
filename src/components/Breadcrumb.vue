@@ -28,7 +28,7 @@ export default defineComponent({
   props: {
     label: {
       type: String,
-      default: 'Back',
+      default: '',
     },
     href: {
       type: String,

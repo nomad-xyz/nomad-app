@@ -12,7 +12,6 @@ export const isProduction = environment === 'production'
 export const tokens = currentEnv.tokens
 export const networks = currentEnv.networks
 export const connextConfig = currentEnv.connextConfig
-export const connextPools = currentEnv.connextPools
 export const hubNetwork = currentEnv.hubNetwork
 export const s3URL = isProduction
   ? 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/'
@@ -27,7 +26,6 @@ function chooseConfig(environment: string | undefined): {
   tokens: { [key: string]: TokenMetadata }
   networks: { [key: string]: NetworkMetadata }
   connextConfig: SdkBaseChainConfigParams
-  connextPools: { [key: string]: string[] }
   hubNetwork: NetworkMetadata
 } {
   console.log('Env: ', environment)

@@ -12,9 +12,11 @@ import {
   TokenMetadata,
 } from '@/config/config.types'
 import instantiateConnextSDK from '@/utils/connext'
-import { hubNetwork, tokens } from '@/config'
+import { tokens } from '@/config'
 
 let connextSDK: NxtpSdk
+
+const nativeTokenId = '0x0000000000000000000000000000000000000000'
 
 export type SwapData = {
   origin: MainnetNetwork | TestnetNetwork
@@ -25,26 +27,18 @@ export type SwapData = {
 }
 
 export interface ConnextState {
-  checkingLiquidity: boolean
   preparingSwap: boolean
   quote: any
-  fee: BigNumber | undefined
   prepared: any
 }
 
 const state: ConnextState = {
-  checkingLiquidity: false,
   preparingSwap: false,
   quote: undefined,
-  fee: undefined,
   prepared: undefined,
 }
 
 const mutations = <MutationTree<ConnextState>>{
-  [types.SET_CHECKING_LIQUIDITY](state: ConnextState, checking: boolean) {
-    console.log('{dispatch} checking liquidity: ', checking)
-    state.checkingLiquidity = checking
-  },
   [types.SET_PREPARING_SWAP](state: ConnextState, preparing: boolean) {
     console.log('{dispatch} preparing swap: ', preparing)
     state.preparingSwap = preparing
@@ -52,10 +46,6 @@ const mutations = <MutationTree<ConnextState>>{
   [types.SET_QUOTE](state: ConnextState, quote: any) {
     console.log('{dispatch} set quote: ', quote)
     state.quote = quote
-  },
-  [types.SET_FEE](state: ConnextState, fee: BigNumber) {
-    console.log('{dispatch} set fee estimate: ', fee)
-    state.fee = fee
   },
   [types.SET_PREPARED](state: ConnextState, prepared: any) {
     console.log('{dispatch} set prepared: ', prepared)
@@ -65,7 +55,7 @@ const mutations = <MutationTree<ConnextState>>{
 
 const actions = <ActionTree<ConnextState, RootState>>{
   async instantiateConnext() {
-    console.log('called on mount, production = ', isProduction)
+    console.log('Instantiate Connext, production = ', isProduction)
     connextSDK = await instantiateConnextSDK()
     console.log('connext after instantiating', connextSDK)
   },
@@ -83,54 +73,41 @@ const actions = <ActionTree<ConnextState, RootState>>{
     const sendingChainId = networks[originNetwork].chainID
     const receivingChainId = networks[destinationNetwork].chainID
 
-    // get sending asset address
     let sendingAsset
-    console.log(originNetwork, token.symbol)
-    if (
-      originNetwork === hubNetwork.name &&
-      token.symbol === tokens.ETH.symbol
+    let receivingAsset
+
+    // token is ERC20 and not native asset
+    if (!token.nativeOnly && token.tokenIdentifier) {
+      const sending = await rootGetters.resolveRepresentation(
+        originNetwork,
+        token.tokenIdentifier
+      )
+      sendingAsset = sending.address
+      const receiving = await rootGetters.resolveRepresentation(
+        destinationNetwork,
+        token.tokenIdentifier
+      )
+      receivingAsset = receiving.address
+    } else if (
+      token.nativeOnly &&
+      networks[originNetwork].nativeToken.symbol === token.symbol
     ) {
-      // if sending ETH from Ethereum, get ETH as send asset
-      sendingAsset = '0x0000000000000000000000000000000000000000'
-    } else {
-      const contract = await rootGetters.resolveRepresentation(
-        originNetwork,
-        token.tokenIdentifier
+      // if sending ETH from Ethereum, get ETH as send asset and wETH as receive asset
+      console.log('send native token')
+      sendingAsset = nativeTokenId
+      const wrappedIdentifier = tokens[token.wrappedAsset!].tokenIdentifier!
+      const receiving = await rootGetters.resolveRepresentation(
+        destinationNetwork,
+        wrappedIdentifier
       )
-      sendingAsset = contract.address
+      receivingAsset = receiving.address
     }
-    if (!sendingAsset) {
-      console.error(
-        'No asset deployed for ',
-        originNetwork,
-        token.tokenIdentifier
-      )
+
+    if (!sendingAsset || !receivingAsset) {
+      console.error('Sending or Receiving asset not defined')
       return
     }
 
-    // get receiving asset address
-    let receivingAsset
-    if (
-      destinationNetwork === hubNetwork.name &&
-      token.symbol === tokens.WETH.symbol
-    ) {
-      // if sending WETH to Ethereum, get ETH as receiving asset
-      receivingAsset = '0x0000000000000000000000000000000000000000'
-    } else {
-      const contract = await rootGetters.resolveRepresentation(
-        destinationNetwork,
-        token.tokenIdentifier
-      )
-      receivingAsset = contract.address
-    }
-    if (!receivingAsset) {
-      console.error(
-        'No asset deployed for ',
-        destinationNetwork,
-        token.tokenIdentifier
-      )
-      return
-    }
     // get amount in decimals
     const amountBN = utils.parseUnits(sendAmount?.toString(), token.decimals)
     return {
@@ -143,44 +120,28 @@ const actions = <ActionTree<ConnextState, RootState>>{
       preferredRouters: isProduction
         ? []
         : ['0x087f402643731b20883fc5dba71b37f6f00e69b9'],
+      // sendingChainId: sendingChainId,
+      // sendingAssetId: '0xe71678794fff8846bFF855f716b0Ce9d9a78E844',
+      // receivingChainId: receivingChainId,
+      // receivingAssetId: '0x9aC2c46d7AcC21c881154D57c0Dc1c55a3139198',
+      // receivingAddress: destinationAddress,
+      // amount: amountBN?.toString(),
+      // preferredRouters: isProduction
+      //   ? []
+      //   : ['0x087f402643731b20883fc5dba71b37f6f00e69b9'],
     }
   },
 
   resetTransferQuote({ commit }) {
     commit(types.SET_QUOTE, undefined)
-    commit(types.SET_FEE, undefined)
-  },
-
-  async checkTransferLiquidity({ dispatch, commit }): Promise<boolean> {
-    commit(types.SET_CHECKING_LIQUIDITY, true)
-    const payload = await dispatch('formatDataForTransfer')
-    payload.dryRun = true
-    console.log('Checking liquidity: ', payload)
-    try {
-      await connextSDK.getTransferQuote(payload)
-    } catch (e: unknown) {
-      console.log('error getting transfer quote', e)
-      commit(types.SET_CHECKING_LIQUIDITY, false)
-      // should return, don't show error when just checking availability
-      return false
-    }
-    commit(types.SET_CHECKING_LIQUIDITY, false)
-    return true
   },
 
   async getTransferQuote({ rootState, commit, dispatch }) {
     const payload = await dispatch('formatDataForTransfer')
     console.log('Preparing for transfer quote: ', payload)
     const quote = await connextSDK.getTransferQuote(payload)
-
-    const { sendAmount, token } = rootState.userInput
-    // estimate fee
-    const amountBN = utils.parseUnits(sendAmount.toString(), token.decimals)
-    const feeEstimate = amountBN.sub(quote.bid.amountReceived)
-
     // set in store
     commit(types.SET_QUOTE, quote)
-    commit(types.SET_FEE, feeEstimate)
   },
 
   async prepareTransfer({ state, commit }) {
@@ -194,8 +155,8 @@ const actions = <ActionTree<ConnextState, RootState>>{
     // prepare transfer
     const transfer = await connextSDK.prepareTransfer(state.quote)
     console.log('transfer', transfer.transactionId)
-    // TODO emit alert
     commit(types.SET_PREPARING_SWAP, false)
+    return transfer
 
     // // wait for receiver prepared event
     // const prepared = await connextSDK.waitFor(
@@ -224,7 +185,6 @@ const actions = <ActionTree<ConnextState, RootState>>{
     // clear state
     commit(types.SET_QUOTE, undefined)
     commit(types.SET_PREPARED, undefined)
-    commit(types.SET_FEE, undefined)
   },
 
   async finishTransfer(

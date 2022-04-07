@@ -54,6 +54,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 0.0028,
+    wrappedAsset: 'WETH',
   },
   USDT: {
     nativeNetwork: 'ethereum',
@@ -126,6 +127,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'WGLMR',
   },
   WGLMR: {
     nativeNetwork: 'moonbeam',
@@ -150,6 +152,7 @@ export const tokens: { [key: string]: TokenMetadata } = {
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'wADA',
   },
   wADA: {
     nativeNetwork: 'milkomedaC1',
@@ -232,11 +235,6 @@ export const networks: { [key: string]: NetworkMetadata } = {
 }
 
 export const hubNetwork = networks.ethereum
-
-export const connextPools: { [key: string]: string[] } = {
-  moonbeam: ['WETH', 'USDC', 'USDT', 'DAI'],
-  ethereum: ['ETH', 'USDC', 'USDT', 'DAI'],
-}
 
 export const connextConfig: SdkBaseChainConfigParams = {
   1: {

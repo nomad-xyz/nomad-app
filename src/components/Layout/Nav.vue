@@ -45,28 +45,17 @@
           <router-link
             to="/tx"
             class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
-            >Search Transaction</router-link
           >
+            Search Transaction
+          </router-link>
           <n-divider class="divider" />
-          <div class="flex flex-row justify-between w-full p-2">
-            <a
-              href="https://docs.nomad.xyz/bridge/nomad-gui.html"
-              target="_blank"
-              class="flex flex-row items-center cursor-pointer mr-2"
-            >
-              <n-text>Fast bridging with Connext</n-text>
-              <n-icon size="17" class="ml-1">
-                <help-circle-outline />
-              </n-icon>
-            </a>
-            <n-switch
-              :value="!connextDisabled"
-              @update:value="handleConnextSetting"
-            >
-              <template #checked class="switch-tag">on</template>
-              <template #unchecked class="switch-tag">off</template>
-            </n-switch>
-          </div>
+          <a
+            href="https://docs.nomad.xyz/bridge/nomad-gui.html"
+            target="_blank"
+            class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
+          >
+            Bridge Guide
+          </a>
         </div>
       </n-tooltip>
 
@@ -87,8 +76,8 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { truncateAddr } from '@/utils'
-import { NText, NIcon, NTooltip, NSwitch, NDivider } from 'naive-ui'
-import { ChevronDown, HelpCircleOutline } from '@vicons/ionicons5'
+import { NText, NIcon, NTooltip, NDivider } from 'naive-ui'
+import { ChevronDown } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
@@ -98,10 +87,8 @@ export default defineComponent({
     NText,
     NIcon,
     NTooltip,
-    NSwitch,
     NDivider,
     ChevronDown,
-    HelpCircleOutline,
     NomadButton,
   },
   data: () => ({
@@ -112,8 +99,9 @@ export default defineComponent({
     const route = useRoute()
     return {
       walletConnected: computed(() => store.state.wallet.connected),
-      connextDisabled: computed(() => store.state.userInput.disableConnext),
-      showButton: computed(() => ['Bridge'].includes(route.name as string)),
+      showButton: computed(() =>
+        ['Bridge', 'NomadTransaction'].includes(route.name as string)
+      ),
       store,
     }
   },
@@ -128,9 +116,6 @@ export default defineComponent({
       } finally {
         this.buttonDisabled = false
       }
-    },
-    handleConnextSetting(val: boolean) {
-      this.store.dispatch('setDisableConnext', !val)
     },
     installMetamask() {
       window.open('https://metamask.io/download.html', '_blank')
