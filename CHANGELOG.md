@@ -6,6 +6,20 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - WalletConnect support
+
+v1.2.1 (Apr 7th, 2022)
+--------------------------------
+- add transfer review screen
+- allow easy toggle between nomad/connext
+- upgrade connext package
+- fix connext instantiation in development
+- fix hanging on 'checking availability'
+- fix bug sending native assets
+- add transfer alerts
+- add link to Bridge Guide
+- remove ability to turn off Connext completely
+- remove connextPools whitelist of assets (just check liquidity by doing quote)
+
 - update Moonbeam explorer url
 
 v1.4.1 (Apr 19th, 2022)
