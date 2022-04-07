@@ -22,7 +22,7 @@ module.exports = {
         semi: false,
       },
     ],
-    'vue/multi-word-component-names': ['warn'],
+    'vue/multi-word-component-names': ['off'],
     'vue/no-useless-template-attributes': ['warn']
   },
   overrides: [
