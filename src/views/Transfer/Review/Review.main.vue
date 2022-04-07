@@ -85,7 +85,7 @@
           title="Processing Gas Fee"
         >
           <div class="flex flex-row items-center transform">
-            ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
+            Calculated on Processing ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
             <a
               href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
               target="_blank"
