@@ -235,18 +235,18 @@ export const networks: { [key: string]: NetworkMetadata } = {
     icon: kWETHIcon,
     confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
   },
-  goerli: {
-    name: 'goerli',
-    displayName: 'Goerli',
-    connections: ['kovan', 'rinkeby'],
-    chainID: 5,
-    domainID: 9000,
-    nativeToken: tokens.gETH,
-    rpcUrl: VUE_APP_GOERLI_RPC!,
-    blockExplorer: 'https://goerli.etherscan.io',
-    icon: gWETHIcon,
-    confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
-  }
+  // goerli: {
+  //   name: 'goerli',
+  //   displayName: 'Goerli',
+  //   connections: ['kovan', 'rinkeby'],
+  //   chainID: 5,
+  //   domainID: 9000,
+  //   nativeToken: tokens.gETH,
+  //   rpcUrl: VUE_APP_GOERLI_RPC!,
+  //   blockExplorer: 'https://goerli.etherscan.io',
+  //   icon: gWETHIcon,
+  //   confirmationTimeInMinutes: DEV_DEFAULT_CONFIRMATION_TIME_IN_MINUTES,
+  // }
   // moonbasealpha: {
   //   name: 'moonbasealpha',
   //   displayName: 'Moonbase Alpha',
