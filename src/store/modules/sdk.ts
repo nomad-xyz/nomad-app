@@ -8,7 +8,7 @@ import { networks, s3URL } from '@/config/index'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
 import { NetworkMetadata, NetworkName } from '@/config/config.types'
-
+await import('@nomad-xyz/sdk-bridge')
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 
 export let nomadSDK: any

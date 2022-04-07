@@ -34,6 +34,7 @@ module.exports = defineConfig({
     devtool: 'source-map',
     experiments: {
       syncWebAssembly: true,
+      topLevelAwait: true,
     },
   },
 });

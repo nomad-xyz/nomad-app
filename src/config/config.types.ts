@@ -1,7 +1,7 @@
 import { TokenIdentifier } from '@/utils'
 
 export type MainnetNetwork = 'ethereum' | 'moonbeam' | 'milkomedaC1'
-export type TestnetNetwork = 'rinkeby' | 'kovan' | 'goerli'
+export type TestnetNetwork = 'rinkeby' | 'kovan' | 'moonbasealpha' | 'evmostestnet' | 'milkomedaC1testnet'
 export type NetworkName = MainnetNetwork | TestnetNetwork
 
 export type TokenMetadata = {

@@ -42,20 +42,20 @@ const TEST: TokenIdentifier = {
   id: '0xe71678794fff8846bff855f716b0ce9d9a78e844',
 }
 
-// const DEV: TokenIdentifier = {
-//   domain: 'moonbasealpha',
-//   id: '0x0000000000000000000000000000000000000802',
-// }
+const DEV: TokenIdentifier = {
+  domain: 'moonbasealpha',
+  id: '0x0000000000000000000000000000000000000802',
+}
 
-// const wADA: TokenIdentifier = {
-//   domain: 'milkomedatestnet',
-//   id: '0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9',
-// }
+const wADA: TokenIdentifier = {
+  domain: 'milkomedaC1testnet',
+  id: '0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9',
+}
 
-// const wtEVMOS: TokenIdentifier = {
-//   domain: 'evmostestnet',
-//   id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C'
-// }
+const wtEVMOS: TokenIdentifier = {
+  domain: 'evmostestnet',
+  id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C'
+}
 
 export default {
   WETH,
@@ -66,7 +66,7 @@ export default {
   USDT,
   DAI,
   TEST,
-  // DEV,
-  // wADA,
-  // wtEVMOS,
+  DEV,
+  wADA,
+  wtEVMOS,
 }
