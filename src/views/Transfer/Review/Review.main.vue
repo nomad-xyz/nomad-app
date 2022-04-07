@@ -35,7 +35,12 @@
         <review-detail title="From">
           <div>
             <span class="mr-1 capitalize">{{ userInput.originNetwork }}</span>
-            <span class="opacity-50">| {{ truncateAddr(walletAddress) }}</span>
+            <n-tooltip trigger="hover">
+              <template #trigger>
+                <span class="opacity-50 cursor-pointer">| {{ truncateAddr(walletAddress) }}</span>
+              </template>
+              {{ walletAddress }}
+            </n-tooltip>
           </div>
         </review-detail>
         <review-detail title="To">
@@ -43,9 +48,14 @@
             <span class="mr-1 capitalize">
               {{ userInput.destinationNetwork }}
             </span>
-            <span class="opacity-50">
-              | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
-            </span>
+            <n-tooltip trigger="hover">
+              <template #trigger>
+                <span class="opacity-50 cursor-pointer">
+                  | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
+                </span>
+              </template>
+              {{ userInput.destinationAddr || walletAddress }}
+            </n-tooltip>
           </div>
         </review-detail>
         <review-detail title="Send amount">
@@ -75,7 +85,7 @@
           title="Processing Gas Fee"
         >
           <div class="flex flex-row items-center transform">
-            ~TODO GWEI ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
+            ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
             <a
               href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
               target="_blank"
@@ -118,7 +128,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { BigNumber } from 'ethers'
-import { NIcon, NSkeleton, useNotification } from 'naive-ui'
+import { NIcon, NSkeleton, NTooltip, useNotification } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
@@ -138,6 +148,7 @@ export default defineComponent({
     Breadcrumb,
     NIcon,
     NSkeleton,
+    NTooltip,
     AlertCircle,
     TransferSteps,
     Protocol,
