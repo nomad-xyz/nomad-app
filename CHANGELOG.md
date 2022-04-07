@@ -56,21 +56,12 @@ This change log is manually updated at the moment.
 
 ## v1.0.9 (Mar 7th, 2022)
 
-<<<<<<< HEAD
-
 - silence metamask not installed sentry errors
 - shows all networks during selection
 - adds network connections to config
 - updates Moonbase alpha rpc
 
 ## v1.0.8 (Feb 7th, 2022)
-
-=======
-v1.0.8 (Feb 7th, 2022)
-
----
-
-> > > > > > > ecf1e69 (chore: remove dupe changelog entry)
 
 - add token to metamask from tx details
 - network button for native token select
