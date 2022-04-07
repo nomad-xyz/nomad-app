@@ -37,7 +37,9 @@
             <span class="mr-1 capitalize">{{ userInput.originNetwork }}</span>
             <n-tooltip trigger="hover">
               <template #trigger>
-                <span class="opacity-50 cursor-pointer">| {{ truncateAddr(walletAddress) }}</span>
+                <span class="opacity-50 cursor-pointer">
+                  | {{ truncateAddr(walletAddress) }}
+                </span>
               </template>
               {{ walletAddress }}
             </n-tooltip>
@@ -85,12 +87,18 @@
           title="Processing Gas Fee"
         >
           <div class="flex flex-row items-center transform">
-            Calculated on Processing ({{ nativeAssetSymbol(userInput.destinationNetwork) }})
+            Calculated on Processing ({{
+              nativeAssetSymbol(userInput.destinationNetwork)
+            }})
             <a
               href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
               target="_blank"
             >
-              <n-icon size="22" color="#70c0e8" class="ml-1 cursor-pointer translate-y-1">
+              <n-icon
+                size="22"
+                color="#70c0e8"
+                class="ml-1 cursor-pointer translate-y-1"
+              >
                 <alert-circle />
               </n-icon>
             </a>
@@ -221,7 +229,7 @@ export default defineComponent({
       if (this.sending || this.preparingSwap) return
       this.store.dispatch('resetTransferQuote')
       this.$emit('back')
-    }
+    },
   },
   computed: {
     connextAdditionalFee() {
@@ -231,8 +239,8 @@ export default defineComponent({
       const total = relayerFee.add(routerFee)
       const formatted = toDecimals(total, 18, 4)
       return `${formatted} ${this.userInput.token.symbol}`
-    }
-  }
+    },
+  },
 })
 </script>
 

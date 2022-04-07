@@ -229,7 +229,7 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_SENDING, false)
     return null
   },
-  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string;}) {
+  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string }) {
     // get transfer message
     const { origin, hash } = tx
     const message = await TransferMessage.singleFromTransactionHash(
@@ -247,8 +247,10 @@ const actions = <ActionTree<SDKState, RootState>>{
     let res
     try {
       res = await fetch(`${s3URL}${origin}_${message.leafIndex.toString()}`)
-    } catch(e) {
-      res = await fetch(`${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`)
+    } catch (e) {
+      res = await fetch(
+        `${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`
+      )
     }
     if (!res) throw new Error('Not able to fetch proof')
     const data = (await res.json()) as any

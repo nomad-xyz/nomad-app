@@ -90,10 +90,7 @@
         <span class="capitalize">{{ hubNetwork.name }}!</span>
         Please click below to submit a transaction to complete your transfer.
       </n-text>
-      <n-text
-        @click="process"
-        class="uppercase mt-1 cursor-pointer p-2"
-      >
+      <n-text @click="process" class="uppercase mt-1 cursor-pointer p-2">
         <span class="click-me flex flex-row items-center">
           Complete transfer
           <img
