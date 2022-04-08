@@ -1,17 +1,19 @@
+await import('@nomad-xyz/sdk-bridge')
+
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
-import { TokenIdentifier } from '@/utils'
+import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks, s3URL } from '@/config/index'
+import { NetworkMetadata, NetworkName } from '@/config/config.types'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
-import { NetworkMetadata, NetworkName } from '@/config/config.types'
-await import('@nomad-xyz/sdk-bridge')
+
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 
-export let nomadSDK: any
+let nomadSDK: any
 let nomad: any
 
 import('@nomad-xyz/sdk-bridge').then(sdk => {
@@ -213,22 +215,14 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('registerSigner', destNetwork)
 
     // get proof
-    let res
-    try {
-      res = await fetch(`${s3URL}${origin}_${message.leafIndex.toString()}`)
-    } catch (e) {
-      res = await fetch(
-        `${s3URL}${origin.toLowerCase()}_${message.leafIndex.toString()}`
-      )
-    }
+    const res = await fetch(`${s3URL}${origin}_${message.leafIndex.toString()}`)
     if (!res) throw new Error('Not able to fetch proof')
     const data = (await res.json()) as any
     console.log('proof: ', data)
 
     // get replica contract
-    const core = nomad.getCore(message.destination)
     const originName = nomad.resolveDomainName(message.origin)
-    const replica = core?.getReplica(originName)
+    const replica = nomad.getReplicaFor(message.destination, originName)
 
     if (!replica) {
       throw new Error('missing replica, unable to process transaction')

@@ -17,11 +17,6 @@ export type NaiveOption = {
   key: string
 }
 
-export type TokenIdentifier = {
-  domain: string | number
-  id: BytesLike
-}
-
 /**
  * Shortens address for UI display
  * 0x0000...0000

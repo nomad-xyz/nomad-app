@@ -1,4 +1,4 @@
-import { TokenIdentifier } from '@/utils'
+import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 
 // IMPORTANT make name same as tokens[token].symbol value
 
