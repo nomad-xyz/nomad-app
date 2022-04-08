@@ -220,7 +220,12 @@ export const networks: { [key: string]: NetworkMetadata } = {
   rinkeby: {
     name: 'rinkeby',
     displayName: 'Rinkeby',
-    connections: ['kovan', 'moonbasealpha', 'milkomedaC1testnet', 'evmostestnet'],
+    connections: [
+      'kovan',
+      'moonbasealpha',
+      'milkomedaC1testnet',
+      'evmostestnet',
+    ],
     chainID: 4,
     domainID: 2000,
     nativeToken: tokens.ETH,

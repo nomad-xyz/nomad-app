@@ -1,5 +1,5 @@
-const { defineConfig } = require('@vue/cli-service');
-const webpack = require('webpack');
+const { defineConfig } = require('@vue/cli-service')
+const webpack = require('webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -12,8 +12,8 @@ module.exports = defineConfig({
         assert: require.resolve('assert/'),
         fs: false,
         net: false,
-        tls: false
-      }
+        tls: false,
+      },
     },
     module: {
       rules: [
@@ -37,4 +37,4 @@ module.exports = defineConfig({
       topLevelAwait: true,
     },
   },
-});
+})

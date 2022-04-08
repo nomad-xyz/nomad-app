@@ -16,7 +16,7 @@ const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 let nomadSDK: any
 let nomad: any
 
-import('@nomad-xyz/sdk-bridge').then(sdk => {
+import('@nomad-xyz/sdk-bridge').then((sdk) => {
   nomadSDK = sdk
   const context = new sdk.BridgeContext(environment)
   Object.values(networks).forEach(({ name, rpcUrl }) => {
