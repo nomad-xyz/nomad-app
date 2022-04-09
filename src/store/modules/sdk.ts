@@ -1,3 +1,5 @@
+await import('@nomad-xyz/sdk-bridge')
+
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
@@ -156,7 +158,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async send(
     { commit, dispatch },
     payload: SendData
-  ): Promise<TransferMessage | null> {
+  ): Promise<typeof nomadSDK.TransferMessage | null> {
     console.log('sending...', payload)
     commit(types.SET_SENDING, true)
     const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
