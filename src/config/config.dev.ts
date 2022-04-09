@@ -20,7 +20,7 @@ const {
   VUE_APP_RINKEBY_RPC,
   VUE_APP_KOVAN_RPC,
   VUE_APP_GOERLI_RPC,
-  VUE_APP_XDAI_RPC,
+  // VUE_APP_XDAI_RPC,
   // VUE_APP_MOONBASEALPHA_RPC,
   // VUE_APP_EVMOS_TESTNET_RPC,
   // VUE_APP_MILKOMEDA_TESTNET_RPC,
@@ -246,7 +246,7 @@ export const networks: { [key: string]: NetworkMetadata } = {
   rinkeby: {
     name: 'rinkeby',
     displayName: 'Rinkeby',
-    connections: ['kovan', 'goerli', 'xdai'],
+    connections: ['kovan', 'goerli'],
     chainID: 4,
     domainID: 1001,
     nativeToken: tokens.ETH,

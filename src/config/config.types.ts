@@ -1,7 +1,7 @@
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 
 export type MainnetNetwork = 'ethereum' | 'moonbeam' | 'milkomedaC1'
-export type TestnetNetwork = 'rinkeby' | 'kovan' | 'goerli' | 'xdai'
+export type TestnetNetwork = 'rinkeby' | 'kovan' | 'goerli'
 export type NetworkName = MainnetNetwork | TestnetNetwork
 
 export type TokenMetadata = {
