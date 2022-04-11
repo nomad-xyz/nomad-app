@@ -159,7 +159,6 @@ export default defineComponent({
   setup: () => {
     const store = useStore()
     const notification = useNotification()
-    console.log(store.state.userInput)
     return {
       userInput: computed(() => store.state.userInput),
       walletAddress: computed(() => store.state.wallet.address),

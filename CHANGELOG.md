@@ -7,6 +7,10 @@ Unreleased
 --------------------------------
 - WalletConnect support
 
+v1.2.2 (Apr 11th, 2022)
+--------------------------------
+- fix, display correct destination address
+
 v1.2.1 (Apr 7th, 2022)
 --------------------------------
 - add transfer review screen
