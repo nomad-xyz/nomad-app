@@ -51,10 +51,10 @@
             <n-tooltip trigger="hover">
               <template #trigger>
                 <span class="opacity-50 cursor-pointer">
-                  | {{ truncateAddr(userInput.destinationAddr || walletAddress) }}
+                  | {{ truncateAddr(userInput.destinationAddress || walletAddress) }}
                 </span>
               </template>
-              {{ userInput.destinationAddr || walletAddress }}
+              {{ userInput.destinationAddress || walletAddress }}
             </n-tooltip>
           </div>
         </review-detail>
@@ -159,6 +159,7 @@ export default defineComponent({
   setup: () => {
     const store = useStore()
     const notification = useNotification()
+    console.log(store.state.userInput)
     return {
       userInput: computed(() => store.state.userInput),
       walletAddress: computed(() => store.state.wallet.address),
