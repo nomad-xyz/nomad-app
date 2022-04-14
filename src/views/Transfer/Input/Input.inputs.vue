@@ -18,7 +18,9 @@
         <n-text class="opacity-50">Origin</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base">
-            <span v-if="originNetwork">{{ getDisplayName(originNetwork) }}</span>
+            <span v-if="originNetwork">{{
+              getDisplayName(originNetwork)
+            }}</span>
             <span v-else class="capitalize opacity-60">Select network</span>
           </n-text>
           <img src="@/assets/icons/select.svg" class="ml-1" />
@@ -54,7 +56,9 @@
         <n-text class="opacity-50">Destination</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base">
-            <span v-if="destinationNetwork">{{ getDisplayName(destinationNetwork) }}</span>
+            <span v-if="destinationNetwork">
+              {{ getDisplayName(destinationNetwork) }}
+            </span>
             <span v-else class="capitalize opacity-60">Select network</span>
           </n-text>
           <img src="@/assets/icons/select.svg" class="ml-1" />
@@ -169,13 +173,10 @@ export default defineComponent({
           '* required',
           () => !!this.destinationNetwork
         ),
-        noToken: helpers.withMessage(
-          '* invalid',
-          () => {
-            const { connections } = networks[this.originNetwork]
-            return connections.includes(this.destinationNetwork as NetworkName)
-          }
-        ),
+        noToken: helpers.withMessage('* invalid', () => {
+          const { connections } = networks[this.originNetwork]
+          return connections.includes(this.destinationNetwork as NetworkName)
+        }),
         $lazy: true,
       },
       destinationAddr: {
