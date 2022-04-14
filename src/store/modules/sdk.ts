@@ -158,7 +158,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async send(
     { commit, dispatch },
     payload: SendData
-  ): Promise<typeof nomadSDK.TransferMessage | null> {
+  ): Promise<TransferMessage | null> {
     console.log('sending...', payload)
     commit(types.SET_SENDING, true)
     const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
