@@ -73,6 +73,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async checkFailedHomes({ commit }) {
     await nomad.checkHomes(Object.keys(networks))
     const blacklist = nomad.blacklist()
+    console.log('blacklist', blacklist)
     commit(types.SET_BLACKLIST, blacklist)
   },
 
