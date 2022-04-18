@@ -53,7 +53,7 @@
       v-model:value="amt"
       size="large"
       autosize
-      style="min-width: 100px; max-width: 300px; min-height: 70px"
+      style="min-width: 100px; max-width: 300px; min-height: 70px;"
       class="input text-5xl overflow-visible font-extra-light bg-transparent outline-none text-center"
     />
     <button
