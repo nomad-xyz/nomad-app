@@ -1,4 +1,4 @@
-import { BigNumber, utils, BytesLike } from 'ethers'
+import { BigNumber, utils } from 'ethers'
 
 import { networks, tokens } from '@/config'
 import { NetworkMetadata, TokenMetadata, NetworkName } from '@/config/types'

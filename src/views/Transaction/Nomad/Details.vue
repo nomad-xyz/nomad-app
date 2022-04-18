@@ -215,7 +215,7 @@ export default defineComponent({
         if (tx.dispatchedAt > 0) {
           this.timeSent = tx.dispatchedAt * 1000
         }
-  
+
         if (tx.state === 2) {
           try {
             this.confirmAt = await message.confirmAt()
