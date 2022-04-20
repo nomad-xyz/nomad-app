@@ -6,6 +6,7 @@ This change log is manually updated at the moment.
 Unreleased
 --------------------------------
 - WalletConnect support
+- fix bug in tx detail page where tx was not yet available from indexer
 
 v1.4.0 (Apr 18th, 2022)
 --------------------------------
