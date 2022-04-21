@@ -73,13 +73,13 @@ import { defineComponent } from 'vue'
 import { utils, BigNumber } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { NText, NDivider, NTime, useNotification } from 'naive-ui'
-
 import { useStore } from '@/store'
 import { fromBytes32, toNetworkName, truncateAddr } from '@/utils'
 import { nomadAPI, networks } from '@/config'
 import Detail from '@/views/Transaction/Detail.vue'
 import CopyHash from '@/components/CopyHash.vue'
 import StatusHeader from './Header.vue'
+import { NetworkName } from '@/config/types'
 
 interface ComponentData {
   transferMessage: TransferMessage | null
@@ -88,8 +88,8 @@ interface ComponentData {
   amount: string
   tokenSymbol: string
   tokenId: TokenIdentifier | undefined
-  originNet: string
-  destNet: string
+  originNet: NetworkName
+  destNet: NetworkName
   originAddr: string
   destAddr: string
   timeSent: number | undefined

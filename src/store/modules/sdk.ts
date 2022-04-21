@@ -1,20 +1,16 @@
-await import('@nomad-xyz/sdk-bridge')
-
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
-import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
+import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-import { networks, s3URL } from '@/config/index'
+import { networks, s3URL, isProduction } from '@/config'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
-import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
-import { NetworkMetadata, NetworkName } from '@/config/config.types'
+import { isNativeToken, getNetworkByDomainID } from '@/utils'
+import { NetworkMetadata, NetworkName } from '@/config/types'
 
-const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
-
-let nomadSDK: any
-let nomad: any
+const nomadSDK = await import('@nomad-xyz/sdk-bridge')
+const nomad = new nomadSDK.BridgeContext(process.env.VUE_APP_NOMAD_ENVIRONMENT)
 
 export interface SendData {
   isNative: boolean
@@ -57,14 +53,10 @@ const mutations = <MutationTree<SDKState>>{
 
 const actions = <ActionTree<SDKState, RootState>>{
   async instantiateNomad({ dispatch }) {
-    await import('@nomad-xyz/sdk-bridge').then((sdk) => {
-      nomadSDK = sdk
-      nomad = new sdk.BridgeContext(environment)
-    })
     Object.values(networks).forEach(({ name, rpcUrl }) => {
       nomad.registerRpcProvider(name, rpcUrl)
     })
-    if (environment === 'production') {
+    if (isProduction) {
       nomad.registerRpcProvider('xdai', process.env.VUE_APP_XDAI_RPC!)
     }
     console.log('nomad instantiated: ', nomad)
@@ -73,6 +65,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async checkFailedHomes({ commit }) {
     await nomad.checkHomes(Object.keys(networks))
     const blacklist = nomad.blacklist()
+    console.log('blacklist', blacklist)
     commit(types.SET_BLACKLIST, blacklist)
   },
 
@@ -149,11 +142,12 @@ const actions = <ActionTree<SDKState, RootState>>{
     const newSigner = provider.getSigner()
 
     nomad.clearSigners()
-    const missingProviders = nomad.missingProviders
-    missingProviders.forEach((domain: number) => {
-      const network = getNetworkByDomainID(domain)
-      nomad.registerRpcProvider(networkName, network.rpcUrl)
-    })
+    nomad.missingProviders
+      .map((numberString) => parseInt(numberString))
+      .forEach((domain: number) => {
+        const network = getNetworkByDomainID(domain)
+        nomad.registerRpcProvider(networkName, network.rpcUrl)
+      })
 
     nomad.registerSigner(networkName, newSigner)
   },
@@ -161,7 +155,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async send(
     { commit, dispatch },
     payload: SendData
-  ): Promise<typeof nomadSDK.TransferMessage | null> {
+  ): Promise<TransferMessage | null> {
     console.log('sending...', payload)
     commit(types.SET_SENDING, true)
     const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
@@ -273,7 +267,7 @@ const getters = <GetterTree<SDKState, RootState>>{
 
   getTxMessage:
     () =>
-    async (tx: TXData): Promise<typeof nomadSDK.TransferMessage> => {
+    async (tx: TXData): Promise<TransferMessage | undefined> => {
       const { network, hash } = tx
       let message
 
@@ -287,7 +281,7 @@ const getters = <GetterTree<SDKState, RootState>>{
         console.error(e)
       }
 
-      return message as typeof nomadSDK.TransferMessage
+      return message
     },
 
   getTimestamp: () => async (destDomain: string | number, blockNumber: number) => {

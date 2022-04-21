@@ -8,7 +8,7 @@ import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { BigNumber } from 'ethers'
 import { networks } from '@/config'
-import { TokenMetadata, NetworkName } from '@/config/config.types'
+import { TokenMetadata, NetworkName } from '@/config/types'
 import { nullToken } from '@/utils'
 
 type TransferStep = 1 | 2
