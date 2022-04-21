@@ -1,5 +1,3 @@
-await import('@nomad-xyz/sdk-bridge')
-
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber, BytesLike } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
@@ -68,6 +66,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   async checkFailedHomes({ commit }) {
     await nomad.checkHomes(Object.keys(networks))
     const blacklist = nomad.blacklist()
+    console.log('blacklist', blacklist)
     commit(types.SET_BLACKLIST, blacklist)
   },
 
