@@ -6,11 +6,7 @@ import { BigNumber, utils } from 'ethers'
 import { RootState } from '@/store'
 import { networks, isProduction } from '@/config'
 import * as types from '@/store/mutation-types'
-import {
-  MainnetNetwork,
-  TestnetNetwork,
-  TokenMetadata,
-} from '@/config/config.types'
+import { NetworkName, TokenMetadata } from '@/config/types'
 import instantiateConnextSDK from '@/utils/connext'
 import { tokens } from '@/config'
 
@@ -19,8 +15,8 @@ let connextSDK: NxtpSdk
 const nativeTokenId = '0x0000000000000000000000000000000000000000'
 
 export type SwapData = {
-  origin: MainnetNetwork | TestnetNetwork
-  destination: MainnetNetwork | TestnetNetwork
+  origin: NetworkName
+  destination: NetworkName
   destinationAddress: string
   token: TokenMetadata
   amount: number

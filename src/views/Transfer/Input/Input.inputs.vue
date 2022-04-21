@@ -117,7 +117,7 @@ import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 
 import { useStore } from '@/store'
-import { truncateAddr, isValidAddress } from '@/utils/index'
+import { truncateAddr, isValidAddress } from '@/utils'
 import { networks } from '@/config'
 import { NetworkName } from '@/config/config.types'
 import NetworkSelect from './Input.networks.vue'

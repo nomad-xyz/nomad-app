@@ -5,11 +5,11 @@
 import { MutationTree, ActionTree } from 'vuex'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-import { networks } from '@/config/index'
+import { networks } from '@/config'
 import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
-import { MainnetNetwork, TestnetNetwork } from '@/config/config.types'
+import { NetworkName } from '@/config/types'
 
 export interface WalletState {
   connected: boolean
@@ -17,7 +17,7 @@ export interface WalletState {
 }
 
 type TokenPayload = {
-  network: MainnetNetwork | TestnetNetwork
+  network: NetworkName
   tokenId: TokenIdentifier
 }
 

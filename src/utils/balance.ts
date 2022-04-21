@@ -2,6 +2,7 @@ import { Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
 import { TokenIdentifier, BridgeContext } from '@nomad-xyz/sdk-bridge'
 import { ERC20__factory } from '@nomad-xyz/contracts-bridge'
+import { NetworkName } from '@/config/types'
 
 type Address = string
 
@@ -18,7 +19,7 @@ export async function getBalance(
 
 export async function getNativeBalance(
   context: BridgeContext,
-  network: string,
+  network: NetworkName,
   address: string
 ): Promise<BigNumber | undefined> {
   const provider = context.getProvider(network)

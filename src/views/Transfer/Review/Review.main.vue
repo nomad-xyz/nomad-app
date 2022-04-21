@@ -53,7 +53,10 @@
             <n-tooltip trigger="hover">
               <template #trigger>
                 <span class="opacity-50 cursor-pointer">
-                  | {{ truncateAddr(userInput.destinationAddress || walletAddress) }}
+                  |
+                  {{
+                    truncateAddr(userInput.destinationAddress || walletAddress)
+                  }}
                 </span>
               </template>
               {{ userInput.destinationAddress || walletAddress }}
@@ -80,10 +83,7 @@
           <n-skeleton v-else :width="150" :height="21" round size="small" />
         </review-detail>
         <review-detail
-          v-if="
-            protocol === 'nomad' &&
-            isEthereumNetwork(userInput.destinationNetwork)
-          "
+          v-if="protocol === 'nomad' && requiresManualProcessing"
           title="Processing Gas Fee"
         >
           <div class="flex flex-row items-center transform">
@@ -140,8 +140,8 @@ import { NIcon, NSkeleton, NTooltip, useNotification } from 'naive-ui'
 import { AlertCircle } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 import { networks } from '@/config'
-import { toDecimals, isEthereumNetwork, truncateAddr } from '@/utils'
-import { NetworkName } from '@/config/config.types'
+import { toDecimals, truncateAddr } from '@/utils'
+import { NetworkName } from '@/config/types'
 
 import Breadcrumb from '@/components/Breadcrumb.vue'
 import TransferSteps from '../Transfer.steps.vue'
@@ -191,7 +191,6 @@ export default defineComponent({
   }),
 
   methods: {
-    isEthereumNetwork,
     truncateAddr,
     nativeAssetSymbol(network: NetworkName) {
       return networks[network].nativeToken.symbol
@@ -238,6 +237,11 @@ export default defineComponent({
       const total = relayerFee.add(routerFee)
       const formatted = toDecimals(total, 18, 4)
       return `${formatted} ${this.userInput.token.symbol}`
+    },
+    requiresManualProcessing(): boolean {
+      const network = this.userInput.destinationNetwork
+      if (!network) return false
+      return !!networks[network].manualProcessing
     },
   },
 })

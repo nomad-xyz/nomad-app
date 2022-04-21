@@ -1,5 +1,6 @@
 import { BigNumber } from 'ethers'
 import { formatDuration } from 'date-fns'
+import { isProduction } from '@/config'
 
 /**
  * @param timestamp Given a timestamp, calculate how many hours ago
@@ -29,7 +30,7 @@ export function minutesTilConfirmation(timestamp: BigNumber): number {
 export function getTimestampFromConfirmAt(confirmAt: BigNumber): number {
   let confirmationTime
   // confirmation time is 3 hours on mainnet and 1-3 minutes on testnet
-  if (process.env.VUE_APP_NOMAD_ENVIRONMENT === 'production') {
+  if (isProduction) {
     confirmationTime = BigNumber.from('10800000')
   } else {
     confirmationTime = BigNumber.from('60000')

@@ -5,8 +5,6 @@ import initSentry from './services/sentry'
 import { store, key } from './store'
 import '@/store/modules/sdk'
 
-await import('@nomad-xyz/sdk-bridge')
-
 import './index.css'
 
 const app = createApp(AppWrapper)
