@@ -16,14 +16,21 @@ export const connextConfig = getConnextConfigFromConfig(config, [
   process.env.VUE_APP_ETHEREUM_RPC!,
 ])
 
-export const s3URL = isProduction
-  ? 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/'
-  : 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/'
+const proofURLs: { [key: string]: string} = {
+  production: 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/',
+  development: 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/',
+  staging: 'https://nomadxyz-staging-proofs.s3.us-west-2.amazonaws.com/',
+}
+export const s3URL = proofURLs[environment]
+
+const APIURLs: { [key: string]: string} = {
+  production: 'https://bridge-indexer.prod.madlads.tools/tx/',
+  development: 'https://bridge-indexer.dev.madlads.tools/tx/',
+  staging: 'https://bridge-indexer.staging.madlads.tools/tx/',
+}
 export const connextScanURL = isProduction
   ? 'https://connextscan.io/'
   : 'https://testnet.connextscan.io/'
-export const nomadAPI = isProduction
-  ? 'https://bridge-indexer.prod.madlads.tools/tx/'
-  : 'https://bridge-indexer.dev.madlads.tools/tx/'
+export const nomadAPI = APIURLs[environment]
 export const BUFFER_CONFIRMATION_TIME_IN_MINUTES = isProduction ? 25 : 5
 export const PROCESS_TIME_IN_MINUTES = isProduction ? 10 : 2

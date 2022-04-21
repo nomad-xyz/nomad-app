@@ -12,6 +12,7 @@
     "push-staging": "git push origin main:staging -f",
     "serve": "vue-cli-service serve --mode development",
     "serve-prod": "vue-cli-service serve --mode production",
+    "serve-staging": "vue-cli-service serve --mode staging",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
