@@ -41,9 +41,7 @@ module.exports = defineConfig({
     config
         .plugin('html')
         .tap(args => {
-          // twitter image wants an absolute url, open graph and facebook can use relative url just fine
-          // URL env var set by netlify (https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata)
-          args[0].url = process.env.URL
+          args[0].url = process.env.DEPLOY_PRIME_URL
           return args
         })
   }
