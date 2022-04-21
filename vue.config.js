@@ -37,4 +37,12 @@ module.exports = defineConfig({
       topLevelAwait: true,
     },
   },
+  chainWebpack: config => {
+    config
+        .plugin('html')
+        .tap(args => {
+          args[0].url = process.env.URL
+          return args
+        })
+  }
 })
