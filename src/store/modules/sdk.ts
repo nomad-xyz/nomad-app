@@ -58,7 +58,7 @@ const actions = <ActionTree<SDKState, RootState>>{
       nomad.registerRpcProvider(name, rpcUrl)
     })
     if (isProduction) {
-      nomad.registerRpcProvider('xdai', process.env.VUE_APP_XDAI_RPC!)
+      nomad.registerRpcProvider('xdai', process.env.VUE_APP_XDAI_RPC)
     }
     console.log('nomad instantiated: ', nomad)
     await dispatch('checkFailedHomes')
@@ -136,7 +136,7 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_BALANCE, balance)
   },
 
-  registerSigner({ commit }, network: NetworkMetadata) {
+  registerSigner(_, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
     const provider = new providers.Web3Provider(window.ethereum)

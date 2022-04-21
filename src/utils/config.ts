@@ -16,20 +16,20 @@ const {
 } = process.env
 
 const rpcs: { [key: string]: string[] } = {
-  ethereum: [VUE_APP_ETHEREUM_RPC!],
+  ethereum: [VUE_APP_ETHEREUM_RPC],
   moonbeam: [
-    VUE_APP_MOONBEAM_RPC!,
+    VUE_APP_MOONBEAM_RPC,
     'https://moonbeam.api.onfinality.io/public',
     'https://rpc.api.moonbeam.network',
   ],
-  milkomedaC1: [VUE_APP_MILKOMEDA_RPC!],
-  rinkeby: [VUE_APP_RINKEBY_RPC!],
-  kovan: [VUE_APP_KOVAN_RPC!],
-  goerli: [VUE_APP_GOERLI_RPC!],
-  evmos: [VUE_APP_EVMOS_TESTNET_RPC!],
-  moonbasealpha: [VUE_APP_MOONBASEALPHA_RPC!],
-  milkomedatestnet: [VUE_APP_MILKOMEDA_TESTNET_RPC!],
-  xdai: [VUE_APP_XDAI_RPC!],
+  milkomedaC1: [VUE_APP_MILKOMEDA_RPC],
+  rinkeby: [VUE_APP_RINKEBY_RPC],
+  kovan: [VUE_APP_KOVAN_RPC],
+  goerli: [VUE_APP_GOERLI_RPC],
+  evmos: [VUE_APP_EVMOS_TESTNET_RPC],
+  moonbasealpha: [VUE_APP_MOONBASEALPHA_RPC],
+  milkomedatestnet: [VUE_APP_MILKOMEDA_TESTNET_RPC],
+  xdai: [VUE_APP_XDAI_RPC],
 }
 
 export const getConnextConfigFromConfig = (
