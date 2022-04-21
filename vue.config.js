@@ -41,7 +41,7 @@ module.exports = defineConfig({
     config
         .plugin('html')
         .tap(args => {
-          args[0].url = process.env.URL
+          args[0].url = process.env.DEPLOY_PRIME_URL
           return args
         })
   }
