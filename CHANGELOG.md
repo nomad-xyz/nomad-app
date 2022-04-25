@@ -7,6 +7,7 @@ This change log is manually updated at the moment.
 - WalletConnect support
 - fix bug in tx detail page where tx was not yet available from indexer
 - bump SDK for new dev deploy
+- add configuration package, add Evmos Testnet
 
 v1.4.0 (Apr 18th, 2022)
 --------------------------------
