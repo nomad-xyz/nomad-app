@@ -10,9 +10,9 @@ import kWETHIcon from '@/assets/token-logos/kWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
 import XDAIIcon from '@/assets/token-logos/XDAI.png'
 import ConnextIcon from '@/assets/icons/connext.svg'
+import wEvmosIcon from '@/assets/token-logos/wEVMOS.png'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
-// import wEvmosIcon from '@/assets/token-logos/wEVMOS.png'
 
 // MAINNET TOKEN ICONS
 import wETHIcon from '@/assets/token-logos/WETH.png'
@@ -215,31 +215,31 @@ export const testnetTokens: TokenMetadataMap = {
   //   nativeOnly: false,
   //   minAmt: 10,
   // },
-  // tEVMOS: {
-  //   nativeNetwork: 'evmostestnet',
-  //   symbol: 'tEVMOS',
-  //   name: 'tEVMOS',
-  //   icon: wEvmosIcon,
-  //   iconColors: ['#454545', '#000'],
-  //   decimals: 18,
-  //   coinGeckoId: 'evmos',
-  //   tokenIdentifier: null,
-  //   nativeOnly: true,
-  //   minAmt: 10,
-  //   wrappedAsset: 'wtEVMOS',
-  // },
-  // wtEVMOS: {
-  //   nativeNetwork: 'evmostestnet',
-  //   symbol: 'wtEVMOS',
-  //   name: 'wtEVMOS',
-  //   icon: wEvmosIcon,
-  //   iconColors: ['#454545', '#000'],
-  //   decimals: 18,
-  //   coinGeckoId: 'evmos',
-  //   tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
-  //   nativeOnly: false,
-  //   minAmt: 10,
-  // },
+  tEVMOS: {
+    nativeNetwork: 'evmostestnet',
+    symbol: 'tEVMOS',
+    name: 'tEVMOS',
+    icon: wEvmosIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    minAmt: 10,
+    wrappedAsset: 'wtEVMOS',
+  },
+  wtEVMOS: {
+    nativeNetwork: 'evmostestnet',
+    symbol: 'wtEVMOS',
+    name: 'wtEVMOS',
+    icon: wEvmosIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
+    nativeOnly: false,
+    minAmt: 10,
+  },
 }
 
 export const mainnetTokens: TokenMetadataMap = {

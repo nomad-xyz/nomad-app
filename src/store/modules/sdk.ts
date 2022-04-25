@@ -8,9 +8,10 @@ import { networks, s3URL, isProduction } from '@/config'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils'
 import { NetworkMetadata, NetworkName } from '@/config/types'
+import { config } from '@/config'
 
 const nomadSDK = await import('@nomad-xyz/sdk-bridge')
-const nomad = new nomadSDK.BridgeContext(process.env.VUE_APP_NOMAD_ENVIRONMENT)
+const nomad = new nomadSDK.BridgeContext(config)
 
 export interface SendData {
   isNative: boolean

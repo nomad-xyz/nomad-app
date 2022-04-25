@@ -119,7 +119,7 @@ import { required, helpers } from '@vuelidate/validators'
 import { useStore } from '@/store'
 import { truncateAddr, isValidAddress } from '@/utils'
 import { networks } from '@/config'
-import { NetworkName } from '@/config/config.types'
+import { NetworkName } from '@/config/types'
 import NetworkSelect from './Input.networks.vue'
 import EditRecipient from './Input.recipient.vue'
 
