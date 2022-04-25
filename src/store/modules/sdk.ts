@@ -6,10 +6,10 @@ import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-import { networks, s3URL, nomadAPI } from '@/config/index'
+import { networks, s3URL } from '@/config/index'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils/index'
-import { NetworkMetadata } from '@/config/config.types'
+import { NetworkMetadata, NetworkName } from '@/config/config.types'
 
 const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 
@@ -202,33 +202,37 @@ const actions = <ActionTree<SDKState, RootState>>{
       throw e
     }
   },
-  async processTx({ dispatch }, txId: string) {
-    // get transfer message
-    const res = await fetch(`${nomadAPI}${txId}`)
-    const tx = (await res.json())[0] as any
 
-    // switch network
-    const originNetwork = getNetworkByDomainID(tx.origin)
-    const destNetwork = getNetworkByDomainID(tx.destination)
+  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string;}) {
+    // get transfer message
+    const { origin, hash } = tx
+    const message = await nomadSDK.TransferMessage.singleFromTransactionHash(
+      nomad,
+      origin,
+      hash
+    )
+
+    const destNetwork = getNetworkByDomainID(message.destination)
+    const originNetwork = getNetworkByDomainID(message.origin)
     await dispatch('switchNetwork', destNetwork.name)
     // register signer
     await dispatch('registerSigner', destNetwork)
 
     // get proof
-    const index = BigNumber.from(tx.leafIndex).toNumber()
-    const s3Res = await fetch(`${s3URL}${originNetwork.name}_${index}`)
-    const data = (await s3Res.json()) as any
+    const res = await fetch(`${s3URL}${originNetwork.name}_${message.leafIndex.toString()}`)
+    if (!res) throw new Error('Not able to fetch proof')
+    const data = (await res.json()) as any
     console.log('proof: ', data)
 
     // get replica contract
-    const replica = nomad.getReplicaFor(tx.origin, tx.destination)
+    const replica = nomad.getReplicaFor(message.origin, message.destination)
 
     if (!replica) {
       throw new Error('missing replica, unable to process transaction')
     }
 
-    // get signer and connect replica
-    const signer = nomad.getSigner(tx.destination)
+    // connect signer
+    const signer = nomad.getSigner(message.destination)
     if (!signer) {
       throw new Error('missing signer, unable to process transaction')
     }
@@ -245,7 +249,7 @@ const actions = <ActionTree<SDKState, RootState>>{
       return receipt
     } catch (e) {
       await dispatch('checkFailedHomes')
-      console.error(e)
+      throw e
     }
   },
 }

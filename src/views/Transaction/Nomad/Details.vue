@@ -206,30 +206,50 @@ export default defineComponent({
       const tx = (await res.json())[0] as any
       console.log('tx data: ', tx)
 
-      if (tx.dispatchedAt > 0) {
-        this.timeSent = tx.dispatchedAt * 1000
-      }
+      const message = await this.store.getters.getTxMessage({
+        network: toNetworkName(this.originNet),
+        hash: id,
+      })
 
-      if (tx.state === 2) {
-        if (tx.relayedAt && tx.relayedAt > 0) {
-          // calculate confirmation time (in case confirmAt check errors out)
-          // give 10 minute padding
-          const { confirmationTimeInMinutes } = networks[this.originNet]
-          const confirmationTime = (confirmationTimeInMinutes + 10) * 60
-          this.confirmAt = BigNumber.from(tx.relayedAt + confirmationTime)
+      if (tx) {
+        if (tx.dispatchedAt > 0) {
+          this.timeSent = tx.dispatchedAt * 1000
         }
-        const message = await this.store.getters.getTxMessage({
-          network: this.originNet,
-          hash: id,
-        })
+  
+        if (tx.state === 2) {
+          try {
+            this.confirmAt = await message.confirmAt()
+          } catch (e) {
+            if (tx.relayedAt && tx.relayedAt > 0) {
+              // calculate confirmation time (in case confirmAt check errors out)
+              // give 5 minute padding
+              const { confirmationTimeInMinutes } = networks[this.originNet]
+              const confirmationTime = (confirmationTimeInMinutes + 5) * 60
+              this.confirmAt = BigNumber.from(tx.relayedAt + confirmationTime)
+            }
+            console.error(e)
+          }
+        }
+        // set status after we have confirmAt
+        this.status = tx.state
+      } else {
+        const processed = await message.getProcess()
+        if (processed) {
+          this.status = 3
+          return
+        }
         try {
           this.confirmAt = await message.confirmAt()
+          if (this.confirmAt && !this.confirmAt.isZero()) {
+            this.status = 2
+          } else {
+            this.status = 0
+          }
         } catch (e) {
           console.error(e)
         }
       }
-      // set status after we have confirmAt
-      this.status = tx.state
+
     },
   },
 

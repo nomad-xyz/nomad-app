@@ -185,7 +185,7 @@ import {
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
 import { minutesTilConfirmation } from '@/utils/time'
-import { NetworkName } from '@/config/config.types'
+import { toNetworkName } from '@/utils'
 
 export default defineComponent({
   props: {
@@ -230,7 +230,10 @@ export default defineComponent({
       try {
         const receipt = await this.store.dispatch(
           'processTx',
-          this.$route.params.id
+          {
+            origin: toNetworkName(this.$route.params.network as string),
+            hash: this.$route.params.id,
+          }
         )
         if (receipt) {
           this.notification.success({
