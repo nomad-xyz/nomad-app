@@ -136,7 +136,7 @@ export default defineComponent({
 
   async mounted() {
     const { network, id } = this.$route.params
-    this.originNet = toNetworkName(network as string)!
+    this.originNet = toNetworkName(network as string)
     const txData = {
       network: this.originNet,
       hash: id,
@@ -192,10 +192,10 @@ export default defineComponent({
       }
       try {
         await this.store.dispatch('addToken', payload)
-      } catch (error: any) {
+      } catch (error: unknown) {
         this.notification.warning({
           title: 'Error adding token to Metamask',
-          content: error.message,
+          content: (error as Error).message,
         })
         console.error(error)
       }
@@ -203,7 +203,7 @@ export default defineComponent({
     async updateStatus() {
       const { id } = this.$route.params
       const res = await fetch(`${nomadAPI}${id}`)
-      const tx = (await res.json())[0] as any
+      const tx = (await res.json())[0]
       console.log('tx data: ', tx)
 
       const message: TransferMessage = await this.store.getters.getTxMessage({
