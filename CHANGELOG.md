@@ -10,11 +10,6 @@ Unreleased
 - bump SDK for new dev deploy
 - add configuration package, add Evmos Testnet
 
-v1.4.0 (Apr 18th, 2022)
---------------------------------
-- SDK upgrade
-- Fix failedHomes banner display
-
 v1.4.1 (Apr 19th, 2022)
 --------------------------------
 - Robust network validation

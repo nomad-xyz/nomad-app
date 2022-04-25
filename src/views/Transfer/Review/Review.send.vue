@@ -111,10 +111,10 @@ export default defineComponent({
             }),
         })
         // window.open(txLink, '_blank')
-      } catch (e: any) {
+      } catch (e: unknown) {
         this.notification.error({
           title: 'Error sending Connext transaction',
-          description: e.message,
+          description: (e as Error).message,
         })
       }
     },

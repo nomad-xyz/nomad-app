@@ -11,6 +11,13 @@ import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
 
+// defined from docs here: https://docs.metamask.io/guide/ethereum-provider.html#errors
+interface ProviderRpcError extends Error {
+  message: string
+  code: number
+  data?: unknown
+}
+
 export interface WalletState {
   connected: boolean
   address: string
@@ -117,9 +124,9 @@ const actions = <ActionTree<WalletState, RootState>>{
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: hexChainId }],
       })
-    } catch (switchError: any) {
+    } catch (switchError: unknown) {
       // This error code indicates that the chain has not been added to MetaMask.
-      if (switchError.code === 4902) {
+      if ((switchError as ProviderRpcError).code === 4902) {
         try {
           await ethereum.request({
             method: 'wallet_addEthereumChain',
@@ -163,7 +170,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     const symbol = await token.symbol()
     const decimals = await token.decimals()
 
-    const wasAdded = await (window as any).ethereum.request({
+    const wasAdded = await window.ethereum.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20',

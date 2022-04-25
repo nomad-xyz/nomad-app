@@ -4,7 +4,7 @@ import {
   getConnextConfigFromConfig,
 } from '@/utils/config'
 
-const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT!
+const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
 
 const configuration = await import('@nomad-xyz/configuration')
 export const config = configuration.getBuiltin(environment)
@@ -13,7 +13,7 @@ export const isProduction = environment === 'production'
 export const tokens = isProduction ? mainnetTokens : testnetTokens
 export const networks = getNetworksFromConfig(config, tokens)
 export const connextConfig = getConnextConfigFromConfig(config, [
-  process.env.VUE_APP_ETHEREUM_RPC!,
+  process.env.VUE_APP_ETHEREUM_RPC,
 ])
 
 const proofURLs: { [key: string]: string} = {
