@@ -77,7 +77,7 @@ export const getNetworksFromConfig = (
     const { optimisticSeconds } =
       config.protocol.networks[networkName].configuration
     const confirmationTimeInMinutes = (optimisticSeconds as number) / 60
-    const icon = nativeToken.icon
+    const icon = nativeToken ? nativeToken.icon : ''
 
     networks[networkName] = {
       icon,
