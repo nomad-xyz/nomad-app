@@ -8,6 +8,7 @@ This change log is manually updated at the moment.
 - fix bug in tx detail page where tx was not yet available from indexer
 - bump SDK for new dev deploy
 - add configuration package, add Evmos Testnet
+- update copy for process gas disclaimer
 
 ## v1.4.1 (Apr 19th, 2022)
 
