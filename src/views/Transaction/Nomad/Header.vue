@@ -11,9 +11,7 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Reducing the gas limit on a process transaction may result in a failed
-    transaction. By design, the gas limit must be estimated much higher. In
-    reality, the gas price will be aproximately 1/5 the estimate.
+    Processing gas fees will be approximately 80% cheaper than estimated. Reducing the gas limit may result in a failed transaction.
     <a
       href="https://docs.nomad.xyz/bridge/faq.html#why-is-gas-estimate-so-high-to-get-my-funds-on-ethereum"
       target="_blank"
