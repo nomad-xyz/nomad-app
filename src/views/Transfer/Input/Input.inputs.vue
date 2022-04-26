@@ -18,9 +18,9 @@
         <n-text class="opacity-50">Origin</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base">
-            <span v-if="originNetwork">{{
-              getDisplayName(originNetwork)
-            }}</span>
+            <span v-if="originNetwork">
+              {{ getDisplayName(originNetwork) }}
+            </span>
             <span v-else class="capitalize opacity-60">Select network</span>
           </n-text>
           <img src="@/assets/icons/select.svg" class="ml-1" />
