@@ -1,5 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { getNetworkByChainID } from './index'
+import { NetworkName } from '@/config/types'
 
 export async function getMetamaskProvider(): Promise<Web3Provider> {
   // Connect to metamask
@@ -10,7 +11,7 @@ export async function getMetamaskProvider(): Promise<Web3Provider> {
   return Promise.resolve(provider)
 }
 
-export async function getNetwork(provider: Web3Provider): Promise<string> {
+export async function getNetwork(provider: Web3Provider): Promise<NetworkName> {
   const { chainId, name } = await provider.ready
   const network = getNetworkByChainID(chainId) || { name }
   return network.name

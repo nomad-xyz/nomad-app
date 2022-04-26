@@ -11,9 +11,8 @@
         <alert-circle-outline />
       </n-icon>
     </template>
-    Reducing the gas limit on a process transaction may result in a failed
-    transaction. By design, the gas limit must be estimated much higher. In
-    reality, the gas price will be aproximately 1/5 the estimate.
+    Processing gas fees will be approximately 80% cheaper than estimated.
+    Reducing the gas limit may result in a failed transaction.
     <a
       href="https://docs.nomad.xyz/bridge/faq.html#why-is-gas-estimate-so-high-to-get-my-funds-on-ethereum"
       target="_blank"
@@ -24,7 +23,7 @@
   </n-alert>
   <!-- Return to process -->
   <n-alert
-    v-else-if="destinationNetwork === hubNetwork.name && showAlerts"
+    v-else-if="requiresManualProcessing && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -35,9 +34,7 @@
       </n-icon>
     </template>
     Return to this page once bridging is complete to collect your funds on
-    <span class="capitalize">
-      {{ hubNetwork.name }}
-    </span>
+    {{ getDisplayName(destinationNetwork) }}.
     <a
       href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
       target="_blank"
@@ -48,7 +45,7 @@
   </n-alert>
   <!-- Processing is subsidized -->
   <n-alert
-    v-else-if="destinationNetwork !== hubNetwork.name && showAlerts"
+    v-else-if="!requiresManualProcessing && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
@@ -87,8 +84,8 @@
     >
       <n-text class="mb-2 opacity-80 text-center">
         Your funds have been bridged back to
-        <span class="capitalize">{{ hubNetwork.name }}!</span>
-        Please click below to submit a transaction to complete your transfer.
+        {{ getDisplayName(destinationNetwork) }}! Please click below to submit a
+        transaction to complete your transfer.
       </n-text>
       <n-text @click="processTx" class="uppercase mt-1 cursor-pointer p-2">
         <span class="click-me flex flex-row items-center">
@@ -180,12 +177,12 @@ import { BigNumber } from 'ethers'
 import { useStore } from '@/store'
 import {
   networks,
-  hubNetwork,
   BUFFER_CONFIRMATION_TIME_IN_MINUTES,
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
 import { minutesTilConfirmation } from '@/utils/time'
 import { toNetworkName } from '@/utils'
+import { NetworkName } from '@/config/types'
 
 export default defineComponent({
   props: {
@@ -213,7 +210,6 @@ export default defineComponent({
   },
   data: () => ({
     PROCESS_TIME_IN_MINUTES,
-    hubNetwork,
     showStatus: false,
   }),
   setup: () => {
@@ -228,13 +224,10 @@ export default defineComponent({
   methods: {
     async processTx() {
       try {
-        const receipt = await this.store.dispatch(
-          'processTx',
-          {
-            origin: toNetworkName(this.$route.params.network as string),
-            hash: this.$route.params.id,
-          }
-        )
+        const receipt = await this.store.dispatch('processTx', {
+          origin: toNetworkName(this.$route.params.network as string),
+          hash: this.$route.params.id,
+        })
         if (receipt) {
           this.notification.success({
             title: 'Success',
@@ -248,6 +241,10 @@ export default defineComponent({
           content: (e as Error).message,
         })
       }
+    },
+    getDisplayName(network: NetworkName) {
+      if (!network) return
+      return networks[network].displayName
     },
   },
   computed: {
@@ -270,7 +267,8 @@ export default defineComponent({
     },
     confirmationTime(): number | undefined {
       if (!this.destinationNetwork) return
-      return networks[this.destinationNetwork].confirmationTimeInMinutes
+      const { confirmationTimeInMinutes } = networks[this.destinationNetwork]
+      return Math.ceil(confirmationTimeInMinutes)
     },
     minutesRemaining(): number | undefined {
       if (!this.confirmationTime) return
@@ -302,16 +300,17 @@ export default defineComponent({
         this.confirmationTime
       return Math.floor(fraction * 100)
     },
+    requiresManualProcessing(): boolean {
+      if (!this.destinationNetwork) return false
+      return !!networks[this.destinationNetwork].manualProcessing
+    },
     readyToManualProcess(): boolean {
       if (!this.confirmAt || !this.destinationNetwork) return false
-      // hub is not subsidized
-      const destinationNetworkIsHub =
-        this.destinationNetwork === hubNetwork.name
       // get timestamp in seconds
       const now = BigNumber.from(Date.now()).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
-      return now.gt(this.confirmAt) && destinationNetworkIsHub
+      return now.gt(this.confirmAt) && this.requiresManualProcessing
     },
   },
 })

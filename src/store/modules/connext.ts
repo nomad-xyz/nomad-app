@@ -1,16 +1,11 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { ActiveTransaction, NxtpSdk, NxtpSdkEvents } from '@connext/nxtp-sdk'
-import { BigNumber, utils } from 'ethers'
-// import { Logger } from '@connext/nxtp-utils'
+import { utils } from 'ethers'
 
 import { RootState } from '@/store'
 import { networks, isProduction } from '@/config'
 import * as types from '@/store/mutation-types'
-import {
-  MainnetNetwork,
-  TestnetNetwork,
-  TokenMetadata,
-} from '@/config/config.types'
+import { NetworkName, TokenMetadata } from '@/config/types'
 import instantiateConnextSDK from '@/utils/connext'
 import { tokens } from '@/config'
 
@@ -19,8 +14,8 @@ let connextSDK: NxtpSdk
 const nativeTokenId = '0x0000000000000000000000000000000000000000'
 
 export type SwapData = {
-  origin: MainnetNetwork | TestnetNetwork
-  destination: MainnetNetwork | TestnetNetwork
+  origin: NetworkName
+  destination: NetworkName
   destinationAddress: string
   token: TokenMetadata
   amount: number
@@ -95,7 +90,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       // if sending ETH from Ethereum, get ETH as send asset and wETH as receive asset
       console.log('send native token')
       sendingAsset = nativeTokenId
-      const wrappedIdentifier = tokens[token.wrappedAsset!].tokenIdentifier!
+      const wrappedIdentifier = tokens[token.wrappedAsset!].tokenIdentifier
       const receiving = await rootGetters.resolveRepresentation(
         destinationNetwork,
         wrappedIdentifier
