@@ -198,7 +198,7 @@ const actions = <ActionTree<SDKState, RootState>>{
     }
   },
 
-  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string;}) {
+  async processTx({ dispatch }, tx: { origin: NetworkName; hash: string }) {
     // get transfer message
     const { origin, hash } = tx
     const message = await nomadSDK.TransferMessage.singleFromTransactionHash(
@@ -214,7 +214,9 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('registerSigner', destNetwork)
 
     // get proof
-    const res = await fetch(`${s3URL}${originNetwork.name}_${message.leafIndex.toString()}`)
+    const res = await fetch(
+      `${s3URL}${originNetwork.name}_${message.leafIndex.toString()}`
+    )
     if (!res) throw new Error('Not able to fetch proof')
     const data = (await res.json()) as any
     console.log('proof: ', data)

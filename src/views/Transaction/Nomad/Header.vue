@@ -225,13 +225,10 @@ export default defineComponent({
   methods: {
     async processTx() {
       try {
-        const receipt = await this.store.dispatch(
-          'processTx',
-          {
-            origin: toNetworkName(this.$route.params.network as string),
-            hash: this.$route.params.id,
-          }
-        )
+        const receipt = await this.store.dispatch('processTx', {
+          origin: toNetworkName(this.$route.params.network as string),
+          hash: this.$route.params.id,
+        })
         if (receipt) {
           this.notification.success({
             title: 'Success',

@@ -16,14 +16,15 @@ export const connextConfig = getConnextConfigFromConfig(config, [
   process.env.VUE_APP_ETHEREUM_RPC,
 ])
 
-const proofURLs: { [key: string]: string} = {
+const proofURLs: { [key: string]: string } = {
   production: 'https://nomadxyz-production-proofs.s3.us-west-2.amazonaws.com/',
-  development: 'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/',
+  development:
+    'https://nomadxyz-development-proofs.s3.us-west-2.amazonaws.com/',
   staging: 'https://nomadxyz-staging-proofs.s3.us-west-2.amazonaws.com/',
 }
 export const s3URL = proofURLs[environment]
 
-const APIURLs: { [key: string]: string} = {
+const APIURLs: { [key: string]: string } = {
   production: 'https://bridge-indexer.prod.madlads.tools/tx/',
   development: 'https://bridge-indexer.dev.madlads.tools/tx/',
   staging: 'https://bridge-indexer.staging.madlads.tools/tx/',
