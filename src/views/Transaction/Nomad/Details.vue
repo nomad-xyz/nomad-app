@@ -206,7 +206,7 @@ export default defineComponent({
       const tx = (await res.json())[0] as any
       console.log('tx data: ', tx)
 
-      const message = await this.store.getters.getTxMessage({
+      const message: TransferMessage = await this.store.getters.getTxMessage({
         network: toNetworkName(this.originNet),
         hash: id,
       })
@@ -239,12 +239,14 @@ export default defineComponent({
           return
         }
         try {
-          this.confirmAt = await message.confirmAt()
-          if (this.confirmAt && !this.confirmAt.isZero()) {
-            this.status = 2
-          } else {
+          const relayed = await message.getReplicaUpdate()
+          if (!relayed) {
             this.status = 0
+            return
           }
+          this.status = 2
+          const relayedAt = await this.store.getters.getTimestamp(message.destination, relayed.event.blockNumber)
+          this.confirmAt = BigNumber.from(relayedAt + (31 * 60))
         } catch (e) {
           console.error(e)
         }

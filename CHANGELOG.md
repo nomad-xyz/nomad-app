@@ -7,6 +7,10 @@ Unreleased
 --------------------------------
 - WalletConnect support
 
+v1.4.2 (Apr 26th, 2022)
+--------------------------------
+- Fix indexer fallback (confirmAt check)
+
 v1.4.1 (Apr 19th, 2022)
 --------------------------------
 - Robust network validation
