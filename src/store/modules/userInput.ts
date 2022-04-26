@@ -55,7 +55,10 @@ const mutations = <MutationTree<UserInputState>>{
     state.originNetwork = network
   },
 
-  [types.SET_DESTINATION_NETWORK](state: UserInputState, network: NetworkName | '') {
+  [types.SET_DESTINATION_NETWORK](
+    state: UserInputState,
+    network: NetworkName | ''
+  ) {
     console.log('{dispatch} set destination network: ', network)
     state.destinationNetwork = network
   },
@@ -88,7 +91,9 @@ const actions = <ActionTree<UserInputState, RootState>>{
 
     // clear destination network if there is not a connection
     const { connections } = networks[network]
-    const hasConnection = connections.includes(state.destinationNetwork as NetworkName)
+    const hasConnection = connections.includes(
+      state.destinationNetwork as NetworkName
+    )
     if (!hasConnection) commit(types.SET_DESTINATION_NETWORK, '')
 
     try {

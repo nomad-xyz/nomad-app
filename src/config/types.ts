@@ -1,4 +1,5 @@
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
+import { networks } from './index'
 
 export type NetworkName = string
 
