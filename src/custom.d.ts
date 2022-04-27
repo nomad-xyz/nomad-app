@@ -30,6 +30,7 @@ declare namespace process {
     VUE_APP_ETHEREUM_RPC: string
     VUE_APP_MOONBEAM_RPC: string
     VUE_APP_MILKOMEDA_RPC: string
+    VUE_APP_EVMOS_RPC: string
     VUE_APP_RINKEBY_RPC: string
     VUE_APP_KOVAN_RPC: string
     VUE_APP_GOERLI_RPC: string

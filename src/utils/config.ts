@@ -6,6 +6,7 @@ const {
   VUE_APP_ETHEREUM_RPC,
   VUE_APP_MOONBEAM_RPC,
   VUE_APP_MILKOMEDA_RPC,
+  VUE_APP_EVMOS_RPC,
   VUE_APP_RINKEBY_RPC,
   VUE_APP_KOVAN_RPC,
   VUE_APP_GOERLI_RPC,
@@ -26,10 +27,11 @@ const rpcs: { [key: string]: string[] } = {
   rinkeby: [VUE_APP_RINKEBY_RPC],
   kovan: [VUE_APP_KOVAN_RPC],
   goerli: [VUE_APP_GOERLI_RPC],
-  evmos: [VUE_APP_EVMOS_TESTNET_RPC],
+  evmos: [VUE_APP_EVMOS_RPC],
   moonbasealpha: [VUE_APP_MOONBASEALPHA_RPC],
   milkomedatestnet: [VUE_APP_MILKOMEDA_TESTNET_RPC],
   xdai: [VUE_APP_XDAI_RPC],
+  evmostestnet: [VUE_APP_EVMOS_TESTNET_RPC],
 }
 
 export const getConnextConfigFromConfig = (
