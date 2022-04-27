@@ -40,5 +40,8 @@ declare namespace process {
     VUE_APP_NOMAD_ENVIRONMENT: string
     VUE_APP_SENTRY_DSN: string
     BASE_URL: string
+    VUE_APP_PROOFS_S3: string
+    VUE_APP_NOMAD_API: string
+    VUE_APP_CONNEXTSCAN_URL: string
   }
 }
