@@ -185,8 +185,9 @@ import { toNetworkName } from '@/utils'
 import { NetworkName } from '@/config/types'
 
 interface ComponentData {
+  PROCESS_TIME_IN_MINUTES: number
   showStatus: boolean
-  now: number | undefined
+  now: number
 }
 
 export default defineComponent({
@@ -214,8 +215,9 @@ export default defineComponent({
     AlertCircleOutline,
   },
   data: () => ({
+    PROCESS_TIME_IN_MINUTES,
     showStatus: false,
-    now: undefined
+    now: Date.now()
   } as ComponentData),
   setup: () => {
     const store = useStore()
@@ -228,8 +230,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.now = Date.now()
-    setTimeout(() => {
+    setInterval(() => {
       this.now = Date.now()
     }, 10000)
   },
