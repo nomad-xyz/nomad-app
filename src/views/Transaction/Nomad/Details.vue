@@ -181,7 +181,7 @@ export default defineComponent({
       if (this.status < 3) {
         await this.updateStatus()
       }
-    }, 30000)
+    }, 60000)
   },
 
   methods: {
@@ -209,11 +209,6 @@ export default defineComponent({
       const tx = (await res.json())[0]
       console.log('tx data: ', tx)
 
-      const message: TransferMessage = await this.store.getters.getTxMessage({
-        network: toNetworkName(this.originNet),
-        hash: id,
-      })
-
       if (tx) {
         if (tx.dispatchedAt > 0) {
           this.timeSent = tx.dispatchedAt * 1000
@@ -228,20 +223,27 @@ export default defineComponent({
         // set status after we have confirmAt
         this.status = tx.state
       } else {
+        const message: TransferMessage = await this.store.getters.getTxMessage({
+          network: toNetworkName(this.originNet),
+          hash: id,
+        })
+
         const processed = await message.getProcess()
         if (processed) {
           this.status = 3
           return
         }
 
-        const relayed = await message.getReplicaUpdate()
-        if (!relayed) {
-          this.status = 0
-          return
-        }
+        if (!this.confirmAt) {
+          const relayed = await message.getReplicaUpdate()
+          if (!relayed) {
+            this.status = 0
+            return
+          }
 
-        const relayedAt = await this.store.getters.getTimestamp(message.destination, relayed.event.blockNumber)
-        this.confirmAt = BigNumber.from(relayedAt + optimisticSeconds)
+          const relayedAt = await this.store.getters.getTimestamp(message.destination, relayed.event.blockNumber)
+          this.confirmAt = BigNumber.from(relayedAt + optimisticSeconds)
+        }
 
         // set status after we have confirmAt
         this.status = 2
