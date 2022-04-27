@@ -184,6 +184,11 @@ import { minutesTilConfirmation } from '@/utils'
 import { toNetworkName } from '@/utils'
 import { NetworkName } from '@/config/types'
 
+interface ComponentData {
+  showStatus: boolean
+  now: number | undefined
+}
+
 export default defineComponent({
   props: {
     status: {
@@ -209,9 +214,9 @@ export default defineComponent({
     AlertCircleOutline,
   },
   data: () => ({
-    PROCESS_TIME_IN_MINUTES,
     showStatus: false,
-  }),
+    now: undefined
+  } as ComponentData),
   setup: () => {
     const store = useStore()
     const notification = useNotification()
@@ -220,6 +225,13 @@ export default defineComponent({
       store,
       notification,
     }
+  },
+
+  mounted() {
+    this.now = Date.now()
+    setTimeout(() => {
+      this.now = Date.now()
+    }, 30000)
   },
   methods: {
     async processTx() {
@@ -270,8 +282,12 @@ export default defineComponent({
       const { optimisticSeconds } = networks[this.destinationNetwork]
       return Math.ceil(optimisticSeconds / 60)
     },
+    requiresManualProcessing(): boolean {
+      if (!this.destinationNetwork) return false
+      return !!networks[this.destinationNetwork].manualProcessing
+    },
     minutesRemaining(): number | undefined {
-      if (!this.optimisticMinutes) return
+      if (!this.optimisticMinutes || !this.now) return
       const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
       const processingTime = PROCESS_TIME_IN_MINUTES
       // if status doesn't exist
@@ -289,8 +305,7 @@ export default defineComponent({
       return bufferMinutes
     },
     confirmationProgress(): number {
-      if (!this.optimisticMinutes) return 0
-      if (!this.confirmAt) return 0
+      if (!this.optimisticMinutes || !this.now || !this.confirmAt) return 0
       const confirmationMinutesRemaining = minutesTilConfirmation(
         this.confirmAt
       )
@@ -300,14 +315,10 @@ export default defineComponent({
         this.optimisticMinutes
       return Math.floor(fraction * 100)
     },
-    requiresManualProcessing(): boolean {
-      if (!this.destinationNetwork) return false
-      return !!networks[this.destinationNetwork].manualProcessing
-    },
     readyToManualProcess(): boolean {
-      if (!this.confirmAt || !this.destinationNetwork) return false
+      if (!this.confirmAt || !this.now || !this.destinationNetwork) return false
       // get timestamp in seconds
-      const now = BigNumber.from(Date.now()).div(1000)
+      const now = BigNumber.from(this.now).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
       return now.gt(this.confirmAt) && this.requiresManualProcessing
