@@ -287,10 +287,11 @@ const getters = <GetterTree<SDKState, RootState>>{
       return message
     },
 
-  getTimestamp: () => async (destDomain: string | number, blockNumber: number) => {
-    const provider = nomad.mustGetProvider(destDomain)
-    return (await provider.getBlock(blockNumber)).timestamp
-  },
+  getTimestamp:
+    () => async (destDomain: string | number, blockNumber: number) => {
+      const provider = nomad.mustGetProvider(destDomain)
+      return (await provider.getBlock(blockNumber)).timestamp
+    },
 
   resolveDomain: () => (network: string) => {
     return nomad.resolveDomain(network)

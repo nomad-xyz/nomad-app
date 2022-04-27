@@ -214,11 +214,12 @@ export default defineComponent({
     ChevronDown,
     AlertCircleOutline,
   },
-  data: () => ({
-    PROCESS_TIME_IN_MINUTES,
-    showStatus: false,
-    now: Date.now()
-  } as ComponentData),
+  data: () =>
+    ({
+      PROCESS_TIME_IN_MINUTES,
+      showStatus: false,
+      now: Date.now(),
+    } as ComponentData),
   setup: () => {
     const store = useStore()
     const notification = useNotification()
