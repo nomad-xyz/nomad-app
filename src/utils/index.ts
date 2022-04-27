@@ -80,6 +80,19 @@ export function toDecimals(
   return decimal.slice(0, end)
 }
 
+/**
+ * @param timestamp Given a confirmAt timestamp, calculate how many minutes until
+ * @returns number
+ */
+ export function minutesTilConfirmation(timestamp: BigNumber): number {
+  const now = BigNumber.from(Date.now()).div(1000)
+  const diff = timestamp.sub(now)
+  if (diff.lt(0)) return 0
+  // to minutes
+  const minutes = diff.div(60)
+  return Math.ceil(minutes.toNumber())
+}
+
 // NETWORK
 
 /**

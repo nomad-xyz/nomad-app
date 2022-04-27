@@ -180,7 +180,7 @@ import {
   BUFFER_CONFIRMATION_TIME_IN_MINUTES,
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
-import { minutesTilConfirmation } from '@/utils/time'
+import { minutesTilConfirmation } from '@/utils'
 import { toNetworkName } from '@/utils'
 import { NetworkName } from '@/config/types'
 
