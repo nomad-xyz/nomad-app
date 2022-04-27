@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { NModal, NCard, NText, NButton } from 'naive-ui'
+import { NModal, NCard, NText, NButton, useNotification } from 'naive-ui'
 import { NetworkMetadata } from '@/config/types'
 import { useStore } from '@/store'
 
@@ -60,6 +60,7 @@ export default defineComponent({
 
   setup(props) {
     const store = useStore()
+    const notification = useNotification()
 
     return {
       networks: computed(() => store.getters.activeNetworks()),
@@ -69,6 +70,7 @@ export default defineComponent({
           : 'SELECT ORIGIN'
       }),
       store,
+      notification,
     }
   },
 
@@ -80,7 +82,7 @@ export default defineComponent({
   },
 
   methods: {
-    select(network: NetworkMetadata) {
+    async select(network: NetworkMetadata) {
       const isUnavailable = this.unavailable(network)
       if (this.isSelectingDestination) {
         if (isUnavailable) {
@@ -91,7 +93,14 @@ export default defineComponent({
         if (isUnavailable) {
           this.store.dispatch('setDestinationNetwork', null)
         }
-        this.store.dispatch('switchNetwork', network.name)
+        try {
+          await this.store.dispatch('switchNetwork', network.name)
+        } catch (e) {
+          this.notification.error({
+            title: 'Error switching network',
+            description: 'Have you added the network in Metamask?',
+          })
+        }
       }
       this.$emit('hide')
     },

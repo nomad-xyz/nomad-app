@@ -148,7 +148,8 @@ export default defineComponent({
     if (!message) {
       this.notification.error({
         title: 'Invalid URL',
-        description: 'Please check that the url has the correct network and transaction ID',
+        description:
+          'Please check that the url has the correct network and transaction ID',
       })
       throw new Error('Unable to fetch transaction details')
     }
@@ -197,25 +198,32 @@ export default defineComponent({
       if (!network || !id) {
         this.notification.error({
           title: 'Incomplete URL',
-          description: 'Please add the origin network and ID of your transaction',
+          description:
+            'Please add the origin network and ID of your transaction',
         })
-        throw new Error('Incomplete transaction URL, can\'t fetch transaction details')
+        throw new Error(
+          "Incomplete transaction URL, can't fetch transaction details"
+        )
       }
       if (id.length !== 66) {
         this.notification.error({
           title: 'Invalid Transaction',
           description: 'Please check that you have the correct transaction ID',
         })
-        throw new Error('Invalid transaction ID, can\'t fetch transaction details')
+        throw new Error(
+          "Invalid transaction ID, can't fetch transaction details"
+        )
       }
       try {
         toNetworkName(network as string)
-      } catch(e) {
+      } catch (e) {
         this.notification.error({
           title: 'Invalid Network Name',
           description: 'Please check that you have the correct network',
         })
-        throw new Error('Invalid network param, can\'t fetch transaction details')
+        throw new Error(
+          "Invalid network param, can't fetch transaction details"
+        )
       }
     },
     async addToken() {
@@ -274,7 +282,10 @@ export default defineComponent({
             return
           }
 
-          const relayedAt = await this.store.getters.getTimestamp(message.destination, relayed.event.blockNumber)
+          const relayedAt = await this.store.getters.getTimestamp(
+            message.destination,
+            relayed.event.blockNumber
+          )
           this.confirmAt = BigNumber.from(relayedAt + optimisticSeconds)
         }
 
