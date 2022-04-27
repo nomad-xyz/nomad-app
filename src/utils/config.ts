@@ -76,7 +76,6 @@ export const getNetworksFromConfig = (
     const rpcUrl = networkRPCs[0] // only 1 supported at the moment in the sdk
     const { optimisticSeconds } =
       config.protocol.networks[networkName].configuration
-    const confirmationTimeInMinutes = (optimisticSeconds as number) / 60
     const icon = nativeToken ? nativeToken.icon : ''
 
     networks[networkName] = {
@@ -90,7 +89,7 @@ export const getNetworksFromConfig = (
       connections,
       blockExplorer,
       manualProcessing,
-      confirmationTimeInMinutes,
+      optimisticSeconds,
     } as NetworkMetadata
   })
 

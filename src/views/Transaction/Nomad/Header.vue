@@ -265,19 +265,19 @@ export default defineComponent({
       }
       return 1
     },
-    confirmationTime(): number | undefined {
+    optimisticMinutes(): number | undefined {
       if (!this.destinationNetwork) return
-      const { confirmationTimeInMinutes } = networks[this.destinationNetwork]
-      return Math.ceil(confirmationTimeInMinutes)
+      const { optimisticSeconds } = networks[this.destinationNetwork]
+      return Math.ceil(optimisticSeconds / 60)
     },
     minutesRemaining(): number | undefined {
-      if (!this.confirmationTime) return
+      if (!this.optimisticMinutes) return
       const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
       const processingTime = PROCESS_TIME_IN_MINUTES
       // if status doesn't exist
       if (!this.status && this.status !== 0) return
       if (this.status < 2) {
-        return this.confirmationTime + bufferMinutes
+        return this.optimisticMinutes + bufferMinutes
       } else if (this.status === 2 && this.confirmAt) {
         const remaining = minutesTilConfirmation(this.confirmAt)
         if (!remaining) {
@@ -289,15 +289,15 @@ export default defineComponent({
       return bufferMinutes
     },
     confirmationProgress(): number {
-      if (!this.confirmationTime) return 0
+      if (!this.optimisticMinutes) return 0
       if (!this.confirmAt) return 0
       const confirmationMinutesRemaining = minutesTilConfirmation(
         this.confirmAt
       )
       console.log(confirmationMinutesRemaining, ' minutes remaining')
       const fraction =
-        (this.confirmationTime - confirmationMinutesRemaining) /
-        this.confirmationTime
+        (this.optimisticMinutes - confirmationMinutesRemaining) /
+        this.optimisticMinutes
       return Math.floor(fraction * 100)
     },
     requiresManualProcessing(): boolean {

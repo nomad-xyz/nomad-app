@@ -31,6 +31,6 @@ export type NetworkMetadata = {
   nativeToken: TokenMetadata
   blockExplorer: string
   icon: string
-  confirmationTimeInMinutes: number
+  optimisticSeconds: number
   manualProcessing: boolean
 }
