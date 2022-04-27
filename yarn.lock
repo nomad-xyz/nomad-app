@@ -1786,11 +1786,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nomad-xyz/configuration@^0.1.0-rc.15":
-  version "0.1.0-rc.15"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.15.tgz#5b1c7129ae6d38d8218dcaea03bf2fbe379602f2"
-  integrity sha512-36+s2MeVFnmxtRXAWcPmrmEdCIYloLnIBxDZP/JD8jnQCT90xU3Gu4iO26q8c8nuAOb1SYPCDTktX5L3UzTnng==
-
 "@nomad-xyz/configuration@^0.1.0-rc.16":
   version "0.1.0-rc.16"
   resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.16.tgz#275d1be6f8511f99f9a3910496bb8571e0fa754e"
@@ -1834,23 +1829,23 @@
     ethers "^5.4.6"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk-bridge@^1.0.0-rc.8":
-  version "1.0.0-rc.9"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.9.tgz#6efbe6603873b516a10692ea8db33376a42d6555"
-  integrity sha512-4mWfx5LLq89u7PxOT5ww4CfHtQ2x9EHvCZeXooMrN97bK+Bk3BfI1gj/S5PD3jVV86va8E63bSh07px0gENprQ==
+"@nomad-xyz/sdk-bridge@^1.0.0-rc.10":
+  version "1.0.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.10.tgz#62aad04a6de65fbe7b6a7322ad881b4cfa7b7c52"
+  integrity sha512-w1YxQCMUd5TRPcz51aHdkti06D2YgTZN79B9+d7vgau+F4t/HN6s/aCRpQtNfjy8LzUJiomIDFkA47hZJ/xczQ==
   dependencies:
-    "@nomad-xyz/configuration" "^0.1.0-rc.15"
+    "@nomad-xyz/configuration" "^0.1.0-rc.16"
     "@nomad-xyz/contracts-bridge" "^1.0.0-rc.2"
-    "@nomad-xyz/sdk" "^2.0.0-rc.9"
+    "@nomad-xyz/sdk" "^2.0.0-rc.10"
     ethers "^5.0.0"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk@^2.0.0-rc.9":
-  version "2.0.0-rc.9"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk/-/sdk-2.0.0-rc.9.tgz#f56038e9e7e4d4befbc8304cfd50b0e2efa92dc9"
-  integrity sha512-5Jw37yPap3qbmNePBJBxHfiwyxssjn0l28Refep2iofP4rS45ThPi9NoX6sMPYuddMRm/r/fysmpMW2oWpzBQw==
+"@nomad-xyz/sdk@^2.0.0-rc.10":
+  version "2.0.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk/-/sdk-2.0.0-rc.10.tgz#4201c071e29f5c13c1bcbc147fc7bb13a71e2b30"
+  integrity sha512-FjWhaTVrjpnfeaAPmyj8Iea12sroy1ZJjqgTau+WjIazSPhyiPH47kn6S5KhQwmjrfITXEFQFubu01v7DEz2mQ==
   dependencies:
-    "@nomad-xyz/configuration" "^0.1.0-rc.15"
+    "@nomad-xyz/configuration" "^0.1.0-rc.16"
     "@nomad-xyz/contracts-core" "^1.0.0-rc.2"
     "@nomad-xyz/multi-provider" "^1.0.0-rc.4"
     ethers "^5.0.0"
