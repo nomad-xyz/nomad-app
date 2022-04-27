@@ -104,4 +104,16 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'evmos',
     id: '0xD4949664cD82660AaE99bEdc034a0deA8A0bd517',
   },
+  CARDS: {
+    domain: 'ethereum',
+    id: '0x3d6f0dea3ac3c607b3998e6ce14b6350721752d9',
+  },
+  C3: {
+    domain: 'ethereum',
+    id: '0xf1a91c7d44768070f711c68f33a7ca25c8d30268',
+  },
+  GERO: {
+    domain: 'ethereum',
+    id: '0x3431f91b3a388115f00c5ba9fdb899851d005fb5',
+  },
 }
