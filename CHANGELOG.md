@@ -4,7 +4,12 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
-- WalletConnect support
+## v1.4.3 (Apr 27th, 2022)
+
+- organize env variables
+- fine tune status/confirmAt checks and time estimation logic
+- bump sdk-bridge to v1.0.0-rc.10
+- bump configuration to v0.1.0-rc.16
 
 ## v1.4.2 (Apr 26th, 2022)
 

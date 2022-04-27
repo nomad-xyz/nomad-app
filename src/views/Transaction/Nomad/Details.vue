@@ -136,6 +136,7 @@ export default defineComponent({
 
   async mounted() {
     const { network, id } = this.$route.params
+    this.checkUrlParams(network as string, id as string)
     this.originNet = toNetworkName(network as string)
     const txData = {
       network: this.originNet,
@@ -144,6 +145,13 @@ export default defineComponent({
     const message = await this.store.getters.getTxMessage(txData)
     this.transferMessage = message
     console.log('transaction:\n', message)
+    if (!message) {
+      this.notification.error({
+        title: 'Invalid URL',
+        description: 'Please check that the url has the correct network and transaction ID',
+      })
+      throw new Error('Unable to fetch transaction details')
+    }
 
     // destination network
     this.destNet = this.store.getters.resolveDomainName(message.destination)
@@ -181,10 +189,35 @@ export default defineComponent({
       if (this.status < 3) {
         await this.updateStatus()
       }
-    }, 30000)
+    }, 60000)
   },
 
   methods: {
+    checkUrlParams(network: string, id: string) {
+      if (!network || !id) {
+        this.notification.error({
+          title: 'Incomplete URL',
+          description: 'Please add the origin network and ID of your transaction',
+        })
+        throw new Error('Incomplete transaction URL, can\'t fetch transaction details')
+      }
+      if (id.length !== 66) {
+        this.notification.error({
+          title: 'Invalid Transaction',
+          description: 'Please check that you have the correct transaction ID',
+        })
+        throw new Error('Invalid transaction ID, can\'t fetch transaction details')
+      }
+      try {
+        toNetworkName(network as string)
+      } catch(e) {
+        this.notification.error({
+          title: 'Invalid Network Name',
+          description: 'Please check that you have the correct network',
+        })
+        throw new Error('Invalid network param, can\'t fetch transaction details')
+      }
+    },
     async addToken() {
       const payload = {
         network: this.destNet,
@@ -202,14 +235,12 @@ export default defineComponent({
     },
     async updateStatus() {
       const { id } = this.$route.params
+      const { optimisticSeconds } = networks[this.originNet]
+
+      // fetch tx
       const res = await fetch(`${nomadAPI}${id}`)
       const tx = (await res.json())[0]
       console.log('tx data: ', tx)
-
-      const message: TransferMessage = await this.store.getters.getTxMessage({
-        network: toNetworkName(this.originNet),
-        hash: id,
-      })
 
       if (tx) {
         if (tx.dispatchedAt > 0) {
@@ -217,39 +248,38 @@ export default defineComponent({
         }
 
         if (tx.state === 2) {
-          try {
-            this.confirmAt = await message.confirmAt()
-          } catch (e) {
-            if (tx.relayedAt && tx.relayedAt > 0) {
-              // calculate confirmation time (in case confirmAt check errors out)
-              // give 5 minute padding
-              const { confirmationTimeInMinutes } = networks[this.originNet]
-              const confirmationTime = (confirmationTimeInMinutes + 5) * 60
-              this.confirmAt = BigNumber.from(tx.relayedAt + confirmationTime)
-            }
-            console.error(e)
+          if (tx.relayedAt && tx.relayedAt > 0) {
+            // calculate confirmation time (in case confirmAt check errors out)
+            this.confirmAt = BigNumber.from(tx.relayedAt + optimisticSeconds)
           }
         }
         // set status after we have confirmAt
         this.status = tx.state
       } else {
+        const message: TransferMessage = await this.store.getters.getTxMessage({
+          network: toNetworkName(this.originNet),
+          hash: id,
+        })
+
         const processed = await message.getProcess()
         if (processed) {
           this.status = 3
           return
         }
-        try {
+
+        if (!this.confirmAt) {
           const relayed = await message.getReplicaUpdate()
           if (!relayed) {
             this.status = 0
             return
           }
-          this.status = 2
+
           const relayedAt = await this.store.getters.getTimestamp(message.destination, relayed.event.blockNumber)
-          this.confirmAt = BigNumber.from(relayedAt + (31 * 60))
-        } catch (e) {
-          console.error(e)
+          this.confirmAt = BigNumber.from(relayedAt + optimisticSeconds)
         }
+
+        // set status after we have confirmAt
+        this.status = 2
       }
     },
   },

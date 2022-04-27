@@ -4,7 +4,7 @@ import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-import { networks, s3URL, isProduction } from '@/config'
+import { networks, proofsS3, isProduction } from '@/config'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils'
 import { NetworkMetadata, NetworkName } from '@/config/types'
@@ -215,7 +215,7 @@ const actions = <ActionTree<SDKState, RootState>>{
 
     // get proof
     const res = await fetch(
-      `${s3URL}${originNetwork.name}_${message.leafIndex.toString()}`
+      `${proofsS3}${originNetwork.name}_${message.leafIndex.toString()}`
     )
     if (!res) throw new Error('Not able to fetch proof')
     const data = (await res.json()) as any

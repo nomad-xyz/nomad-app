@@ -180,9 +180,15 @@ import {
   BUFFER_CONFIRMATION_TIME_IN_MINUTES,
   PROCESS_TIME_IN_MINUTES,
 } from '@/config'
-import { minutesTilConfirmation } from '@/utils/time'
+import { minutesTilConfirmation } from '@/utils'
 import { toNetworkName } from '@/utils'
 import { NetworkName } from '@/config/types'
+
+interface ComponentData {
+  PROCESS_TIME_IN_MINUTES: number
+  showStatus: boolean
+  now: number
+}
 
 export default defineComponent({
   props: {
@@ -211,7 +217,8 @@ export default defineComponent({
   data: () => ({
     PROCESS_TIME_IN_MINUTES,
     showStatus: false,
-  }),
+    now: Date.now()
+  } as ComponentData),
   setup: () => {
     const store = useStore()
     const notification = useNotification()
@@ -220,6 +227,12 @@ export default defineComponent({
       store,
       notification,
     }
+  },
+
+  mounted() {
+    setInterval(() => {
+      this.now = Date.now()
+    }, 10000)
   },
   methods: {
     async processTx() {
@@ -265,19 +278,23 @@ export default defineComponent({
       }
       return 1
     },
-    confirmationTime(): number | undefined {
+    optimisticMinutes(): number | undefined {
       if (!this.destinationNetwork) return
-      const { confirmationTimeInMinutes } = networks[this.destinationNetwork]
-      return Math.ceil(confirmationTimeInMinutes)
+      const { optimisticSeconds } = networks[this.destinationNetwork]
+      return Math.ceil(optimisticSeconds / 60)
+    },
+    requiresManualProcessing(): boolean {
+      if (!this.destinationNetwork) return false
+      return !!networks[this.destinationNetwork].manualProcessing
     },
     minutesRemaining(): number | undefined {
-      if (!this.confirmationTime) return
+      if (!this.optimisticMinutes || !this.now) return
       const bufferMinutes = BUFFER_CONFIRMATION_TIME_IN_MINUTES
       const processingTime = PROCESS_TIME_IN_MINUTES
       // if status doesn't exist
       if (!this.status && this.status !== 0) return
       if (this.status < 2) {
-        return this.confirmationTime + bufferMinutes
+        return this.optimisticMinutes + bufferMinutes
       } else if (this.status === 2 && this.confirmAt) {
         const remaining = minutesTilConfirmation(this.confirmAt)
         if (!remaining) {
@@ -289,25 +306,20 @@ export default defineComponent({
       return bufferMinutes
     },
     confirmationProgress(): number {
-      if (!this.confirmationTime) return 0
-      if (!this.confirmAt) return 0
+      if (!this.optimisticMinutes || !this.now || !this.confirmAt) return 0
       const confirmationMinutesRemaining = minutesTilConfirmation(
         this.confirmAt
       )
       console.log(confirmationMinutesRemaining, ' minutes remaining')
       const fraction =
-        (this.confirmationTime - confirmationMinutesRemaining) /
-        this.confirmationTime
+        (this.optimisticMinutes - confirmationMinutesRemaining) /
+        this.optimisticMinutes
       return Math.floor(fraction * 100)
     },
-    requiresManualProcessing(): boolean {
-      if (!this.destinationNetwork) return false
-      return !!networks[this.destinationNetwork].manualProcessing
-    },
     readyToManualProcess(): boolean {
-      if (!this.confirmAt || !this.destinationNetwork) return false
+      if (!this.confirmAt || !this.now || !this.destinationNetwork) return false
       // get timestamp in seconds
-      const now = BigNumber.from(Date.now()).div(1000)
+      const now = BigNumber.from(this.now).div(1000)
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
       return now.gt(this.confirmAt) && this.requiresManualProcessing
