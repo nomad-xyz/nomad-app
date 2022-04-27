@@ -11,7 +11,7 @@ export type TokenMetadata = {
   symbol: string
   name: string
   icon: string
-  iconColors?: string[]
+  iconColors?: [string, string]
   decimals: number
   coinGeckoId: string
   tokenIdentifier: TokenIdentifier | null

@@ -9,6 +9,9 @@ import rWETHIcon from '@/assets/token-logos/rWETH.png'
 import kWETHIcon from '@/assets/token-logos/kWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
 import XDAIIcon from '@/assets/token-logos/XDAI.png'
+import CARDSIcon from '@/assets/token-logos/CARDS.png'
+import C3Icon from '@/assets/token-logos/C3.png'
+import GEROIcon from '@/assets/token-logos/GERO.png'
 import ConnextIcon from '@/assets/icons/connext.svg'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
@@ -439,9 +442,40 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     minAmt: 10,
   },
-  // CARDS: {
-  //   nativeNetwork: 'ethereum',
-  //   symbol: 'CARDS',
-  //   name: ''
-  // }
+  CARDS: {
+    nativeNetwork: 'ethereum',
+    symbol: 'CARDS',
+    name: 'Card Starter',
+    icon: CARDSIcon,
+    iconColors: ['#185CFC', '#185CFC'],
+    decimals: 18,
+    coinGeckoId: 'cardstarter',
+    tokenIdentifier: mainnetTokenIdentifiers.CARDS,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  C3: {
+    nativeNetwork: 'ethereum',
+    symbol: 'C3',
+    name: 'CHARLI3',
+    icon: C3Icon,
+    iconColors: ['#E82222', '#E82222'],
+    decimals: 18,
+    coinGeckoId: 'charli3',
+    tokenIdentifier: mainnetTokenIdentifiers.C3,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  GERO: {
+    nativeNetwork: 'ethereum',
+    symbol: 'GERO',
+    name: 'GeroWallet',
+    icon: GEROIcon,
+    iconColors: ['#060138', '#54E09D'],
+    decimals: 18,
+    coinGeckoId: 'gerowallet',
+    tokenIdentifier: mainnetTokenIdentifiers.GERO,
+    nativeOnly: false,
+    minAmt: 10,
+  },
 }
