@@ -102,6 +102,6 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
   },
   wEVMOS: {
     domain: 'evmos',
-    id: 'TODO',
+    id: '0xD4949664cD82660AaE99bEdc034a0deA8A0bd517',
   },
 }
