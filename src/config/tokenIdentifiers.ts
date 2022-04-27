@@ -100,4 +100,8 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0xD417144312DbF50465b1C641d016962017Ef6240',
   },
+  wEVMOS: {
+    domain: 'evmos',
+    id: 'TODO',
+  },
 }
