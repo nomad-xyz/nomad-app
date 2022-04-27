@@ -31,6 +31,8 @@ export function toNetworkName(name: string): NetworkName {
       return 'rinkeby'
     case 'goerli':
       return 'goerli'
+    case 'evmos':
+      return 'evmos'
     // case 'moonbasealpha':
     //   return 'moonbasealpha'
     // case 'evmostestnet':
