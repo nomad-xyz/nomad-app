@@ -136,6 +136,7 @@ export default defineComponent({
 
   async mounted() {
     const { network, id } = this.$route.params
+    this.checkUrlParams(network as string, id as string)
     this.originNet = toNetworkName(network as string)
     const txData = {
       network: this.originNet,
@@ -144,6 +145,13 @@ export default defineComponent({
     const message = await this.store.getters.getTxMessage(txData)
     this.transferMessage = message
     console.log('transaction:\n', message)
+    if (!message) {
+      this.notification.error({
+        title: 'Invalid URL',
+        description: 'Please check that the url has the correct network and transaction ID',
+      })
+      throw new Error('Unable to fetch transaction details')
+    }
 
     // destination network
     this.destNet = this.store.getters.resolveDomainName(message.destination)
@@ -185,6 +193,31 @@ export default defineComponent({
   },
 
   methods: {
+    checkUrlParams(network: string, id: string) {
+      if (!network || !id) {
+        this.notification.error({
+          title: 'Incomplete URL',
+          description: 'Please add the origin network and ID of your transaction',
+        })
+        throw new Error('Incomplete transaction URL, can\'t fetch transaction details')
+      }
+      if (id.length !== 66) {
+        this.notification.error({
+          title: 'Invalid Transaction',
+          description: 'Please check that you have the correct transaction ID',
+        })
+        throw new Error('Invalid transaction ID, can\'t fetch transaction details')
+      }
+      try {
+        toNetworkName(network as string)
+      } catch(e) {
+        this.notification.error({
+          title: 'Invalid Network Name',
+          description: 'Please check that you have the correct network',
+        })
+        throw new Error('Invalid network param, can\'t fetch transaction details')
+      }
+    },
     async addToken() {
       const payload = {
         network: this.destNet,
