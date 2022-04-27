@@ -231,7 +231,7 @@ export default defineComponent({
     this.now = Date.now()
     setTimeout(() => {
       this.now = Date.now()
-    }, 30000)
+    }, 10000)
   },
   methods: {
     async processTx() {
