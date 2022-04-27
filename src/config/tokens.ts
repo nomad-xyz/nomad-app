@@ -10,7 +10,6 @@ import kWETHIcon from '@/assets/token-logos/kWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
 import XDAIIcon from '@/assets/token-logos/XDAI.png'
 import ConnextIcon from '@/assets/icons/connext.svg'
-import wEvmosIcon from '@/assets/token-logos/wEVMOS.png'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
 
@@ -28,6 +27,7 @@ import CQTIcon from '@/assets/token-logos/CQT.png'
 import USDTIcon from '@/assets/token-logos/USDT.png'
 import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
+import EvmosIcon from '@/assets/token-logos/EVMOS.png'
 
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
@@ -219,7 +219,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeNetwork: 'evmostestnet',
     symbol: 'tEVMOS',
     name: 'tEVMOS',
-    icon: wEvmosIcon,
+    icon: EvmosIcon,
     iconColors: ['#454545', '#000'],
     decimals: 18,
     coinGeckoId: 'evmos',
@@ -232,7 +232,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeNetwork: 'evmostestnet',
     symbol: 'wtEVMOS',
     name: 'wtEVMOS',
-    icon: wEvmosIcon,
+    icon: EvmosIcon,
     iconColors: ['#454545', '#000'],
     decimals: 18,
     coinGeckoId: 'evmos',
@@ -411,6 +411,31 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'covalent',
     tokenIdentifier: mainnetTokenIdentifiers.CQT,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  EVMOS: {
+    nativeNetwork: 'evmos',
+    symbol: 'EVMOS',
+    name: 'EVMOS',
+    icon: EvmosIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    minAmt: 10,
+    wrappedAsset: 'wEVMOS',
+  },
+  wEVMOS: {
+    nativeNetwork: 'evmos',
+    symbol: 'wEVMOS',
+    name: 'wEVMOS',
+    icon: EvmosIcon,
+    iconColors: ['#454545', '#000'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: mainnetTokenIdentifiers.wEVMOS,
     nativeOnly: false,
     minAmt: 10,
   },
