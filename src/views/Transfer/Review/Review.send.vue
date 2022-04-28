@@ -1,4 +1,6 @@
 <template>
+  <!-- Note: pop confirm is only shown when using nomad and
+  the destination network has manual processing turned on -->
   <n-popconfirm
     v-if="showConfirmPopup"
     @positive-click="send"
@@ -7,25 +9,19 @@
     <template #trigger>
       <nomad-button
         primary
-        :disabled="disableSend"
         class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
-        :class="{ 'bg-opacity-70': disableSend }"
       >
-        <n-spin
-          v-if="protocol === 'connext' && !quote"
-          stroke="rgba(0,0,0,0.5)"
-        />
-        <span v-else>Send</span>
+        <span>Send</span>
       </nomad-button>
     </template>
     <div>
       <p>
         <b>Important</b>: Additional step required to complete Ethereum bound
-        transactions.
+        transactions. You must return to the transaction page to submit
+        transaction to claim funds.
       </p>
-      <p>
-        You must return to the transaction page to submit transaction to claim
-        funds.
+      <p class="py-4">
+        <b>NOTE: YOU WILL HAVE TO PAY GAS AT THE CURRENT MARKET RATE</b>
       </p>
       <div class="flex flex-row">
         <a
@@ -188,4 +184,7 @@ export default defineComponent({
 .n-popover.n-popconfirm,
 .n-popover-arrow
   background-color rgba(75, 75, 75, 1) !important
+
+.n-popover.n-popconfirm
+  max-width 520px
 </style>
