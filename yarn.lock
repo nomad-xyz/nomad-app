@@ -1829,10 +1829,10 @@
     ethers "^5.4.6"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk-bridge@^1.0.0-rc.10":
-  version "1.0.0-rc.10"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.10.tgz#62aad04a6de65fbe7b6a7322ad881b4cfa7b7c52"
-  integrity sha512-w1YxQCMUd5TRPcz51aHdkti06D2YgTZN79B9+d7vgau+F4t/HN6s/aCRpQtNfjy8LzUJiomIDFkA47hZJ/xczQ==
+"@nomad-xyz/sdk-bridge@^1.0.0-rc.11":
+  version "1.0.0-rc.11"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.11.tgz#edfbfe16708e32abae24d24c8ef6010c0ebb05ce"
+  integrity sha512-nO5IV2cGaZai1EoTPjkyBK90hRtT/1mQfkO6hKnefCrqpskulqMbbXyQQuehPd+uW8X0KevTnGznL0bFnOhDGQ==
   dependencies:
     "@nomad-xyz/configuration" "^0.1.0-rc.16"
     "@nomad-xyz/contracts-bridge" "^1.0.0-rc.2"

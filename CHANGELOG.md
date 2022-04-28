@@ -4,6 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.4.4 (Apr 27th, 2022)
+
+- bump sdk-bridge (increase gas limit by 10%)
+
 ## v1.4.3 (Apr 27th, 2022)
 
 - organize env variables
