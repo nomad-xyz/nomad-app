@@ -70,10 +70,10 @@
 
   <div
     class="header transition-all duration-400 px-5 py-8"
-    :class="[status < 3 ? 'bg-[#5185d0]' : 'bg-[#2fbb72]']"
+    :class="[status === 4 ? 'bg-[#2fbb72]' : 'bg-[#5185d0]']"
   >
     <!-- complete -->
-    <span class="flex flex-col items-center" v-if="status >= 3">
+    <span class="flex flex-col items-center" v-if="status === 4">
       <img src="@/assets/icons/check.svg" alt="check" class="mb-2" />
       <n-text class="uppercase opacity-80">Transfer complete</n-text>
     </span>
@@ -264,7 +264,7 @@ export default defineComponent({
   computed: {
     showAlerts() {
       if (!this.status) return false
-      return this.status >= 0 && this.status < 3
+      return this.status >= 0 && this.status < 4
     },
     stepperStatus(): number {
       if (!this.status) return 1
@@ -272,9 +272,9 @@ export default defineComponent({
         return 1
       } else if (this.status === 1) {
         return 2
-      } else if (this.status === 2) {
+      } else if (this.status === 2 || this.status === 3) {
         return 4
-      } else if (this.status >= 3) {
+      } else if (this.status === 4) {
         return 5
       }
       return 1

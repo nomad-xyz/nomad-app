@@ -14,7 +14,7 @@
         name="nomad"
         time="30-65 min"
         description="Bridges funds from one chain to another"
-        fee="No fee"
+        fee="No fee, just pay gas"
         @click="protocol = 'nomad'"
       />
       <protocol

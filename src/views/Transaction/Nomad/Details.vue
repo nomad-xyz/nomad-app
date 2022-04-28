@@ -9,7 +9,7 @@
     <div class="flex items-center justify-between mb-8">
       <copy-hash class="text-xl font-medium" :address="$route.params.id" />
       <n-text
-        v-if="status >= 0 && status < 3"
+        v-if="status >= 0 && status < 4"
         class="flex flex-row text-sm text-white opacity-60 font-medium"
       >
         <img src="@/assets/icons/progress.svg" alt="in progress" />
@@ -187,7 +187,7 @@ export default defineComponent({
     }
 
     setInterval(async () => {
-      if (this.status < 3) {
+      if (this.status < 4) {
         await this.updateStatus()
       }
     }, 60000)
@@ -271,7 +271,7 @@ export default defineComponent({
 
         const processed = await message.getProcess()
         if (processed) {
-          this.status = 3
+          this.status = 4
           return
         }
 
