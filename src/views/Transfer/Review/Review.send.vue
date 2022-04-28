@@ -1,5 +1,50 @@
 <template>
+  <n-popconfirm
+    v-if="showConfirmPopup"
+    @positive-click="send"
+    :negative-button-props="{ quaternary: true }"
+  >
+    <template #trigger>
+      <nomad-button
+        primary
+        :disabled="disableSend"
+        class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
+        :class="{ 'bg-opacity-70': disableSend }"
+      >
+        <n-spin
+          v-if="protocol === 'connext' && !quote"
+          stroke="rgba(0,0,0,0.5)"
+        />
+        <span v-else>Send</span>
+      </nomad-button>
+    </template>
+    <div>
+      <p>
+        <b>Important</b>: Additional step required to complete Ethereum bound
+        transactions.
+      </p>
+      <p>
+        You must return to the transaction page to submit transaction to claim
+        funds.
+      </p>
+      <div class="flex flex-row">
+        <a
+          class="underline"
+          href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
+          target="_blank"
+        >
+          Learn more
+        </a>
+        <img
+          src="@/assets/icons/arrow-right-up.svg"
+          alt="open"
+          class="mt-1 cursor-pointer"
+        />
+      </div>
+    </div>
+  </n-popconfirm>
   <nomad-button
+    v-else
     primary
     :disabled="disableSend"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
@@ -15,7 +60,7 @@
 import { defineComponent, computed, h } from 'vue'
 import { utils } from 'ethers'
 import { useStore } from '@/store'
-import { useNotification, NSpin } from 'naive-ui'
+import { useNotification, NPopconfirm, NSpin } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
 import { networks, connextScanURL } from '@/config'
@@ -31,6 +76,7 @@ export default defineComponent({
   },
   components: {
     NomadButton,
+    NPopconfirm,
     NSpin,
   },
   setup: () => {
@@ -128,6 +174,18 @@ export default defineComponent({
     disableSend(): boolean {
       return this.protocol === 'connext' && !this.quote
     },
+    showConfirmPopup(): boolean {
+      return (
+        this.protocol === 'nomad' &&
+        networks[this.userInput.destinationNetwork].manualProcessing
+      )
+    },
   },
 })
 </script>
+
+<style lang="stylus">
+.n-popover.n-popconfirm,
+.n-popover-arrow
+  background-color rgba(75, 75, 75, 1) !important
+</style>
