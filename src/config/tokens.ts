@@ -4,6 +4,7 @@ import {
   mainnetTokenIdentifiers,
 } from './tokenIdentifiers'
 
+import ConnextIcon from '@/assets/icons/connext.svg'
 // TESTNET TOKEN ICONS
 import rWETHIcon from '@/assets/token-logos/rWETH.png'
 import kWETHIcon from '@/assets/token-logos/kWETH.png'
@@ -12,7 +13,9 @@ import XDAIIcon from '@/assets/token-logos/XDAI.png'
 import CARDSIcon from '@/assets/token-logos/CARDS.png'
 import C3Icon from '@/assets/token-logos/C3.png'
 import GEROIcon from '@/assets/token-logos/GERO.png'
-import ConnextIcon from '@/assets/icons/connext.svg'
+import renBTCIcon from '@/assets/token-logos/renBTC.png'
+import sBTCIcon from '@/assets/token-logos/sBTC.png'
+import tBTCIcon from '@/assets/token-logos/tBTC.png'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
 
@@ -439,6 +442,42 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'covalent',
     tokenIdentifier: mainnetTokenIdentifiers.CQT,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  renBTC: {
+    nativeNetwork: 'ethereum',
+    symbol: 'renBTC',
+    name: 'renBTC',
+    icon: renBTCIcon,
+    iconColors: ['#fff', '#f5a13b'],
+    decimals: 8,
+    coinGeckoId: 'renbtc',
+    tokenIdentifier: mainnetTokenIdentifiers.renBTC,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  sBTC: {
+    nativeNetwork: 'ethereum',
+    symbol: 'sBTC',
+    name: 'Synth sBTC',
+    icon: sBTCIcon,
+    iconColors: ['#fff', '#f5a13b'],
+    decimals: 18,
+    coinGeckoId: 'sbtc',
+    tokenIdentifier: mainnetTokenIdentifiers.sBTC,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  tBTC: {
+    nativeNetwork: 'ethereum',
+    symbol: 'tBTC',
+    name: 'tBTC v2',
+    icon: tBTCIcon,
+    iconColors: ['#fff', '#f5a13b'],
+    decimals: 18,
+    coinGeckoId: 'tbtc',
+    tokenIdentifier: mainnetTokenIdentifiers.tBTC,
     nativeOnly: false,
     minAmt: 10,
   },
