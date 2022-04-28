@@ -116,4 +116,16 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0x3431f91b3a388115f00c5ba9fdb899851d005fb5',
   },
+  renBTC: {
+    domain: 'ethereum',
+    id: '0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D',
+  },
+  sBTC: {
+    domain: 'ethereum',
+    id: '0xfE18be6b3Bd88A2D2A7f928d00292E7a9963CfC6',
+  },
+  tBTC: {
+    domain: 'ethereum',
+    id: '0x18084fbA666a33d37592fA2633fD49a74DD93a88',
+  },
 }
