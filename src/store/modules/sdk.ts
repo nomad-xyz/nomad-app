@@ -139,6 +139,7 @@ const actions = <ActionTree<SDKState, RootState>>{
   registerSigner(_, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
+    // TODO: ethereum
     const provider = new providers.Web3Provider(window.ethereum)
     const newSigner = provider.getSigner()
 
