@@ -4,13 +4,6 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
-## v1.4.3 (Apr 27th, 2022)
-
-- organize env variables
-- fine tune status/confirmAt checks and time estimation logic
-- bump sdk-bridge to v1.0.0-rc.10
-- bump configuration to v0.1.0-rc.16
-
 ## v1.4.5 (Apr 27th, 2022)
 
 - bump sdk-bridge (increase gas limit more)
