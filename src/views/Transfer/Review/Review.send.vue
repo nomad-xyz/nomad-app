@@ -88,13 +88,6 @@ export default defineComponent({
   },
   methods: {
     async send() {
-      if (!this.metamaskInstalled) {
-        this.notification.info({
-          title: 'Install Metamask',
-          content: 'Please install Metamask to continue',
-        })
-        return
-      }
       await this.store.dispatch('switchNetwork', this.userInput.originNetwork)
       if (this.protocol === 'nomad') {
         await this.bridge()
@@ -173,11 +166,6 @@ export default defineComponent({
     },
   },
   computed: {
-    metamaskInstalled(): boolean {
-      const { ethereum } = window
-      if (!ethereum) return false
-      return !ethereum.isMetamask
-    },
     disableSend(): boolean {
       return this.protocol === 'connext' && !this.quote
     },
