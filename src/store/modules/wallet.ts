@@ -69,6 +69,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     const web3Modal = new Web3Modal({
       providerOptions, // required
+      cacheProvider: false,
       theme: 'dark',
     })
 
