@@ -21,6 +21,7 @@ export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
     throw new Error('Metamask not installed')
   }
 
+  // TODO: instantiate later?
   await ethereum.request({ method: 'eth_requestAccounts' })
 
   const provider = new providers.Web3Provider(ethereum)
