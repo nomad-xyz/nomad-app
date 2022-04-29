@@ -107,26 +107,6 @@ const actions = <ActionTree<WalletState, RootState>>{
       })
     }
 
-    provider.on('chainChanged', async (chainId: number) => {
-      console.log('network change')
-      // get name of network and set in store
-      const id = BigNumber.from(chainId).toNumber()
-      const network = getNetworkByChainID(id)
-      if (network) {
-        // network supported, setting wallet network
-        await dispatch('setWalletNetwork', network.name)
-      } else {
-        // network not supported, clearing network
-        await dispatch('setWalletNetwork', '')
-      }
-      // TODO: update token? balance, etc
-    })
-
-    provider.on('accountsChanged', () => {
-      // everything changes, easiest to reload
-      location.reload()
-    })
-
     // get and set address
     const address = await signer.getAddress()
     dispatch('setWalletAddress', address)
