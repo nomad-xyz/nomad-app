@@ -57,7 +57,7 @@ const actions = <ActionTree<WalletState, RootState>>{
       console.log('already connected to wallet')
       return
     }
-    
+
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider, // required
@@ -68,14 +68,13 @@ const actions = <ActionTree<WalletState, RootState>>{
     }
 
     const web3Modal = new Web3Modal({
-      network: 'mainnet', // optional
-      cacheProvider: true, // optional
       providerOptions, // required
+      theme: 'dark',
     })
 
     const instance = await web3Modal.connect()
-    const provider = new providers.Web3Provider(instance);
-    const signer = provider.getSigner();
+    const provider = new providers.Web3Provider(instance)
+    const signer = provider.getSigner()
 
     // get and set address
     const address = await signer.getAddress()
