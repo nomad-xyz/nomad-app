@@ -1,6 +1,6 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { ActiveTransaction, NxtpSdk, NxtpSdkEvents } from '@connext/nxtp-sdk'
-import { utils } from 'ethers'
+import { ethers, utils } from 'ethers'
 
 import { RootState } from '@/store'
 import { networks, isProduction } from '@/config'
@@ -49,9 +49,11 @@ const mutations = <MutationTree<ConnextState>>{
 }
 
 const actions = <ActionTree<ConnextState, RootState>>{
-  async instantiateConnext() {
+  async instantiateConnext(signer: any) {
     console.log('Instantiate Connext, production = ', isProduction)
-    connextSDK = await instantiateConnextSDK()
+    if (!connextSDK) {
+      connextSDK = await instantiateConnextSDK(signer)
+    }
     console.log('connext after instantiating', connextSDK)
   },
 
@@ -183,6 +185,11 @@ const actions = <ActionTree<ConnextState, RootState>>{
     { dispatch, rootState },
     activeTransaction: ActiveTransaction
   ) {
+    if (!rootState.wallet.connected) {
+      await dispatch('connectWallet')
+    }
+    if (!connextSDK) throw new Error('Connext not instantiated')
+
     const {
       crosschainTx,
       status,
@@ -203,13 +210,6 @@ const actions = <ActionTree<ConnextState, RootState>>{
         : undefined
 
     if (status === NxtpSdkEvents.ReceiverTransactionPrepared) {
-      if (!connextSDK) {
-        await dispatch('instantiateConnext')
-      }
-      if (!rootState.wallet.connected) {
-        await dispatch('connectWallet')
-      }
-
       const finish = await connextSDK.fulfillTransfer(
         {
           bidSignature,
@@ -229,17 +229,15 @@ const actions = <ActionTree<ConnextState, RootState>>{
     { dispatch, rootState },
     activeTransaction: ActiveTransaction
   ) {
+    if (!rootState.wallet.connected) {
+      await dispatch('connectWallet')
+    }
+    if (!connextSDK) throw new Error('Connext not instantiated')
+
     const { sending, invariant } = activeTransaction.crosschainTx
     const sendingTxData = {
       ...invariant,
       ...sending,
-    }
-
-    if (!connextSDK) {
-      await dispatch('instantiateConnext')
-    }
-    if (!rootState.wallet.connected) {
-      await dispatch('connectWallet')
     }
 
     await connextSDK.cancel(
@@ -251,10 +249,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
 
 const getters = <GetterTree<ConnextState, RootState>>{
   getActiveConnextTxs: () => async () => {
-    if (!connextSDK) {
-      connextSDK = await instantiateConnextSDK()
-      console.log('connext after instantiating', connextSDK)
-    }
+    if (!connextSDK) return
 
     const activeTxs = await connextSDK.getActiveTransactions()
     return activeTxs.map((tx: any) => {
@@ -282,7 +277,8 @@ const getters = <GetterTree<ConnextState, RootState>>{
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTransaction: () => async () => {
-    connextSDK = await instantiateConnextSDK()
+    if (!connextSDK)
+      throw new Error('cannot fetch transaction, connect wallet first')
     const query = `
       {
         transactions(orderBy: preparedTimestamp, orderDirection: desc, where: { transactionId: '0xd3a053e2db95eb6ca25eeb02bd27ab99031e25800e4160b197304c2ba1957acf' }) {
