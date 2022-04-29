@@ -3,14 +3,13 @@
  * This is also a good module to look at for how to write a Vuex module
  */
 import { MutationTree, ActionTree } from 'vuex'
+import { providers } from 'ethers'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks } from '@/config'
-import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
-import Web3 from 'web3'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 
@@ -53,11 +52,17 @@ const actions = <ActionTree<WalletState, RootState>>{
   async connectWallet({ dispatch, commit, state }) {
     console.log('connecting wallet')
 
+    // check if already connected
+    if (state.connected) {
+      console.log('already connected to wallet')
+      return
+    }
+    
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          infuraId: 'TODO', // required
+          infuraId: process.env.VUE_APP_INFURA_KEY, // required
         },
       },
     }
@@ -68,30 +73,9 @@ const actions = <ActionTree<WalletState, RootState>>{
       providerOptions, // required
     })
 
-    const provider2 = await web3Modal.connect()
-    console.log('provider2', provider2)
-    const web3 = new Web3(provider2)
-
-    console.log('web3', web3)
-
-    return
-
-    // check if already connected
-    if (state.connected) {
-      console.log('already connected to wallet')
-      return
-    }
-
-    // if window.ethereum does not exist, do not connect
-    const { ethereum } = window
-    if (!ethereum) return
-
-    // connect Metamask
-    await window.ethereum.request({ method: 'eth_requestAccounts' })
-
-    // get provider/signer
-    const provider = await mmUtils.getMetamaskProvider()
-    const signer = await provider.getSigner()
+    const instance = await web3Modal.connect()
+    const provider = new providers.Web3Provider(instance);
+    const signer = provider.getSigner();
 
     // get and set address
     const address = await signer.getAddress()
@@ -102,7 +86,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     const { chainId } = await provider.ready
     const network = getNetworkByChainID(chainId)
     if (network) {
-      // dispatch('setWalletNetwork', network.name)
+      dispatch('setWalletNetwork', network.name)
     } else {
       console.log('network not supported')
     }
