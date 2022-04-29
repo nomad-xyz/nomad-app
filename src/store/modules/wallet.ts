@@ -93,6 +93,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // wallet connected
     commit(types.SET_WALLET_CONNECTION, true)
+    dispatch('instantiateConnext', signer)
   },
 
   setWalletAddress({ commit }, address: string) {
