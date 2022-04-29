@@ -10,6 +10,9 @@ import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
+import Web3 from 'web3'
+import Web3Modal from 'web3modal'
+import WalletConnectProvider from '@walletconnect/web3-provider'
 
 // defined from docs here: https://docs.metamask.io/guide/ethereum-provider.html#errors
 interface ProviderRpcError extends Error {
@@ -48,6 +51,31 @@ const mutations = <MutationTree<WalletState>>{
 
 const actions = <ActionTree<WalletState, RootState>>{
   async connectWallet({ dispatch, commit, state }) {
+    console.log('connecting wallet')
+
+    const providerOptions = {
+      walletconnect: {
+        package: WalletConnectProvider, // required
+        options: {
+          infuraId: 'TODO', // required
+        },
+      },
+    }
+
+    const web3Modal = new Web3Modal({
+      network: 'mainnet', // optional
+      cacheProvider: true, // optional
+      providerOptions, // required
+    })
+
+    const provider2 = await web3Modal.connect()
+    console.log('provider2', provider2)
+    const web3 = new Web3(provider2)
+
+    console.log('web3', web3)
+
+    return
+
     // check if already connected
     if (state.connected) {
       console.log('already connected to wallet')
@@ -74,7 +102,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     const { chainId } = await provider.ready
     const network = getNetworkByChainID(chainId)
     if (network) {
-      dispatch('setWalletNetwork', network.name)
+      // dispatch('setWalletNetwork', network.name)
     } else {
       console.log('network not supported')
     }
