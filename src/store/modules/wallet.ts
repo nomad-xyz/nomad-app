@@ -130,7 +130,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     commit(types.SET_WALLET_ADDRESS, address)
   },
 
-  // when user changes network in Metamask
+  // when user changes network in their wallet
   setWalletNetwork({ commit, dispatch, rootState }, networkName: string) {
     dispatch('setOriginNetwork', networkName)
 
@@ -167,7 +167,7 @@ const actions = <ActionTree<WalletState, RootState>>{
         params: [{ chainId: hexChainId }],
       })
     } catch (switchError: unknown) {
-      // This error code indicates that the chain has not been added to MetaMask.
+      // This error code indicates that the chain has not been added to their wallet.
       if ((switchError as ProviderRpcError).code === 4902) {
         await web3.provider.request({
           method: 'wallet_addEthereumChain',

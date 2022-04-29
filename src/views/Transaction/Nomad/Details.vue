@@ -239,7 +239,9 @@ export default defineComponent({
           title: 'Error adding token to Metamask',
           content: () =>
             h(NotificationError, {
-              text: `Please try adding this token manually: ${this.tokenId!.id}`,
+              text: `Please try adding this token manually: ${
+                this.tokenId!.id
+              }`,
               error: error as Error,
             }),
         })

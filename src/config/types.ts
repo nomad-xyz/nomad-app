@@ -24,7 +24,7 @@ export type NetworkMetadata = {
   name: NetworkName
   displayName: string
   connections: NetworkName[]
-  chainID: number // for metamask
+  chainID: number // for wallet
   domainID: number // nomad domain ID
   rpcUrl: string
   nativeToken: TokenMetadata

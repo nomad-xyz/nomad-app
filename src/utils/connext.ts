@@ -13,8 +13,10 @@ export type SwapData = {
   amount: number
 }
 
-export default async function instantiateConnextSDK(signer: any): Promise<NxtpSdk> {
-  // Get signer from metamask
+export default async function instantiateConnextSDK(
+  signer: any
+): Promise<NxtpSdk> {
+  // Get signer from wallet
   if (!signer) throw new Error('Cannot instantiate Connext, no signer')
 
   // Level can be one of:
