@@ -3,7 +3,7 @@
  * This is also a good module to look at for how to write a Vuex module
  */
 import { MutationTree, ActionTree } from 'vuex'
-import { providers } from 'ethers'
+import { providers, BigNumber } from 'ethers'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks } from '@/config'
@@ -76,6 +76,26 @@ const actions = <ActionTree<WalletState, RootState>>{
     const instance = await web3Modal.connect()
     const provider = new providers.Web3Provider(instance)
     const signer = provider.getSigner()
+
+    provider.on('chainChanged', async (chainId: number) => {
+      console.log('network change')
+      // get name of network and set in store
+      const id = BigNumber.from(chainId).toNumber()
+      const network = getNetworkByChainID(id)
+      if (network) {
+        // network supported, setting wallet network
+        await dispatch('setWalletNetwork', network.name)
+      } else {
+        // network not supported, clearing network
+        await dispatch('setWalletNetwork', '')
+      }
+      // TODO: update token? balance, etc
+    })
+
+    provider.on('accountsChanged', () => {
+      // everything changes, easiest to reload
+      location.reload()
+    })
 
     // get and set address
     const address = await signer.getAddress()
