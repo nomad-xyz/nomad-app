@@ -17,11 +17,8 @@
         </span>
       </card-alert>
 
-      <card-alert
-        title="Nomad transactions involving Evmos experiencing delays"
-        warning
-      >
-        Due to network congestion yesterday and rpc issues, transactions involving Evmos network are experiencing delays. Funds are <span class="font-bold">safe</span>. The team is actively working toward a resolution, and we appreciate your patience at this time.
+      <card-alert warning>
+        Transactions involving Evmos network are experiencing delays. Funds are <span class="font-bold">safe</span>. The team is actively working toward a resolution, and we appreciate your patience at this time.
       </card-alert>
 
       <!-- page view -->
