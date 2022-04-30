@@ -17,12 +17,6 @@
         </span>
       </card-alert>
 
-      <card-alert
-        title="Evmos network is experiencing congestion"
-      >
-        Transactions to evmos will be delayed. Sending from evmos will be temporarily unavailable.
-      </card-alert>
-
       <!-- page view -->
       <router-view></router-view>
     </div>
