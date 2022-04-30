@@ -1,6 +1,9 @@
 <template>
   <n-collapse-transition :show="show">
-    <div class="flex flex-row rounded-xl bg-[#5185d0] p-4 mb-4 max-w-xl m-auto">
+    <div
+      class="flex flex-row rounded-xl bg-[#5185d0] p-4 mb-4 max-w-xl m-auto"
+      :class="[warning ? 'bg-[#ffb11f] text-black' : 'bg-[#5185d0]']"
+    >
       <n-icon size="25" class="mr-2">
         <alert-circle-outline />
       </n-icon>
@@ -38,6 +41,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    warning: {
+      type: Boolean,
+      default: false,
+    }
   },
   components: {
     NCollapseTransition,
