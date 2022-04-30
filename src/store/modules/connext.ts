@@ -49,7 +49,7 @@ const mutations = <MutationTree<ConnextState>>{
 }
 
 const actions = <ActionTree<ConnextState, RootState>>{
-  async instantiateConnext(signer: any) {
+  async instantiateConnext(_, signer: any) {
     console.log('Instantiate Connext, production = ', isProduction)
     if (!connextSDK) {
       connextSDK = await instantiateConnextSDK(signer)
@@ -277,8 +277,9 @@ const getters = <GetterTree<ConnextState, RootState>>{
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTransaction: () => async () => {
-    if (!connextSDK)
+    if (!connextSDK) {
       throw new Error('cannot fetch transaction, connect wallet first')
+    }
     const query = `
       {
         transactions(orderBy: preparedTimestamp, orderDirection: desc, where: { transactionId: '0xd3a053e2db95eb6ca25eeb02bd27ab99031e25800e4160b197304c2ba1957acf' }) {
