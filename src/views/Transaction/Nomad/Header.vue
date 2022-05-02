@@ -250,9 +250,21 @@ export default defineComponent({
         }
       } catch (e: unknown) {
         console.error(e)
+        const errorMessage = (e as Error).message
+        let description
+        switch (true) {
+          case errorMessage.includes('!MessageStatus.None'):
+            description = 'Transfer already completed'
+            break
+          case errorMessage.includes('Unexpected token < in JSON at position 0'):
+            description = 'Not ready to claim. Proof not available'
+            break
+          default:
+            description = errorMessage
+        }
         this.notification.warning({
           title: 'Error Dispatching Transaction',
-          content: (e as Error).message,
+          content: description,
         })
       }
     },
