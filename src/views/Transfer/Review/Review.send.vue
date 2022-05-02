@@ -21,7 +21,7 @@
         transaction to claim funds.
       </p>
       <p class="py-4">
-        <b>NOTE: YOU WILL HAVE TO PAY GAS AT THE CURRENT MARKET RATE</b>
+        <b>IT IS RECOMMENDED YOU SUPPLY YOUR WALLET WITH AT LEAST 0.07 ETH TO COVER AMPLE GAS LIMIT. ACTUAL GAS FEE WILL BE 80% LESS EXPENSIVE</b>
       </p>
       <div class="flex flex-row">
         <a
