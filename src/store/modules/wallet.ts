@@ -80,32 +80,26 @@ const actions = <ActionTree<WalletState, RootState>>{
     web3 = new providers.Web3Provider(connection)
     const signer = web3.getSigner()
 
-    console.log('connection', connection)
     console.log('web3', web3)
     console.log('signer', signer)
 
-    if (connection.on) {
-      connection.on('chainChanged', async (chainId: number) => {
-        console.log('chainId', chainId)
-        console.log('network change')
-        // get name of network and set in store
-        const id = BigNumber.from(chainId).toNumber()
-        const network = getNetworkByChainID(id)
-        if (network) {
-          // network supported, setting wallet network
-          await dispatch('setWalletNetwork', network.name)
-        } else {
-          // network not supported, clearing network
-          await dispatch('setWalletNetwork', '')
-        }
-        // TODO: update token? balance, etc
-      })
-
-      connection.on('accountsChanged', () => {
-        // everything changes, easiest to reload
-        location.reload()
-      })
-    }
+    // listen to events
+    connection.on('accountsChanged', () => {
+      location.reload()
+    })
+    connection.on('chainChanged', async (chainId: number) => {
+      console.log('network change', chainId)
+      // get name of network and set in store
+      const id = BigNumber.from(chainId).toNumber()
+      const network = getNetworkByChainID(id)
+      if (network) {
+        // network supported, setting wallet network
+        await dispatch('setWalletNetwork', network.name)
+      } else {
+        // network not supported, clearing network
+        await dispatch('setWalletNetwork', '')
+      }
+    })
 
     // get and set address
     const address = await signer.getAddress()
