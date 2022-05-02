@@ -249,7 +249,6 @@ export default defineComponent({
           })
         }
       } catch (e: unknown) {
-        console.error(e)
         const errorMessage = (e as Error).message
         let description
         switch (true) {
@@ -266,6 +265,8 @@ export default defineComponent({
           title: 'Error Dispatching Transaction',
           content: description,
         })
+
+        throw e
       }
     },
     getDisplayName(network: NetworkName) {
