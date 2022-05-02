@@ -2,7 +2,7 @@
  * Wallet Module contains most information that comes from a user's wallet
  * This is also a good module to look at for how to write a Vuex module
  */
-import { MutationTree, ActionTree } from 'vuex'
+import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber } from 'ethers'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
@@ -222,8 +222,16 @@ const actions = <ActionTree<WalletState, RootState>>{
   },
 }
 
+const getters = <GetterTree<WalletState, RootState>>{
+  getSigner: () => () => {
+    return web3.getSigner()
+  }
+}
+
+
 export default {
   state,
   mutations,
   actions,
+  getters
 }
