@@ -127,29 +127,22 @@ const actions = <ActionTree<WalletState, RootState>>{
     } catch (switchError: unknown) {
       // This error code indicates that the chain has not been added to MetaMask.
       if ((switchError as ProviderRpcError).code === 4902) {
-        try {
-          await ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: hexChainId,
-                rpcUrls: [network.rpcUrl],
-                chainName: network.name,
-                nativeCurrency: {
-                  name: network.nativeToken.name,
-                  symbol: network.nativeToken.symbol,
-                  decimals: network.nativeToken.decimals,
-                },
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: hexChainId,
+              rpcUrls: [network.rpcUrl],
+              chainName: network.name,
+              nativeCurrency: {
+                name: network.nativeToken.name,
+                symbol: network.nativeToken.symbol,
+                decimals: network.nativeToken.decimals,
               },
-            ],
-          })
-        } catch (addError: unknown) {
-          // TODO: handle "add" error, alert?
-          console.error(addError)
-          throw addError
-        }
+            },
+          ],
+        })
       }
-      console.error(switchError)
       throw switchError
       // TODO: handle other "switch" errors, alert?
     }
