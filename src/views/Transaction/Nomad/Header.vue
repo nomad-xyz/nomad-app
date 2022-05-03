@@ -255,6 +255,9 @@ export default defineComponent({
           case errorMessage.includes('!MessageStatus.None'):
             description = 'Transfer already completed'
             break
+          case errorMessage.includes('!prove'):
+            description = 'Try again later. If this persists longer than 2 hours, file a support ticket'
+            break
           case errorMessage.includes('Unexpected token < in JSON at position 0'):
             description = 'Not ready to claim. Proof not available'
             break
@@ -262,7 +265,7 @@ export default defineComponent({
             description = errorMessage
         }
         this.notification.warning({
-          title: 'Error Dispatching Transaction',
+          title: 'Error Completing Transfer',
           content: description,
         })
 
