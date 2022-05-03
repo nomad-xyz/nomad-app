@@ -214,7 +214,8 @@ export default defineComponent({
       this.updateAmtInUSD(newToken.coinGeckoId)
     },
     async amt(newAmt) {
-      this.store.dispatch('setSendAmount', newAmt || '0')
+      const formattedAmt = parseFloat(newAmt).toFixed(6)
+      this.store.dispatch('setSendAmount', formattedAmt || 0)
       if (this.token.coinGeckoId) {
         // TODO: we might want to debounce this function depending on performance
         await this.updateAmtInUSD(this.token.coinGeckoId)
