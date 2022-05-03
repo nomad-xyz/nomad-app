@@ -73,7 +73,13 @@ const actions = <ActionTree<WalletState, RootState>>{
     const web3Modal = new Web3Modal({
       providerOptions, // required
       cacheProvider: false,
-      theme: 'dark',
+      theme: {
+        background: '#2F2F2F',
+        main: '#FFFFFF',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+        border: 'rgba(255, 255, 255, 0.14)',
+        hover: 'rgba(255, 255, 255, 0.05)',
+      },
     })
 
     connection = await web3Modal.connect()
