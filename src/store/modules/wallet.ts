@@ -142,8 +142,9 @@ const actions = <ActionTree<WalletState, RootState>>{
             },
           ],
         })
+      } else {
+        throw switchError
       }
-      throw switchError
       // TODO: handle other "switch" errors, alert?
     }
 
