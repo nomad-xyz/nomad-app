@@ -67,6 +67,9 @@ const actions = <ActionTree<WalletState, RootState>>{
         options: {
           infuraId: process.env.VUE_APP_INFURA_KEY, // required
         },
+        display: {
+          description: 'Supported: LedgerLive',
+        },
       },
     }
 
@@ -187,7 +190,6 @@ const actions = <ActionTree<WalletState, RootState>>{
       } else {
         throw switchError
       }
-      // TODO: handle other "switch" errors, alert?
     }
 
     dispatch('setWalletNetwork', network.name)
@@ -225,13 +227,12 @@ const actions = <ActionTree<WalletState, RootState>>{
 const getters = <GetterTree<WalletState, RootState>>{
   getSigner: () => () => {
     return web3.getSigner()
-  }
+  },
 }
-
 
 export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 }
