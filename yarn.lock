@@ -977,12 +977,12 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@connext/nxtp-contracts@0.1.34":
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/@connext/nxtp-contracts/-/nxtp-contracts-0.1.34.tgz#5453e1f438e49d3c9cd68a0c6456fe988275430a"
-  integrity sha512-yHJnVWXxdwzynTvFTckjli92m7Dw9h2PQgwieXU6MJy1x7Tdp3krg6yvp3LAzkbL1GOxvpYSbdaz98YxwLK3qA==
+"@connext/nxtp-contracts@0.1.36":
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/@connext/nxtp-contracts/-/nxtp-contracts-0.1.36.tgz#2c514b99e545c3c6ebf9b272a08e5c176490161b"
+  integrity sha512-zVK8obL6VCJ1va+SXlT006+lWHKbmGAbgeuYZ+uNGW7b7GOxOPc0fzZT1EGhg1PryN95GWgbXgaUkJbDygtK+w==
   dependencies:
-    "@connext/nxtp-utils" "0.1.34"
+    "@connext/nxtp-utils" "0.1.36"
     "@typescript-eslint/eslint-plugin" "^4.29.2"
     adv "^0.1.5"
     ajv "^8.6.2"
@@ -992,14 +992,14 @@
     hardhat-gas-reporter "^1.0.4"
     typechain "^5.1.2"
 
-"@connext/nxtp-sdk@^0.1.34":
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/@connext/nxtp-sdk/-/nxtp-sdk-0.1.34.tgz#735fceaf3eefae1b16e659d396932aaa2a29e596"
-  integrity sha512-iqkb+aXo+1W+s2T2+HS+JWgMVx/5OpQqO5Jqe29Qp39hJ+LTeXAP/CQrMASWPU+E+APdNWNAmTz/EQfBApFXJg==
+"@connext/nxtp-sdk@^0.1.36":
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/@connext/nxtp-sdk/-/nxtp-sdk-0.1.36.tgz#4d91919e0f6704f21105ef89031a534bb035d686"
+  integrity sha512-HN/GTNfNnNTTUyMUUTn70ckp4+7GtXV7LiBI2SgLaeRJKWM+Q18c9G+5W7sLa9mWhEq/XlsaexH45Jw7RzciSg==
   dependencies:
-    "@connext/nxtp-contracts" "0.1.34"
-    "@connext/nxtp-txservice" "0.1.34"
-    "@connext/nxtp-utils" "0.1.34"
+    "@connext/nxtp-contracts" "0.1.36"
+    "@connext/nxtp-txservice" "0.1.36"
+    "@connext/nxtp-utils" "0.1.36"
     "@sinclair/typebox" "^0.18.1"
     ajv "^8.6.2"
     ajv-formats "^2.1.1"
@@ -1010,13 +1010,13 @@
     graphql-tag "^2.12.5"
     pino "^6.13.0"
 
-"@connext/nxtp-txservice@0.1.34":
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/@connext/nxtp-txservice/-/nxtp-txservice-0.1.34.tgz#3d6e350d1fca2a77ff8d2e5bd22929dd9f186288"
-  integrity sha512-RXVWhO7yABIdDl7ZyOsYmJPD308UHxUjlVoIEqZ+rxn5Gf1Jl8wymlem0qM/YCL5JUwlInd4EI9aE+w5PYT77A==
+"@connext/nxtp-txservice@0.1.36":
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/@connext/nxtp-txservice/-/nxtp-txservice-0.1.36.tgz#380331b466513acf7327ffac90d078ae0606d082"
+  integrity sha512-gMCbZqWHPa5jEIxlj+PJvTY/vhy2eQPg4UZfHws3fd0tpc7Gl4gMDK0N0qEWP2A8Y+r/xuHEqPzrsetQw1OhaQ==
   dependencies:
-    "@connext/nxtp-contracts" "0.1.34"
-    "@connext/nxtp-utils" "0.1.34"
+    "@connext/nxtp-contracts" "0.1.36"
+    "@connext/nxtp-utils" "0.1.36"
     "@sinclair/typebox" "^0.18.1"
     "@typescript-eslint/eslint-plugin" "^4.29.2"
     ajv "^8.6.2"
@@ -1029,10 +1029,10 @@
     p-queue "6.6.2"
     pino "^6.13.0"
 
-"@connext/nxtp-utils@0.1.34":
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/@connext/nxtp-utils/-/nxtp-utils-0.1.34.tgz#8363ef43c207b18fcaaf01f9790e87febc59ef37"
-  integrity sha512-ehf/R91Hu7jjCdBOe3Qqau1mET+GUTH/21x0SWwDFR/XD0qRh/nN5EbrwjE5yP4B+otCAYWECV1ieyQ/qGbweA==
+"@connext/nxtp-utils@0.1.36":
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/@connext/nxtp-utils/-/nxtp-utils-0.1.36.tgz#cff88315531c3664f3ac77fed460538fd44deb84"
+  integrity sha512-UrX2UsIQqDtGHH+kh5ku58YthkzLDLWaLK9xLCWdz0bhVdxmvet7N1/l1YDtAvoChN//w327NzYV4F8aQqVfZA==
   dependencies:
     "@sinclair/typebox" "^0.18.1"
     "@typescript-eslint/eslint-plugin" "^4.29.2"
@@ -1790,6 +1790,11 @@
   version "0.1.0-rc.16"
   resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.16.tgz#275d1be6f8511f99f9a3910496bb8571e0fa754e"
   integrity sha512-NMIBjGcT85C8WzrwabL+cWdYA1LJv/DbEkVu6/MTthjYbE8NLNzLjaHth0BVJNHpA+eZRNhMaBJfO6mKyMROJQ==
+
+"@nomad-xyz/configuration@^0.1.0-rc.18":
+  version "0.1.0-rc.18"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.18.tgz#212d1f71107e4e307232cd556d90fdaae83617de"
+  integrity sha512-Xwk9+q3d/KuwLDL6LolJh5CayskoswrxIxtcFeANeqsQLR0dWmrFHGvXofzMblrf5MU+3uMkr794N+vQxutmLA==
 
 "@nomad-xyz/contracts-bridge@^1.0.0-rc.2":
   version "1.0.0-rc.2"
