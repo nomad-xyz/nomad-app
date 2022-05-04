@@ -4,6 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.4.6 (May the 4th, 2022)
+
+- enable Connext for Evmos
+
 ## v1.4.5 (Apr 27th, 2022)
 
 - bump sdk-bridge (increase gas limit more)
