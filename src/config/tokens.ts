@@ -9,7 +9,6 @@ import ConnextIcon from '@/assets/icons/connext.svg'
 import rWETHIcon from '@/assets/token-logos/rWETH.png'
 import kWETHIcon from '@/assets/token-logos/kWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
-import XDAIIcon from '@/assets/token-logos/XDAI.png'
 import CARDSIcon from '@/assets/token-logos/CARDS.png'
 import C3Icon from '@/assets/token-logos/C3.png'
 import GEROIcon from '@/assets/token-logos/GERO.png'
@@ -35,6 +34,8 @@ import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import EvmosIcon from '@/assets/token-logos/EVMOS.png'
 import TICIcon from '@/assets/token-logos/TIC.png'
+import AVAXIcon from '@/assets/token-logos/AVAX.png'
+import XDAIIcon from '@/assets/token-logos/XDAI.png'
 
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
@@ -528,6 +529,30 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'elasticswap',
     tokenIdentifier: mainnetTokenIdentifiers.TIC,
     nativeOnly: false,
+    minAmt: 10,
+  },
+  AVAX: {
+    nativeNetwork: 'avalanche',
+    symbol: 'AVAX',
+    name: 'Avalanche',
+    icon: AVAXIcon,
+    iconColors: ['#FFFFFF', '#E84142'],
+    decimals: 18,
+    coinGeckoId: 'avalanche',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    minAmt: 10,
+  },
+  xDAI: {
+    nativeNetwork: 'ethereum',
+    symbol: 'xDAI',
+    name: 'xDai',
+    icon: XDAIIcon,
+    iconColors: ['#03245e', '#32a852'],
+    decimals: 18,
+    coinGeckoId: 'xdai',
+    tokenIdentifier: null,
+    nativeOnly: true,
     minAmt: 10,
   },
 }
