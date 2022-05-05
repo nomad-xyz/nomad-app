@@ -29,6 +29,11 @@
   [[context.production.plugins]]
     package = "@netlify/plugin-sitemap"
 
+# production preview context:
+# production preview branch is used for external partners for demo purposes
+[context.production-preview]
+  command = "npm run build-prod"
+
 # Test production context:
 # testprod branch is a replication of main before being pushed out
 [context.testprod]
