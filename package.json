@@ -1,6 +1,6 @@
 {
   "name": "bridge-web-app",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "private": true,
   "scripts": {
     "build": "vue-cli-service build --mode debug",
@@ -19,7 +19,7 @@
     "@connext/nxtp-sdk": "^0.1.36",
     "@nomad-xyz/configuration": "^0.1.0-rc.18",
     "@nomad-xyz/contracts-bridge": "^1.0.0-rc.2",
-    "@nomad-xyz/sdk-bridge": "^1.0.0-rc.12",
+    "@nomad-xyz/sdk-bridge": "^1.0.0-rc.13",
     "@sentry/vue": "^6.19.3",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vicons/ionicons5": "^0.11.0",
