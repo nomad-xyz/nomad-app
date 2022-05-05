@@ -34,6 +34,7 @@ import USDTIcon from '@/assets/token-logos/USDT.png'
 import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import EvmosIcon from '@/assets/token-logos/EVMOS.png'
+import TICIcon from '@/assets/token-logos/TIC.png'
 
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
@@ -514,6 +515,18 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'gerowallet',
     tokenIdentifier: mainnetTokenIdentifiers.GERO,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  TIC: {
+    nativeNetwork: 'avalanche',
+    symbol: 'TIC',
+    name: 'ElasticSwap',
+    icon: TICIcon,
+    iconColors: ['#1c1c25', '#5f69ef'],
+    decimals: 18,
+    coinGeckoId: 'elasticswap',
+    tokenIdentifier: mainnetTokenIdentifiers.TIC,
     nativeOnly: false,
     minAmt: 10,
   },
