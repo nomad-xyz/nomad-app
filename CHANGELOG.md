@@ -4,7 +4,7 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
-## v1.4.6 (May 5th, 2022)
+## v1.4.7 (May 5th, 2022)
 
 - fixed gas limit for sendNative
 
