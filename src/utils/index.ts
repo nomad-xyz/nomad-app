@@ -33,12 +33,18 @@ export function toNetworkName(name: string): NetworkName {
       return 'goerli'
     case 'evmos':
       return 'evmos'
+    case 'xdai':
+      return 'xdai'
+    case 'gnosis':
+      return 'xdai'
+    case 'avalanche':
+      return 'avalanche'
     // case 'moonbasealpha':
     //   return 'moonbasealpha'
     // case 'evmostestnet':
     //   return 'evmostestnet'
     default:
-      throw new Error('not a supported network')
+      return name
   }
 }
 
