@@ -36,6 +36,7 @@ import EvmosIcon from '@/assets/token-logos/EVMOS.png'
 import TICIcon from '@/assets/token-logos/TIC.png'
 import AVAXIcon from '@/assets/token-logos/AVAX.png'
 import XDAIIcon from '@/assets/token-logos/XDAI.png'
+import GnosisChainIcon from '@/assets/gnosis-chain.png'
 
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
@@ -544,10 +545,10 @@ export const mainnetTokens: TokenMetadataMap = {
     minAmt: 10,
   },
   xDAI: {
-    nativeNetwork: 'ethereum',
+    nativeNetwork: 'gnosis',
     symbol: 'xDAI',
-    name: 'xDai',
-    icon: XDAIIcon,
+    name: 'Gnosis Chain',
+    icon: GnosisChainIcon,
     iconColors: ['#03245e', '#32a852'],
     decimals: 18,
     coinGeckoId: 'xdai',

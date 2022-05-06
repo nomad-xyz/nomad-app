@@ -1791,10 +1791,10 @@
   resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.18.tgz#212d1f71107e4e307232cd556d90fdaae83617de"
   integrity sha512-Xwk9+q3d/KuwLDL6LolJh5CayskoswrxIxtcFeANeqsQLR0dWmrFHGvXofzMblrf5MU+3uMkr794N+vQxutmLA==
 
-"@nomad-xyz/configuration@^0.1.0-rc.19":
-  version "0.1.0-rc.19"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.19.tgz#ba7a5abd91c4ad7d09b55b1e837bb8001eaae5f9"
-  integrity sha512-2nslM/7ObQc2BPTQ5U3d4mk9IxAYaRG4QUlLXyOrk0VSlr0e5BQmwRZbwzp4zKwjw0ufjZ1gX5BhZ78TAkbohg==
+"@nomad-xyz/configuration@^0.1.0-rc.20":
+  version "0.1.0-rc.20"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.20.tgz#d708a0d45ddd8d36568477cb098947b720f0cc94"
+  integrity sha512-GW25juQ+99IRuA0lVamvhuHIvU6TjTlNC7FMZhTrUVwxPmF4EzI1aSvUTKPDpWQei6vYGZ4ZQ069lh+tHX88cA==
 
 "@nomad-xyz/contracts-bridge@^1.0.0-rc.2":
   version "1.0.0-rc.2"
