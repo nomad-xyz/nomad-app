@@ -64,13 +64,13 @@
             class="w-full border-0 outline-none bg-transparent"
           />
         </div>
-        <nomad-butto
+        <nomad-button
           primary
           @click="goNomad"
           class="w-full flex justify-center"
         >
           GO TO TRANSACTION DETAILS
-        </nomad-butto>
+        </nomad-button>
       </n-tab-pane>
     </n-tabs>
   </n-card>

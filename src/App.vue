@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 import { BigNumber } from 'ethers'
 import { useStore } from '@/store'
 import { getNetworkByChainID } from '@/utils'
@@ -35,6 +35,7 @@ import { getNetworkByChainID } from '@/utils'
 import { RouterView } from 'vue-router'
 import Nav from '@/components/Layout/Nav.vue'
 import Footer from '@/components/Layout/Footer.vue'
+import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
 import { getNetworkByDomainID } from '@/utils'
 
@@ -43,6 +44,7 @@ export default defineComponent({
     RouterView,
     Nav,
     Footer,
+    CardAlert,
     TermsModal,
   },
 
