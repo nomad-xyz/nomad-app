@@ -2,8 +2,8 @@
   <n-modal :show="walletAddress">
     <div class="p-4">
       <n-card class="terms-card max-w-xl rounded-xl">
-        <h2 class="uppercase text-xl">Before you proceed...</h2>
-        <div class="opacity-80 mb-4">Please read and agree to our Terms of Use:</div>
+        <h2 class="uppercase text-xl font-semibold mb-4">Before you proceed...</h2>
+        <div class="opacity-80 text-xl mb-6">Please read and agree to our Terms of Use:</div>
         <div class="rounded-xl bg-white bg-opacity-5 border border-white border-opacity-20">
           <div class="relative">
             <div class="fade-overlay" />
