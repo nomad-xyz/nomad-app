@@ -93,7 +93,7 @@ import useVuelidate from '@vuelidate/core'
 import { helpers } from '@vuelidate/validators'
 
 import { useStore } from '@/store'
-import { getMinAmount, toDecimals } from '@/utils'
+import { getMinAmount, toDecimals, toFixedDecimals } from '@/utils'
 import { TokenMetadata } from '@/config/types'
 import TokenSelect from './Input.tokens.vue'
 
@@ -104,6 +104,10 @@ interface ComponentData {
   toDecimals: (
     amnt: BigNumber,
     tokenDecimals: number,
+    numDecimals?: number
+  ) => string,
+  toFixedDecimals: (
+    amnt: string,
     numDecimals?: number
   ) => string
 }
@@ -121,6 +125,7 @@ export default defineComponent({
       amt: '',
       amtInUSD: '',
       toDecimals,
+      toFixedDecimals,
     } as ComponentData
   },
   setup() {
@@ -214,7 +219,7 @@ export default defineComponent({
       this.updateAmtInUSD(newToken.coinGeckoId)
     },
     async amt(newAmt) {
-      const formattedAmt = parseFloat(newAmt).toFixed(6)
+      const formattedAmt = toFixedDecimals(newAmt, 6)
       this.store.dispatch('setSendAmount', formattedAmt || 0)
       if (this.token.coinGeckoId) {
         // TODO: we might want to debounce this function depending on performance
