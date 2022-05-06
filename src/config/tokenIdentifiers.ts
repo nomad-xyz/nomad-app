@@ -92,6 +92,18 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'milkomedaC1',
     id: '0xAE83571000aF4499798d1e3b0fA0070EB3A3E3F9',
   },
+  TIC: {
+    domain: 'avalanche',
+    id: '0x75739a693459f33b1fbcc02099eea3ebcf150cbe',
+  },
+  WAVAX: {
+    domain: 'avalanche',
+    id: '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7',
+  },
+  WXDAI: {
+    domain: 'xdai',
+    id: '0xe91d153e0b41518a2ce8dd3d7944fa863463a97d',
+  },
   WSTR: {
     domain: 'ethereum',
     id: '0xf0dc76c22139ab22618ddfb498be1283254612b1',
@@ -128,8 +140,4 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0x18084fbA666a33d37592fA2633fD49a74DD93a88',
   },
-  TIC: {
-    domain: 'avalanche',
-    id: '0x75739a693459f33B1FBcC02099eea3eBCF150cBe'
-  }
 }
