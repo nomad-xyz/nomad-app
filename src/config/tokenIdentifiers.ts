@@ -128,4 +128,8 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0x18084fbA666a33d37592fA2633fD49a74DD93a88',
   },
+  TIC: {
+    domain: 'avalanche',
+    id: '0x75739a693459f33B1FBcC02099eea3eBCF150cBe'
+  }
 }
