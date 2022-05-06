@@ -69,17 +69,21 @@ export function toDecimals(
   numDecimals?: number
 ): string {
   const decimal = utils.formatUnits(amnt, tokenDecimals)
-  if (decimal === '0.0') {
+  return toFixedDecimals(decimal, numDecimals || 18)
+}
+
+export function toFixedDecimals(number: string, numDecimals: number) {
+  if (number === '0.0') {
     return '0'
   }
 
-  const index = decimal.indexOf('.')
+  const index = number.indexOf('.')
   if (index === -1) {
-    return decimal
+    return number
   }
 
   const end = index + (numDecimals || 18) + 1
-  return decimal.slice(0, end)
+  return number.slice(0, end)
 }
 
 /**

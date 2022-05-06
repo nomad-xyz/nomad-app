@@ -4,6 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.4.8 (May 6th, 2022)
+
+- truncate decimals instead of rounding to 6 places
+
 ## v1.4.7 (May 5th, 2022)
 
 - fixed gas limit for sendNative
