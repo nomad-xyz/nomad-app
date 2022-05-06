@@ -17,7 +17,7 @@
         class="w-full uppercase mt-6 bg-white text-black h-11 flex justify-center"
         @click="next"
       >
-        <span>Next</span>
+        Next
       </nomad-button>
     </div>
   </div>
