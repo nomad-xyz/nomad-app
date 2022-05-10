@@ -32,5 +32,5 @@ export class DB {
   }
 }
 
-const db = new DB();
+export const db = new DB();
 await db.connect();
