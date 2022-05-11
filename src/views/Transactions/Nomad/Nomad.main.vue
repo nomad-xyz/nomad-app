@@ -12,7 +12,7 @@
       @click="toTx"
       class="cursor-pointer"
     >
-      <transaction :status="tx.state" :hash="tx.tx" />
+      <transaction :status="tx.state" :hash="tx.tx" :destination="tx.destination" />
       <n-divider />
     </div>
     <!-- <n-pagination v-model:page="page" :page-count="10"/> -->

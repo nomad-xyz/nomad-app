@@ -33,7 +33,6 @@
 
       <!-- page view -->
       <router-view></router-view>
-      <nomad-history />
     </div>
     <div class="footer"><Footer /></div>
   </div>

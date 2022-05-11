@@ -2,18 +2,21 @@
   <div class="flex flex-row">
     <div
       class="loader-bg flex justify-center items-center mr-2"
-      :class="{ green: status === 4 }"
+      :class="{ orange: manualProcess && status < 4, green: status === 4 }"
     >
       <n-icon class="cursor-pointer opacity-70" size="25">
-        <checkmark-outline v-if="this.status === 4" />
-        <arrow-redo-outline v-else-if="this.readyToClaim" />
+        <checkmark-outline v-if="status === 4" />
+        <arrow-redo
+          v-else-if="manualProcess"
+          class="click-me"
+        />
         <hourglass-outline v-else />
       </n-icon>
     </div>
     <div class="flex flex-col">
       <copy-hash :address="hash" />
       <div v-if="status === 4">Complete</div>
-      <div v-else-if="readyToClaim">Ready to claim</div>
+      <div v-else-if="manualProcess">Action required</div>
       <div v-else>Pending</div>
     </div>
   </div>
@@ -24,24 +27,31 @@ import { defineComponent } from 'vue'
 import { NIcon } from 'naive-ui'
 import {
   HourglassOutline,
-  ArrowRedoOutline,
+  ArrowRedo,
   CheckmarkOutline,
 } from '@vicons/ionicons5'
 import CopyHash from '@/components/CopyHash.vue'
+import { getNetworkByDomainID } from '@/utils'
 
 export default defineComponent({
   props: {
     status: Number,
     hash: String,
-    readyToClaim: Boolean || undefined,
+    destination: Number,
   },
   components: {
     NIcon,
     CopyHash,
     HourglassOutline,
-    ArrowRedoOutline,
+    ArrowRedo,
     CheckmarkOutline,
   },
+  computed: {
+    manualProcess() {
+      const dest = getNetworkByDomainID(this.destination!)
+      return dest.manualProcessing
+    }
+  }
 })
 </script>
 
@@ -52,5 +62,8 @@ export default defineComponent({
   background-color #272829
   border-radius 50%
 .green
-  background-color #2aa665
+  background-color #2aa665 !important
+.orange
+  background-color rgb(242, 201, 125)
+  color #000
 </style>
