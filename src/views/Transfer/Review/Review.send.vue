@@ -59,6 +59,7 @@ import { useStore } from '@/store'
 import { useNotification, NPopconfirm, NSpin } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
+import NotificationError from '@/components/NotificationError.vue'
 import { networks, connextScanURL } from '@/config'
 import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
 
@@ -100,7 +101,7 @@ export default defineComponent({
       } else if (this.protocol === 'connext') {
         await this.swap()
       } else {
-        console.error('no protocol selected')
+        throw new Error('no protocol selected')
       }
       // clear user input and switch back to input screen
       this.store.dispatch('clearInputs')
@@ -133,10 +134,15 @@ export default defineComponent({
         const txHash = transferMessage.receipt.transactionHash
         this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
       } catch (e: any) {
-        this.notification.error({
+        this.notification.warning({
           title: 'Transaction send failed',
-          description: e.message,
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
         })
+        throw e
       }
     },
     async swap() {
@@ -154,10 +160,15 @@ export default defineComponent({
         })
         // window.open(txLink, '_blank')
       } catch (e: unknown) {
-        this.notification.error({
+        this.notification.warning({
           title: 'Error sending Connext transaction',
-          description: (e as Error).message,
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
         })
+        throw e
       }
     },
   },
