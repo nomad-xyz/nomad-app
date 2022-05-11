@@ -4,32 +4,31 @@
       <n-text class="uppercase text-lg font-semibold">
         Nomad Transaction History
       </n-text>
-      <n-text class="opacity-70 text-lg">{{ history.length }}</n-text>
+      <!-- <n-text class="opacity-70 text-lg">{{ history.length }}</n-text> -->
     </div>
     <div
       v-for="tx in this.history"
       :key="tx"
-      @click="toTx"
+      @click="toTx(tx)"
       class="cursor-pointer"
     >
       <transaction :status="tx.state" :hash="tx.tx" :destination="tx.destination" />
       <n-divider />
     </div>
-    <!-- <n-pagination v-model:page="page" :page-count="10"/> -->
-    <n-button-group>
-      <n-button @click="changePage(page - 1)">
-        <template #icon>
-          <n-icon><chevron-back-outline /></n-icon>
-        </template>
-        Back
-      </n-button>
-      <n-button @click="changePage(page + 1)">
-        <template #icon>
-          <n-icon><chevron-forward-outline /></n-icon>
-        </template>
-        Next
-      </n-button>
-    </n-button-group>
+    <div class="flex flex-row">
+      <div
+        @click="changePage(page - 1)"
+        class="bg-[#434343] h-8 w-8 mr-2 flex items-center justify-center rounded-sm cursor-pointer"
+      >
+        <n-icon><chevron-back-outline /></n-icon>
+      </div>
+      <div
+        @click="changePage(page + 1)"
+        class="bg-[#434343] h-8 w-8 flex items-center justify-center rounded-sm cursor-pointer"
+      >
+        <n-icon><chevron-forward-outline /></n-icon>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,8 +39,6 @@ import {
   NText,
   NDivider,
   NIcon,
-  NButtonGroup,
-  NButton,
 } from 'naive-ui'
 
 import { useStore } from '@/store'
@@ -58,8 +55,6 @@ export default defineComponent({
     NText,
     NDivider,
     NIcon,
-    NButtonGroup,
-    NButton,
     Transaction,
     ChevronBackOutline,
     ChevronForwardOutline,

@@ -1,7 +1,9 @@
 <template>
-  <transfer-input v-if="step === 1" />
-  <transfer-review v-if="step === 2" />
-  <nomad-history />
+  <div class="flex flex-col items-center">
+    <transfer-input v-if="step === 1" />
+    <transfer-review v-if="step === 2" />
+    <nomad-history />
+  </div>
 </template>
 
 <script lang="ts">
