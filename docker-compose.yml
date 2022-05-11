@@ -1,9 +1,9 @@
 version: "3.7"
 services:
-  indexer:
+  bridge-db:
     build: .
     restart: always
-    command: npm run start indexer
+    command: npm run start bridge-db
     env_file: .env
     environment:
       - PROGRAM=core
@@ -15,23 +15,6 @@ services:
       - "postgres"
     links:
       - postgres
-
-  api:
-    build: .
-    restart: always
-    command: npm run start indexer
-    ports:
-      - "8080:3000"
-    expose:
-      - 8080
-    links:
-      - postgres
-    env_file: .env
-    environment:
-      - PROGRAM=api
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:4200/postgres?connect_timeout=300&schema=public
-    depends_on:
-      - "postgres"
 
   postgres:
     image: postgres:latest
@@ -50,14 +33,3 @@ services:
       - '4200:4200'
     expose:
       - 4200
-
-  redis:
-    image: redis:latest
-    restart: always
-    command: redis-server --save 60 1 --loglevel warning
-    volumes:
-      - ./redis-data:/data
-    ports:
-      - '6379:6379'
-    expose:
-      - 6379

@@ -15,6 +15,7 @@
     "serve-staging": "vue-cli-service serve --mode staging",
     "test:unit": "vue-cli-service test:unit",
     "build-prisma": "prisma generate",
+    "build-docker": "docker-compose build",
     "migrate": "prisma db push",
     "start-db": "npm run migrate && npm run any"
   },
