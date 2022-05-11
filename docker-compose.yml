@@ -6,7 +6,7 @@ services:
     command: npm run start bridge-db
     env_file: .env
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:4200/postgres?connect_timeout=300&schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@nomad-bridge-terms-agreements:4200/bridge-terms-agreements?connect_timeout=300&schema=public
     ports:
       - "4200:4200"
     depends_on:
@@ -30,4 +30,4 @@ services:
     ports:
       - '4201:4201'
     expose:
-      - 4200
+      - 4201
