@@ -10,6 +10,6 @@ RUN yarn install
 ADD src /app/
 ADD prisma /app/prisma
 
-RUN yarn build
+RUN yarn build-prisma
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start-db" ]
