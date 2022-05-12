@@ -5,6 +5,12 @@
 name: Push DB Image to GCR GitHub Action
 on: 
   push:
+    paths: 
+      - 'server/**'
+    branches:
+      - '**'
+    tags:
+      - '**'
   pull_request:
     branches:
       - 'main'
