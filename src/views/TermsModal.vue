@@ -39,7 +39,6 @@ export default defineComponent({
   setup: () => {
     const store = useStore()
     return {
-      // TODO: watch wallet address and check if it has agreed to terms
       walletAddress: computed(() => store.state.wallet.address),
       store,
     }
@@ -49,32 +48,37 @@ export default defineComponent({
     showTermsModal: false,
   }),
 
+  mounted() {
+    this.checkTerms(this.walletAddress)
+  },
+
   methods: {
     async agree() {
-      // console.log(Date.now())
       const response = await fetch(`http://localhost:1020/api/agree/${this.walletAddress}`, {
         method: 'POST',
       })
       console.log(response)
+      this.checkTerms(this.walletAddress)
+    },
+    async checkTerms(addr: string) {
+      if (!addr) {
+        return this.showTermsModal = false
+      }
+
+      const response = await fetch(`http://localhost:1020/api/agreement/${addr}`)
+      if (response.status === 200) {
+        console.log('user agreed')
+        return this.showTermsModal = false
+      } else if (response.status === 404) {
+        console.log('user not agreed')
+        return this.showTermsModal = true
+      }
     }
   },
 
   watch: {
-    async walletAddress(newAddr) {
-      if (!newAddr) {
-        return this.showTermsModal = false
-      }
-
-      try {
-        const response = await fetch(`http://localhost:1020/api/agreement/${newAddr}`)
-        if (response) {
-          return this.showTermsModal = false
-        } else {
-          return this.showTermsModal = true
-        }
-      } catch(_) {
-        return this.showTermsModal = true
-      }
+    walletAddress(newAddr) {
+      this.checkTerms(newAddr)
     }
   }
 })

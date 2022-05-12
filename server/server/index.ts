@@ -23,7 +23,7 @@ app.get('/api/agreement/:address', async (req: any, res: any) => {
   const agreement = await db.getWalletAgreement(req.params.address)
   console.log(agreement)
 
-  return agreement ? res.json(agreement) : res.status(404)
+  return agreement ? res.status(200).send(agreement) : res.sendStatus(404)
 })
 
 app.listen(SERVER_PORT, () => {
