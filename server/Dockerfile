@@ -7,9 +7,9 @@ COPY package.json ./package.json
 # COPY package-lock.json ./package-lock.json
 RUN yarn install
 
-ADD src /app/
+ADD server /app/
 ADD prisma /app/prisma
 
-RUN yarn build-prisma
+RUN yarn prisma-build
 
-CMD [ "yarn", "start-db" ]
+CMD [ "yarn", "start" ]

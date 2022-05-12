@@ -8,6 +8,7 @@ datasource db {
 }
 
 model termsAgreements {
+  version   Int
   wallet    String   @db.VarChar
   timestamp DateTime @default(now()) @db.Timestamp(6)
 
