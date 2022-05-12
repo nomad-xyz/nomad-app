@@ -2,6 +2,7 @@ import { BigNumber, utils } from 'ethers'
 
 import { networks, tokens } from '@/config'
 import { NetworkMetadata, TokenMetadata, NetworkName } from '@/config/types'
+import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 
 const coinGeckoIds = Object.values(tokens).map((t) => t.coinGeckoId)
 
@@ -165,6 +166,16 @@ export function getTokenBySymbol(symbol: string): TokenMetadata {
   for (const t in tokens) {
     const token = tokens[t]
     if (token.symbol === symbol) {
+      return token
+    }
+  }
+  throw new Error('token asset not found')
+}
+
+export function getTokenByTokenID(tokenID: TokenIdentifier): TokenMetadata | undefined {
+  for (const t in tokens) {
+    const token = tokens[t]
+    if (token.tokenIdentifier && token.tokenIdentifier.id == tokenID.id) {
       return token
     }
   }

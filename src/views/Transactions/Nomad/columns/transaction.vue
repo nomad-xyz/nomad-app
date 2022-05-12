@@ -2,10 +2,10 @@
   <div class="flex flex-row">
     <div
       class="loader-bg flex justify-center items-center mr-2"
-      :class="{ orange: manualProcess && status < 4, green: status === 4 }"
+      :class="{ orange: manualProcess && tx.state < 4, green: tx.state === 4 }"
     >
       <n-icon class="cursor-pointer opacity-70" size="25">
-        <checkmark-outline v-if="status === 4" />
+        <checkmark-outline v-if="tx.state === 4" />
         <arrow-redo
           v-else-if="manualProcess"
           class="click-me"
@@ -14,8 +14,8 @@
       </n-icon>
     </div>
     <div class="flex flex-col">
-      <copy-hash :address="hash" />
-      <div v-if="status === 4">Complete</div>
+      <copy-hash :address="tx.tx" />
+      <div v-if="tx.state === 4">Complete</div>
       <div v-else-if="manualProcess">Action required</div>
       <div v-else>Pending</div>
     </div>
@@ -32,12 +32,14 @@ import {
 } from '@vicons/ionicons5'
 import CopyHash from '@/components/CopyHash.vue'
 import { getNetworkByDomainID } from '@/utils'
+import { IndexerTx } from '@/config/types'
 
 export default defineComponent({
   props: {
-    status: Number,
-    hash: String,
-    destination: Number,
+    tx: {
+      type: Object as () => IndexerTx,
+      required: true,
+    }
   },
   components: {
     NIcon,
@@ -48,7 +50,7 @@ export default defineComponent({
   },
   computed: {
     manualProcess() {
-      const dest = getNetworkByDomainID(this.destination!)
+      const dest = getNetworkByDomainID(this.tx.destination!)
       return dest.manualProcessing
     }
   }

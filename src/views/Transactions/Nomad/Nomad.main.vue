@@ -12,7 +12,10 @@
       @click="toTx(tx)"
       class="cursor-pointer"
     >
-      <transaction :status="tx.state" :hash="tx.tx" :destination="tx.destination" />
+      <div class="flex flex-row justify-between items-center">
+        <transaction :tx="tx" />
+        <amount :tx="tx" />
+      </div>
       <n-divider />
     </div>
     <div class="flex flex-row">
@@ -42,7 +45,9 @@ import {
 } from 'naive-ui'
 
 import { useStore } from '@/store'
+import { getNetworkByDomainID } from '@/utils'
 import Transaction from './columns/transaction.vue'
+import Amount from './columns/amount.vue'
 const nomadAPI = 'https://bridge-indexer.prod.madlads.tools/tx'
 
 type ComponentData = {
@@ -52,12 +57,13 @@ type ComponentData = {
 
 export default defineComponent({
   components: {
+    ChevronBackOutline,
+    ChevronForwardOutline,
     NText,
     NDivider,
     NIcon,
     Transaction,
-    ChevronBackOutline,
-    ChevronForwardOutline,
+    Amount,
   },
 
   data() {
@@ -111,7 +117,7 @@ export default defineComponent({
     },
 
     toTx(tx: any) {
-      const originNetwork = this.store.getters.resolveDomainName(tx.origin)
+      const originNetwork = getNetworkByDomainID(tx.origin).name
       this.$router.push(`/tx/nomad/${originNetwork}/${tx.tx}`)
     },
   },
