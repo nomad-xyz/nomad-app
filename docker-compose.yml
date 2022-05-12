@@ -3,10 +3,9 @@ services:
   bridge-db:
     build: .
     restart: always
-    command: npm run start bridge-db
-    env_file: .env
+    command: npm run start-db
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@nomad-bridge-terms-agreements:4200/bridge-terms-agreements?connect_timeout=300&schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bridge-terms-agreements?connect_timeout=300&schema=public
     ports:
       - "4200:4200"
     depends_on:
@@ -28,6 +27,6 @@ services:
         max-size: 100m
         max-file: "3"
     ports:
-      - '4201:4201'
+      - '5432:5432'
     expose:
-      - 4201
+      - 5432
