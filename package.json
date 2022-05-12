@@ -2,6 +2,9 @@
   "name": "bridge-web-app",
   "version": "1.4.8",
   "private": true,
+  "description": "Token Bridge UI",
+  "license": "Apache 2.0",
+  "author": "Illusory Systems Inc.",
   "scripts": {
     "build": "vue-cli-service build --mode debug",
     "build-dev": "vue-cli-service build --mode development",

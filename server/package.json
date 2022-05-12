@@ -1,9 +1,11 @@
 {
-  "name": "bridge-web-app",
-  "version": "1.4.7",
+  "name": "bridge-app-server",
+  "version": "1.0.0",
   "private": true,
+  "license": "Apache 2.0",
+  "author": "Illusory Systems Inc.",
   "scripts": {
-    "any": "ts-node server/index",
+    "any": "ts-node server/index.ts",
     "prisma-build": "prisma generate",
     "docker-build": "docker-compose build",
     "migrate": "prisma db push",

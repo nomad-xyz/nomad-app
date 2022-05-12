@@ -33,4 +33,4 @@ export class DB {
 }
 
 export const db = new DB();
-await db.connect();
+// await db.connect();
