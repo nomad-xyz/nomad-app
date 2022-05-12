@@ -109,7 +109,9 @@ export default defineComponent({
         const res = await fetch(`${nomadAPI}?amount=10&page=${this.page}&receiver=${this.address}`)
         const data = (await res.json()) as any
         console.log('data', data)
-        if (!data.length) return
+        if (!data.length) {
+          return this.changePage(this.page - 1)
+        }
         this.history = data
       }
     },
