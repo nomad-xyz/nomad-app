@@ -175,7 +175,7 @@ export function getTokenBySymbol(symbol: string): TokenMetadata {
 export function getTokenByTokenID(tokenID: TokenIdentifier): TokenMetadata | undefined {
   for (const t in tokens) {
     const token = tokens[t]
-    if (token.tokenIdentifier && token.tokenIdentifier.id == tokenID.id) {
+    if (token.tokenIdentifier && token.tokenIdentifier.id.toString().toLowerCase() == tokenID.id.toString().toLowerCase()) {
       return token
     }
   }

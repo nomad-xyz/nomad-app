@@ -1,7 +1,12 @@
 <template>
-  <div class="flex flex-row">
-    <div class="flex flex-col">{{ amt }} {{ token.symbol }}</div>
-    <!-- <div v-if="token" class="icon-placeholder" /> -->
+  <div v-if="token" class="flex flex-row items-center">
+    <div class="flex flex-col items-end leading-4">
+      <div>{{ amt }}</div>
+      <div>{{ token.symbol }}</div>
+    </div>
+    <div class="bg-black bg-opacity-50 rounded-lg p-3 ml-2">
+      <img :src="token.icon" class="h-4" />
+    </div>
   </div>
 </template>
 
@@ -44,11 +49,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped lang="stylus">
-.icon-placeholder
-  height 20px
-  width 20px
-  background-color #272829
-  border-radius 10px
-</style>

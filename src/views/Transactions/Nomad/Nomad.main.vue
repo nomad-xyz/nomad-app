@@ -18,19 +18,24 @@
       </div>
       <n-divider />
     </div>
-    <div class="flex flex-row">
-      <div
-        @click="changePage(page - 1)"
-        class="bg-[#434343] h-8 w-8 mr-2 flex items-center justify-center rounded-sm cursor-pointer"
-      >
-        <n-icon><chevron-back-outline /></n-icon>
+
+    <!-- pagination -->
+    <div class="flex flex-row items-center justify-between">
+      <div class="flex flex-row">
+        <div
+          @click="changePage(page - 1)"
+          class="bg-[#434343] h-8 w-8 mr-2 flex items-center justify-center rounded-sm cursor-pointer"
+        >
+          <n-icon><chevron-back-outline /></n-icon>
+        </div>
+        <div
+          @click="changePage(page + 1)"
+          class="bg-[#434343] h-8 w-8 flex items-center justify-center rounded-sm cursor-pointer"
+        >
+          <n-icon><chevron-forward-outline /></n-icon>
+        </div>
       </div>
-      <div
-        @click="changePage(page + 1)"
-        class="bg-[#434343] h-8 w-8 flex items-center justify-center rounded-sm cursor-pointer"
-      >
-        <n-icon><chevron-forward-outline /></n-icon>
-      </div>
+      <div class="opacity-70 uppercase">Page {{ page }}</div>
     </div>
   </div>
 </template>
