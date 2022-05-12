@@ -1,29 +1,29 @@
 const express = require('express')
 var bodyParser = require('body-parser')
+const cors = require('cors');
 const { db } = require('./api')
 const app = express()
+app.use(cors())
+
 const { SERVER_PORT } = process.env
 
-type AgreeTerms = {
-  body: {
-    walletAddress: string
-  }
-}
-
-app.post('/agree', async (req: AgreeTerms, res: any) => {
-  const { walletAddress } = req.body
-  await db.agreeTerms(walletAddress)
+app.post('/api/agree/:address', async (req: any, res: any) => {
+  const { address } = req.params
+  console.log('agree: address', address)
+  await db.agreeTerms(address)
   res.sendStatus(200)
 })
 
-app.get('/agreement/:address', async (req: any, res: any) => {
+app.get('/api/agreement/:address', async (req: any, res: any) => {
   const { address } = req.params
+  console.log('address', address)
   if (!address || address.length !== 42) {
     throw new Error('Invalid address')
   }
   const agreement = await db.getWalletAgreement(req.params.address)
+  console.log(agreement)
 
-  return agreement ? res.json(agreement.timestamp) : res.status(404)
+  return agreement ? res.json(agreement) : res.status(404)
 })
 
 app.listen(SERVER_PORT, () => {

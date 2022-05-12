@@ -24,7 +24,7 @@ export class DB {
   }
 
   async agreeTerms(wallet: string) {
-    await this.client.termsAgreements.create({
+    return await this.client.termsAgreements.create({
       data: {
         wallet,
       }

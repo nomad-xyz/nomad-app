@@ -1,5 +1,5 @@
 <template>
-  <n-modal :show="walletAddress">
+  <n-modal :show="showTermsModal">
     <div class="p-4">
       <n-card class="terms-card max-w-xl rounded-xl">
         <h2 class="uppercase text-xl font-semibold mb-4">Before you proceed...</h2>
@@ -40,16 +40,43 @@ export default defineComponent({
     const store = useStore()
     return {
       // TODO: watch wallet address and check if it has agreed to terms
-      walletAddress: computed(() => !!store.state.wallet.address),
+      walletAddress: computed(() => store.state.wallet.address),
       store,
     }
   },
 
+  data: () => ({
+    showTermsModal: false,
+  }),
+
   methods: {
-    agree() {
-      console.log(Date.now())
+    async agree() {
+      // console.log(Date.now())
+      const response = await fetch(`http://localhost:1020/api/agree/${this.walletAddress}`, {
+        method: 'POST',
+      })
+      console.log(response)
     }
   },
+
+  watch: {
+    async walletAddress(newAddr) {
+      if (!newAddr) {
+        return this.showTermsModal = false
+      }
+
+      try {
+        const response = await fetch(`http://localhost:1020/api/agreement/${newAddr}`)
+        if (response) {
+          return this.showTermsModal = false
+        } else {
+          return this.showTermsModal = true
+        }
+      } catch(_) {
+        return this.showTermsModal = true
+      }
+    }
+  }
 })
 </script>
 
