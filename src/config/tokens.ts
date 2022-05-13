@@ -27,6 +27,8 @@ import FXSIcon from '@/assets/token-logos/FXS.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
 import WSTRIcon from '@/assets/token-logos/WSTR.png'
 import CQTIcon from '@/assets/token-logos/CQT.png'
+import HBOTIcon from '@/assets/token-logos/HBOT.png'
+
 
 // SHARED TOKEN ICONS (both testnet + mainnet)
 import USDTIcon from '@/assets/token-logos/USDT.png'
@@ -581,5 +583,17 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.GERO,
     nativeOnly: false,
     minAmt: 10,
+  },
+  HBOT: {
+    nativeNetwork: 'ethereum',
+    symbol: 'HBOT',
+    name: 'Hummingbot Token',
+    icon: HBOTIcon,
+    iconColors: ['#54E09D', '#28266C'],
+    decimals: 18,
+    coinGeckoId: 'hummingbot',
+    tokenIdentifier: mainnetTokenIdentifiers.HBOT,
+    nativeOnly: false,
+    minAmt: 1,
   },
 }

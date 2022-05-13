@@ -140,4 +140,8 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0x18084fbA666a33d37592fA2633fD49a74DD93a88',
   },
+  HBOT: {
+    domain: 'ethereum',
+    id: '0xe5097d9baeafb89f9bcb78c9290d545db5f9e9cb'
+  }
 }
