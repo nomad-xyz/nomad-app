@@ -35,7 +35,7 @@ const cssClasses = {
     text-black
   `,
   secondary: ``, // TODO
-  disabled: ``, // TODO
+  disabled: `bg-opacity-70 cursor-not-allowed`,
 }
 
 export default defineComponent({
