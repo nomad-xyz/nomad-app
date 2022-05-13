@@ -259,32 +259,21 @@ const getters = <GetterTree<SDKState, RootState>>{
   },
   blacklist: (state: SDKState) => () => state.blacklist,
   getGasPrice: () => async (network: string | number) => {
-    try {
-      const provider = nomad.getProvider(network)
-      const gasPrice = await provider?.getGasPrice()
-      return gasPrice
-    } catch (e) {
-      console.error(e)
-    }
+    const provider = nomad.getProvider(network)
+    const gasPrice = await provider?.getGasPrice()
+    return gasPrice
   },
 
   getTxMessage:
     () =>
     async (tx: TXData): Promise<TransferMessage | undefined> => {
       const { network, hash } = tx
-      let message
 
-      try {
-        message = await nomadSDK.TransferMessage.singleFromTransactionHash(
-          nomad,
-          network,
-          hash
-        )
-      } catch (e) {
-        console.error(e)
-      }
-
-      return message
+      return await nomadSDK.TransferMessage.singleFromTransactionHash(
+        nomad,
+        network,
+        hash
+      )
     },
 
   getTimestamp:

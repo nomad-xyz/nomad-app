@@ -35,10 +35,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import { NModal, NCard, NText, NButton, useNotification } from 'naive-ui'
 import { NetworkMetadata } from '@/config/types'
 import { useStore } from '@/store'
+import NotificationError from '@/components/NotificationError.vue'
 
 export default defineComponent({
   emits: ['hide'],
@@ -96,10 +97,15 @@ export default defineComponent({
         try {
           await this.store.dispatch('switchNetwork', network.name)
         } catch (e) {
-          this.notification.error({
-            title: 'Error switching network',
-            description: 'Have you added the network in Metamask?',
+          this.notification.warning({
+          title: 'Error switching network',
+          content: () =>
+            h(NotificationError, {
+              text: 'Have you added the network in Metamask?',
+              error: e as Error,
+            }),
           })
+          throw e
         }
       }
       this.$emit('hide')
