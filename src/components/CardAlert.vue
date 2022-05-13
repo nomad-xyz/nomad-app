@@ -44,7 +44,7 @@ export default defineComponent({
     warning: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   components: {
     NCollapseTransition,
