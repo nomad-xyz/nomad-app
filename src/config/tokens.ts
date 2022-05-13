@@ -28,6 +28,7 @@ import FXSIcon from '@/assets/token-logos/FXS.png'
 import wADAIcon from '@/assets/token-logos/wADA.png'
 import WSTRIcon from '@/assets/token-logos/WSTR.png'
 import CQTIcon from '@/assets/token-logos/CQT.png'
+import HBTCIcon from '@/assets/token-logos/HBTC.png'
 
 // SHARED TOKEN ICONS (both testnet + mainnet)
 import USDTIcon from '@/assets/token-logos/USDT.png'
@@ -259,7 +260,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'wrapped-bitcoin',
     tokenIdentifier: mainnetTokenIdentifiers.WBTC,
     nativeOnly: false,
-    minAmt: 10,
+    minAmt: 0.0003,
   },
   WETH: {
     nativeNetwork: 'ethereum',
@@ -455,7 +456,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'renbtc',
     tokenIdentifier: mainnetTokenIdentifiers.renBTC,
     nativeOnly: false,
-    minAmt: 10,
+    minAmt: 0.0003,
   },
   sBTC: {
     nativeNetwork: 'ethereum',
@@ -467,7 +468,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'sbtc',
     tokenIdentifier: mainnetTokenIdentifiers.sBTC,
     nativeOnly: false,
-    minAmt: 10,
+    minAmt: 0.0003,
   },
   tBTC: {
     nativeNetwork: 'ethereum',
@@ -479,7 +480,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'tbtc',
     tokenIdentifier: mainnetTokenIdentifiers.tBTC,
     nativeOnly: false,
-    minAmt: 10,
+    minAmt: 0.0003,
   },
   CARDS: {
     nativeNetwork: 'ethereum',
@@ -516,5 +517,17 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.GERO,
     nativeOnly: false,
     minAmt: 10,
+  },
+  HBTC: {
+    nativeNetwork: 'ethereum',
+    symbol: 'HBTC',
+    name: 'Huobi BTC',
+    icon: HBTCIcon,
+    iconColors: ['#54E09D', '#28266C'],
+    decimals: 18,
+    coinGeckoId: 'huobi-btc',
+    tokenIdentifier: mainnetTokenIdentifiers.HBTC,
+    nativeOnly: false,
+    minAmt: 0.0003,
   },
 }
