@@ -54,24 +54,35 @@ export default defineComponent({
 
   methods: {
     async agree() {
-      const response = await fetch(`http://localhost:1020/api/agree/${this.walletAddress}`, {
-        method: 'POST',
-      })
-      console.log(response)
-      this.checkTerms(this.walletAddress)
+      try {
+        const response = await fetch(`http://localhost:1020/api/agree/${this.walletAddress}`, {
+          method: 'POST',
+        })
+        console.log(response)
+        this.checkTerms(this.walletAddress)
+      } catch (e) {
+        // if db is down, allow user to proceed after agreeing
+        this.showTermsModal = false
+        throw new Error(`Database for Terms & Agreements is down: \n${e}`)
+      }
     },
     async checkTerms(addr: string) {
       if (!addr) {
         return this.showTermsModal = false
       }
 
-      const response = await fetch(`http://localhost:1020/api/agreement/${addr}`)
-      if (response.status === 200) {
-        console.log('user agreed')
-        return this.showTermsModal = false
-      } else if (response.status === 404) {
-        console.log('user not agreed')
-        return this.showTermsModal = true
+      try {
+        const response = await fetch(`http://localhost:1020/api/agreement/${addr}`)
+        if (response.status === 200) {
+          console.log('user agreed')
+          return this.showTermsModal = false
+        } else if (response.status === 404) {
+          return this.showTermsModal = true
+        }
+      } catch(e) {
+        // if db is down, show terms by default
+        this.showTermsModal = true
+        throw new Error(`Database for Terms & Agreements is down: \n${e}`)
       }
     }
   },
