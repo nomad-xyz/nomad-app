@@ -99,8 +99,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
     }
 
     if (!sendingAsset || !receivingAsset) {
-      console.error('Sending or Receiving asset not defined')
-      return
+      throw new Error('Sending or Receiving asset not defined')
     }
 
     // get amount in decimals
@@ -141,8 +140,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
 
   async prepareTransfer({ state, commit }) {
     if (!state.quote) {
-      console.error('no quote')
-      return
+      throw new Error('no quote')
     }
 
     commit(types.SET_PREPARING_SWAP, true)
@@ -167,8 +165,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
 
   async fulfillTransfer({ state, commit, dispatch }) {
     if (!state.prepared) {
-      console.error('not prepared')
-      return
+      throw new Error('not prepared')
     }
     if (!connextSDK) {
       await dispatch('instantiateConnext')
@@ -194,8 +191,7 @@ const actions = <ActionTree<ConnextState, RootState>>{
       encryptedCallData,
     } = activeTransaction
     if (!activeTransaction || !crosschainTx) {
-      console.error('Missing data, unable to fulfill Connext transfer')
-      return
+      throw new Error('Missing data, unable to fulfill Connext transfer')
     }
     const { receiving, invariant } = crosschainTx
     const receivingTxData =

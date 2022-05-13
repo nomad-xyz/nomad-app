@@ -32,11 +32,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import { useNotification } from 'naive-ui'
 import { connextScanURL } from '@/config'
 import { useStore } from '@/store'
 import NomadButton from '@/components/Button.vue'
+import NotificationLink from '@/components/NotificationLink.vue'
 
 export default defineComponent({
   props: {
@@ -86,11 +87,16 @@ export default defineComponent({
           title: 'Transfer cancelled',
         })
       } catch (e) {
-        this.notification.info({
-          title: 'Error',
-          content: 'An error occurred while cancelling your transfer.',
+        this.notification.warning({
+          title: 'Error Cancelling Transfer',
+          content: () =>
+            h(NotificationLink, {
+              text: 'Please visit Connextscan to cancel ',
+              linkText: 'your transaction',
+              link: this.explorerLink,
+            }),
         })
-        console.error(e)
+        throw e
       }
       this.disabled = false
     },
