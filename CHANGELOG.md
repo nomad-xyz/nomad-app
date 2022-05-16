@@ -4,6 +4,8 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+- update button copy for using the sender wallet address when editing destination address
+
 ## v1.4.8 (May 6th, 2022)
 
 - truncate decimals instead of rounding to 6 places

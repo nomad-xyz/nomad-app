@@ -51,8 +51,9 @@
         color="#5A94E8"
         class="mt-1 text-xs"
         @click="setUserAddr"
-        >Use wallet address</n-button
       >
+        Use sender wallet address
+      </n-button>
 
       <div v-else class="flex flex-row items-center mt-1">
         <n-icon size="15" class="mr-1" color="#35D07F">
