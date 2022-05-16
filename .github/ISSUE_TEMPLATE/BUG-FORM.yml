@@ -37,6 +37,6 @@ body:
   - type: textarea
     attributes:
       label: Describe the bug
-      description: Please include relevant error messages as well if relevant.
+      description: Please include relevant error messages as well.
     validations:
       required: true
