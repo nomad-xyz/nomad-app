@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Bridge FAQ
+    url: https://docs.nomad.xyz/bridge/faq.html
+    about: Have a bridging question? Check out our frequently asked questions!
+  - name: Support
+    url: https://discord.gg/nomadxyz
+    about: This issue tracker is only for bugs and feature requests. Support is available on Discord!
