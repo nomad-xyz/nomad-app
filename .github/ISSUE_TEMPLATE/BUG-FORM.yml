@@ -29,7 +29,8 @@ body:
       required: true
   - type: input
     attributes:
-      label: What wallet are you using?
+      label: Wallet
+      description: What wallet are you using?
       placeholder: "For example: MetaMask mobile via WalletConnect"
     validations:
       required: true
