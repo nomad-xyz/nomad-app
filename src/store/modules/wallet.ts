@@ -89,12 +89,14 @@ const actions = <ActionTree<WalletState, RootState>>{
     web3 = new providers.Web3Provider(connection)
     const signer = web3.getSigner()
 
-    console.log('web3', web3)
+    console.log('connection', connection)
     console.log('signer', signer)
 
     // listen to events
     connection.on('accountsChanged', () => {
-      location.reload()
+      if (connection.isMetaMask) {
+        location.reload()
+      }
     })
     connection.on('chainChanged', async (chainId: number) => {
       console.log('network change', chainId)
