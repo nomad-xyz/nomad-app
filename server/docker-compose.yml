@@ -1,11 +1,11 @@
-version: "1.0"
+version: "3.8"
 services:
   bridge-db:
     build: .
     restart: always
     command: npm run start
-    env_file: .env
     environment:
+      - SERVER_PORT=3000
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bridge-terms-agreements?connect_timeout=300&schema=public
     ports:
       - "4200:4200"

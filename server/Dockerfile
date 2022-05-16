@@ -2,14 +2,13 @@ FROM node:16
 ENV NODE_ENV=production
 
 WORKDIR /app
+ENV SERVER_PORT 3000
 
-COPY package.json ./package.json
+COPY server server/
+COPY prisma prisma/
+COPY package.json .
 # COPY package-lock.json ./package-lock.json
+
 RUN yarn install
-
-ADD server /app/
-ADD prisma /app/prisma
-
-RUN yarn prisma-build
 
 CMD [ "yarn", "start" ]
