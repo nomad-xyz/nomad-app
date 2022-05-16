@@ -50,10 +50,10 @@ import {
 } from 'naive-ui'
 
 import { useStore } from '@/store'
-import { getNetworkByDomainID } from '@/utils'
+import { getNetworkByDomainID, toBytes32 } from '@/utils'
+import { nomadAPI } from '@/config'
 import Transaction from './columns/transaction.vue'
 import Amount from './columns/amount.vue'
-const nomadAPI = 'https://bridge-indexer.prod.madlads.tools/tx'
 
 type ComponentData = {
   history: Array<unknown>
@@ -106,7 +106,7 @@ export default defineComponent({
 
     async getHistory() {
       if (this.address) {
-        const res = await fetch(`${nomadAPI}?amount=10&page=${this.page}&receiver=${this.address}`)
+        const res = await fetch(`${nomadAPI}tx?page=${this.page}&receiver=${toBytes32(this.address.toLowerCase())}`)
         const data = (await res.json()) as any
         console.log('data', data)
         if (!data.length) {

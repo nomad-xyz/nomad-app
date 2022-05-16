@@ -56,9 +56,24 @@ export function truncateAddr(addr: string): string {
 }
 
 export function fromBytes32(addr: string): string {
-  // trim 12 bytes from beginning plus '0x'
-  const short = addr.slice(26)
-  return `0x${short}`
+  if (addr.length === 42) return addr
+  if (addr.length === 66) {
+    // trim 12 bytes from beginning plus '0x'
+    const short = addr.slice(26)
+    return `0x${short}`
+  }
+  throw new Error('invalid address length, cannot convert to 20 bytes')
+}
+
+export function toBytes32(addr: string): string {
+  if (addr.length === 66) return addr
+  if (addr.length === 42) {
+    // trim 12 bytes from beginning plus '0x'
+    const short = addr.slice(2)
+    console.log('short', short)
+    return `0x000000000000000000000000${short}`
+  }
+  throw new Error('invalid address length, cannot convert to 20 bytes')
 }
 
 /**
