@@ -101,7 +101,7 @@ export default defineComponent({
             title: 'Error switching network',
             content: () =>
               h(NotificationError, {
-                text: 'Have you added the network in Metamask?',
+                text: 'Have you added the network in your wallet?',
                 error: e as Error,
               }),
           })
