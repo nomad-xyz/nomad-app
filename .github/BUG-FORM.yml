@@ -1,0 +1,35 @@
+name: Bug report
+description: File a bug report
+labels: ["T-bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please ensure that the bug has not already been filed in the issue tracker.
+
+        Thanks for taking the time to report this bug!
+  - type: input
+    attributes:
+      label: At a high level, what are you trying to do?
+      placeholder: "For example: bridge eth from ethereum to evmos"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Browser
+      description: What desktop browser are you on?
+      options:
+        - Google Chrome
+        - Apple Safari
+        - Microsoft Edge
+        - Firefox
+        - Brave
+        - Other (let us know below)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: Please include relevant error messages as well if relevant.
+    validations:
+      required: true
