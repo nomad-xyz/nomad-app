@@ -105,11 +105,8 @@ interface ComponentData {
     amnt: BigNumber,
     tokenDecimals: number,
     numDecimals?: number
-  ) => string,
-  toFixedDecimals: (
-    amnt: string,
-    numDecimals?: number
   ) => string
+  toFixedDecimals: (amnt: string, numDecimals?: number) => string
 }
 
 export default defineComponent({
