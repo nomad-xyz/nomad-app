@@ -257,9 +257,12 @@ export default defineComponent({
             description = 'Transfer already completed'
             break
           case errorMessage.includes('!prove'):
-            description = 'Try again later. If this persists longer than 2 hours, reach out to us in Discord support'
+            description =
+              'Try again later. If this persists longer than 2 hours, reach out to us in Discord support'
             break
-          case errorMessage.includes('Unexpected token < in JSON at position 0'):
+          case errorMessage.includes(
+            'Unexpected token < in JSON at position 0'
+          ):
             description = 'Not ready to claim. Proof not available'
             break
           default:
