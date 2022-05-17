@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <n-alert
-      title="This page is for advanced users who know what they're doing"
-      type="warning"
-    >
-    </n-alert>
-    <div class="py-6">
+  <n-alert
+    title="This page is for advanced users who know what they're doing"
+    type="warning"
+  />
+  <div class="rounded-md bg-[#2F2F2F] w-full max-w-lg p-8">
+    <div class="uppercase flex justify-center pb-4">Bridge</div>
+    <div>
       <!-- Token select -->
       <n-text>Token</n-text>
+      <n-input type="number" ref="amount" placeholder="0.0" v-model="amount" class="mb-4" />
       <n-popselect
         v-model:value="token"
         :options="tokenOptions"
@@ -77,11 +78,15 @@
 
       <!-- Address -->
       <n-text>Address</n-text>
-      <n-input ref="address" placeholder="0x123...789" v-model="address" />
+      <n-input ref="address" placeholder="0x123...789" v-model="address" class="mb-4" />
+
+      <!-- Recipient -->
+      <n-text>Recipient Address</n-text>
+      <n-input ref="recipient" placeholder="0x123...789" v-model="address" />
     </div>
     <div>
       <nomad-button
-        class="w-full uppercase bg-white text-black h-11 flex justify-center"
+        class="w-full uppercase bg-white text-black h-11 flex justify-center mt-4"
         @click="next"
       >
         <span>Copy encoded transaction</span>
@@ -108,9 +113,11 @@ export default defineComponent({
   data() {
     return {
       token: '',
+      amount: '',
       originNetwork: '',
       destinationNetwork: '',
       address: '',
+      recipient: '',
       enableFast: ref(false),
       networkOptions: generateNetworkOptions(),
       tokenOptions: Object.keys(tokens).map((t) => ({
