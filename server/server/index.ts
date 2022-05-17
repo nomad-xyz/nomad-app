@@ -13,16 +13,17 @@ app.get('/healthcheck', async (req: any, res: any) => {
 
 app.post('/api/agree/:address', async (req: any, res: any) => {
   const { address } = req.params
-  console.log('agree: address', address)
+  if (!address || address.length !== 42) {
+    return res.sendStatus(400)
+  }
   await db.agreeTerms(address)
   res.sendStatus(200)
 })
 
 app.get('/api/agreement/:address', async (req: any, res: any) => {
   const { address } = req.params
-  console.log('address', address)
   if (!address || address.length !== 42) {
-    throw new Error('Invalid address')
+    return res.sendStatus(400)
   }
   const agreement = await db.getWalletAgreement(req.params.address)
   console.log(agreement)
