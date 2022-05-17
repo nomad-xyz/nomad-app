@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div>
+    <n-alert
+      title="This page is for advanced users who know what they're doing"
+      type="warning"
+    >
+    </n-alert>
+    <div class="py-6">
       <!-- Token select -->
       <n-text>Token</n-text>
       <n-popselect
@@ -73,11 +78,6 @@
       <!-- Address -->
       <n-text>Address</n-text>
       <n-input ref="address" placeholder="0x123...789" v-model="address" />
-
-      <!-- Use Connext -->
-      <div class="py-5">
-        <n-checkbox v-model:checked="enableFast">Use Connext </n-checkbox>
-      </div>
     </div>
     <div>
       <nomad-button
@@ -93,15 +93,15 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import NomadButton from '@/components/Button.vue'
-import { NPopselect, NCheckbox, NInput, NText } from 'naive-ui'
+import { NPopselect, NInput, NAlert, NText } from 'naive-ui'
 import { generateNetworkOptions } from '@/utils'
 import { tokens } from '@/config'
 
 export default defineComponent({
   components: {
     NText,
+    NAlert,
     NInput,
-    NCheckbox,
     NPopselect,
     NomadButton,
   },
@@ -122,13 +122,11 @@ export default defineComponent({
   },
   methods: {
     async next() {
-      const { token, originNetwork, destinationNetwork, address, enableFast } =
-        this
+      const { token, originNetwork, destinationNetwork, address } = this
       console.log('token', token)
       console.log('originNetwork', originNetwork)
       console.log('destinationNetwork', destinationNetwork)
       console.log('address', address)
-      console.log('enableFast', enableFast)
       // TODO: add basic validation
       const valid = true
       if (valid) {
