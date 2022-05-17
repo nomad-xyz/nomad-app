@@ -7,6 +7,10 @@ app.use(cors())
 
 const { SERVER_PORT } = process.env
 
+app.get('/healthcheck', async (req: any, res: any) => {
+  res.send('OK!');
+});
+
 app.post('/api/agree/:address', async (req: any, res: any) => {
   const { address } = req.params
   console.log('agree: address', address)

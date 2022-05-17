@@ -5,7 +5,7 @@ services:
     restart: always
     command: npm run start
     environment:
-      - SERVER_PORT=3000
+      - SERVER_PORT=4200
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bridge-terms-agreements?connect_timeout=300&schema=public
     ports:
       - "4200:4200"
