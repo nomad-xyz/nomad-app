@@ -50,7 +50,13 @@
     :class="{ 'bg-opacity-70': disableSend }"
     @click="send"
   >
-    <n-spin v-if="protocol === 'connext' && !quote" stroke="rgba(0,0,0,0.5)" />
+    <div
+      v-if="protocol === 'connext' && !quote"
+      class="flex flex-row justify-center items-center"
+    >
+      <div class="mr-2">Checking availability</div>
+      <n-spin stroke="rgba(0,0,0,0.5)" size="small" />
+    </div>
     <span v-else>Send</span>
   </nomad-button>
 </template>
