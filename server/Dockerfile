@@ -1,8 +1,8 @@
-FROM node:16
-ENV NODE_ENV=production
+FROM node:16-alpine
+
+ENV SERVER_PORT 3000
 
 WORKDIR /app
-ENV SERVER_PORT 3000
 
 COPY server server/
 COPY prisma prisma/
@@ -12,3 +12,4 @@ COPY package.json .
 RUN yarn install
 
 CMD [ "yarn", "start" ]
+    
