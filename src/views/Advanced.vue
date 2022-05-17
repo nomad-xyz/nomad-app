@@ -9,9 +9,17 @@
     <div>
       <!-- Amount -->
       <n-text>Amount</n-text>
-      <n-input type="number" ref="amount" placeholder="0.0" v-model:value="amount" class="mb-4" />
+      <p class="text-red-500 text-xs" v-if="v$.amount.$invalid">* required</p>
+      <n-input
+        type="number"
+        ref="amount"
+        placeholder="0.0"
+        v-model:value="amount"
+        class="mb-4"
+      />
       <!-- Token select -->
       <n-text>Token</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.token.$invalid">* required</p>
       <n-popselect
         v-model:value="token"
         :options="tokenOptions"
@@ -34,6 +42,9 @@
 
       <!-- Origin network select -->
       <n-text>Origin Network</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.originNetwork.$invalid">
+        * required
+      </p>
       <n-popselect
         v-model:value="originNetwork"
         :options="networkOptions"
@@ -57,6 +68,9 @@
 
       <!-- Destination network select -->
       <n-text>Destination Network</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.destinationNetwork.$invalid">
+        * required
+      </p>
       <n-popselect
         v-model:value="destinationNetwork"
         :options="networkOptions"
@@ -80,10 +94,17 @@
 
       <!-- Address -->
       <n-text>Address</n-text>
-      <n-input ref="address" placeholder="0x123...789" v-model="address" class="mb-4" />
+      <p class="text-red-500 text-xs" v-if="v$.address.$invalid">* invalid</p>
+      <n-input
+        ref="address"
+        placeholder="0x123...789"
+        v-model="address"
+        class="mb-4"
+      />
 
       <!-- Recipient -->
       <n-text>Recipient Address</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.recipient.$invalid">* invalid</p>
       <n-input ref="recipient" placeholder="0x123...789" v-model="address" />
     </div>
     <div>
@@ -101,11 +122,18 @@
 import { defineComponent, h } from 'vue'
 import { utils } from 'ethers'
 import { NPopselect, NInput, NAlert, NText, useNotification } from 'naive-ui'
-import { generateNetworkOptions, isNativeToken, getNetworkDomainIDByName } from '@/utils'
+import {
+  generateNetworkOptions,
+  isNativeToken,
+  getNetworkDomainIDByName,
+} from '@/utils'
 import { tokens } from '@/config'
 import { useStore } from '@/store'
 import NomadButton from '@/components/Button.vue'
 import NotificationError from '@/components/NotificationError.vue'
+import { useVuelidate } from '@vuelidate/core'
+import { isValidAddress } from '@/utils'
+import { required } from '@vuelidate/validators'
 
 export default defineComponent({
   components: {
@@ -134,49 +162,69 @@ export default defineComponent({
   },
   setup: () => {
     const store = useStore()
+    const v$ = useVuelidate()
     const notification = useNotification()
+
     return {
       notification,
       store,
+      v$,
+    }
+  },
+  validations() {
+    return {
+      token: { required, $lazy: true },
+      amount: { required, $lazy: true },
+      originNetwork: { required, $lazy: true },
+      destinationNetwork: { required, $lazy: true },
+      address: {
+        required,
+        isValid: (value: string) => isValidAddress(value),
+        $lazy: true,
+      },
+      recipient: {
+        required,
+        isValid: (value: string) => isValidAddress(value),
+        $lazy: true,
+      },
     }
   },
   methods: {
     async getRawTx() {
-      // TODO: add basic validation
-      const valid = true
+      const valid = await this.v$.$validate()
+
+      console.log('valid', valid)
+
       if (valid) {
-        console.log('TODO')
-      }
+        const token = tokens[this.token]
+        console.log(token)
 
-      console.log(this.amount, this.token)
-      const token = tokens[this.token]
-      console.log(token)
+        // set up for tx
+        const payload = {
+          isNative: isNativeToken(this.originNetwork, token),
+          originNetwork: getNetworkDomainIDByName(this.originNetwork),
+          destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
+          asset: token.tokenIdentifier,
+          amnt: utils.parseUnits(`${this.amount}`, token.decimals),
+          recipient: this.recipient,
+        }
+        console.log(payload)
 
-      // set up for tx
-      const payload = {
-        isNative: isNativeToken(this.originNetwork, token),
-        originNetwork: getNetworkDomainIDByName(this.originNetwork),
-        destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
-        asset: token.tokenIdentifier,
-        amnt: utils.parseUnits(`${this.amount}`, token.decimals),
-        recipient: this.recipient,
-      }
-      console.log(payload)
-
-      // send tx
-      try {
-        this.rawTx = await this.store.dispatch('getRawTx', payload)
-        console.log('raw transaction: ', this.rawTx)
-      } catch (e: any) {
-        this.notification.warning({
-          title: 'Unable to fetch raw transaction',
-          content: () =>
-            h(NotificationError, {
-              text: 'Please reach out to us in Discord support',
-              error: e as Error,
-            }),
-        })
-        throw e
+        // send tx
+        try {
+          this.rawTx = await this.store.dispatch('getRawTx', payload)
+          console.log('raw transaction: ', this.rawTx)
+        } catch (e: unknown) {
+          this.notification.warning({
+            title: 'Unable to fetch raw transaction',
+            content: () =>
+              h(NotificationError, {
+                text: 'Please reach out to us in Discord support',
+                error: e as Error,
+              }),
+          })
+          throw e
+        }
       }
     },
   },
