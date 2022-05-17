@@ -27,7 +27,7 @@ declare namespace process {
     // other values than the ones listed below, they will have type
     // string | undefined, which is the default
     // [key: string]: string
-    PORT: number
+    SERVER_PORT: number
     VUE_APP_ETHEREUM_RPC: string
     VUE_APP_MOONBEAM_RPC: string
     VUE_APP_MILKOMEDA_RPC: string
@@ -45,5 +45,6 @@ declare namespace process {
     VUE_APP_PROOFS_S3: string
     VUE_APP_NOMAD_API: string
     VUE_APP_CONNEXTSCAN_URL: string
+    VUE_APP_TERMS_AGREEMENTS: string
   }
 }

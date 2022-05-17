@@ -37,6 +37,7 @@
 import { defineComponent, computed } from 'vue'
 import { NModal, NCard, NCheckbox } from 'naive-ui'
 import { useStore } from '@/store'
+import { termsAPI } from '@/config'
 import NomadButton from '@/components/Button.vue'
 import Terms from '@/views/TermsOfUse.vue'
 
@@ -70,7 +71,7 @@ export default defineComponent({
   methods: {
     async agree() {
       try {
-        const response = await fetch(`http://localhost:1020/api/agree/${this.walletAddress}`, {
+        const response = await fetch(`${termsAPI}api/agree/${this.walletAddress}`, {
           method: 'POST',
         })
         console.log(response)
@@ -87,7 +88,7 @@ export default defineComponent({
       }
 
       try {
-        const response = await fetch(`http://localhost:1020/api/agreement/${addr}`)
+        const response = await fetch(`${termsAPI}api/agreement/${addr}`)
         if (response.status === 200) {
           console.log('user agreed')
           return this.showTermsModal = false
