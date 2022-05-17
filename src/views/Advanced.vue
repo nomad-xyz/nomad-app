@@ -1,7 +1,8 @@
 <template>
   <n-alert
-    title="This page is for advanced users who know what they're doing"
+    title="This page is an advanced feature for generating raw unsigned transactions. Please do your research before proceeding."
     type="warning"
+    class="max-w-lg mb-4"
   />
   <div class="rounded-md bg-[#2F2F2F] w-full max-w-lg p-8">
     <div class="uppercase flex justify-center pb-4">Bridge</div>
