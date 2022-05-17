@@ -13,18 +13,11 @@ export type SwapData = {
   amount: number
 }
 
-export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
-  // Get signer from metamask
-  const { ethereum } = window
-
-  if (!ethereum) {
-    throw new Error('Metamask not installed')
-  }
-
-  await ethereum.request({ method: 'eth_requestAccounts' })
-
-  const provider = new providers.Web3Provider(ethereum)
-  const _signer = provider.getSigner()
+export default async function instantiateConnextSDK(
+  signer: any
+): Promise<NxtpSdk> {
+  // Get signer from wallet
+  if (!signer) throw new Error('Cannot instantiate Connext, no signer')
 
   // Level can be one of:
   // 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
@@ -37,7 +30,7 @@ export default async function instantiateConnextSDK(): Promise<NxtpSdk> {
   // Instantiate SDK
   const sdk = await NxtpSdk.create({
     chainConfig: connextConfig,
-    signer: _signer,
+    signer,
     logger,
   })
 

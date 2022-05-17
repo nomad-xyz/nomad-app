@@ -16,11 +16,6 @@ declare module '*.jpeg' {
   export default content
 }
 
-declare interface Window {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  ethereum: any
-}
-
 declare namespace process {
   let env: {
     // this is optional, if you want to allow also
@@ -46,5 +41,6 @@ declare namespace process {
     VUE_APP_NOMAD_API: string
     VUE_APP_CONNEXTSCAN_URL: string
     VUE_APP_TERMS_AGREEMENTS: string
+    VUE_APP_INFURA_KEY: string
   }
 }

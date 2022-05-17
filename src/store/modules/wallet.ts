@@ -2,14 +2,19 @@
  * Wallet Module contains most information that comes from a user's wallet
  * This is also a good module to look at for how to write a Vuex module
  */
-import { MutationTree, ActionTree } from 'vuex'
+import { MutationTree, ActionTree, GetterTree } from 'vuex'
+import { providers, BigNumber } from 'ethers'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks } from '@/config'
-import * as mmUtils from '@/utils/metamask'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
+import Web3Modal from 'web3modal'
+import WalletConnectProvider from '@walletconnect/web3-provider'
+
+let connection: any // instance of web3Modal connection
+let web3: any // instance of ethers web3Provider
 
 // defined from docs here: https://docs.metamask.io/guide/ethereum-provider.html#errors
 interface ProviderRpcError extends Error {
@@ -48,22 +53,64 @@ const mutations = <MutationTree<WalletState>>{
 
 const actions = <ActionTree<WalletState, RootState>>{
   async connectWallet({ dispatch, commit, state }) {
+    console.log('connecting wallet')
+
     // check if already connected
     if (state.connected) {
       console.log('already connected to wallet')
       return
     }
 
-    // if window.ethereum does not exist, do not connect
-    const { ethereum } = window
-    if (!ethereum) return
+    const providerOptions = {
+      walletconnect: {
+        package: WalletConnectProvider, // required
+        options: {
+          infuraId: process.env.VUE_APP_INFURA_KEY, // required
+        },
+        display: {
+          description: 'Supported: LedgerLive',
+        },
+      },
+    }
 
-    // connect Metamask
-    await window.ethereum.request({ method: 'eth_requestAccounts' })
+    const web3Modal = new Web3Modal({
+      providerOptions, // required
+      cacheProvider: false,
+      theme: {
+        background: '#2F2F2F',
+        main: '#FFFFFF',
+        secondary: 'rgba(255, 255, 255, 0.7)',
+        border: 'rgba(255, 255, 255, 0.14)',
+        hover: 'rgba(255, 255, 255, 0.05)',
+      },
+    })
 
-    // get provider/signer
-    const provider = await mmUtils.getMetamaskProvider()
-    const signer = await provider.getSigner()
+    connection = await web3Modal.connect()
+    web3 = new providers.Web3Provider(connection, 'any')
+    const signer = web3.getSigner()
+
+    console.log('connection', connection)
+    console.log('signer', signer)
+
+    // listen to events
+    connection.on('accountsChanged', () => {
+      if (connection.isMetaMask) {
+        location.reload()
+      }
+    })
+    connection.on('chainChanged', async (chainId: number) => {
+      console.log('network change', chainId)
+      // get name of network and set in store
+      const id = BigNumber.from(chainId).toNumber()
+      const network = getNetworkByChainID(id)
+      if (network) {
+        // network supported, setting wallet network
+        await dispatch('setWalletNetwork', network.name)
+      } else {
+        // network not supported, clearing network
+        await dispatch('setWalletNetwork', '')
+      }
+    })
 
     // get and set address
     const address = await signer.getAddress()
@@ -71,7 +118,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
 
     // set network, if supported
-    const { chainId } = await provider.ready
+    const { chainId } = await web3.ready
     const network = getNetworkByChainID(chainId)
     if (network) {
       dispatch('setWalletNetwork', network.name)
@@ -81,13 +128,14 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // wallet connected
     commit(types.SET_WALLET_CONNECTION, true)
+    dispatch('instantiateConnext', signer)
   },
 
   setWalletAddress({ commit }, address: string) {
     commit(types.SET_WALLET_ADDRESS, address)
   },
 
-  // when user changes network in Metamask
+  // when user changes network in their wallet
   setWalletNetwork({ commit, dispatch, rootState }, networkName: string) {
     dispatch('setOriginNetwork', networkName)
 
@@ -113,21 +161,20 @@ const actions = <ActionTree<WalletState, RootState>>{
       await dispatch('connectWallet')
     }
 
-    // if window.ethereum does not exist, do not instantiate nomad
-    const { ethereum } = window
-    if (!ethereum) return
+    // if provider does not exist yet, no need to handle right now
+    if (!web3 || !web3.provider) return
 
     const network = networks[networkName]
     const hexChainId = '0x' + network.chainID.toString(16)
     try {
-      await ethereum.request({
+      await web3.provider.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: hexChainId }],
       })
     } catch (switchError: unknown) {
-      // This error code indicates that the chain has not been added to MetaMask.
+      // This error code indicates that the chain has not been added to their wallet.
       if ((switchError as ProviderRpcError).code === 4902) {
-        await ethereum.request({
+        await web3.provider.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
@@ -145,7 +192,6 @@ const actions = <ActionTree<WalletState, RootState>>{
       } else {
         throw switchError
       }
-      // TODO: handle other "switch" errors, alert?
     }
 
     dispatch('setWalletNetwork', network.name)
@@ -164,7 +210,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     const symbol = await token.symbol()
     const decimals = await token.decimals()
 
-    const wasAdded = await window.ethereum.request({
+    const wasAdded = await web3.provider.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20',
@@ -180,8 +226,15 @@ const actions = <ActionTree<WalletState, RootState>>{
   },
 }
 
+const getters = <GetterTree<WalletState, RootState>>{
+  getSigner: () => () => {
+    return web3.getSigner()
+  },
+}
+
 export default {
   state,
   mutations,
   actions,
+  getters,
 }

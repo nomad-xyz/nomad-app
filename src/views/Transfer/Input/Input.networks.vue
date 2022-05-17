@@ -98,12 +98,12 @@ export default defineComponent({
           await this.store.dispatch('switchNetwork', network.name)
         } catch (e) {
           this.notification.warning({
-          title: 'Error switching network',
-          content: () =>
-            h(NotificationError, {
-              text: 'Have you added the network in Metamask?',
-              error: e as Error,
-            }),
+            title: 'Error switching network',
+            content: () =>
+              h(NotificationError, {
+                text: 'Have you added the network in your wallet?',
+                error: e as Error,
+              }),
           })
           throw e
         }

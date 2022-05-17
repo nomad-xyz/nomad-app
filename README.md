@@ -8,17 +8,19 @@ Connext is a network of liquidity pools on different chains. Users swap value be
 
 Further documentation available [here.](https://docs.nomad.xyz/bridge)
 
- - [Nomad SDK](https://www.npmjs.com/package/@nomad-xyz/sdk)
- - [Connext SDK](https://www.npmjs.com/package/@connext/nxtp-sdk)
+- [Nomad SDK](https://www.npmjs.com/package/@nomad-xyz/sdk)
+- [Connext SDK](https://www.npmjs.com/package/@connext/nxtp-sdk)
 
 ## Project setup
 
 Install Vue 3
+
 ```bash
 npm install -g @vue/cli
 ```
 
 Commands:
+
 ```bash
 npm install
 
@@ -42,30 +44,30 @@ npm run test:unit
 
 1. Get TEST tokens
 
-  Go to the [xPollinate Testnet site](https://testnet.xpollinate.io/)
-  Connect wallet
-  Click the "Faucets" dropdown
-  Select "Kovan"
-  Get 1,000 TEST tokens
+Go to the [xPollinate Testnet site](https://testnet.xpollinate.io/)
+Connect wallet
+Click the "Faucets" dropdown
+Select "Kovan"
+Get 1,000 TEST tokens
 
 2. Send using Connext
 
-  Go to [development GUI](https://development.app.nomad.xyz)
-  Connect wallet
-  Select TEST token in dropdown
-  Enter amount
-  Select Kovan as origin network and Moonbasealpha as destination network
-  App will check if Connext is available (should be for TEST tokens)
-  Preview send, wait ~6-8 seconds for quote
-  Send tokens
-  Approve in Metamask
+Go to [development GUI](https://development.app.nomad.xyz)
+Connect wallet
+Select TEST token in dropdown
+Enter amount
+Select Kovan as origin network and Moonbasealpha as destination network
+App will check if Connext is available (should be for TEST tokens)
+Preview send, wait ~6-8 seconds for quote
+Send tokens
+Approve in wallet
 
 3. Claim tokens
 
-  Wait a few minutes, your transaction should appear in a table below
-  Wait for router
-  (optional) Click "View" to open transaction in ConnextScan
-  Once available, click "Claim".
-  Approve in Metamask
+Wait a few minutes, your transaction should appear in a table below
+Wait for router
+(optional) Click "View" to open transaction in ConnextScan
+Once available, click "Claim".
+Approve in wallet
 
 Done!!!
