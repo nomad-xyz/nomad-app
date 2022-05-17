@@ -10,19 +10,9 @@
 
     <!-- right side of nav -->
     <div class="flex items-center" v-if="showButton">
-      <!-- metamask not installed -->
-      <nomad-button
-        v-if="!metamaskInstalled"
-        class="uppercase"
-        primary
-        @click="installMetamask"
-      >
-        Install Metamask
-      </nomad-button>
-
       <!-- connected -->
       <n-tooltip
-        v-else-if="walletConnected"
+        v-if="walletConnected"
         placement="bottom-end"
         :show-arrow="false"
         trigger="click"
@@ -117,19 +107,11 @@ export default defineComponent({
         this.buttonDisabled = false
       }
     },
-    installMetamask() {
-      window.open('https://metamask.io/download.html', '_blank')
-    },
   },
   computed: {
     truncatedAddress(): string {
       const { address, connected } = this.store.state.wallet
       return connected ? truncateAddr(address) : ''
-    },
-    metamaskInstalled(): boolean {
-      const { ethereum } = window
-      if (!ethereum) return false
-      return !ethereum.isMetamask
     },
   },
 })

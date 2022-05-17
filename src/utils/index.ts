@@ -38,7 +38,7 @@ export function toNetworkName(name: string): NetworkName {
     // case 'evmostestnet':
     //   return 'evmostestnet'
     default:
-      throw new Error('not a supported network')
+      return name
   }
 }
 

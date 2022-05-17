@@ -236,10 +236,12 @@ export default defineComponent({
         await this.store.dispatch('addToken', payload)
       } catch (error: unknown) {
         this.notification.warning({
-          title: 'Error adding token to Metamask',
+          title: 'Error adding token to your wallet',
           content: () =>
             h(NotificationError, {
-              text: `Please try adding this token manually: ${this.tokenId!.id}`,
+              text: `Please try adding this token manually: ${
+                this.tokenId!.id
+              }`,
               error: error as Error,
             }),
         })

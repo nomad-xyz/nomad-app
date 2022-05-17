@@ -136,11 +136,10 @@ const actions = <ActionTree<SDKState, RootState>>{
     commit(types.SET_BALANCE, balance)
   },
 
-  registerSigner(_, network: NetworkMetadata) {
+  registerSigner({ rootGetters }, network: NetworkMetadata) {
     console.log('registering signer for ', network)
     const networkName = network.name
-    const provider = new providers.Web3Provider(window.ethereum)
-    const newSigner = provider.getSigner()
+    const signer = rootGetters.getSigner()
 
     nomad.clearSigners()
     nomad.missingProviders
@@ -150,7 +149,7 @@ const actions = <ActionTree<SDKState, RootState>>{
         nomad.registerRpcProvider(networkName, network.rpcUrl)
       })
 
-    nomad.registerSigner(networkName, newSigner)
+    nomad.registerSigner(networkName, signer)
   },
 
   async send(

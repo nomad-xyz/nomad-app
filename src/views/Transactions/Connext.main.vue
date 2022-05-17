@@ -106,6 +106,7 @@ export default defineComponent({
   methods: {
     async getActive() {
       const activeTxs = await this.store.getters.getActiveConnextTxs()
+      if (!activeTxs) return
       if (activeTxs.length) {
         this.active = activeTxs
       }
