@@ -1,5 +1,5 @@
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { providers, BigNumber, BytesLike } from 'ethers'
+import { providers, BigNumber, BytesLike, utils } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
@@ -195,6 +195,44 @@ const actions = <ActionTree<SDKState, RootState>>{
       commit(types.SET_SENDING, false)
       throw e
     }
+  },
+
+  async getRawTx(
+    { commit },
+    payload: SendData
+  ): Promise<string | null> {
+    console.log('sending...', payload)
+    commit(types.SET_SENDING, true)
+    const { isNative, originNetwork, destNetwork, asset, amnt, recipient } =
+      payload
+
+    const originDomain = nomad.resolveDomain(originNetwork)
+    const destDomain = nomad.resolveDomain(destNetwork)
+
+    // if ETH Helper contract exists, native token must be wrapped
+    // before sending, use sendNative
+    const ethHelper = nomad.getBridge(originDomain)?.ethHelper
+
+    let rawTx
+    if (ethHelper && isNative) {
+      console.log('send native')
+      rawTx = await nomad.prepareSendNative(
+        originDomain,
+        destDomain,
+        amnt,
+        recipient
+      )
+    } else {
+      console.log('send ERC-20')
+      rawTx = await nomad.prepareSend(
+        originDomain,
+        destDomain,
+        asset,
+        amnt,
+        recipient
+      )
+    }
+    return utils.serializeTransaction(rawTx)
   },
 
   async processTx({ dispatch }, tx: { origin: NetworkName; hash: string }) {
