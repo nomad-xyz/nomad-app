@@ -7,16 +7,17 @@
   <div class="rounded-md bg-[#2F2F2F] w-full max-w-lg p-8">
     <div class="uppercase flex justify-center pb-4">Bridge</div>
     <div>
+      <!-- Amount -->
+      <n-text>Amount</n-text>
+      <n-input type="number" ref="amount" placeholder="0.0" v-model:value="amount" class="mb-4" />
       <!-- Token select -->
       <n-text>Token</n-text>
-      <n-input type="number" ref="amount" placeholder="0.0" v-model="amount" class="mb-4" />
       <n-popselect
         v-model:value="token"
         :options="tokenOptions"
         placement="bottom-start"
         trigger="click"
         width="trigger"
-        class="capitalize"
       >
         <div
           class="border border-white border-opacity-50 rounded-md flex flex-row px-2 py-1 mb-4"
@@ -25,7 +26,7 @@
             v-model="token"
             placeholder="Select token"
             readonly
-            class="w-full border-0 outline-none bg-transparent capitalize"
+            class="w-full border-0 outline-none bg-transparent"
           />
           <img src="@/assets/icons/select.svg" />
         </div>
@@ -88,7 +89,7 @@
     <div>
       <nomad-button
         class="w-full uppercase bg-white text-black h-11 flex justify-center mt-4"
-        @click="next"
+        @click="getRawTx"
       >
         <span>Copy encoded transaction</span>
       </nomad-button>
@@ -97,11 +98,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import NomadButton from '@/components/Button.vue'
-import { NPopselect, NInput, NAlert, NText } from 'naive-ui'
-import { generateNetworkOptions } from '@/utils'
+import { defineComponent, h } from 'vue'
+import { utils } from 'ethers'
+import { NPopselect, NInput, NAlert, NText, useNotification } from 'naive-ui'
+import { generateNetworkOptions, isNativeToken, getNetworkDomainIDByName } from '@/utils'
 import { tokens } from '@/config'
+import { useStore } from '@/store'
+import NomadButton from '@/components/Button.vue'
+import NotificationError from '@/components/NotificationError.vue'
 
 export default defineComponent({
   components: {
@@ -114,12 +118,12 @@ export default defineComponent({
   data() {
     return {
       token: '',
-      amount: '',
+      amount: null,
       originNetwork: '',
       destinationNetwork: '',
       address: '',
       recipient: '',
-      enableFast: ref(false),
+      rawTx: '',
       networkOptions: generateNetworkOptions(),
       tokenOptions: Object.keys(tokens).map((t) => ({
         label: t,
@@ -128,17 +132,51 @@ export default defineComponent({
       })),
     }
   },
+  setup: () => {
+    const store = useStore()
+    const notification = useNotification()
+    return {
+      notification,
+      store,
+    }
+  },
   methods: {
-    async next() {
-      const { token, originNetwork, destinationNetwork, address } = this
-      console.log('token', token)
-      console.log('originNetwork', originNetwork)
-      console.log('destinationNetwork', destinationNetwork)
-      console.log('address', address)
+    async getRawTx() {
       // TODO: add basic validation
       const valid = true
       if (valid) {
         console.log('TODO')
+      }
+
+      console.log(this.amount, this.token)
+      const token = tokens[this.token]
+      console.log(token)
+
+      // set up for tx
+      const payload = {
+        isNative: isNativeToken(this.originNetwork, token),
+        originNetwork: getNetworkDomainIDByName(this.originNetwork),
+        destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
+        asset: token.tokenIdentifier,
+        amnt: utils.parseUnits(`${this.amount}`, token.decimals),
+        recipient: this.recipient,
+      }
+      console.log(payload)
+
+      // send tx
+      try {
+        this.rawTx = await this.store.dispatch('getRawTx', payload)
+        console.log('raw transaction: ', this.rawTx)
+      } catch (e: any) {
+        this.notification.warning({
+          title: 'Unable to fetch raw transaction',
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
+        })
+        throw e
       }
     },
   },
