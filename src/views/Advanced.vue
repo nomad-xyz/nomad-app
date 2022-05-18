@@ -10,7 +10,7 @@
     <div class="bg-white bg-opacity-5 rounded-lg py-2 px-4">
       <!-- amount -->
       <n-text>Amount</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.amount.$invalid">* required</p>
+      <p class="text-red-500 text-xs" v-if="v$.amount.$invalid">* invalid</p>
       <div class="flex flex-row">
         <n-input
           type="number"
@@ -41,7 +41,7 @@
       <!-- Origin network select -->
       <n-text>Origin Network</n-text>
       <p class="text-red-500 text-xs" v-if="v$.originNetwork.$invalid">
-        * required
+        * invalid
       </p>
       <n-popselect
         v-model:value="originNetwork"
@@ -93,7 +93,7 @@
       <!-- Destination network select -->
       <n-text>Destination Network</n-text>
       <p class="text-red-500 text-xs" v-if="v$.destinationNetwork.$invalid">
-        * required
+        * invalid
       </p>
       <n-popselect
         v-model:value="destinationNetwork"
@@ -154,7 +154,7 @@ import {
   isNativeToken,
   getNetworkDomainIDByName,
 } from '@/utils'
-import { tokens } from '@/config'
+import { tokens, networks } from '@/config'
 import { useStore } from '@/store'
 import NomadButton from '@/components/Button.vue'
 import NotificationError from '@/components/NotificationError.vue'
@@ -208,7 +208,15 @@ export default defineComponent({
       token: { required, $lazy: true },
       amount: { required, $lazy: true },
       originNetwork: { required, $lazy: true },
-      destinationNetwork: { required, $lazy: true },
+      destinationNetwork: {
+        required,
+        isValid: (value: string) => {
+          if (!this.originNetwork) return false
+          const { connections } = networks[this.originNetwork]
+          return connections.includes(value)
+        },
+        $lazy: true
+      },
       address: {
         required,
         isValid: (value: string) => isValidAddress(value),
