@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  bridge-db:
+    build: .
+    restart: always
+    command: npm run start
+    environment:
+      - SERVER_PORT=4200
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bridge-terms-agreements?connect_timeout=300&schema=public
+    ports:
+      - "4200:4200"
+    depends_on:
+      - "postgres"
+    links:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nomad-terms-agreements
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: 100m
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    expose:
+      - 5432

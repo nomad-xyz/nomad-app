@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+postgres-data
 /dist
 
 # local env files
@@ -9,6 +10,7 @@ node_modules
 .env.development
 .env.production
 .env.staging
+server/.env
 
 # Log files
 npm-debug.log*

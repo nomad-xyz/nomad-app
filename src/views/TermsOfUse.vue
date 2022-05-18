@@ -14,9 +14,10 @@
       contract chains and rollups without sacrificing decentralization or
       security. The Protocol is comprised of open-source software, which is
       publicly available under the Apache 2.0 license and located at
-      <a href="https://github.com/nomad-xyz/nomad-monorepo"
-        >https://github.com/nomad-xyz/nomad-monorepo</a
-      >. The Protocol may be accessed through any compatible user interface,
+      <a href="https://github.com/nomad-xyz/nomad-monorepo" class="ml-1 outline-none underline">
+        https://github.com/nomad-xyz/nomad-monorepo
+      </a>
+      . The Protocol may be accessed through any compatible user interface,
       such as the Nomad Interface (defined below).
     </p>
     <br />

@@ -4,7 +4,6 @@
       v-if="expired"
       primary
       class="action"
-      :class="{ disabled: disabled }"
       @disabled="disabled"
       @click="cancel"
     >
@@ -14,7 +13,6 @@
       v-if="ready"
       primary
       class="action"
-      :class="{ disabled: disabled }"
       @disabled="disabled"
       @click="claim"
     >
@@ -110,8 +108,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="stylus">
-.disabled
-  opacity 50%
 .action
   padding 3px 10px
 .end

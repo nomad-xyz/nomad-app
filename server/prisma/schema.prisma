@@ -1,0 +1,16 @@
+generator client {
+  version  = 1
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model termsAgreements {
+  wallet    String   @db.VarChar
+  timestamp DateTime @default(now()) @db.Timestamp(6)
+
+  @@unique([wallet], map: "unique_namespace_key")
+}

@@ -44,7 +44,6 @@
     primary
     :disabled="disableSend"
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
-    :class="{ 'bg-opacity-70': disableSend }"
     @click="send"
   >
     <n-spin v-if="protocol === 'connext' && !quote" stroke="rgba(0,0,0,0.5)" />
