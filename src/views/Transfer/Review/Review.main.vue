@@ -191,8 +191,12 @@ export default defineComponent({
     }
   },
   data: () => ({
-    protocol: 'nomad',
+    protocol: 'connext',
   }),
+
+  mounted () {
+    this.selectConnext()
+  },
 
   methods: {
     truncateAddr,
