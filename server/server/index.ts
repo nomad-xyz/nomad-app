@@ -4,6 +4,7 @@ const cors = require('cors');
 const { db } = require('./api')
 const app = express()
 app.use(cors())
+app.disable('x-powered-by');
 
 const { SERVER_PORT } = process.env
 
