@@ -10,7 +10,7 @@
     <div class="bg-white bg-opacity-5 rounded-lg py-2 px-4">
       <!-- amount -->
       <n-text>Amount</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.amount.$invalid">* invalid</p>
+      <p class="text-red-500 text-xs" v-if="v$.amount.$invalid || v$.token.$invalid">* invalid</p>
       <div class="flex flex-row">
         <n-input
           type="number"
