@@ -65,12 +65,21 @@
       <!-- Address -->
       <n-text>Address</n-text>
       <p class="text-red-500 text-xs" v-if="v$.address.$invalid">* invalid</p>
-      <n-input
-        ref="address"
-        placeholder="0x123...789"
-        v-model="address"
-        class="input"
-      />
+      <div class="relative">
+        <n-input
+          ref="address"
+          placeholder="0x123...789"
+          v-model:value="address"
+          class="input"
+        />
+        <n-text
+          v-if="walletAddress && isValidAddress(walletAddress) && address !== walletAddress"
+          class="cursor-pointer absolute bottom-0 left-0 translate-y-1 text-[#70c0e8]"
+          @click="useWalletAddress"
+        >
+          Use wallet address
+        </n-text>
+      </div>
     </div>
 
     <div class="flex justify-center w-full p-4">
@@ -107,13 +116,22 @@
 
       <!-- Recipient -->
       <n-text>Destination Address</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.recipient.$invalid">* invalid</p>
-      <n-input
-        ref="recipient"
-        placeholder="0x123...789"
-        v-model="address"
-        class="input"
-      />
+      <p class="text-red-500 text-xs" v-if="v$.destinationAddress.$invalid">* invalid</p>
+      <div class="relative">
+        <n-input
+          ref="destinationAddress"
+          placeholder="0x123...789"
+          v-model:value="destinationAddress"
+          class="input"
+        />
+        <n-text
+          v-if="address && isValidAddress(address) && address !== destinationAddress"
+          class="cursor-pointer absolute bottom-0 left-0 translate-y-1 text-[#70c0e8]"
+          @click="useSenderAddress"
+        >
+          Use sender address
+        </n-text>
+      </div>
     </div>
     <div>
       <nomad-button
@@ -127,7 +145,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, computed } from 'vue'
 import { utils } from 'ethers'
 import { NPopselect, NInput, NAlert, NText, NIcon, useNotification } from 'naive-ui'
 import { ArrowDownOutline } from '@vicons/ionicons5'
@@ -161,7 +179,7 @@ export default defineComponent({
       originNetwork: '',
       destinationNetwork: '',
       address: '',
-      recipient: '',
+      destinationAddress: '',
       rawTx: '',
       networkOptions: generateNetworkOptions(),
       tokenOptions: Object.keys(tokens).map((t) => ({
@@ -169,6 +187,7 @@ export default defineComponent({
         value: t,
         key: t,
       })),
+      isValidAddress,
     }
   },
   setup: () => {
@@ -179,6 +198,8 @@ export default defineComponent({
     return {
       notification,
       store,
+      walletAddress: computed(() => store.state.wallet.address),
+      connected: computed(() => store.state.wallet.connected),
       v$,
     }
   },
@@ -193,7 +214,7 @@ export default defineComponent({
         isValid: (value: string) => isValidAddress(value),
         $lazy: true,
       },
-      recipient: {
+      destinationAddress: {
         required,
         isValid: (value: string) => isValidAddress(value),
         $lazy: true,
@@ -217,7 +238,7 @@ export default defineComponent({
           destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
           asset: token.tokenIdentifier,
           amnt: utils.parseUnits(`${this.amount}`, token.decimals),
-          recipient: this.recipient,
+          recipient: this.destinationAddress,
         }
         console.log(payload)
 
@@ -238,7 +259,28 @@ export default defineComponent({
         }
       }
     },
+    useWalletAddress() {
+      if (this.walletAddress && isValidAddress(this.walletAddress)) {
+        this.address = this.walletAddress
+        if (!this.destinationAddress) {
+          this.destinationAddress = this.walletAddress
+        }
+      }
+    },
+    useSenderAddress() {
+      if (this.address && isValidAddress(this.address)) {
+        this.destinationAddress = this.address
+      }
+    },
   },
+  watch: {
+    connected(connected: boolean) {
+      console.log('connect', connected, this.walletAddress)
+      if (!connected || !this.walletAddress || this.address) return
+
+      this.useWalletAddress()
+    }
+  }
 })
 </script>
 
