@@ -6,39 +6,37 @@
   />
   <div class="rounded-md bg-[#2F2F2F] w-full max-w-lg p-8">
     <div class="uppercase flex justify-center pb-4">Bridge</div>
-    <div>
-      <!-- Amount -->
+    <!-- Origin -->
+    <div class="bg-white bg-opacity-5 rounded-lg py-2 px-4">
+      <!-- amount -->
       <n-text>Amount</n-text>
       <p class="text-red-500 text-xs" v-if="v$.amount.$invalid">* required</p>
-      <n-input
-        type="number"
-        ref="amount"
-        placeholder="0.0"
-        v-model:value="amount"
-        class="mb-4"
-      />
-      <!-- Token select -->
-      <n-text>Token</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.token.$invalid">* required</p>
-      <n-popselect
-        v-model:value="token"
-        :options="tokenOptions"
-        placement="bottom-start"
-        trigger="click"
-        width="trigger"
-      >
-        <div
-          class="border border-white border-opacity-50 rounded-md flex flex-row px-2 py-1 mb-4"
+      <div class="flex flex-row">
+        <n-input
+          type="number"
+          ref="amount"
+          placeholder="0.0"
+          v-model:value="amount"
+          class="input mr-2"
+        />
+        <n-popselect
+          v-model:value="token"
+          :options="tokenOptions"
+          placement="bottom-start"
+          trigger="click"
+          width="trigger"
         >
-          <input
-            v-model="token"
-            placeholder="Select token"
-            readonly
-            class="w-full border-0 outline-none bg-transparent"
-          />
-          <img src="@/assets/icons/select.svg" />
-        </div>
-      </n-popselect>
+          <div class="select">
+            <input
+              v-model="token"
+              placeholder="Select token"
+              readonly
+              class="w-full border-0 outline-none bg-transparent"
+            />
+            <img src="@/assets/icons/select.svg" class="h-5" />
+          </div>
+        </n-popselect>
+      </div>
 
       <!-- Origin network select -->
       <n-text>Origin Network</n-text>
@@ -53,19 +51,36 @@
         width="trigger"
         class="capitalize"
       >
-        <div
-          class="border border-white border-opacity-50 rounded-md flex flex-row px-2 py-1 mb-4"
-        >
+        <div class="select">
           <input
             v-model="originNetwork"
             placeholder="Select Origin Network"
             readonly
             class="w-full border-0 outline-none bg-transparent capitalize"
           />
-          <img src="@/assets/icons/select.svg" />
+          <img src="@/assets/icons/select.svg" class="h-5" />
         </div>
       </n-popselect>
 
+      <!-- Address -->
+      <n-text>Address</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.address.$invalid">* invalid</p>
+      <n-input
+        ref="address"
+        placeholder="0x123...789"
+        v-model="address"
+        class="input"
+      />
+    </div>
+
+    <div class="flex justify-center w-full p-4">
+      <n-icon size="30" color="#5185d0">
+        <arrow-down-outline />
+      </n-icon>
+    </div>
+
+    <!-- Destination -->
+    <div class="bg-white bg-opacity-5 rounded-lg py-2 px-4">
       <!-- Destination network select -->
       <n-text>Destination Network</n-text>
       <p class="text-red-500 text-xs" v-if="v$.destinationNetwork.$invalid">
@@ -79,33 +94,26 @@
         width="trigger"
         class="capitalize"
       >
-        <div
-          class="border border-white border-opacity-50 rounded-md flex flex-row px-2 py-1 mb-4"
-        >
+        <div class="select">
           <input
             v-model="destinationNetwork"
             placeholder="Select Destination Network"
             readonly
             class="w-full border-0 outline-none bg-transparent capitalize"
           />
-          <img src="@/assets/icons/select.svg" />
+          <img src="@/assets/icons/select.svg" class="h-5" />
         </div>
       </n-popselect>
 
-      <!-- Address -->
-      <n-text>Address</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.address.$invalid">* invalid</p>
+      <!-- Recipient -->
+      <n-text>Destination Address</n-text>
+      <p class="text-red-500 text-xs" v-if="v$.recipient.$invalid">* invalid</p>
       <n-input
-        ref="address"
+        ref="recipient"
         placeholder="0x123...789"
         v-model="address"
-        class="mb-4"
+        class="input"
       />
-
-      <!-- Recipient -->
-      <n-text>Recipient Address</n-text>
-      <p class="text-red-500 text-xs" v-if="v$.recipient.$invalid">* invalid</p>
-      <n-input ref="recipient" placeholder="0x123...789" v-model="address" />
     </div>
     <div>
       <nomad-button
@@ -121,7 +129,8 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue'
 import { utils } from 'ethers'
-import { NPopselect, NInput, NAlert, NText, useNotification } from 'naive-ui'
+import { NPopselect, NInput, NAlert, NText, NIcon, useNotification } from 'naive-ui'
+import { ArrowDownOutline } from '@vicons/ionicons5'
 import {
   generateNetworkOptions,
   isNativeToken,
@@ -140,8 +149,10 @@ export default defineComponent({
     NText,
     NAlert,
     NInput,
+    NIcon,
     NPopselect,
     NomadButton,
+    ArrowDownOutline
   },
   data() {
     return {
@@ -230,3 +241,12 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.input {
+  @apply border border-white border-opacity-50 rounded-md mb-4 bg-transparent;
+}
+.select {
+  @apply border border-white border-opacity-50 rounded-md flex flex-row items-center px-2 py-1 mb-4 bg-transparent;
+}
+</style>
