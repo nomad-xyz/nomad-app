@@ -101,7 +101,7 @@ export default defineComponent({
             title: 'Error switching network',
             content: () =>
               h(NotificationError, {
-                text: 'Have you added the network in your wallet?',
+                text: 'Try adding or changing the network manually from your wallet',
                 error: e as Error,
               }),
           })
