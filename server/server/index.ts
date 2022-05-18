@@ -2,11 +2,23 @@ const express = require('express')
 var bodyParser = require('body-parser')
 const cors = require('cors');
 const { db } = require('./api')
+const { SERVER_PORT, NODE_ENV } = process.env
 const app = express()
 app.use(cors())
 app.disable('x-powered-by');
 
-const { SERVER_PORT } = process.env
+var whitelist = ['https://app.nomad.xyz', 'https://production-preview.app.nomad.xyz/']
+var corsOptions = {
+  origin: function (origin: string, callback: any) {
+    if (NODE_ENV !== 'production') {
+      callback(null, true)
+    } else if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.get('/healthcheck', async (req: any, res: any) => {
   res.send('OK!');
