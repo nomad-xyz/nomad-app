@@ -67,9 +67,9 @@ const actions = <ActionTree<WalletState, RootState>>{
         options: {
           infuraId: process.env.VUE_APP_INFURA_KEY, // required
         },
-        display: {
-          description: 'Supported: LedgerLive',
-        },
+        // display: {
+        //   description: 'Supported: LedgerLive',
+        // },
       },
     }
 
@@ -166,6 +166,11 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     const network = networks[networkName]
     const hexChainId = '0x' + network.chainID.toString(16)
+
+    // if wallet is already on correct chain, return
+    if (connection.chainId == hexChainId) return
+
+    // switch chains
     try {
       await web3.provider.request({
         method: 'wallet_switchEthereumChain',
