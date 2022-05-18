@@ -24,7 +24,7 @@ app.get('/healthcheck', async (req: any, res: any) => {
   res.send('OK!');
 });
 
-app.post('/api/agree/:address', async (req: any, res: any) => {
+app.post('/api/agree/:address', cors(corsOptions), async (req: any, res: any) => {
   const { address } = req.params
   if (!address || address.length !== 42) {
     return res.sendStatus(400)
