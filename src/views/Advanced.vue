@@ -205,7 +205,14 @@ export default defineComponent({
   },
   validations() {
     return {
-      token: { required, $lazy: true },
+      token: {
+        required,
+        isValid: (value: string) => {
+          const token = tokens[value]
+          return !(token.nativeOnly && token.nativeNetwork !== this.originNetwork)
+        },
+        $lazy: true
+      },
       amount: { required, $lazy: true },
       originNetwork: { required, $lazy: true },
       destinationNetwork: {
