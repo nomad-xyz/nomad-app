@@ -85,7 +85,15 @@ const actions = <ActionTree<WalletState, RootState>>{
       },
     })
 
-    connection = await web3Modal.connect()
+    try {
+      connection = await web3Modal.connect()
+    } catch (e: unknown) {
+      // NOTE: just swallow this error, don't need to
+      // alert sentry if the modal was closed by the user
+      if (e === 'Modal closed by user') {
+        return
+      }
+    }
     web3 = new providers.Web3Provider(connection, 'any')
     const signer = web3.getSigner()
 
