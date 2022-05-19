@@ -1,5 +1,5 @@
 <template>
-  <n-modal :show="showTermsModal">
+  <n-modal :show="showTermsModal && !hideModal">
     <div class="p-4">
       <n-card class="terms-card max-w-xl rounded-xl">
         <h2 class="uppercase text-xl font-semibold mb-4">Before you proceed...</h2>
@@ -11,19 +11,13 @@
           </div>
         </div>
 
-        <n-checkbox
-          v-model:checked="readDisclaimer"
-          class="mt-6 mb-2"
-        >
-          I have read the disclaimer and accept the risks
-        </n-checkbox>
-        <n-checkbox v-model:checked="readToS">
-          I have read and agree to the Terms of Use
+        <n-checkbox v-model:checked="readToS" class="mt-6">
+          I confirm that I have read, understood, and agree to the <a href="/terms" target="_blank" class="underline">Terms of Use</a> and <a href="/privacy-policy" target="_blank" class="underline">Privacy Policy</a>.
         </n-checkbox>
 
         <nomad-button
           class="w-full uppercase mt-6 bg-[#4496ef] h-11 flex justify-center"
-          :disabled="!readDisclaimer || !readToS"
+          :disabled="!readToS"
           @click="agree"
         >
           Agree and continue
@@ -40,6 +34,7 @@ import { useStore } from '@/store'
 import { termsAPI } from '@/config'
 import NomadButton from '@/components/Button.vue'
 import Terms from '@/views/TermsOfUse.vue'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -52,15 +47,18 @@ export default defineComponent({
 
   setup: () => {
     const store = useStore()
+    const route = useRoute()
     return {
       walletAddress: computed(() => store.state.wallet.address),
+      hideModal: computed(() =>
+        ['TermsOfUse', 'PrivacyPolicy'].includes(route.name as string)
+      ),
       store,
     }
   },
 
   data: () => ({
     showTermsModal: false,
-    readDisclaimer: false,
     readToS: false,
   }),
 
