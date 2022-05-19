@@ -135,10 +135,21 @@
     </div>
     <div>
       <nomad-button
-        class="w-full uppercase bg-white text-black h-11 flex justify-center mt-4"
-        @click="getRawTx"
+        v-if="isERC20"
+        class="w-full uppercase transition-all duration-400 h-11 flex justify-center mt-6"
+        :class="[copiedApprove ? 'bg-[#2fbb72]' : 'bg-white text-black']"
+        @click="getRawApproveTx"
       >
-        <span>Copy encoded transaction</span>
+        <span v-if="!copiedApprove">Copy encoded approve transaction</span>
+        <img v-else src="@/assets/icons/check.svg" alt="check" class="h-7" />
+      </nomad-button>
+      <nomad-button
+        class="w-full uppercase transition-all duration-400 h-11 flex justify-center mt-6"
+        :class="[copiedSend ? 'bg-[#2fbb72]' : 'bg-white text-black']"
+        @click="getRawSendTx"
+      >
+        <span v-if="!copiedSend">Copy encoded send transaction</span>
+        <img v-else src="@/assets/icons/check.svg" alt="check" class="h-7" />
       </nomad-button>
     </div>
   </div>
@@ -170,7 +181,7 @@ export default defineComponent({
     NIcon,
     NPopselect,
     NomadButton,
-    ArrowDownOutline
+    ArrowDownOutline,
   },
   data() {
     return {
@@ -181,6 +192,8 @@ export default defineComponent({
       address: '',
       destinationAddress: '',
       rawTx: '',
+      copiedApprove: false,
+      copiedSend: false,
       networkOptions: generateNetworkOptions(),
       tokenOptions: Object.keys(tokens).map((t) => ({
         label: t,
@@ -237,41 +250,77 @@ export default defineComponent({
     }
   },
   methods: {
-    async getRawTx() {
+    async getRawApproveTx() {
       const valid = await this.v$.$validate()
-
       console.log('valid', valid)
+      if (!valid) return
 
-      if (valid) {
-        const token = tokens[this.token]
-        console.log(token)
+      const token = tokens[this.token]
+      console.log(token)
 
-        // set up for tx
-        const payload = {
-          isNative: isNativeToken(this.originNetwork, token),
-          originNetwork: getNetworkDomainIDByName(this.originNetwork),
-          destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
-          asset: token.tokenIdentifier,
-          amnt: utils.parseUnits(`${this.amount}`, token.decimals),
-          recipient: this.destinationAddress,
-        }
-        console.log(payload)
+      // set up for tx
+      const payload = {
+        isNative: isNativeToken(this.originNetwork, token),
+        originNetwork: getNetworkDomainIDByName(this.originNetwork),
+        destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
+        asset: token.tokenIdentifier,
+        amnt: utils.parseUnits(`${this.amount}`, token.decimals),
+        recipient: this.destinationAddress,
+        sender: this.address,
+      }
+      console.log(payload)
 
-        // send tx
-        try {
-          this.rawTx = await this.store.dispatch('getRawTx', payload)
-          console.log('raw transaction: ', this.rawTx)
-        } catch (e: unknown) {
-          this.notification.warning({
-            title: 'Unable to fetch raw transaction',
-            content: () =>
-              h(NotificationError, {
-                text: 'Please reach out to us in Discord support',
-                error: e as Error,
-              }),
-          })
-          throw e
-        }
+      // send tx
+      try {
+        this.rawTx = await this.store.dispatch('getRawApproveTx', payload)
+        console.log('raw transaction: ', this.rawTx)
+        this.copiedApprove = true
+      } catch (e: unknown) {
+        this.notification.warning({
+          title: 'Unable to fetch raw approve transaction',
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
+        })
+        throw e
+      }
+    },
+    async getRawSendTx() {
+      const valid = await this.v$.$validate()
+      console.log('valid', valid)
+      if (!valid) return
+
+      const token = tokens[this.token]
+      console.log(token)
+
+      // set up for tx
+      const payload = {
+        isNative: isNativeToken(this.originNetwork, token),
+        originNetwork: getNetworkDomainIDByName(this.originNetwork),
+        destNetwork: getNetworkDomainIDByName(this.destinationNetwork),
+        asset: token.tokenIdentifier,
+        amnt: utils.parseUnits(`${this.amount}`, token.decimals),
+        recipient: this.destinationAddress,
+      }
+      console.log(payload)
+
+      // send tx
+      try {
+        this.rawTx = await this.store.dispatch('getRawSendTx', payload)
+        console.log('raw transaction: ', this.rawTx)
+        this.copiedSend = true
+      } catch (e: unknown) {
+        this.notification.warning({
+          title: 'Unable to fetch raw send transaction',
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
+        })
+        throw e
       }
     },
     useWalletAddress() {
@@ -295,7 +344,13 @@ export default defineComponent({
 
       this.useWalletAddress()
     }
-  }
+  },
+  computed: {
+    isERC20(): boolean {
+      if (!this.token) return false
+      return !tokens[this.token].nativeOnly
+    },
+  },
 })
 </script>
 

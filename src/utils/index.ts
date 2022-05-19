@@ -60,6 +60,12 @@ export function fromBytes32(addr: string): string {
   return `0x${short}`
 }
 
+export function toBytes32(addr: string): string {
+  // trim 12 bytes from beginning plus '0x'
+  const short = addr.slice(2)
+  return `0x000000000000000000000000${short}`
+}
+
 /**
  * Makes a BigNumber have # of decimals
  */

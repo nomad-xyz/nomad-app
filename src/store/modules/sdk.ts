@@ -6,7 +6,7 @@ import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks, proofsS3, isProduction } from '@/config'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
-import { isNativeToken, getNetworkByDomainID } from '@/utils'
+import { isNativeToken, getNetworkByDomainID, toBytes32 } from '@/utils'
 import { NetworkMetadata, NetworkName } from '@/config/types'
 import { config } from '@/config'
 
@@ -20,6 +20,7 @@ export interface SendData {
   asset: TokenIdentifier
   amnt: number
   recipient: string
+  sender?: string
   gasLimit?: number
 }
 
@@ -197,7 +198,36 @@ const actions = <ActionTree<SDKState, RootState>>{
     }
   },
 
-  async getRawTx(
+  async getRawApproveTx(_, payload: SendData) {
+    const { isNative, originNetwork, asset, amnt, sender } = payload
+
+    if (isNative || !sender) return
+    const fromDomain = nomad.resolveDomain(originNetwork);
+
+    await nomad.checkHome(fromDomain);
+    if (nomad.blacklist().has(fromDomain)) {
+      throw new Error(
+        'Attempted to send token to failed home!',
+      );
+    }
+
+    const fromBridge = nomad.mustGetBridge(fromDomain);
+    const bridgeAddress = fromBridge.bridgeRouter.address;
+
+    const fromToken = await nomad.resolveRepresentation(fromDomain, asset);
+    if (!fromToken) {
+      throw new Error(`Token not available on ${fromDomain}`);
+    }
+
+    // Approve if necessary
+    const approved = await fromToken.allowance(sender, bridgeAddress);
+    if (approved.lt(amnt)) {
+      const approveTx = await fromToken.populateTransaction.approve(bridgeAddress, amnt);
+      return utils.serializeTransaction(approveTx)
+    }
+  },
+
+  async getRawSendTx(
     { commit },
     payload: SendData
   ): Promise<string | null> {
@@ -213,26 +243,29 @@ const actions = <ActionTree<SDKState, RootState>>{
     // before sending, use sendNative
     const ethHelper = nomad.getBridge(originDomain)?.ethHelper
 
-    let rawTx
+    let sendTx
     if (ethHelper && isNative) {
-      console.log('send native')
-      rawTx = await nomad.prepareSendNative(
+      console.log('generate native send')
+      sendTx = await nomad.prepareSendNative(
         originDomain,
         destDomain,
         amnt,
         recipient
       )
     } else {
-      console.log('send ERC-20')
-      rawTx = await nomad.prepareSend(
-        originDomain,
-        destDomain,
-        asset,
+      console.log('generate ERC-20 send')
+      const fromBridge = nomad.mustGetBridge(originDomain);
+      const tx = await fromBridge.bridgeRouter.populateTransaction.send(
+        asset.id as string,
         amnt,
-        recipient
-      )
+        destDomain,
+        toBytes32(recipient),
+        false,
+      );
+      tx.gasLimit = BigNumber.from(350000);
+      sendTx = tx
     }
-    return utils.serializeTransaction(rawTx)
+    return utils.serializeTransaction(sendTx)
   },
 
   async processTx({ dispatch }, tx: { origin: NetworkName; hash: string }) {
