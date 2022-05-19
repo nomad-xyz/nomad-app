@@ -156,7 +156,7 @@ const actions = <ActionTree<WalletState, RootState>>{
   },
 
   async switchNetwork({ dispatch, state }, networkName: string) {
-    console.log('set wallet network')
+    console.log('set wallet network', networkName)
     if (!state.connected) {
       await dispatch('connectWallet')
     }
@@ -168,7 +168,11 @@ const actions = <ActionTree<WalletState, RootState>>{
     const hexChainId = '0x' + network.chainID.toString(16)
 
     // if wallet is already on correct chain, return
-    if (connection.chainId == hexChainId) return
+    if (connection.chainId == hexChainId) {
+      // set the origin network in case it is null when selecting an unavailable network
+      dispatch('setOriginNetwork', networkName)
+      return
+    }
 
     // switch chains
     try {
@@ -176,6 +180,7 @@ const actions = <ActionTree<WalletState, RootState>>{
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: hexChainId }],
       })
+      dispatch('setWalletNetwork', networkName)
     } catch (switchError: unknown) {
       // This error code indicates that the chain has not been added to their wallet.
       if ((switchError as ProviderRpcError).code === 4902) {
@@ -198,8 +203,6 @@ const actions = <ActionTree<WalletState, RootState>>{
         throw switchError
       }
     }
-
-    dispatch('setWalletNetwork', network.name)
   },
 
   async addToken({ dispatch, state, rootGetters }, payload: TokenPayload) {
