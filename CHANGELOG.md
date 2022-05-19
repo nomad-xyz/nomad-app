@@ -8,6 +8,8 @@ This change log is manually updated at the moment.
 
 - Wallet Connect
 - update button copy for using the sender wallet address when editing destination address
+- better error handling
+- select Connext by default
 - tons of other small fixes and improvements
 
 ## v1.4.8 (May 6th, 2022)
