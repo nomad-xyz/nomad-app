@@ -1,9 +1,13 @@
 <template>
   <div class="review w-full rounded-md p-7">
     <!-- header -->
-    <div class="flex flex-row w-full justify-between items-center px-5 pb-7">
+    <div
+      class="relative flex flex-row w-full justify-between items-center px-5 pb-7"
+    >
       <breadcrumb @click="back" />
-      <span class="uppercase">Review & Bridge</span>
+      <span class="absolute w-full flex justify-center top-0 left-0 uppercase">
+        Review & Bridge
+      </span>
       <transfer-steps :current="2" />
     </div>
 
@@ -187,8 +191,12 @@ export default defineComponent({
     }
   },
   data: () => ({
-    protocol: 'nomad',
+    protocol: 'connext',
   }),
+
+  mounted () {
+    this.selectConnext()
+  },
 
   methods: {
     truncateAddr,

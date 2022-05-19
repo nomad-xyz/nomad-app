@@ -1,6 +1,6 @@
 {
   "name": "bridge-web-app",
-  "version": "1.4.8",
+  "version": "1.5.0",
   "private": true,
   "description": "Token Bridge UI",
   "license": "Apache 2.0",
@@ -28,6 +28,7 @@
     "@vicons/ionicons5": "^0.11.0",
     "@vuelidate/core": "^2.0.0-alpha.32",
     "@vuelidate/validators": "^2.0.0-alpha.25",
+    "@walletconnect/web3-provider": "^1.7.8",
     "assert": "^2.0.0",
     "autoprefixer": "^9",
     "buffer": "^6.0.3",
@@ -45,6 +46,8 @@
     "vue": "^3.2.31",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2",
+    "web3": "^1.7.3",
+    "web3modal": "^1.9.7",
     "webpack": "^5.71.0"
   },
   "devDependencies": {

@@ -160,7 +160,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import {
   NAlert,
   NText,
@@ -183,6 +183,7 @@ import {
 import { minutesTilConfirmation } from '@/utils'
 import { toNetworkName } from '@/utils'
 import { NetworkName } from '@/config/types'
+import NotificationError from '@/components/NotificationError.vue'
 
 interface ComponentData {
   PROCESS_TIME_IN_MINUTES: number
@@ -250,25 +251,31 @@ export default defineComponent({
         }
       } catch (e: unknown) {
         const errorMessage = (e as Error).message
-        let description
+        let description: string
         switch (true) {
           case errorMessage.includes('!MessageStatus.None'):
             description = 'Transfer already completed'
             break
           case errorMessage.includes('!prove'):
-            description = 'Try again later. If this persists longer than 2 hours, file a support ticket'
+            description =
+              'Try again later. If this persists longer than 2 hours, reach out to us in Discord support'
             break
-          case errorMessage.includes('Unexpected token < in JSON at position 0'):
+          case errorMessage.includes(
+            'Unexpected token < in JSON at position 0'
+          ):
             description = 'Not ready to claim. Proof not available'
             break
           default:
-            description = errorMessage
+            description = 'Please reach out to us in Discord support channel'
         }
         this.notification.warning({
           title: 'Error Completing Transfer',
-          content: description,
+          content: () =>
+            h(NotificationError, {
+              text: description,
+              error: e as Error,
+            }),
         })
-
         throw e
       }
     },

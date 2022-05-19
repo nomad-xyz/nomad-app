@@ -4,6 +4,14 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.5.0 (May 19th, 2022)
+
+- Wallet Connect
+- update button copy for using the sender wallet address when editing destination address
+- better error handling
+- select Connext by default
+- tons of other small fixes and improvements
+
 ## v1.4.8 (May 6th, 2022)
 
 - truncate decimals instead of rounding to 6 places

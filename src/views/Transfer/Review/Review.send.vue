@@ -21,7 +21,10 @@
         transaction to claim funds.
       </p>
       <p class="py-4">
-        <b>IT IS RECOMMENDED YOU SUPPLY YOUR WALLET WITH AT LEAST 0.07 ETH TO COVER AMPLE GAS LIMIT. ACTUAL GAS FEE WILL BE 80% LESS EXPENSIVE</b>
+        <b>
+          IT IS RECOMMENDED YOU SUPPLY YOUR WALLET WITH AT LEAST 0.07 ETH TO
+          COVER AMPLE GAS LIMIT. ACTUAL GAS FEE WILL BE 80% LESS EXPENSIVE
+        </b>
       </p>
       <div class="flex flex-row">
         <a
@@ -46,7 +49,13 @@
     class="w-full flex justify-center h-11 mt-4 uppercase bg-white text-black"
     @click="send"
   >
-    <n-spin v-if="protocol === 'connext' && !quote" stroke="rgba(0,0,0,0.5)" />
+    <div
+      v-if="protocol === 'connext' && !quote"
+      class="flex flex-row justify-center items-center"
+    >
+      <div class="mr-2">Checking availability</div>
+      <n-spin stroke="rgba(0,0,0,0.5)" size="small" />
+    </div>
     <span v-else>Send</span>
   </nomad-button>
 </template>
@@ -58,6 +67,7 @@ import { useStore } from '@/store'
 import { useNotification, NPopconfirm, NSpin } from 'naive-ui'
 import NomadButton from '@/components/Button.vue'
 import NotificationLink from '@/components/NotificationLink.vue'
+import NotificationError from '@/components/NotificationError.vue'
 import { networks, connextScanURL } from '@/config'
 import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
 
@@ -86,20 +96,13 @@ export default defineComponent({
   },
   methods: {
     async send() {
-      if (!this.metamaskInstalled) {
-        this.notification.info({
-          title: 'Install Metamask',
-          content: 'Please install Metamask to continue',
-        })
-        return
-      }
       await this.store.dispatch('switchNetwork', this.userInput.originNetwork)
       if (this.protocol === 'nomad') {
         await this.bridge()
       } else if (this.protocol === 'connext') {
         await this.swap()
       } else {
-        console.error('no protocol selected')
+        throw new Error('no protocol selected')
       }
       // clear user input and switch back to input screen
       this.store.dispatch('clearInputs')
@@ -132,10 +135,15 @@ export default defineComponent({
         const txHash = transferMessage.receipt.transactionHash
         this.$router.push(`/tx/nomad/${originNetwork}/${txHash}`)
       } catch (e: any) {
-        this.notification.error({
+        this.notification.warning({
           title: 'Transaction send failed',
-          description: e.message,
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
         })
+        throw e
       }
     },
     async swap() {
@@ -153,19 +161,19 @@ export default defineComponent({
         })
         // window.open(txLink, '_blank')
       } catch (e: unknown) {
-        this.notification.error({
+        this.notification.warning({
           title: 'Error sending Connext transaction',
-          description: (e as Error).message,
+          content: () =>
+            h(NotificationError, {
+              text: 'Please reach out to us in Discord support',
+              error: e as Error,
+            }),
         })
+        throw e
       }
     },
   },
   computed: {
-    metamaskInstalled(): boolean {
-      const { ethereum } = window
-      if (!ethereum) return false
-      return !ethereum.isMetamask
-    },
     disableSend(): boolean {
       return this.protocol === 'connext' && !this.quote
     },

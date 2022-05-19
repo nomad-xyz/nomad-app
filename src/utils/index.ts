@@ -38,7 +38,7 @@ export function toNetworkName(name: string): NetworkName {
     // case 'evmostestnet':
     //   return 'evmostestnet'
     default:
-      throw new Error('not a supported network')
+      return name
   }
 }
 
@@ -161,14 +161,14 @@ export const nullToken: TokenMetadata = {
   minAmt: 0,
 }
 
-export function getTokenBySymbol(symbol: string): TokenMetadata | undefined {
+export function getTokenBySymbol(symbol: string): TokenMetadata {
   for (const t in tokens) {
     const token = tokens[t]
     if (token.symbol === symbol) {
       return token
     }
   }
-  console.error('token asset not found')
+  throw new Error('token asset not found')
 }
 
 // determines if the token is native to the selected origin network

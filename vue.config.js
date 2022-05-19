@@ -13,6 +13,9 @@ module.exports = defineConfig({
         fs: false,
         net: false,
         tls: false,
+        os: false,
+        http: false,
+        https: false,
       },
     },
     module: {

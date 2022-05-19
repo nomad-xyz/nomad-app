@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, h } from 'vue'
 import { utils, BigNumber } from 'ethers'
 import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { NText, NDivider, NTime, useNotification } from 'naive-ui'
@@ -79,6 +79,7 @@ import { nomadAPI, networks } from '@/config'
 import Detail from '@/views/Transaction/Detail.vue'
 import CopyHash from '@/components/CopyHash.vue'
 import StatusHeader from './Header.vue'
+import NotificationError from '@/components/NotificationError.vue'
 import { NetworkName } from '@/config/types'
 
 interface ComponentData {
@@ -235,10 +236,16 @@ export default defineComponent({
         await this.store.dispatch('addToken', payload)
       } catch (error: unknown) {
         this.notification.warning({
-          title: 'Error adding token to Metamask',
-          content: (error as Error).message,
+          title: 'Error adding token to your wallet',
+          content: () =>
+            h(NotificationError, {
+              text: `Please try adding this token manually: ${
+                this.tokenId!.id
+              }`,
+              error: error as Error,
+            }),
         })
-        console.error(error)
+        throw error
       }
     },
     async updateStatus() {
