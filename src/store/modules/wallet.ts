@@ -199,6 +199,7 @@ const actions = <ActionTree<WalletState, RootState>>{
             },
           ],
         })
+        dispatch('setWalletNetwork', network.name)
       } else {
         throw switchError
       }
