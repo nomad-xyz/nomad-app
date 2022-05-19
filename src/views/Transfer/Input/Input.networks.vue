@@ -91,12 +91,14 @@ export default defineComponent({
         }
         this.store.dispatch('setDestinationNetwork', network.name)
       } else {
-        if (isUnavailable) {
-          this.store.dispatch('setDestinationNetwork', null)
-        }
         try {
           await this.store.dispatch('switchNetwork', network.name)
+          // set destination network to null if switch network was successful
+          if (isUnavailable) {
+            this.store.dispatch('setDestinationNetwork', null)
+          }
         } catch (e) {
+          // TODO: provide a better error message when user rejects the network change (code: 4001)
           this.notification.warning({
             title: 'Error switching network',
             content: () =>
@@ -105,6 +107,8 @@ export default defineComponent({
                 error: e as Error,
               }),
           })
+          // close select origin modal if there was an error switching network
+          this.$emit('hide')
           throw e
         }
       }

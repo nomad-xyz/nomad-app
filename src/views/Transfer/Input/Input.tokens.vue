@@ -103,8 +103,12 @@ export default defineComponent({
     },
 
     async switchAndSelect(token: TokenMetadata) {
-      await this.store.dispatch('switchNetwork', token.nativeNetwork)
-      this.select(token)
+      try {
+        await this.store.dispatch('switchNetwork', token.nativeNetwork)
+        this.select(token)
+      } catch (e: unknown) {
+        this.$emit('hide')
+      }
     },
   },
 })

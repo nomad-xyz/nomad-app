@@ -90,10 +90,11 @@ const actions = <ActionTree<UserInputState, RootState>>{
     commit(types.SET_ORIGIN_NETWORK, network)
 
     // clear destination network if there is not a connection
-    const { connections } = networks[network]
-    const hasConnection = connections.includes(
-      state.destinationNetwork as NetworkName
-    )
+    const hasConnection = network
+      ? networks[network]?.connections?.includes(
+          state.destinationNetwork as NetworkName
+        )
+      : false
     if (!hasConnection) commit(types.SET_DESTINATION_NETWORK, '')
 
     try {
