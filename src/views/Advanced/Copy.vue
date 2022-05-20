@@ -7,14 +7,14 @@
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
           @click="copy(sendTx, 'send')"
         >
-          <div class="break-words raw-tx">{{ sendTx }}</div>
+          <div class="break-words raw-tx text-sm">{{ sendTx }}</div>
           <img
             src="@/assets/icons/copy.svg"
             alt="copy"
             class="inline ml-2 cursor-pointer"
           />
           <div v-if="copiedSend" class="absolute w-full h-full left-0 top-0 flex items-center justify-center bg-[#3C3C3C] bg-opacity-80 rounded-md transition-all transition-duration-600">
-            <div class="bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
+            <div class="fade-in bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
               <n-icon size="30"><checkmark-outline /></n-icon>
             </div>
           </div>
@@ -34,14 +34,14 @@
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
           @click="copy(approveTx, 'approve')"
         >
-          <div class="break-words raw-tx">{{ approveTx }}</div>
+          <div class="break-words raw-tx text-sm">{{ approveTx }}</div>
           <img
             src="@/assets/icons/copy.svg"
             alt="copy"
             class="inline ml-2 cursor-pointer"
           />
           <div v-if="copiedApprove" class="absolute w-full h-full left-0 top-0 flex items-center justify-center bg-[#3C3C3C] bg-opacity-80 rounded-md transition-all transition-duration-600">
-            <div class="bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
+            <div class="fade-in bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
               <n-icon size="30"><checkmark-outline /></n-icon>
             </div>
           </div>
@@ -58,14 +58,14 @@
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
           @click="copy(sendTx, 'send')"
         >
-          <div class="break-words raw-tx">{{ sendTx }}</div>
+          <div class="break-words raw-tx text-sm">{{ sendTx }}</div>
           <img
             src="@/assets/icons/copy.svg"
             alt="copy"
             class="inline ml-2 cursor-pointer"
           />
           <div v-if="copiedSend" class="absolute w-full h-full left-0 top-0 flex items-center justify-center bg-[#3C3C3C] bg-opacity-80 rounded-md transition-all transition-duration-600">
-            <div class="bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
+            <div class="fade-in bg-[#2fbb72] rounded-full h-10 w-10 flex items-center justify-center">
               <n-icon size="30"><checkmark-outline /></n-icon>
             </div>
           </div>
