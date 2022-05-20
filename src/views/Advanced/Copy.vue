@@ -5,7 +5,7 @@
       <div class="p-2">
         <div
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
-          @click="copy('a', 'send')"
+          @click="copy(sendTx, 'send')"
         >
           <div class="break-words raw-tx">{{ sendTx }}</div>
           <img
@@ -32,7 +32,7 @@
       <div class="p-2">
         <div
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
-          @click="copy('a', 'approve')"
+          @click="copy(approveTx, 'approve')"
         >
           <div class="break-words raw-tx">{{ approveTx }}</div>
           <img
@@ -56,7 +56,7 @@
       <div class="p-2">
         <div
           class="glow flex flex-row items-end w-full p-4 rounded-md text-[16px] cursor-pointer relative"
-          @click="copy('a', 'send')"
+          @click="copy(sendTx, 'send')"
         >
           <div class="break-words raw-tx">{{ sendTx }}</div>
           <img
@@ -87,9 +87,9 @@ import { defineComponent, h, computed } from 'vue'
 import { useNotification, NIcon } from 'naive-ui'
 import { CheckmarkOutline } from '@vicons/ionicons5'
 import { useStore } from '@/store'
+import { copyTextToClipboard } from '@/utils'
 import NomadButton from '@/components/Button.vue'
 import NotificationError from '@/components/NotificationError.vue'
-// import { SendData } from '@/store/modules/sdk'
 
 export default defineComponent({
   emits: ['back'],
@@ -110,7 +110,7 @@ export default defineComponent({
       sendTx: '',
       copiedApprove: false,
       copiedSend: false,
-      isNativeAsset: false
+      isNativeAsset: false,
     }
   },
   setup: () => {
@@ -134,15 +134,21 @@ export default defineComponent({
     copy(copyText: string, type: string) {
       console.log(copyText)
       if (type === 'send') {
-        this.copiedSend = true
-        setTimeout(() => {
-          this.copiedSend = false
-        }, 5000)
+        const success = copyTextToClipboard(copyText)
+        if (success) {
+          this.copiedSend = true
+          setTimeout(() => {
+            this.copiedSend = false
+          }, 5000)
+        }
       } else {
-        this.copiedApprove = true
-        setTimeout(() => {
-          this.copiedApprove = false
-        }, 5000)
+        const success = copyTextToClipboard(copyText)
+        if (success) {
+          this.copiedApprove = true
+          setTimeout(() => {
+            this.copiedApprove = false
+          }, 5000)
+        }
       }
     },
     async getRawApproveTx() {
