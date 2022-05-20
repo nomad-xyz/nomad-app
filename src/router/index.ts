@@ -6,7 +6,7 @@ import NomadTransaction from '@/views/Transaction/Nomad/Main.vue'
 import PageNotFound from '@/views/PageNotFound.vue'
 import PrivacyPolicy from '@/views/PrivacyPolicy.vue'
 import TermsOfUse from '@/views/TermsOfUse.vue'
-import Advanced from '@/views/Advanced.vue'
+import Advanced from '@/views/Advanced/Main.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
