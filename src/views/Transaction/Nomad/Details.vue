@@ -183,7 +183,6 @@ export default defineComponent({
     try {
       await this.updateStatus()
     } catch (e) {
-      this.status = 0
       console.error(e)
     }
 
@@ -270,34 +269,6 @@ export default defineComponent({
         }
         // set status after we have confirmAt
         this.status = tx.state
-      } else {
-        const message: TransferMessage = await this.store.getters.getTxMessage({
-          network: toNetworkName(this.originNet),
-          hash: id,
-        })
-
-        const processed = await message.getProcess()
-        if (processed) {
-          this.status = 4
-          return
-        }
-
-        if (!this.confirmAt) {
-          const relayed = await message.getReplicaUpdate()
-          if (!relayed) {
-            this.status = 0
-            return
-          }
-
-          const relayedAt = await this.store.getters.getTimestamp(
-            message.destination,
-            relayed.event.blockNumber
-          )
-          this.confirmAt = BigNumber.from(relayedAt + optimisticSeconds)
-        }
-
-        // set status after we have confirmAt
-        this.status = 2
       }
     },
   },
