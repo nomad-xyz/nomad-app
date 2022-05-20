@@ -235,6 +235,11 @@ const actions = <ActionTree<SDKState, RootState>>{
     replica.connect(signer)
 
     try {
+      await replica.callStatic.proveAndProcess(
+        data.message as BytesLike,
+        data.proof.path,
+        data.proof.index
+      )
       // prove and process
       const receipt = await replica.proveAndProcess(
         data.message as BytesLike,
