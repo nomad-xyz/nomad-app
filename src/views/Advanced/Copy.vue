@@ -22,6 +22,7 @@
       </div>
     </div>
   </div>
+
   <div v-else>
     <div class="bg-white bg-opacity-5 rounded-lg p-4 mb-4">
       <div class="flex flex-row items-center mb-4">
@@ -71,14 +72,14 @@
         </div>
       </div>
     </div>
-
-    <nomad-button
-      class="w-full uppercase bg-white text-black h-11 flex justify-center mt-6"
-      @click="$emit('back')"
-    >
-      Back
-    </nomad-button>
   </div>
+
+  <nomad-button
+    class="w-full uppercase bg-white text-black h-11 flex justify-center mt-6"
+    @click="$emit('back')"
+  >
+    Back
+  </nomad-button>
 </template>
 
 <script lang="ts">

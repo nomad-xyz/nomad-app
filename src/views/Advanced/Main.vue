@@ -145,7 +145,7 @@
     </div>
 
     <!-- COPY -->
-    <advanced-copy v-else-if="payload && step === 2" :payload="payload" />
+    <advanced-copy v-else-if="payload && step === 2" :payload="payload" @back="back" />
   </div>
 </template>
 
@@ -275,6 +275,7 @@ export default defineComponent({
       this.address = ''
       this.destinationAddress = ''
       this.payload = {}
+      this.v$.$reset()
       this.step = 1
     },
     useWalletAddress() {
