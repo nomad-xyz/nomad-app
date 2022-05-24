@@ -2,6 +2,7 @@
 node_modules
 postgres-data
 /dist
+server/postgres-data
 
 # local env files
 .env
