@@ -72,8 +72,13 @@
     class="header transition-all duration-400 px-5 py-8"
     :class="[status === 4 ? 'bg-[#2fbb72]' : 'bg-[#5185d0]']"
   >
+    <!-- loading -->
+    <span class="flex flex-col items-center" v-if="!status">
+      <n-spin stroke="#fff" class="mb-3" />
+      <n-text class="uppercase opacity-60">Loading . . .</n-text>
+    </span>
     <!-- complete -->
-    <span class="flex flex-col items-center" v-if="status === 4">
+    <span class="flex flex-col items-center" v-else-if="status === 4">
       <img src="@/assets/icons/check.svg" alt="check" class="mb-2" />
       <n-text class="uppercase opacity-80">Transfer complete</n-text>
     </span>
@@ -117,11 +122,6 @@
           />
         </span>
       </n-text>
-    </span>
-    <!-- loading -->
-    <span class="flex flex-col items-center" v-else-if="status < 0">
-      <n-spin stroke="#fff" class="mb-3" />
-      <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
     <!-- in progress -->
     <span class="flex flex-col items-center" v-else>
@@ -214,7 +214,7 @@ interface ComponentData {
 export default defineComponent({
   props: {
     status: {
-      type: Number,
+      type: Number || undefined,
     },
     confirmAt: {
       type: BigNumber,

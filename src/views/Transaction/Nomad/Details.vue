@@ -84,7 +84,7 @@ import { NetworkName } from '@/config/types'
 
 interface ComponentData {
   transferMessage: TransferMessage | null
-  status: number
+  status: number | undefined
   confirmAt: BigNumber | null
   amount: string
   tokenSymbol: string
@@ -120,7 +120,7 @@ export default defineComponent({
   data() {
     return {
       transferMessage: null,
-      status: -1,
+      status: undefined,
       confirmAt: null,
       amount: '',
       tokenSymbol: '',
@@ -187,7 +187,7 @@ export default defineComponent({
     }
 
     setInterval(async () => {
-      if (this.status < 4) {
+      if (!this.status || this.status < 4) {
         await this.updateStatus()
       }
     }, 60000)
@@ -256,20 +256,22 @@ export default defineComponent({
       const tx = (await res.json())[0]
       console.log('tx data: ', tx)
 
-      if (tx) {
-        if (tx.dispatchedAt > 0) {
-          this.timeSent = tx.dispatchedAt * 1000
-        }
-
-        if (tx.state === 2) {
-          if (tx.relayedAt && tx.relayedAt > 0) {
-            // calculate confirmation time (in case confirmAt check errors out)
-            this.confirmAt = BigNumber.from(tx.relayedAt + optimisticSeconds)
-          }
-        }
-        // set status after we have confirmAt
-        this.status = tx.state
+      if (!tx) {
+        return this.status = -1
       }
+
+      if (tx.dispatchedAt > 0) {
+        this.timeSent = tx.dispatchedAt * 1000
+      }
+
+      if (tx.state === 2) {
+        if (tx.relayedAt && tx.relayedAt > 0) {
+          // calculate confirmation time (in case confirmAt check errors out)
+          this.confirmAt = BigNumber.from(tx.relayedAt + optimisticSeconds)
+        }
+      }
+      // set status after we have confirmAt
+      this.status = tx.state
     },
   },
 
