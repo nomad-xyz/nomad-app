@@ -234,13 +234,16 @@ export default defineComponent({
       try {
         await this.store.dispatch('addToken', payload)
       } catch (error: unknown) {
+        let text = ''
+        if (this.tokenId) {
+          const tokenAddr = fromBytes32(this.tokenId!.id as string)
+          text = `Please try adding this token manually: ${tokenAddr}`
+        }
         this.notification.warning({
           title: 'Error adding token to your wallet',
           content: () =>
             h(NotificationError, {
-              text: `Please try adding this token manually: ${
-                this.tokenId!.id
-              }`,
+              text,
               error: error as Error,
             }),
         })

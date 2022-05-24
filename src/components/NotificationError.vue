@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col">
     <span>{{ text }}</span>
-    <div class="flex items-center py-2 cursor-pointer opacity-70" @click="expand = !expand">
+    <div
+      class="flex items-center py-2 cursor-pointer opacity-70"
+      @click="expand = !expand"
+    >
       <n-icon size="16">
-        <ChevronDown
-          class="transition-all"
-          :class="{ 'rotate-180': expand }"
-        />
+        <ChevronDown class="transition-all" :class="{ 'rotate-180': expand }" />
       </n-icon>
     </div>
     <n-collapse-transition :show="expand">
@@ -37,7 +37,7 @@ export default defineComponent({
     ChevronDown,
   },
   data: () => ({
-    expand: false
-  })
+    expand: false,
+  }),
 })
 </script>

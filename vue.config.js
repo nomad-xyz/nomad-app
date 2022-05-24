@@ -52,8 +52,8 @@ module.exports = defineConfig({
     proxy: {
       '^/api': {
         target: 'http://localhost:1020',
-        changeOrigin: true
+        changeOrigin: true,
       },
-    }
-  }
+    },
+  },
 })
