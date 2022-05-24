@@ -272,31 +272,33 @@ export default defineComponent({
       } catch (e: unknown) {
         const errorMessage = (e as Error).message
         let description: string
-        switch (true) {
-          case errorMessage.includes('!MessageStatus.None'):
-            description = 'Transfer already completed'
-            break
-          case errorMessage.includes('!prove'):
-            description =
-              'Try again later. If this persists longer than 2 hours, reach out to us in Discord support'
-            break
-          case errorMessage.includes(
-            'Unexpected token < in JSON at position 0'
-          ):
-            description = 'Not ready to claim. Proof not available'
-            break
-          default:
-            description = 'Please reach out to us in Discord support channel'
+        if (errorMessage) {
+          switch (true) {
+            case errorMessage.includes('!MessageStatus.None'):
+              description = 'Transfer already completed'
+              break
+            case errorMessage.includes('!prove'):
+              description =
+                'Try again later. If this persists longer than 2 hours, reach out to us in Discord support'
+              break
+            case errorMessage.includes(
+              'Unexpected token < in JSON at position 0'
+            ):
+              description = 'Not ready to claim. Proof not available'
+              break
+            default:
+              description = 'Please reach out to us in Discord support channel'
+          }
+          this.notification.warning({
+            title: 'Error Completing Transfer',
+            content: () =>
+              h(NotificationError, {
+                text: description,
+                error: e as Error,
+              }),
+          })
+          throw e
         }
-        this.notification.warning({
-          title: 'Error Completing Transfer',
-          content: () =>
-            h(NotificationError, {
-              text: description,
-              error: e as Error,
-            }),
-        })
-        throw e
       }
     },
     getDisplayName(network: NetworkName) {
