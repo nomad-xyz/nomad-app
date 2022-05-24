@@ -87,10 +87,10 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     try {
       connection = await web3Modal.connect()
-    } catch (e: unknown) {
+    } catch (errMsg: unknown) {
       // NOTE: just swallow this error, don't need to
       // alert sentry if the modal was closed by the user
-      if (e === 'Modal closed by user') {
+      if (errMsg === 'Modal closed by user') {
         return
       }
     }
