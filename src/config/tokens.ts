@@ -247,6 +247,18 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     minAmt: 10,
   },
+  gUSDC: {
+    nativeNetwork: 'goerli',
+    symbol: 'gUSDC',
+    name: 'gUSDC',
+    icon: USDCIcon,
+    iconColors: ['#fff', '#2976C9'],
+    decimals: 6,
+    coinGeckoId: 'usd-coin',
+    tokenIdentifier: testnetTokenIdentifiers.gUSDC,
+    nativeOnly: false,
+    minAmt: 10,
+  },
 }
 
 export const mainnetTokens: TokenMetadataMap = {
