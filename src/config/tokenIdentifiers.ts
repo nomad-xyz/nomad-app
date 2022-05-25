@@ -45,7 +45,7 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
   },
   gUSDC: {
     domain: 'goerli',
-    id: '0xD2bF8E3aF44465d26aED67414e2E65c34c66c23f',
+    id: '0x07865c6E87B9F70255377e024ace6630C1Eaa37F',
   },
   //   DEV: {
   //     domain: 'moonbasealpha',
