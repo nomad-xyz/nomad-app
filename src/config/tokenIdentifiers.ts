@@ -43,6 +43,10 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'evmostestnet',
     id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
   },
+  gUSDC: {
+    domain: 'goerli',
+    id: '0xD2bF8E3aF44465d26aED67414e2E65c34c66c23f',
+  },
   //   DEV: {
   //     domain: 'moonbasealpha',
   //     id: '0x0000000000000000000000000000000000000802',
@@ -130,6 +134,6 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
   },
   HBTC: {
     domain: 'ethereum',
-    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380'
-  }
+    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380',
+  },
 }
