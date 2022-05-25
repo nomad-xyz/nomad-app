@@ -220,7 +220,6 @@ export const nullToken: TokenMetadata = {
   coinGeckoId: '',
   tokenIdentifier: null,
   nativeOnly: false,
-  minAmt: 0,
 }
 
 export function getTokenBySymbol(symbol: string): TokenMetadata {

@@ -16,8 +16,8 @@ export type TokenMetadata = {
   coinGeckoId: string
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
-  minAmt: number
   wrappedAsset?: string
+  default?: boolean // native tokens and blue chip assets
 }
 
 export type NetworkMetadata = {
