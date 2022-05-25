@@ -194,7 +194,7 @@ export default defineComponent({
     protocol: 'connext',
   }),
 
-  mounted () {
+  mounted() {
     this.selectConnext()
   },
 

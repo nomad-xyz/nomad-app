@@ -2,9 +2,15 @@
   <n-modal :show="showTermsModal && !hideModal">
     <div class="p-4">
       <n-card class="terms-card max-w-xl rounded-xl">
-        <h2 class="uppercase text-xl font-semibold mb-4">Before you proceed...</h2>
-        <div class="opacity-80 text-xl mb-6">Please read and agree to our Terms of Use:</div>
-        <div class="rounded-xl bg-white bg-opacity-5 border border-white border-opacity-20">
+        <h2 class="uppercase text-xl font-semibold mb-4">
+          Before you proceed...
+        </h2>
+        <div class="opacity-80 text-xl mb-6">
+          Please read and agree to our Terms of Use:
+        </div>
+        <div
+          class="rounded-xl bg-white bg-opacity-5 border border-white border-opacity-20"
+        >
           <div class="relative">
             <div class="fade-overlay" />
             <terms class="p-4 max-h-[500px] overflow-y-scroll" />
@@ -12,7 +18,12 @@
         </div>
 
         <n-checkbox v-model:checked="readToS" class="mt-6">
-          I confirm that I have read, understood, and agree to the <a href="/terms" target="_blank" class="underline">Terms of Use</a> and <a href="/privacy-policy" target="_blank" class="underline">Privacy Policy</a>.
+          I confirm that I have read, understood, and agree to the
+          <a href="/terms" target="_blank" class="underline">Terms of Use</a>
+          and
+          <a href="/privacy-policy" target="_blank" class="underline">
+            Privacy Policy.
+          </a>
         </n-checkbox>
 
         <nomad-button
@@ -69,9 +80,12 @@ export default defineComponent({
   methods: {
     async agree() {
       try {
-        const response = await fetch(`${termsAPI}api/agree/${this.walletAddress}`, {
-          method: 'POST',
-        })
+        const response = await fetch(
+          `${termsAPI}api/agree/${this.walletAddress}`,
+          {
+            method: 'POST',
+          }
+        )
         console.log(response)
         this.checkTerms(this.walletAddress)
       } catch (e) {
@@ -82,30 +96,30 @@ export default defineComponent({
     },
     async checkTerms(addr: string) {
       if (!addr) {
-        return this.showTermsModal = false
+        return (this.showTermsModal = false)
       }
 
       try {
         const response = await fetch(`${termsAPI}api/agreement/${addr}`)
         if (response.status === 200) {
           console.log('user agreed')
-          return this.showTermsModal = false
+          return (this.showTermsModal = false)
         } else if (response.status === 404) {
-          return this.showTermsModal = true
+          return (this.showTermsModal = true)
         }
-      } catch(e) {
+      } catch (e) {
         // if db is down, show terms by default
         this.showTermsModal = true
         throw new Error(`Database for Terms & Agreements is down: \n${e}`)
       }
-    }
+    },
   },
 
   watch: {
     walletAddress(newAddr) {
       this.checkTerms(newAddr)
-    }
-  }
+    },
+  },
 })
 </script>
 

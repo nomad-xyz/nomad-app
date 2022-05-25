@@ -130,6 +130,6 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
   },
   HBTC: {
     domain: 'ethereum',
-    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380'
-  }
+    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380',
+  },
 }

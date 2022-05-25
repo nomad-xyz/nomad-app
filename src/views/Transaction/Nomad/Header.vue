@@ -83,14 +83,26 @@
       <n-text class="uppercase opacity-80">Transfer complete</n-text>
     </span>
     <!-- status not available, subsidized network -->
-    <span class="flex flex-col items-center" v-else-if="status === -1 && !requiresManualProcessing">
+    <span
+      class="flex flex-col items-center"
+      v-else-if="status === -1 && !requiresManualProcessing"
+    >
       <n-text class="text-3xl mb-2">Status not available</n-text>
-      <n-text class="opacity-80 text-center">Check your wallet after the 35-60 minute window to see if funds have arrived.</n-text>
+      <n-text class="opacity-80 text-center">
+        Check your wallet after the 35-60 minute window to see if funds have
+        arrived.
+      </n-text>
     </span>
     <!-- status not available, subsidized network -->
-    <span class="flex flex-col items-center" v-else-if="status === -1 && requiresManualProcessing">
+    <span
+      class="flex flex-col items-center"
+      v-else-if="status === -1 && requiresManualProcessing"
+    >
       <n-text class="text-3xl mb-2">Status not available</n-text>
-      <n-text class="opacity-80 text-center mb-2">You may safely try to complete your transaction by clicking below. Note that you should wait at least 35 minutes after your transfer was sent.</n-text>
+      <n-text class="opacity-80 text-center mb-2">
+        You may safely try to complete your transaction by clicking below. Note
+        that you should wait at least 35 minutes after your transfer was sent.
+      </n-text>
       <n-text @click="processTx" class="uppercase mt-1 cursor-pointer p-2">
         <span class="click-me flex flex-row items-center">
           Complete transfer
