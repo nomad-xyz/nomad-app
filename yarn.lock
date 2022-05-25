@@ -1868,10 +1868,10 @@
   resolved "https://registry.npmjs.org/@nomad-xyz/configuration/-/configuration-0.1.0-rc.18.tgz"
   integrity sha512-Xwk9+q3d/KuwLDL6LolJh5CayskoswrxIxtcFeANeqsQLR0dWmrFHGvXofzMblrf5MU+3uMkr794N+vQxutmLA==
 
-"@nomad-xyz/configuration@^0.1.0-rc.23":
-  version "0.1.0-rc.23"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.23.tgz#8739f351d7cbdeab98a3c63ad68232f116532085"
-  integrity sha512-GE0wDSAPZ1fpv6RUkwZT33Jqvcz8cMg+RhZ2vBjL7F/DVevuz2lz31NubBY0FJHSOM59BKUE+PzdwtaTcRW+/A==
+"@nomad-xyz/configuration@^0.1.0-rc.24":
+  version "0.1.0-rc.24"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.24.tgz#ed334849a00b8c15ec46ab21ae05352cf2e15370"
+  integrity sha512-M2XrL6fzT24XuvoCaAmNkcNdHx2NU2FUKg5/DYOjRfs0wGdCY7xEz+qaOGo5L5l2Y8Sa9u59ZaIJeivYo7xm0w==
 
 "@nomad-xyz/contracts-bridge@^1.0.0-rc.2":
   version "1.0.0-rc.2"
