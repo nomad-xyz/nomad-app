@@ -60,6 +60,12 @@ export function fromBytes32(addr: string): string {
   return `0x${short}`
 }
 
+export function toBytes32(addr: string): string {
+  // trim 12 bytes from beginning plus '0x'
+  const short = addr.slice(2)
+  return `0x000000000000000000000000${short}`
+}
+
 /**
  * Makes a BigNumber have # of decimals
  */
@@ -97,6 +103,45 @@ export function minutesTilConfirmation(timestamp: BigNumber): number {
   // to minutes
   const minutes = diff.div(60)
   return Math.ceil(minutes.toNumber())
+}
+
+function fallbackCopyTextToClipboard(text: string): boolean {
+  const textArea = document.createElement("textarea")
+  textArea.value = text
+  
+  // Avoid scrolling to bottom
+  textArea.style.top = "0"
+  textArea.style.left = "0"
+  textArea.style.position = "fixed"
+
+  document.body.appendChild(textArea)
+  textArea.focus()
+  textArea.select()
+
+  try {
+    const successful = document.execCommand('copy')
+    const msg = successful ? 'successful' : 'unsuccessful'
+    console.log('Fallback: Copying text command was ' + msg)
+    document.body.removeChild(textArea)
+    return true
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err)
+    document.body.removeChild(textArea)
+    return false
+  }
+}
+
+export function copyTextToClipboard(text: string): boolean {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Async: Copying to clipboard was successful!')
+      return true
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err)
+      return false
+    })
+  }
+  return fallbackCopyTextToClipboard(text)
 }
 
 // NETWORK

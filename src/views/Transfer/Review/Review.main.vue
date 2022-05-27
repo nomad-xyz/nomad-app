@@ -16,7 +16,7 @@
       <protocol
         :selected="protocol === 'nomad'"
         name="nomad"
-        time="30-65 min"
+        time="35-60 min"
         description="Bridges funds from one chain to another"
         fee="No fee, just pay gas"
         @click="protocol = 'nomad'"
