@@ -1,5 +1,5 @@
 <template>
-  <n-modal :show="show" class="bg-card" @maskClick="this.$emit('hide')">
+  <n-modal :show="show" class="bg-card" @maskClick="close">
     <n-card class="w-11/12 max-w-sm">
       <!-- header -->
       <div class="uppercase mb-5">SELECT TOKEN</div>
@@ -68,7 +68,7 @@
         color="#3B3B3B"
         text-color="#fff"
         class="w-full mt-3 uppercase"
-        @click="$emit('hide')"
+        @click="close"
       >
         Cancel
       </n-button>
@@ -127,6 +127,7 @@ export default defineComponent({
     select(token: TokenMetadata) {
       if (this.shouldSwitchToNative(token)) return
       this.$emit('selectToken', token)
+      this.close()
     },
 
     shouldSwitchToNative(token: TokenMetadata): boolean {
@@ -139,13 +140,21 @@ export default defineComponent({
         await this.store.dispatch('switchNetwork', token.nativeNetwork)
         this.select(token)
       } catch (e: unknown) {
-        this.$emit('hide')
+        this.close()
       }
     },
 
     updateSearch(text: string) {
       this.searchText = text
     },
+
+    close() {
+      this.$emit('hide')
+      setTimeout(() => {
+        this.tab = 1
+        this.searchText = ''
+      }, 500)
+    }
   },
 
   computed: {
