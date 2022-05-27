@@ -16,7 +16,7 @@ export default defineComponent({
   watch: {
     text(newText) {
       this.$emit('input', newText)
-    }
-  }
+    },
+  },
 })
 </script>

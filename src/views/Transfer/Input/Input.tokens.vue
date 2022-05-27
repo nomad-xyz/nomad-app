@@ -4,15 +4,30 @@
       <!-- header -->
       <div class="uppercase mb-5">SELECT TOKEN</div>
 
+      <!-- tabs -->
+      <div class="flex flex-row">
+        <div
+          class="opacity-70 cursor-pointer py-2 mr-2"
+          :class="{ 'opacity-100': tab === 1 }"
+          @click="tab = 1"
+        >
+          Your List (10)
+        </div>
+        <div
+          class="opacity-70 cursor-pointer py-2"
+          :class="{ 'opacity-100': tab === 2 }"
+          @click="tab = 2"
+        >
+          Manage Tokens
+        </div>
+      </div>
+
       <!-- search bar -->
       <search @input="updateSearch" class="mb-3" />
 
       <!-- token list -->
       <div class="tokens-container">
-        <div
-          v-for="token in tokenMatch"
-          :key="token.symbol"
-        >
+        <div v-for="token in tokenMatch" :key="token.symbol">
           <div
             class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
             :class="{ disabled: shouldSwitchToNative(token) }"
@@ -20,7 +35,7 @@
           >
             <div class="flex flex-row items-center">
               <div class="bg-black bg-opacity-50 rounded-lg p-2">
-                <img :src="token.icon" class="h-6" />
+                <img :src="token.icon" class="h-6 w-6" />
               </div>
               <div class="flex flex-col ml-2">
                 <n-text>{{ token.symbol }}</n-text>
@@ -39,6 +54,14 @@
               {{ token.nativeNetwork }}
             </nomad-button>
           </div>
+        </div>
+
+        <!-- expand list -->
+        <div class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5">
+          <div class="bg-black bg-opacity-50 rounded-lg p-2">
+            <span class="flex justify-center items-center h-6 w-6">. . .</span>
+          </div>
+          <div class="uppercase ml-2">See all tokens (45)</div>
         </div>
       </div>
       <n-button
@@ -96,7 +119,8 @@ export default defineComponent({
   },
 
   data: () => ({
-    searchText: ''
+    tab: 1,
+    searchText: '',
   }),
 
   methods: {
@@ -121,14 +145,14 @@ export default defineComponent({
 
     updateSearch(text: string) {
       this.searchText = text
-    }
+    },
   },
 
   computed: {
     tokenMatch(): TokenMetadata[] {
       const tokenArr = Object.values(tokens)
-      if (!this.searchText) return tokenArr.filter(t => t.default)
-      return tokenArr.filter(t => {
+      if (!this.searchText) return tokenArr.filter((t) => t.default)
+      return tokenArr.filter((t) => {
         const search = this.searchText.toLowerCase()
         const symbol = t.symbol.toLowerCase()
         const name = t.name.toLowerCase()
@@ -141,8 +165,8 @@ export default defineComponent({
         }
         return false
       })
-    }
-  }
+    },
+  },
 })
 </script>
 
