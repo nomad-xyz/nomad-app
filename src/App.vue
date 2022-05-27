@@ -19,6 +19,18 @@
         </span>
       </card-alert>
 
+      <card-alert warning v-if="showWarning">
+        Moonbeam network is experiencing downtime. Moonbeam developers are
+        working towards a resolution, estimated to be shipped within hours.
+        Bridging is not available at this time. We appreciate your patience.
+        <br />
+        <br />
+        Need support?
+        <a href="https://discord.gg/nomadxyz" class="underline" target="_blank">
+          Join Discord
+        </a>
+      </card-alert>
+
       <!-- page view -->
       <router-view></router-view>
     </div>
@@ -27,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
 
 import { RouterView } from 'vue-router'
@@ -48,7 +60,19 @@ export default defineComponent({
 
   data: () => ({
     failedHomes: new Set(),
+    showWarning: false,
   }),
+
+  setup: () => {
+    const store = useStore()
+
+    return {
+      originNetwork: computed(() => store.state.userInput.originNetwork),
+      destinationNetwork: computed(
+        () => store.state.userInput.destinationNetwork
+      ),
+    }
+  },
 
   async mounted() {
     const store = useStore()
@@ -63,6 +87,17 @@ export default defineComponent({
   },
 
   methods: { getNetworkByDomainID },
+
+  watch: {
+    originNetwork(network) {
+      this.showWarning =
+        network === 'moonbeam' || this.destinationNetwork === 'moonbeam'
+    },
+    destinationNetwork(network) {
+      this.showWarning =
+        network === 'moonbeam' || this.originNetwork === 'moonbeam'
+    },
+  },
 })
 </script>
 
