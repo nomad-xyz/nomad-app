@@ -5,38 +5,40 @@
       <div class="uppercase mb-5">SELECT TOKEN</div>
 
       <!-- search bar -->
-      <!-- TODO: search by token symbol or address -->
-      <!-- <search class="mb-3" /> -->
+      <search @input="updateSearch" class="mb-3" />
 
       <!-- token list -->
       <div class="tokens-container">
         <div
-          v-for="token in tokens"
+          v-for="token in tokenMatch"
           :key="token.symbol"
-          class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
-          :class="{ disabled: shouldSwitchToNative(token) }"
-          @click="select(token)"
         >
-          <div class="flex flex-row items-center">
-            <div class="bg-black bg-opacity-50 rounded-lg p-2">
-              <img :src="token.icon" class="h-6" />
-            </div>
-            <div class="flex flex-col ml-2">
-              <n-text>{{ token.symbol }}</n-text>
-              <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
-            </div>
-          </div>
-          <nomad-button
-            v-if="shouldSwitchToNative(token)"
-            primary
-            class="capitalize"
-            @click="switchAndSelect(token)"
+          <div
+            class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+            :class="{ disabled: shouldSwitchToNative(token) }"
+            @click="select(token)"
           >
-            <n-icon size="18" class="mr-1">
-              <repeat-outline />
-            </n-icon>
-            {{ token.nativeNetwork }}
-          </nomad-button>
+            <div class="flex flex-row items-center">
+              <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                <img :src="token.icon" class="h-6" />
+              </div>
+              <div class="flex flex-col ml-2">
+                <n-text>{{ token.symbol }}</n-text>
+                <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
+              </div>
+            </div>
+            <nomad-button
+              v-if="shouldSwitchToNative(token)"
+              primary
+              class="capitalize"
+              @click="switchAndSelect(token)"
+            >
+              <n-icon size="18" class="mr-1">
+                <repeat-outline />
+              </n-icon>
+              {{ token.nativeNetwork }}
+            </nomad-button>
+          </div>
         </div>
       </div>
       <n-button
@@ -56,6 +58,7 @@ import { defineComponent, computed } from 'vue'
 import { NModal, NCard, NText, NButton, NIcon } from 'naive-ui'
 import { RepeatOutline } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
+import Search from '@/components/Search.vue'
 
 import { networks, tokens } from '@/config'
 import { TokenMetadata } from '@/config/types'
@@ -79,6 +82,7 @@ export default defineComponent({
     NIcon,
     RepeatOutline,
     NomadButton,
+    Search,
   },
 
   setup: () => {
@@ -90,6 +94,10 @@ export default defineComponent({
       store,
     }
   },
+
+  data: () => ({
+    searchText: ''
+  }),
 
   methods: {
     select(token: TokenMetadata) {
@@ -110,7 +118,31 @@ export default defineComponent({
         this.$emit('hide')
       }
     },
+
+    updateSearch(text: string) {
+      this.searchText = text
+    }
   },
+
+  computed: {
+    tokenMatch(): TokenMetadata[] {
+      const tokenArr = Object.values(tokens)
+      if (!this.searchText) return tokenArr.filter(t => t.default)
+      return tokenArr.filter(t => {
+        const search = this.searchText.toLowerCase()
+        const symbol = t.symbol.toLowerCase()
+        const name = t.name.toLowerCase()
+
+        if (symbol.includes(search)) return true
+        if (name.includes(search)) return true
+        if (t.tokenIdentifier) {
+          const address = (t.tokenIdentifier.id as string).toLowerCase()
+          if (address === search) return true
+        }
+        return false
+      })
+    }
+  }
 })
 </script>
 

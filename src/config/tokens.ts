@@ -51,6 +51,7 @@ import EvmosIcon from '@/assets/token-logos/EVMOS.png'
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
   kTEST: {
+    key: 'kTEST',
     nativeNetwork: 'kovan',
     symbol: 'kTEST',
     name: 'Kovan TEST',
@@ -62,6 +63,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   rWETH: {
+    key: 'rWETH',
     nativeNetwork: 'rinkeby',
     symbol: 'rWETH',
     name: 'Rinkeby WETH',
@@ -73,6 +75,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   rETH: {
+    key: 'rETH',
     nativeNetwork: 'rinkeby',
     symbol: 'rETH',
     name: 'Rinkeby ETH',
@@ -85,6 +88,7 @@ export const testnetTokens: TokenMetadataMap = {
     wrappedAsset: 'rWETH',
   },
   kWETH: {
+    key: 'kWETH',
     nativeNetwork: 'kovan',
     symbol: 'kWETH',
     name: 'Kovan WETH',
@@ -96,6 +100,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   kETH: {
+    key: 'kETH',
     nativeNetwork: 'kovan',
     symbol: 'kETH',
     name: 'Kovan ETH',
@@ -108,6 +113,7 @@ export const testnetTokens: TokenMetadataMap = {
     wrappedAsset: 'kWETH',
   },
   gWETH: {
+    key: 'gWETH',
     nativeNetwork: 'goerli',
     symbol: 'gWETH',
     name: 'Goerli WETH',
@@ -119,6 +125,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   gETH: {
+    key: 'gETH',
     nativeNetwork: 'goerli',
     symbol: 'gETH',
     name: 'Goerli ETH',
@@ -131,6 +138,7 @@ export const testnetTokens: TokenMetadataMap = {
     wrappedAsset: 'gWETH',
   },
   USDT: {
+    key: 'USDT',
     nativeNetwork: 'kovan',
     symbol: 'USDT',
     name: 'USDT',
@@ -142,6 +150,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   USDC: {
+    key: 'USDC',
     nativeNetwork: 'kovan',
     symbol: 'USDC',
     name: 'USDC',
@@ -153,6 +162,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   DAI: {
+    key: 'DAI',
     nativeNetwork: 'kovan',
     symbol: 'DAI',
     name: 'DAI',
@@ -164,6 +174,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   xDai: {
+    key: 'xDai',
     nativeNetwork: 'xdai',
     symbol: 'xDai',
     name: 'xDai',
@@ -175,6 +186,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: true,
   },
   wxDai: {
+    key: 'wxDai',
     nativeNetwork: 'xdai',
     symbol: 'WXDAI',
     name: 'WXDAI',
@@ -186,6 +198,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   // DEV: {
+  //   key: '',
   //   nativeNetwork: 'moonbasealpha',
   //   symbol: 'DEV',
   //   name: 'Moonbase DEV',
@@ -198,6 +211,7 @@ export const testnetTokens: TokenMetadataMap = {
   //
   // },
   // milkADA: {
+  //   key: '',
   //   nativeNetwork: 'milkomedaC1testnet',
   //   symbol: 'mADA',
   //   name: 'milkADA',
@@ -211,6 +225,7 @@ export const testnetTokens: TokenMetadataMap = {
   //   wrappedAsset: 'wADA',
   // },
   // wADA: {
+  //   key: '',
   //   nativeNetwork: 'milkomedaC1testnet',
   //   symbol: 'wADA',
   //   name: 'wADA',
@@ -222,6 +237,7 @@ export const testnetTokens: TokenMetadataMap = {
   //   nativeOnly: false,
   // },
   tEVMOS: {
+    key: 'tEVMOS',
     nativeNetwork: 'evmostestnet',
     symbol: 'tEVMOS',
     name: 'tEVMOS',
@@ -234,6 +250,7 @@ export const testnetTokens: TokenMetadataMap = {
     wrappedAsset: 'wtEVMOS',
   },
   wtEVMOS: {
+    key: 'wtEVMOS',
     nativeNetwork: 'evmostestnet',
     symbol: 'wtEVMOS',
     name: 'wtEVMOS',
@@ -248,6 +265,7 @@ export const testnetTokens: TokenMetadataMap = {
 
 export const mainnetTokens: TokenMetadataMap = {
   ETH: {
+    key: 'ETH',
     nativeNetwork: 'ethereum',
     symbol: 'ETH',
     name: 'ETH',
@@ -261,6 +279,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   WETH: {
+    key: 'WETH',
     nativeNetwork: 'ethereum',
     symbol: 'WETH',
     name: 'WETH',
@@ -273,6 +292,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   EVMOS: {
+    key: 'EVMOS',
     nativeNetwork: 'evmos',
     symbol: 'EVMOS',
     name: 'EVMOS',
@@ -286,6 +306,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   wEVMOS: {
+    key: 'wEVMOS',
     nativeNetwork: 'evmos',
     symbol: 'wEVMOS',
     name: 'wEVMOS',
@@ -298,6 +319,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   GLMR: {
+    key: 'GLMR',
     nativeNetwork: 'moonbeam',
     symbol: 'GLMR',
     name: 'GLMR',
@@ -311,6 +333,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   WGLMR: {
+    key: 'WGLMR',
     nativeNetwork: 'moonbeam',
     symbol: 'WGLMR',
     name: 'WGLMR',
@@ -323,6 +346,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   milkADA: {
+    key: 'milkADA',
     nativeNetwork: 'milkomedaC1',
     symbol: 'mADA',
     name: 'milkADA',
@@ -336,6 +360,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   wADA: {
+    key: 'wADA',
     nativeNetwork: 'milkomedaC1',
     symbol: 'wADA',
     name: 'wADA',
@@ -348,6 +373,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   WBTC: {
+    key: 'WBTC',
     nativeNetwork: 'ethereum',
     symbol: 'WBTC',
     name: 'WBTC',
@@ -360,6 +386,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   USDC: {
+    key: 'USDC',
     nativeNetwork: 'ethereum',
     symbol: 'USDC',
     name: 'USDC',
@@ -372,6 +399,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   USDT: {
+    key: 'USDT',
     nativeNetwork: 'ethereum',
     symbol: 'USDT',
     name: 'USDT',
@@ -384,6 +412,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   DAI: {
+    key: 'DAI',
     nativeNetwork: 'ethereum',
     symbol: 'DAI',
     name: 'DAI',
@@ -396,6 +425,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   FRAX: {
+    key: 'FRAX',
     nativeNetwork: 'ethereum',
     symbol: 'FRAX',
     name: 'FRAX',
@@ -408,6 +438,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   FXS: {
+    key: 'FXS',
     nativeNetwork: 'ethereum',
     symbol: 'FXS',
     name: 'FXS',
@@ -420,6 +451,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: true,
   },
   MIM: {
+    key: 'MIM',
     nativeNetwork: 'ethereum',
     symbol: 'MIM',
     name: 'Magic Internet Money',
@@ -432,6 +464,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   WSTR: {
+    key: 'WSTR',
     nativeNetwork: 'ethereum',
     symbol: 'wSTR',
     name: 'wSTR',
@@ -444,6 +477,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   CQT: {
+    key: 'CQT',
     nativeNetwork: 'ethereum',
     symbol: 'CQT',
     name: 'CQT',
@@ -455,6 +489,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   CARDS: {
+    key: 'CARDS',
     nativeNetwork: 'ethereum',
     symbol: 'CARDS',
     name: 'Card Starter',
@@ -466,6 +501,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   C3: {
+    key: 'C3',
     nativeNetwork: 'ethereum',
     symbol: 'C3',
     name: 'CHARLI3',
@@ -477,6 +513,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   GERO: {
+    key: 'GERO',
     nativeNetwork: 'ethereum',
     symbol: 'GERO',
     name: 'GeroWallet',
@@ -488,6 +525,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   renBTC: {
+    key: 'renBTC',
     nativeNetwork: 'ethereum',
     symbol: 'renBTC',
     name: 'renBTC',
@@ -499,6 +537,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   sBTC: {
+    key: 'sBTC',
     nativeNetwork: 'ethereum',
     symbol: 'sBTC',
     name: 'Synth sBTC',
@@ -510,6 +549,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   tBTC: {
+    key: 'tBTC',
     nativeNetwork: 'ethereum',
     symbol: 'tBTC',
     name: 'tBTC v2',
@@ -521,6 +561,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   HBTC: {
+    key: 'HBTC',
     nativeNetwork: 'ethereum',
     symbol: 'HBTC',
     name: 'Huobi BTC',
@@ -532,6 +573,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
   },
   CRO: {
+    key: 'CRO',
     nativeNetwork: 'ethereum',
     symbol: 'CRO',
     name: 'Cronos Coin',
@@ -544,6 +586,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   UNI: {
+    key: 'UNI',
     nativeNetwork: 'ethereum',
     symbol: 'UNI',
     name: 'Uniswap',
@@ -556,6 +599,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   SHIB: {
+    key: 'SHIB',
     nativeNetwork: 'ethereum',
     symbol: 'SHIB',
     name: 'Shiba Inu',
@@ -568,6 +612,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   LINK: {
+    key: 'LINK',
     nativeNetwork: 'ethereum',
     symbol: 'LINK',
     name: 'Chainlink',
@@ -580,6 +625,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   MKR: {
+    key: 'MKR',
     nativeNetwork: 'ethereum',
     symbol: 'MKR',
     name: 'Maker',
@@ -592,6 +638,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   COMP: {
+    key: 'COMP',
     nativeNetwork: 'ethereum',
     symbol: 'COMP',
     name: 'Compound',
@@ -604,6 +651,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   AAVE: {
+    key: 'AAVE',
     nativeNetwork: 'ethereum',
     symbol: 'AAVE',
     name: 'Aave',
@@ -616,6 +664,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   // TIC: {
+  //   key: 'TIC',
   //   nativeNetwork: 'avalanche',
   //   symbol: 'TIC',
   //   name: 'Elastic Swap',
@@ -628,6 +677,7 @@ export const mainnetTokens: TokenMetadataMap = {
   //   default: false,
   // },
   HBOT: {
+    key: 'HBOT',
     nativeNetwork: 'ethereum',
     symbol: 'HBOT',
     name: 'Hummingbot',
@@ -640,6 +690,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   GEL: {
+    key: 'GEL',
     nativeNetwork: 'ethereum',
     symbol: 'GEL',
     name: 'Gelato',
@@ -652,6 +703,7 @@ export const mainnetTokens: TokenMetadataMap = {
     default: false,
   },
   APE: {
+    key: 'APE',
     nativeNetwork: 'ethereum',
     symbol: 'APE',
     name: 'ApeCoin',

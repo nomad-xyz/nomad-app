@@ -7,6 +7,7 @@ export type TokenMetadataMap = { [key: string]: TokenMetadata }
 export type NetworkMap = { [key: string]: NetworkMetadata }
 
 export type TokenMetadata = {
+  key: string // must match key
   nativeNetwork: NetworkName
   symbol: string
   name: string
@@ -21,7 +22,7 @@ export type TokenMetadata = {
 }
 
 export type NetworkMetadata = {
-  name: NetworkName
+  name: NetworkName // must match key
   displayName: string
   connections: NetworkName[]
   chainID: number // for wallet
