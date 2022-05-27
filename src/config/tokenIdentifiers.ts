@@ -136,39 +136,39 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
   },
   HBTC: {
     domain: 'ethereum',
-    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380'
+    id: '0x0316EB71485b0Ab14103307bf65a021042c6d380',
   },
   CRO: {
     domain: 'ethereum',
-    id: '0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b'
+    id: '0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b',
   },
   UNI: {
     domain: 'ethereum',
-    id: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984'
+    id: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
   },
   SHIB: {
     domain: 'ethereum',
-    id: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce'
+    id: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
   },
   LINK: {
     domain: 'ethereum',
-    id: '0x514910771AF9Ca656af840dff83E8264EcF986CA'
+    id: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
   },
-  // API: {
-  //   domain: '',
-  //   id: ''
-  // },
+  APE: {
+    domain: 'ethereum',
+    id: '0x40e0a6ef9dbadfc83c5e0d15262feb4638588d77',
+  },
   MKR: {
     domain: 'ethereum',
-    id: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2'
+    id: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2',
   },
   COMP: {
     domain: 'ethereum',
-    id: '0xc00e94cb662c3520282e6f5717214004a7f26888'
+    id: '0xc00e94cb662c3520282e6f5717214004a7f26888',
   },
   AAVE: {
     domain: 'ethereum',
-    id: '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9'
+    id: '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9',
   },
   TIC: {
     domain: 'avalanche',
@@ -176,10 +176,10 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
   },
   HBOT: {
     domain: 'ethereum',
-    id: '0xE5097D9baeAFB89f9bcB78C9290d545dB5f9e9CB'
+    id: '0xE5097D9baeAFB89f9bcB78C9290d545dB5f9e9CB',
   },
   GEL: {
-    domain: '',
-    id: ''
+    domain: 'ethereum',
+    id: '0x15b7c0c907e4c6b9adaaaabc300c08991d6cea05',
   },
 }
