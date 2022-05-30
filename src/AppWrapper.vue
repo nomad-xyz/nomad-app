@@ -73,7 +73,7 @@ input::-webkit-inner-spin-button
 
 // Hide default input number styles from firefox browser
 input[type=number]
-  -moz-appearance:textfield
+  -moz-appearance textfield !important
 
 //
 // NAIVE UI STYLE OVERRIDES
