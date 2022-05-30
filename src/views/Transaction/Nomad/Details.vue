@@ -260,7 +260,7 @@ export default defineComponent({
       console.log('tx data: ', tx)
 
       if (!tx) {
-        return this.status = -1
+        return (this.status = -1)
       }
 
       if (tx.dispatchedAt > 0) {

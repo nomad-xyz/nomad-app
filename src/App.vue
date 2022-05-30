@@ -19,17 +19,9 @@
         </span>
       </card-alert>
 
-      <card-alert warning v-if="showWarning">
-        Moonbeam network is experiencing downtime. Moonbeam developers are
-        working towards a resolution, estimated to be shipped within hours.
-        Bridging is not available at this time. We appreciate your patience.
-        <br />
-        <br />
-        Need support?
-        <a href="https://discord.gg/nomadxyz" class="underline" target="_blank">
-          Join Discord
-        </a>
-      </card-alert>
+      <!-- Network-specific App Alert -->
+      <!-- uncomment, update warning text and network -->
+      <!-- <network-alert /> -->
 
       <!-- page view -->
       <router-view></router-view>
@@ -47,6 +39,7 @@ import Nav from '@/components/Layout/Nav.vue'
 import Footer from '@/components/Layout/Footer.vue'
 import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
+// import NetworkAlert from '@/components/NetworkAlert.vue'
 import { getNetworkByDomainID } from '@/utils'
 
 export default defineComponent({
@@ -60,7 +53,6 @@ export default defineComponent({
 
   data: () => ({
     failedHomes: new Set(),
-    showWarning: false,
   }),
 
   setup: () => {
@@ -87,17 +79,6 @@ export default defineComponent({
   },
 
   methods: { getNetworkByDomainID },
-
-  watch: {
-    originNetwork(network) {
-      this.showWarning =
-        network === 'moonbeam' || this.destinationNetwork === 'moonbeam'
-    },
-    destinationNetwork(network) {
-      this.showWarning =
-        network === 'moonbeam' || this.originNetwork === 'moonbeam'
-    },
-  },
 })
 </script>
 
