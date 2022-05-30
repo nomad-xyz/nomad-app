@@ -79,17 +79,6 @@ export default defineComponent({
   },
 
   methods: { getNetworkByDomainID },
-
-  // watch: {
-  //   originNetwork(network) {
-  //     this.showWarning =
-  //       network === 'moonbeam' || this.destinationNetwork === 'moonbeam'
-  //   },
-  //   destinationNetwork(network) {
-  //     this.showWarning =
-  //       network === 'moonbeam' || this.originNetwork === 'moonbeam'
-  //   },
-  // },
 })
 </script>
 
