@@ -33,14 +33,23 @@
         </n-button>
       </div>
 
-      <div v-else>
-        <div
-          class="flex flex-row justify-center bg-[#434343] text-sm rounded-lg px-4 py-2 border border-slate-500 border-dashed cursor-pointer"
-          @click="handlePaste"
-        >
-          <n-text>Click to paste from clipboard</n-text>
-        </div>
+      <!-- paste address, clipboard api supported -->
+      <div
+        v-else-if="allowPaste"
+        class="flex flex-row justify-center bg-[#434343] text-sm rounded-lg px-4 py-2 border border-slate-500 border-dashed cursor-pointer"
+        @click="handlePaste"
+      >
+        <n-text>Click to paste from clipboard</n-text>
       </div>
+
+      <!-- paste address, clipboard api NOT supported -->
+      <input
+        v-else
+        placeholder="Paste address"
+        class="flex flex-row justify-center items-center text-center w-full bg-[#434343] h-10 text-sm rounded-lg px-4 py-2 border border-slate-500 border-dashed outline-none"
+        v-model="recipientInput"
+        @input="checkAddr"
+      />
 
       <n-button
         v-if="
@@ -101,7 +110,7 @@ import {
 import { InformationCircleOutline, CheckmarkCircle } from '@vicons/ionicons5'
 
 import { useStore } from '@/store'
-import { truncateAddr, isValidAddress } from '@/utils'
+import { truncateAddr, isValidAddress, pasteFromClipboard } from '@/utils'
 
 export default defineComponent({
   emits: ['hide'],
@@ -126,8 +135,10 @@ export default defineComponent({
 
   data() {
     return {
+      recipientInput: '',
       newAddress: '',
       allowEdit: false,
+      allowPaste: navigator.clipboard && navigator.clipboard.readText,
       truncateAddr,
     }
   },
@@ -147,7 +158,11 @@ export default defineComponent({
   methods: {
     close() {
       this.$emit('hide')
-      this.newAddress = ''
+      setTimeout(() => {
+        this.newAddress = ''
+        this.recipientInput = ''
+        this.allowEdit = false
+      }, 500)
     },
 
     saveAddr() {
@@ -158,7 +173,7 @@ export default defineComponent({
     },
 
     async handlePaste() {
-      let text = await navigator.clipboard.readText()
+      let text = await pasteFromClipboard()
       if (isValidAddress(text)) {
         console.log('got valid address: ', text)
         this.newAddress = text
@@ -169,6 +184,22 @@ export default defineComponent({
           content: 'Please use a valid address',
           duration: 3000,
         })
+      }
+    },
+
+    async checkAddr() {
+      if (this.recipientInput.length === 42) {
+        if (isValidAddress(this.recipientInput)) {
+          console.log('got valid address: ', this.recipientInput)
+          this.newAddress = this.recipientInput
+          this.allowEdit = false
+        } else {
+          this.notification.warning({
+            title: 'Invalid Input',
+            content: 'Please use a valid address',
+            duration: 3000,
+          })
+        }
       }
     },
 

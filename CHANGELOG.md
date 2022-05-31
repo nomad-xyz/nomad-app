@@ -4,6 +4,8 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+- fix copy/paste in Firefox
+
 ## v1.5.0 (May 19th, 2022)
 
 - Wallet Connect
