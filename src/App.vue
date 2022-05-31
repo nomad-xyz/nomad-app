@@ -47,7 +47,6 @@ import Nav from '@/components/Layout/Nav.vue'
 import Footer from '@/components/Layout/Footer.vue'
 import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
-import NomadHistory from '@/views/Transactions/Nomad/Nomad.main.vue'
 import { getNetworkByDomainID } from '@/utils'
 
 export default defineComponent({
@@ -57,7 +56,6 @@ export default defineComponent({
     Footer,
     CardAlert,
     TermsModal,
-    NomadHistory,
   },
 
   data: () => ({

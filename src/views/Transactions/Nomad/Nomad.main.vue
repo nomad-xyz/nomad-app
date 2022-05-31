@@ -1,5 +1,5 @@
 <template>
-  <div class="active-txs w-full max-w-lg">
+  <div class="active-txs w-full max-w-lg" v-if="this.history.length">
     <div class="flex flex-row items-center p-2 mb-3 justify-between">
       <n-text class="uppercase text-lg font-semibold">
         Nomad Transaction History
@@ -25,12 +25,14 @@
         <div
           @click="changePage(page - 1)"
           class="bg-[#434343] h-8 w-8 mr-2 flex items-center justify-center rounded-sm cursor-pointer"
+          :class="{ 'opacity-50': page === 1 }"
         >
           <n-icon><chevron-back-outline /></n-icon>
         </div>
         <div
           @click="changePage(page + 1)"
           class="bg-[#434343] h-8 w-8 flex items-center justify-center rounded-sm cursor-pointer"
+          :class="{ 'opacity-50': page === pageCount || history.length < size }"
         >
           <n-icon><chevron-forward-outline /></n-icon>
         </div>
@@ -50,7 +52,7 @@ import {
 } from 'naive-ui'
 
 import { useStore } from '@/store'
-import { getNetworkByDomainID, toBytes32 } from '@/utils'
+import { getNetworkByDomainID } from '@/utils'
 import { nomadAPI } from '@/config'
 import Transaction from './columns/transaction.vue'
 import Amount from './columns/amount.vue'
@@ -83,7 +85,9 @@ export default defineComponent({
 
     return {
       store,
+      size: 7,
       page: ref(1),
+      pageCount: ref(1000),
       walletConnected: computed(() => store.state.wallet.connected),
       address: computed(() => store.state.wallet.address),
     }
@@ -99,21 +103,30 @@ export default defineComponent({
   },
 
   methods: {
-    changePage(page: number) {
+    async changePage(page: number) {
       if (page <= 0) return
-      this.page = page
+      if (this.pageCount && page > this.pageCount) return
+      if (page > this.page && this.history.length < this.size) return
+      const success = await this.getHistory(page)
+      if (success) {
+        this.page = page
+      } else {
+        this.pageCount = this.page
+      }
     },
 
-    async getHistory() {
+    async getHistory(page?: number): Promise<boolean> {
+      const pageNum = page || this.page
       if (this.address) {
-        const res = await fetch(`${nomadAPI}tx?page=${this.page}&receiver=${toBytes32(this.address.toLowerCase())}`)
+        const res = await fetch(`${nomadAPI}tx?page=${pageNum - 1}&size=${this.size}&recipient=${this.address}`)
         const data = (await res.json()) as any
-        console.log('data', data)
         if (!data.length) {
-          return this.changePage(this.page - 1)
+          return false
         }
         this.history = data
+        return true
       }
+      return false
     },
 
     clearPollActiveTxs() {
@@ -127,12 +140,6 @@ export default defineComponent({
       const originNetwork = getNetworkByDomainID(tx.origin).name
       this.$router.push(`/tx/nomad/${originNetwork}/${tx.tx}`)
     },
-  },
-
-  watch: {
-    page() {
-      this.getHistory()
-    }
   },
 })
 </script>
