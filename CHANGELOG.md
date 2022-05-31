@@ -4,6 +4,12 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.5.3 (June 7th, 2022)
+
+- chore: bump sdk-bridge to 1.0.0-rc.19
+- feat: support infinite token approval
+- fix: block network switching on review step
+
 ## v1.5.2 (June 7th, 2022)
 
 - feat: add AVAX, wAVAX
