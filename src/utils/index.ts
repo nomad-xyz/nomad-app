@@ -138,7 +138,7 @@ export function copyTextToClipboard(text: string): boolean {
       return true
     }, function(err) {
       console.error('Async: Could not copy text: ', err)
-      return false
+      return fallbackCopyTextToClipboard(text)
     })
   }
   return fallbackCopyTextToClipboard(text)
