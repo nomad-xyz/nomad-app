@@ -12,7 +12,7 @@
 import { defineComponent } from 'vue'
 
 import Transfer from '@/views/Transfer/Transfer.main.vue'
-import ConnextActive from '@/views/Transactions/Connext.main.vue'
+import ConnextActive from '@/views/Transactions/Connext/Connext.main.vue'
 
 export default defineComponent({
   components: {
