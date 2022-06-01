@@ -376,14 +376,4 @@ export default defineComponent({
   min-height 140px
 .rotate
   transform rotateZ(180deg)
-
-@keyframes bounce {
-	0%, 7%, 14%, 25%, 100% {transform: translateY(0)}
-  8% {transform: translateY(1px)}
-	12% {transform: translateY(-7px)}
-	17% {transform: translateY(-5px)}
-}
-.click-me {
-  animation: bounce 5s ease infinite
-}
 </style>
