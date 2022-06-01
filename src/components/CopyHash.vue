@@ -1,5 +1,9 @@
 <template>
-  <div class="inline cursor-pointer" @click.stop="handleCopy" @mouseleave="reset">
+  <div
+    class="inline cursor-pointer"
+    @click.stop="handleCopy"
+    @mouseleave="reset"
+  >
     <n-tooltip
       trigger="hover"
       placement="right"

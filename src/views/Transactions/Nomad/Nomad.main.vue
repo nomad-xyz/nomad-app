@@ -45,11 +45,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
 import { ChevronBackOutline, ChevronForwardOutline } from '@vicons/ionicons5'
-import {
-  NText,
-  NDivider,
-  NIcon,
-} from 'naive-ui'
+import { NText, NDivider, NIcon } from 'naive-ui'
 
 import { useStore } from '@/store'
 import { getNetworkByDomainID } from '@/utils'
@@ -76,7 +72,7 @@ export default defineComponent({
   data() {
     return {
       history: [],
-      pollActiveTxs: null
+      pollActiveTxs: null,
     } as ComponentData
   },
 
@@ -118,7 +114,11 @@ export default defineComponent({
     async getHistory(page?: number): Promise<boolean> {
       const pageNum = page || this.page
       if (this.address) {
-        const res = await fetch(`${nomadAPI}tx?page=${pageNum - 1}&size=${this.size}&recipient=${this.address}`)
+        const res = await fetch(
+          `${nomadAPI}tx?page=${pageNum - 1}&size=${this.size}&recipient=${
+            this.address
+          }`
+        )
         const data = (await res.json()) as any
         if (!data.length) {
           return false

@@ -13,12 +13,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { BigNumber } from 'ethers'
-import { fromBytes32, getNetworkByDomainID, getTokenByTokenID, toDecimals } from '@/utils'
+import {
+  fromBytes32,
+  getNetworkByDomainID,
+  getTokenByTokenID,
+  toDecimals,
+} from '@/utils'
 import { IndexerTx, TokenMetadata } from '@/config/types'
 
 interface ComponentData {
-  amt: string | undefined,
-  token: TokenMetadata | undefined,
+  amt: string | undefined
+  token: TokenMetadata | undefined
 }
 
 export default defineComponent({
@@ -26,7 +31,7 @@ export default defineComponent({
     tx: {
       type: Object as () => IndexerTx,
       required: true,
-    }
+    },
   },
   data() {
     return {
@@ -41,11 +46,15 @@ export default defineComponent({
     getAmount() {
       const tokenIdentifier = {
         domain: getNetworkByDomainID(this.tx.tokenDomain).name,
-        id: fromBytes32(this.tx.tokenId)
+        id: fromBytes32(this.tx.tokenId),
       }
       this.token = getTokenByTokenID(tokenIdentifier)!
-      this.amt = toDecimals(BigNumber.from(this.tx.amount), this.token.decimals, 6)
-    }
-  }
+      this.amt = toDecimals(
+        BigNumber.from(this.tx.amount),
+        this.token.decimals,
+        6
+      )
+    },
+  },
 })
 </script>

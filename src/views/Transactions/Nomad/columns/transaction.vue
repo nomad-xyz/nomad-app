@@ -6,10 +6,7 @@
     >
       <n-icon class="cursor-pointer opacity-70" size="25">
         <checkmark-outline v-if="tx.state === 4" />
-        <arrow-redo
-          v-else-if="manualProcess"
-          class="click-me"
-        />
+        <arrow-redo v-else-if="manualProcess" class="click-me" />
         <hourglass-outline v-else />
       </n-icon>
     </div>
@@ -39,7 +36,7 @@ export default defineComponent({
     tx: {
       type: Object as () => IndexerTx,
       required: true,
-    }
+    },
   },
   components: {
     NIcon,
@@ -52,8 +49,8 @@ export default defineComponent({
     manualProcess() {
       const dest = getNetworkByDomainID(this.tx.destination!)
       return dest.manualProcessing
-    }
-  }
+    },
+  },
 })
 </script>
 

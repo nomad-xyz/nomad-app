@@ -187,10 +187,16 @@ export function getTokenBySymbol(symbol: string): TokenMetadata {
   throw new Error('token asset not found')
 }
 
-export function getTokenByTokenID(tokenID: TokenIdentifier): TokenMetadata | undefined {
+export function getTokenByTokenID(
+  tokenID: TokenIdentifier
+): TokenMetadata | undefined {
   for (const t in tokens) {
     const token = tokens[t]
-    if (token.tokenIdentifier && token.tokenIdentifier.id.toString().toLowerCase() == tokenID.id.toString().toLowerCase()) {
+    if (
+      token.tokenIdentifier &&
+      token.tokenIdentifier.id.toString().toLowerCase() ==
+        tokenID.id.toString().toLowerCase()
+    ) {
       return token
     }
   }
