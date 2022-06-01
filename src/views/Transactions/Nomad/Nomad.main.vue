@@ -103,15 +103,10 @@ export default defineComponent({
       if (page <= 0) return
       if (this.pageCount && page > this.pageCount) return
       if (page > this.page && this.history.length < this.size) return
-      const success = await this.getHistory(page)
-      if (success) {
-        this.page = page
-      } else {
-        this.pageCount = this.page
-      }
+      await this.getHistory(page)
     },
 
-    async getHistory(page?: number): Promise<boolean> {
+    async getHistory(page?: number) {
       const pageNum = page || this.page
       if (this.address) {
         const res = await fetch(
@@ -121,12 +116,11 @@ export default defineComponent({
         )
         const data = (await res.json()) as any
         if (!data.length) {
-          return false
+          this.pageCount = this.page
         }
         this.history = data
-        return true
+        this.page = pageNum
       }
-      return false
     },
 
     clearPollActiveTxs() {
