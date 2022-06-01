@@ -23,7 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { NTooltip, NText } from 'naive-ui'
-import { truncateAddr } from '@/utils'
+import { truncateAddr, copyTextToClipboard } from '@/utils'
 
 export default defineComponent({
   props: {
@@ -52,15 +52,8 @@ export default defineComponent({
         this.copyText = 'error'
         return
       }
-      navigator.clipboard.writeText(this.address).then(
-        () => {
-          console.log('Async: Copying to clipboard was successful!')
-          this.copyText = 'copied'
-        },
-        (err) => {
-          console.error('Async: Could not copy text: ', err)
-        }
-      )
+      const success = copyTextToClipboard(this.address)
+      if (success) this.copyText = 'copied'
     },
     reset() {
       setTimeout(() => (this.copyText = 'copy'), 500)
