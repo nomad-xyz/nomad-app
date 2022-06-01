@@ -125,4 +125,14 @@ input[type=number]
 
 .n-steps .n-step-indicator .n-step-indicator-slot .n-step-indicator-slot__index
   top -1px
+
+@keyframes bounce {
+	0%, 7%, 14%, 25%, 100% {transform: translateY(0)}
+  8% {transform: translateY(1px)}
+	12% {transform: translateY(-7px)}
+	17% {transform: translateY(-5px)}
+}
+.click-me {
+  animation: bounce 5s ease infinite
+}
 </style>
