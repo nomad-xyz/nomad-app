@@ -255,7 +255,7 @@ export default defineComponent({
       const { optimisticSeconds } = networks[this.originNet]
 
       // fetch tx
-      const res = await fetch(`${nomadAPI}${id}`)
+      const res = await fetch(`${nomadAPI}tx/${id}`)
       const tx = (await res.json())[0]
       console.log('tx data: ', tx)
 
