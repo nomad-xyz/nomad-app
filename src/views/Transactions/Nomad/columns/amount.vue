@@ -19,7 +19,8 @@ import {
   getTokenByTokenID,
   toDecimals,
 } from '@/utils'
-import { IndexerTx, TokenMetadata } from '@/config/types'
+import { TokenMetadata } from '@/config/types'
+import { IndexerTx } from '@/utils/nomadAPI'
 
 interface ComponentData {
   amt: string | undefined
