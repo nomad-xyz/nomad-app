@@ -107,6 +107,8 @@ export default defineComponent({
     },
 
     async getHistory(page?: number) {
+      if (!this.address) return
+
       const pageNum = page || this.page
       const history = await getUserHistory(pageNum, this.size)
       if (!history.length) {
