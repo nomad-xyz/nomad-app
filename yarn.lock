@@ -1863,10 +1863,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nomad-xyz/configuration@^0.1.0-rc.18":
-  version "0.1.0-rc.18"
-  resolved "https://registry.npmjs.org/@nomad-xyz/configuration/-/configuration-0.1.0-rc.18.tgz"
-  integrity sha512-Xwk9+q3d/KuwLDL6LolJh5CayskoswrxIxtcFeANeqsQLR0dWmrFHGvXofzMblrf5MU+3uMkr794N+vQxutmLA==
+"@nomad-xyz/configuration@^0.1.0-rc.23":
+  version "0.1.0-rc.24"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.24.tgz#ed334849a00b8c15ec46ab21ae05352cf2e15370"
+  integrity sha512-M2XrL6fzT24XuvoCaAmNkcNdHx2NU2FUKg5/DYOjRfs0wGdCY7xEz+qaOGo5L5l2Y8Sa9u59ZaIJeivYo7xm0w==
 
 "@nomad-xyz/configuration@^0.1.0-rc.25":
   version "0.1.0-rc.25"
@@ -1911,25 +1911,26 @@
     ethers "^5.4.6"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk-bridge@^1.0.0-rc.13":
-  version "1.0.0-rc.13"
-  resolved "https://registry.npmjs.org/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.13.tgz"
-  integrity sha512-yApc96gDibeXk9yqGy+1Pa44nV3jwZo5u3wOdVmZc8lVZBcW95IFeGHdiexAIJbo4puG+vCSGHkPgd8Qhy5Pkw==
+"@nomad-xyz/sdk-bridge@^1.0.0-rc.18":
+  version "1.0.0-rc.18"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.18.tgz#70904f13b483640d3001f96b918a60f901e29ac6"
+  integrity sha512-9hVhxLGAtFFTH3AfSrgABXjQy9f+166LLZCJBqlFupPjg73wvkSzLWWnVHKtV5s7pan/0ifq52ZrfiYZabymug==
   dependencies:
-    "@nomad-xyz/configuration" "^0.1.0-rc.18"
+    "@nomad-xyz/configuration" "^0.1.0-rc.23"
     "@nomad-xyz/contracts-bridge" "^1.0.0-rc.2"
-    "@nomad-xyz/sdk" "^2.0.0-rc.13"
+    "@nomad-xyz/sdk" "^2.0.0-rc.17"
     ethers "^5.0.0"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk@^2.0.0-rc.13":
-  version "2.0.0-rc.13"
-  resolved "https://registry.npmjs.org/@nomad-xyz/sdk/-/sdk-2.0.0-rc.13.tgz"
-  integrity sha512-FNbNJ+DPJOiK3D/IkHn+7ijd4b3vk6fRc066ISgxnHKuhiUpoLrNTtsFUxkYcOfXLLVt0CKVfzVpMT6FWaaH5g==
+"@nomad-xyz/sdk@^2.0.0-rc.17":
+  version "2.0.0-rc.17"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk/-/sdk-2.0.0-rc.17.tgz#e69165c88f274f9f0bef4cb8a0e68b64b0645480"
+  integrity sha512-9d2Zn6dkoN5gmCMUUW1nqFO1wAcuEs+IpSXEUq3xiuYVrypvqiKjkutyCX7djaTriH7IfF6hKUZW/NV2nxTTnw==
   dependencies:
-    "@nomad-xyz/configuration" "^0.1.0-rc.18"
+    "@nomad-xyz/configuration" "^0.1.0-rc.23"
     "@nomad-xyz/contracts-core" "^1.0.0-rc.2"
     "@nomad-xyz/multi-provider" "^1.0.0-rc.4"
+    axios "^0.27.2"
     ethers "^5.0.0"
 
 "@openzeppelin/contracts-upgradeable@~3.4.2":
@@ -3922,6 +3923,14 @@ axios@^0.21.1:
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
   dependencies:
     follow-redirects "^1.14.0"
+
+axios@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+  dependencies:
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
 
 babel-jest@^27.1.0, babel-jest@^27.5.1:
   version "27.5.1"
@@ -6942,6 +6951,11 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.0:
   version "1.14.9"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.9.tgz"
   integrity sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==
+
+follow-redirects@^1.14.9:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
+  integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
 foreach@^2.0.5:
   version "2.0.5"
