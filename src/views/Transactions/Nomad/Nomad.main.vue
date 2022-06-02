@@ -49,7 +49,7 @@ import { NText, NDivider, NIcon } from 'naive-ui'
 
 import { useStore } from '@/store'
 import { getNetworkByDomainID } from '@/utils'
-import { nomadAPI } from '@/config'
+import { getUserHistory } from '@/utils/nomadAPI'
 import Transaction from './columns/transaction.vue'
 import Amount from './columns/amount.vue'
 
@@ -107,20 +107,16 @@ export default defineComponent({
     },
 
     async getHistory(page?: number) {
+      if (!this.address) return
+
       const pageNum = page || this.page
-      if (this.address) {
-        const res = await fetch(
-          `${nomadAPI}tx?page=${pageNum - 1}&size=${this.size}&recipient=${
-            this.address
-          }`
-        )
-        const data = (await res.json()) as any
-        if (!data.length) {
-          this.pageCount = this.page
-        }
-        this.history = data
-        this.page = pageNum
+      const history = await getUserHistory(this.address, pageNum, this.size)
+      if (!history.length) {
+        this.pageCount = this.page
+        return
       }
+      this.history = history
+      this.page = pageNum
     },
 
     clearPollActiveTxs() {
@@ -135,6 +131,17 @@ export default defineComponent({
       this.$router.push(`/tx/nomad/${originNetwork}/${tx.tx}`)
     },
   },
+
+  watch: {
+    address(newAddress, oldAddress) {
+      if (newAddress !== oldAddress) {
+        this.history = []
+        this.page = 1
+        this.pageCount = 1000
+        this.getHistory()
+      }
+    }
+  }
 })
 </script>
 

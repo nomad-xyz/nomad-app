@@ -29,7 +29,7 @@ import {
 } from '@vicons/ionicons5'
 import CopyHash from '@/components/CopyHash.vue'
 import { getNetworkByDomainID } from '@/utils'
-import { IndexerTx } from '@/config/types'
+import { IndexerTx } from '@/utils/nomadAPI'
 
 export default defineComponent({
   props: {
