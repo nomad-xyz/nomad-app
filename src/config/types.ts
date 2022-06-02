@@ -35,21 +35,3 @@ export type NetworkMetadata = {
   optimisticSeconds: number
   manualProcessing: boolean
 }
-
-export type IndexerTx = {
-  origin: number
-  destination: number
-  leafIndex: string
-  sender: string
-  state: number
-  dispatchedAt: number
-  updatedAt: number
-  relayedAt: number
-  processedAt: number
-  receivedAt: number
-  tx: string
-  amount: string
-  tokenDomain: number
-  tokenId: string
-  confirmAt: number
-}
