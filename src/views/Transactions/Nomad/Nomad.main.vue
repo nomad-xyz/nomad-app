@@ -110,7 +110,7 @@ export default defineComponent({
       if (!this.address) return
 
       const pageNum = page || this.page
-      const history = await getUserHistory(pageNum, this.size)
+      const history = await getUserHistory(this.address, pageNum, this.size)
       if (!history.length) {
         this.pageCount = this.page
         return
@@ -131,6 +131,17 @@ export default defineComponent({
       this.$router.push(`/tx/nomad/${originNetwork}/${tx.tx}`)
     },
   },
+
+  watch: {
+    address(newAddress, oldAddress) {
+      if (newAddress !== oldAddress) {
+        this.history = []
+        this.page = 1
+        this.pageCount = 1000
+        this.getHistory()
+      }
+    }
+  }
 })
 </script>
 

@@ -19,17 +19,17 @@ export type IndexerTx = {
   confirmAt: number
 }
 
-export async function getUserHistory(page: number, size: number): Promise<Array<IndexerTx>> {
+export async function getUserHistory(address: string, page: number, size: number): Promise<Array<IndexerTx>> {
   const skip = size * (page - 1)
   const variables = JSON.stringify({
     where: {
       OR: [
         {
           recipient: {
-            equals: "0x9791c9dF02D34F2e7d7322D655535d9849E8da5c"
+            equals: address
           },
           sender: {
-            equals: "0x9791c9dF02D34F2e7d7322D655535d9849E8da5c"
+            equals: address
           }
         }
       ]
