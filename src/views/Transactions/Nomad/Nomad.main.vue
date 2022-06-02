@@ -46,11 +46,10 @@
 import { defineComponent, computed, ref } from 'vue'
 import { ChevronBackOutline, ChevronForwardOutline } from '@vicons/ionicons5'
 import { NText, NDivider, NIcon } from 'naive-ui'
-import { request, gql } from 'graphql-request'
 
 import { useStore } from '@/store'
 import { getNetworkByDomainID } from '@/utils'
-import { nomadAPI } from '@/config'
+import { getUserHistory } from '@/utils/nomadAPI'
 import Transaction from './columns/transaction.vue'
 import Amount from './columns/amount.vue'
 
@@ -109,82 +108,13 @@ export default defineComponent({
 
     async getHistory(page?: number) {
       const pageNum = page || this.page
-      if (this.address) {
-        // const res = await fetch(
-        //   `${nomadAPI}tx?page=${pageNum - 1}&size=${this.size}&recipient=${
-        //     this.address
-        //   }`
-        // )
-        // graphql sandbox:
-        // https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fbridge-indexer.dev.madlads.tools%2Fgraphql&explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4QEcYIE4CeABAIq6EAUAJAO4AW%2BC6RAsggM7sCGA5hwOoM8CAJJIADjBQBKIsAA6SIkQBmASyRgWXJATadeHCvUbNaQhABoiKLgGsmRAKzX2dteOYAGWQqXKiNTBFAKJEAz4ACS52OhCAiDw1Hg145TAOFA0uLIgkNKIkPKgEAo0UfCQuABsAZWQMvDLUSpqAJQQoDzVkFAK4dh4AFQJxUv9lPAgIPomidlsKgrA1dnEcqDoAIWroO2XV9ZRNhDAAQVnQmHEwHNOLguFqrgJ7y4DhErUANzeC8SmJU4fzmUDy6jwcAec3YDXwj063V6BS4cAgMFQKOquxoADEYu90ghbGpquxorECigIA4kAARCBwLipObU2kiYJzABGEDABAK1QQXBUYgyAA8qRK5jwYhc6YcNnFpbKUABVG53Aoy9gXDrPfnKnUoDpfX5alUABUBHHYBVhmLm11uFU5oSeL1OCNNnrmAOgNp9oSgwju53eAF9FOGQOGgA
-        const variables = JSON.stringify({
-          where: {
-            OR: [
-              {
-                recipient: {
-                  equals: "0x9791c9dF02D34F2e7d7322D655535d9849E8da5c"
-                },
-                sender: {
-                  equals: "0x9791c9dF02D34F2e7d7322D655535d9849E8da5c"
-                }
-              }
-            ]
-          }
-        })
-        const query = gql`
-          {
-            Query(
-              where: MessagesWhereInput,
-            )  {
-              findManyMessages(where, take: 5, skip: 0) {
-                id
-                messageHash
-                origin
-                destination
-                nonce
-                internalSender
-                internalRecipient
-                msgType
-                root
-                state
-                dispatchBlock
-                dispatchedAt
-                updatedAt
-                relayedAt
-                receivedAt
-                processedAt
-                confirmAt
-                sender
-                recipient
-                amount
-                allowFast
-                detailsHash
-                tokenDomain
-                tokenId
-                body
-                leafIndex
-                tx
-                gasAtDispatch
-                gasAtUpdate
-                gasAtRelay
-                gasAtReceive
-                gasAtProcess
-                sent
-                updated
-                relayed
-                received
-                processed
-                createdAt
-              }
-            }
-          }`
-        request({
-          url: `${nomadAPI}graphql`,
-          document: query,
-          variables: variables,
-          // requestHeaders: headers,
-        }).then((data) => console.log('DATA', data))
+      const history = await getUserHistory(pageNum, this.size)
+      if (!history.length) {
+        this.pageCount = this.page
+        return
       }
+      this.history = history
+      this.page = pageNum
     },
 
     clearPollActiveTxs() {
