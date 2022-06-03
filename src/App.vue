@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, h } from 'vue'
+import { useNotification } from 'naive-ui'
 import { useStore } from '@/store'
 
 import { RouterView } from 'vue-router'
@@ -39,6 +40,7 @@ import Nav from '@/components/Layout/Nav.vue'
 import Footer from '@/components/Layout/Footer.vue'
 import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
+import NotificationConfetti from '@/components/NotificationConfetti.vue'
 // import NetworkAlert from '@/components/NetworkAlert.vue'
 import { getNetworkByDomainID } from '@/utils'
 
@@ -57,6 +59,15 @@ export default defineComponent({
 
   setup: () => {
     const store = useStore()
+    const notification = useNotification()
+    notification.info({
+      title: 'Bridge Success!!',
+      content: () =>
+        h(NotificationConfetti, {
+          text: 'tweet tweet',
+          link: 'https://twitter.com/nomadxyz_',
+        }),
+    })
 
     return {
       originNetwork: computed(() => store.state.userInput.originNetwork),
