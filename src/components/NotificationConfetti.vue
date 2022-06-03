@@ -9,7 +9,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Confetti from "vue-confetti/src/confetti.js";
+import Confetti from 'vue-confetti/src/confetti.js'
+import NIcon from '@/assets/N.svg'
 
 export default defineComponent({
   props: {
@@ -24,41 +25,57 @@ export default defineComponent({
   },
 
   data: () => ({
-    confetti: new Confetti(),
+    confetti: new Confetti()
   }),
 
   mounted () {
-    this.confetti.update({
+    this.confetti.start({
       particles: [
         {
-          type: 'heart',
+          type: 'rect',
+        },
+        {
+          type: 'circle',
+        },
+        {
+          type: 'image',
+          url: NIcon
+        },
+        {
+          type: 'rect',
+        },
+        {
+          type: 'circle',
+        },
+        {
+          type: 'rect',
+        },
+        {
+          type: 'circle',
+        },
+        {
+          type: 'rect',
         },
         {
           type: 'circle',
         },
       ],
-      defaultColors: [
-        'red',
-        'pink',
-        '#ba0000'
-      ],
-      defaultDropRate: 1, 
-    });
-    this.confetti.start()
+      defaultDropRate: 5,
+      defaultSize: 6,
+      particlesPerFrame: 1,
+      windSpeedMax: 0.3
+    })
+    setTimeout(() => {
+      this.confetti.defaultDropRate = 4
+      this.confetti.particlesPerFrame = 0.5
+    }, 3000)
+    setTimeout(() => {
+      this.confetti.defaultDropRate = 2
+      this.confetti.particlesPerFrame = 0.1
+    }, 4500)
     setTimeout(() => {
       this.confetti.stop()
-    }, 3000)
+    }, 5500)
   },
-
-  methods: {
-    start() {
-      this.start()
-      this.start();
-    },
-
-    stop() {
-      this.stop();
-    },
-  }
 })
 </script>
