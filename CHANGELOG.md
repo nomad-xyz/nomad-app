@@ -19,7 +19,6 @@ This change log is manually updated at the moment.
 - fix copy/paste in Firefox
 - bump sdk-bridge to 1.0.0-rc.19
 - support infinite token approval
-- remove text to head to wallet to approve send transaction
 
 ## v1.5.0 (May 19th, 2022)
 
