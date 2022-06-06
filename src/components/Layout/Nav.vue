@@ -118,9 +118,6 @@ export default defineComponent({
 </script>
 
 <style lang="stylus">
-nav
-  background-color var(--bg)
-
 .network-text-container
   &:hover
     background-color: rgba(255, 255, 255, 0.05)

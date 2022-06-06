@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col top">
     <span>{{ text }}</span>
-    <a :href="link" target="_blank" class="flex flex-row text-white">
-      bird
+    <a :href="link" target="_blank" class="flex flex-row text-[#70C0E8] w-full py-1 mt-1">
+      Tweet about it
     </a>
   </div>
 </template>
@@ -30,43 +30,28 @@ export default defineComponent({
 
   mounted () {
     this.confetti.start({
+      // the more often a type appears, the larger percentage of particles
       particles: [
-        {
-          type: 'rect',
-        },
-        {
-          type: 'circle',
-        },
+        { type: 'rect' },
+        { type: 'rect' },
+        { type: 'rect' },
+        { type: 'rect' },
+        { type: 'circle' },
+        { type: 'circle' },
+        { type: 'circle' },
+        { type: 'circle' },
         {
           type: 'image',
           url: NIcon
         },
-        {
-          type: 'rect',
-        },
-        {
-          type: 'circle',
-        },
-        {
-          type: 'rect',
-        },
-        {
-          type: 'circle',
-        },
-        {
-          type: 'rect',
-        },
-        {
-          type: 'circle',
-        },
       ],
-      defaultDropRate: 5,
+      defaultDropRate: 7,
       defaultSize: 6,
       particlesPerFrame: 1,
       windSpeedMax: 0.3
     })
     setTimeout(() => {
-      this.confetti.defaultDropRate = 4
+      this.confetti.defaultDropRate = 5
       this.confetti.particlesPerFrame = 0.5
     }, 3000)
     setTimeout(() => {

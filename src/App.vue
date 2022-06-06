@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, h } from 'vue'
-import { useNotification } from 'naive-ui'
+import { useNotification, NIcon } from 'naive-ui'
+import { LogoTwitter } from '@vicons/ionicons5'
 import { useStore } from '@/store'
 
 import { RouterView } from 'vue-router'
@@ -61,10 +62,13 @@ export default defineComponent({
     const store = useStore()
     const notification = useNotification()
     notification.info({
-      title: 'Bridge Success!!',
+      title: 'Congratulations!',
+      avatar: () => h(NIcon, {
+        component: LogoTwitter,
+      }),
       content: () =>
         h(NotificationConfetti, {
-          text: 'tweet tweet',
+          text: 'You sent your first Nomad bridge transfer',
           link: 'https://twitter.com/nomadxyz_',
         }),
     })
@@ -110,6 +114,7 @@ export default defineComponent({
     position sticky
     top 0px
     z-index 999
+    background-color var(--bg)
 
   > .main
     grid-area main
