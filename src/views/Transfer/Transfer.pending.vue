@@ -5,6 +5,9 @@
       <n-text class="text-[20px] uppercase text-lg font-medium text-white my-5">
         Sending transaction
       </n-text>
+      <n-text class="opacity-70 mb-3">
+        Please continue to your wallet to<br />approve your bridge transaction
+      </n-text>
     </div>
   </div>
 </template>
