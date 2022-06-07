@@ -34,6 +34,7 @@ import TransferSteps from '../Transfer.steps.vue'
 import TransferAmount from './Input.amount.vue'
 import TransferInputs from './Input.inputs.vue'
 import NomadButton from '@/components/Button.vue'
+import { useNotification } from 'naive-ui'
 
 export default defineComponent({
   components: {
@@ -46,6 +47,7 @@ export default defineComponent({
 
   setup: () => {
     const store = useStore()
+    const notification = useNotification()
 
     // contains validation scope, collects validations from children components but does not emit up to parent
     const v$ = useVuelidate({
@@ -56,12 +58,28 @@ export default defineComponent({
     return {
       userInput: computed(() => store.state.userInput),
       store,
+      notification,
       v$,
     }
   },
 
   methods: {
     async next() {
+      const { token, originNetwork, destinationNetwork } = this.userInput
+      // return if HBOT criteria is not met
+      if (token.symbol === 'HBOT') {
+        const networks = [originNetwork, destinationNetwork]
+        const hasAvalanche = networks.some(n => n === 'avalanche')
+        const hasEthereum = networks.some(n => n === 'ethereum')
+        if (!hasAvalanche || !hasEthereum) {
+          this.notification.warning({
+            title: 'Action not supported',
+            description: 'HBOT token may only be sent between Avalanche and Ethereum',
+            duration: 10000,
+          })
+          return
+        }
+      }
       const valid = await this.v$.$validate()
       if (valid) {
         this.store.dispatch('setTransferStep', 2)
