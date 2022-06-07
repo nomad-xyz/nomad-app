@@ -18,7 +18,8 @@ export type TokenMetadata = {
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
   wrappedAsset?: string
-  default?: boolean // native tokens and blue chip assets
+  default?: boolean
+  show?: boolean // native tokens and blue chip assets
 }
 
 export type NetworkMetadata = {

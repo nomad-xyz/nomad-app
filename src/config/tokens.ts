@@ -61,6 +61,7 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'dai',
     tokenIdentifier: testnetTokenIdentifiers.TEST,
     nativeOnly: false,
+    show: false,
   },
   rWETH: {
     key: 'rWETH',
@@ -73,6 +74,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.WETH,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   rETH: {
     key: 'rETH',
@@ -86,6 +89,8 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'rWETH',
+    default: true,
+    show: true,
   },
   kWETH: {
     key: 'kWETH',
@@ -98,6 +103,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.kWETH,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   kETH: {
     key: 'kETH',
@@ -111,6 +118,8 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'kWETH',
+    default: true,
+    show: true,
   },
   gWETH: {
     key: 'gWETH',
@@ -123,6 +132,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.gWETH,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   gETH: {
     key: 'gETH',
@@ -136,6 +147,8 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'gWETH',
+    default: true,
+    show: true,
   },
   USDT: {
     key: 'USDT',
@@ -148,6 +161,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'tether',
     tokenIdentifier: testnetTokenIdentifiers.USDT,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   USDC: {
     key: 'USDC',
@@ -160,6 +175,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'usd-coin',
     tokenIdentifier: testnetTokenIdentifiers.USDC,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   DAI: {
     key: 'DAI',
@@ -172,6 +189,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'dai',
     tokenIdentifier: testnetTokenIdentifiers.DAI,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   xDai: {
     key: 'xDai',
@@ -184,6 +203,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'xdai',
     tokenIdentifier: null,
     nativeOnly: true,
+    default: true,
+    show: true,
   },
   wxDai: {
     key: 'wxDai',
@@ -196,6 +217,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'wrapped-xdai',
     tokenIdentifier: testnetTokenIdentifiers.WXDAI,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
   // DEV: {
   //   key: '',
@@ -248,6 +271,8 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'wtEVMOS',
+    default: true,
+    show: true,
   },
   wtEVMOS: {
     key: 'wtEVMOS',
@@ -260,6 +285,8 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'evmos',
     tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
     nativeOnly: false,
+    default: true,
+    show: true,
   },
 }
 
@@ -277,6 +304,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: true,
     wrappedAsset: 'WETH',
     default: true,
+    show: true,
   },
   WETH: {
     key: 'WETH',
@@ -290,6 +318,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.WETH,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   EVMOS: {
     key: 'EVMOS',
@@ -304,6 +333,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: true,
     wrappedAsset: 'wEVMOS',
     default: true,
+    show: true,
   },
   wEVMOS: {
     key: 'wEVMOS',
@@ -317,6 +347,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.wEVMOS,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   GLMR: {
     key: 'GLMR',
@@ -331,6 +362,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: true,
     wrappedAsset: 'WGLMR',
     default: true,
+    show: true,
   },
   WGLMR: {
     key: 'WGLMR',
@@ -344,6 +376,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.WGLMR,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   milkADA: {
     key: 'milkADA',
@@ -358,6 +391,7 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: true,
     wrappedAsset: 'wADA',
     default: true,
+    show: true,
   },
   wADA: {
     key: 'wADA',
@@ -371,6 +405,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.WADA,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   WBTC: {
     key: 'WBTC',
@@ -384,6 +419,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.WBTC,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   USDC: {
     key: 'USDC',
@@ -397,6 +433,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.USDC,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   USDT: {
     key: 'USDT',
@@ -410,6 +447,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.USDT,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   DAI: {
     key: 'DAI',
@@ -423,6 +461,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.DAI,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   FRAX: {
     key: 'FRAX',
@@ -436,6 +475,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.FRAX,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   FXS: {
     key: 'FXS',
@@ -449,6 +489,7 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.FXS,
     nativeOnly: false,
     default: true,
+    show: true,
   },
   MIM: {
     key: 'MIM',
@@ -461,7 +502,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'magic-internet-money',
     tokenIdentifier: mainnetTokenIdentifiers.MIM,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   WSTR: {
     key: 'WSTR',
@@ -474,7 +515,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'wrapped-star',
     tokenIdentifier: mainnetTokenIdentifiers.WSTR,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   CQT: {
     key: 'CQT',
@@ -583,7 +624,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'cronos',
     tokenIdentifier: mainnetTokenIdentifiers.CRO,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   UNI: {
     key: 'UNI',
@@ -596,7 +637,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'uniswap',
     tokenIdentifier: mainnetTokenIdentifiers.UNI,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   SHIB: {
     key: 'SHIB',
@@ -609,7 +650,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'shiba-inu',
     tokenIdentifier: mainnetTokenIdentifiers.SHIB,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   LINK: {
     key: 'LINK',
@@ -622,7 +663,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'chainlink',
     tokenIdentifier: mainnetTokenIdentifiers.LINK,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   MKR: {
     key: 'MKR',
@@ -635,7 +676,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'maker',
     tokenIdentifier: mainnetTokenIdentifiers.MKR,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   COMP: {
     key: 'COMP',
@@ -648,7 +689,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'compound',
     tokenIdentifier: mainnetTokenIdentifiers.COMP,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   AAVE: {
     key: 'AAVE',
@@ -661,7 +702,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'aave',
     tokenIdentifier: mainnetTokenIdentifiers.AAVE,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   // TIC: {
   //   key: 'TIC',
@@ -674,7 +715,7 @@ export const mainnetTokens: TokenMetadataMap = {
   //   coinGeckoId: 'elasticswap',
   //   tokenIdentifier: mainnetTokenIdentifiers.TIC,
   //   nativeOnly: false,
-  //   default: false,
+  //   show: false,
   // },
   HBOT: {
     key: 'HBOT',
@@ -687,7 +728,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'hummingbot',
     tokenIdentifier: mainnetTokenIdentifiers.HBOT,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   GEL: {
     key: 'GEL',
@@ -700,7 +741,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'gelato',
     tokenIdentifier: mainnetTokenIdentifiers.GEL,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
   APE: {
     key: 'APE',
@@ -713,6 +754,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'apecoin',
     tokenIdentifier: mainnetTokenIdentifiers.APE,
     nativeOnly: false,
-    default: false,
+    show: false,
   },
 }

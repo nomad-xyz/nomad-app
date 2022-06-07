@@ -27,43 +27,74 @@
 
       <!-- token list -->
       <div class="tokens-container">
-        <div v-for="token in tokenMatch" :key="token.symbol">
-          <div
-            class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
-            :class="{ disabled: shouldSwitchToNative(token) }"
-            @click="select(token)"
-          >
-            <div class="flex flex-row items-center">
-              <div class="bg-black bg-opacity-50 rounded-lg p-2">
-                <img :src="token.icon" class="h-6 w-6" />
-              </div>
-              <div class="flex flex-col ml-2">
-                <n-text>{{ token.symbol }}</n-text>
-                <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
-              </div>
-            </div>
-            <nomad-button
-              v-if="shouldSwitchToNative(token)"
-              primary
-              class="capitalize"
-              @click="switchAndSelect(token)"
+        <div v-if="tab === 1">
+          <div v-for="token in tokenMatch" :key="token.symbol">
+            <div
+              class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+              :class="{ disabled: shouldSwitchToNative(token) }"
+              @click="select(token)"
             >
-              <n-icon size="18" class="mr-1">
-                <repeat-outline />
-              </n-icon>
-              {{ token.nativeNetwork }}
-            </nomad-button>
+              <div class="flex flex-row items-center">
+                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                  <img :src="token.icon" class="h-6 w-6" />
+                </div>
+                <div class="flex flex-col ml-2">
+                  <n-text>{{ token.symbol }}</n-text>
+                  <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
+                </div>
+              </div>
+
+              <nomad-button
+                v-if="shouldSwitchToNative(token)"
+                primary
+                class="capitalize"
+                @click="switchAndSelect(token)"
+              >
+                <n-icon size="18" class="mr-1">
+                  <repeat-outline />
+                </n-icon>
+                {{ token.nativeNetwork }}
+              </nomad-button>
+
+              <n-switch v-if="!token.default" :value="token.show" @click.stop="manageToken(token)" />
+            </div>
+          </div>
+
+          <!-- expand list -->
+          <div
+            v-if="tab === 1"
+            class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+            @click="tab = 2"
+          >
+            <div class="bg-black bg-opacity-50 rounded-lg p-2">
+              <span class="flex justify-center items-center h-6 w-6">. . .</span>
+            </div>
+            <div class="uppercase ml-2">See all tokens (45)</div>
           </div>
         </div>
 
-        <!-- expand list -->
-        <div class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5">
-          <div class="bg-black bg-opacity-50 rounded-lg p-2">
-            <span class="flex justify-center items-center h-6 w-6">. . .</span>
+        <!-- <div v-else>
+          <div v-for="token in tokenMatch" :key="token.symbol">
+            <div
+              class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
+              @click="select(token)"
+            >
+              <div class="flex flex-row items-center">
+                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                  <img :src="token.icon" class="h-6 w-6" />
+                </div>
+                <div class="flex flex-col ml-2">
+                  <n-text>{{ token.symbol }}</n-text>
+                  <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
+                </div>
+              </div>
+
+              <n-switch v-if="!token.default" :value="token.show" @click.stop="manageToken(token)" />
+            </div>
           </div>
-          <div class="uppercase ml-2">See all tokens (45)</div>
-        </div>
+        </div> -->
       </div>
+
       <n-button
         color="#3B3B3B"
         text-color="#fff"
@@ -78,7 +109,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { NModal, NCard, NText, NButton, NIcon } from 'naive-ui'
+import { NModal, NCard, NText, NButton, NIcon, NSwitch } from 'naive-ui'
 import { RepeatOutline } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
 import Search from '@/components/Search.vue'
@@ -86,6 +117,22 @@ import Search from '@/components/Search.vue'
 import { networks, tokens } from '@/config'
 import { TokenMetadata } from '@/config/types'
 import { useStore } from '@/store'
+
+function filterSearch(tokens: TokenMetadata[], searchText: string) {
+  return tokens.filter((t) => {
+    const search = searchText.toLowerCase()
+    const symbol = t.symbol.toLowerCase()
+    const name = t.name.toLowerCase()
+
+    if (symbol.includes(search)) return true
+    if (name.includes(search)) return true
+    if (t.tokenIdentifier) {
+      const address = (t.tokenIdentifier.id as string).toLowerCase()
+      if (address === search) return true
+    }
+    return false
+  })
+}
 
 export default defineComponent({
   emits: ['selectToken', 'hide'],
@@ -103,6 +150,7 @@ export default defineComponent({
     NText,
     NButton,
     NIcon,
+    NSwitch,
     RepeatOutline,
     NomadButton,
     Search,
@@ -154,13 +202,18 @@ export default defineComponent({
         this.tab = 1
         this.searchText = ''
       }, 500)
+    },
+
+    manageToken(token: TokenMetadata) {
+      console.log(token)
     }
   },
 
   computed: {
     tokenMatch(): TokenMetadata[] {
       const tokenArr = Object.values(tokens)
-      if (!this.searchText) return tokenArr.filter((t) => t.default)
+      if (!this.searchText && this.tab === 1) return tokenArr.filter((t) => t.show)
+      if (!this.searchText && this.tab === 2) return tokenArr
       return tokenArr.filter((t) => {
         const search = this.searchText.toLowerCase()
         const symbol = t.symbol.toLowerCase()
