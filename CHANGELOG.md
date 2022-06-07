@@ -4,6 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.5.2 (June 7th, 2022)
+
+- feat: add AVAX, wAVAX, xDAI, wxDAI
+
 ## v1.5.1 (May 31st, 2022)
 
 - fix copy/paste in Firefox
