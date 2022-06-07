@@ -163,7 +163,7 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     minAmt: 10,
   },
-  xDAI: {
+  xDai: {
     nativeNetwork: 'xdai',
     symbol: 'xDai',
     name: 'xDai',
@@ -551,10 +551,11 @@ export const mainnetTokens: TokenMetadataMap = {
     icon: AVAXIcon,
     iconColors: ['#fff', '#e84142'],
     decimals: 18,
-    coinGeckoId: 'avax',
+    coinGeckoId: 'avalanche',
     tokenIdentifier: null,
     nativeOnly: true,
     minAmt: 10,
+    wrappedAsset: 'wAVAX',
   },
   wAVAX: {
     nativeNetwork: 'avalanche',
@@ -565,7 +566,7 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'wrapped-avax',
     tokenIdentifier: mainnetTokenIdentifiers.wAVAX,
-    nativeOnly: true,
+    nativeOnly: false,
     minAmt: 10,
   },
 }
