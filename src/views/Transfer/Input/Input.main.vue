@@ -30,16 +30,15 @@ import { useVuelidate } from '@vuelidate/core'
 import { useStore } from '@/store'
 
 import BgBlur from './Input.bgblur.vue'
-import TransferSteps from '../Transfer.steps.vue'
 import TransferAmount from './Input.amount.vue'
 import TransferInputs from './Input.inputs.vue'
 import NomadButton from '@/components/Button.vue'
 import { useNotification } from 'naive-ui'
+import { TransferStep } from '@/store/modules/userInput'
 
 export default defineComponent({
   components: {
     BgBlur,
-    TransferSteps,
     TransferAmount,
     TransferInputs,
     NomadButton,
@@ -69,12 +68,13 @@ export default defineComponent({
       // return if HBOT criteria is not met
       if (token.symbol === 'HBOT') {
         const networks = [originNetwork, destinationNetwork]
-        const hasAvalanche = networks.some(n => n === 'avalanche')
-        const hasEthereum = networks.some(n => n === 'ethereum')
+        const hasAvalanche = networks.some((n) => n === 'avalanche')
+        const hasEthereum = networks.some((n) => n === 'ethereum')
         if (!hasAvalanche || !hasEthereum) {
           this.notification.warning({
             title: 'Action not supported',
-            description: 'HBOT token may only be sent between Avalanche and Ethereum',
+            description:
+              'HBOT token may only be sent between Avalanche and Ethereum',
             duration: 10000,
           })
           return
@@ -82,7 +82,7 @@ export default defineComponent({
       }
       const valid = await this.v$.$validate()
       if (valid) {
-        this.store.dispatch('setTransferStep', 2)
+        this.store.dispatch('setTransferStep', TransferStep.REVIEW)
       }
     },
   },

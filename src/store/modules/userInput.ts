@@ -11,7 +11,10 @@ import { networks } from '@/config'
 import { TokenMetadata, NetworkName } from '@/config/types'
 import { nullToken } from '@/utils'
 
-type TransferStep = 1 | 2
+export enum TransferStep {
+  INPUT = 1,
+  REVIEW,
+}
 
 export interface UserInputState {
   step: TransferStep

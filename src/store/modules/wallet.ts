@@ -12,6 +12,7 @@ import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
+import { TransferStep } from '@/store/modules/userInput'
 
 let connection: any // instance of web3Modal connection
 let web3: any // instance of ethers web3Provider
@@ -52,7 +53,7 @@ const mutations = <MutationTree<WalletState>>{
 }
 
 const actions = <ActionTree<WalletState, RootState>>{
-  async connectWallet({ dispatch, commit, state }) {
+  async connectWallet({ dispatch, commit, state, rootState }) {
     console.log('connecting wallet')
 
     // check if already connected
@@ -107,6 +108,9 @@ const actions = <ActionTree<WalletState, RootState>>{
       }
     })
     connection.on('chainChanged', async (chainId: number) => {
+      if (rootState.userInput.step === TransferStep.REVIEW) {
+        return // don't update network in the store when on the review step
+      }
       console.log('network change', chainId)
       // get name of network and set in store
       const id = BigNumber.from(chainId).toNumber()

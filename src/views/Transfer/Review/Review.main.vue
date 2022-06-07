@@ -153,6 +153,7 @@ import TransferPending from '../Transfer.pending.vue'
 import Protocol from './Review.protocol.vue'
 import ReviewDetail from './Review.detail.vue'
 import ReviewSend from './Review.send.vue'
+import { TransferStep } from '@/store/modules/userInput'
 
 export default defineComponent({
   components: {
@@ -234,7 +235,7 @@ export default defineComponent({
     back() {
       if (this.sending || this.preparingSwap) return
       this.store.dispatch('resetTransferQuote')
-      this.store.dispatch('setTransferStep', 1)
+      this.store.dispatch('setTransferStep', TransferStep.INPUT)
     },
   },
   computed: {

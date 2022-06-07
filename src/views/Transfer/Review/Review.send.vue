@@ -70,6 +70,7 @@ import NotificationLink from '@/components/NotificationLink.vue'
 import NotificationError from '@/components/NotificationError.vue'
 import { networks, connextScanURL } from '@/config'
 import { isNativeToken, getNetworkDomainIDByName } from '@/utils'
+import { TransferStep } from '@/store/modules/userInput'
 
 export default defineComponent({
   props: {
@@ -106,7 +107,7 @@ export default defineComponent({
       }
       // clear user input and switch back to input screen
       this.store.dispatch('clearInputs')
-      this.store.dispatch('setTransferStep', 1)
+      this.store.dispatch('setTransferStep', TransferStep.INPUT)
     },
     async bridge() {
       const {
