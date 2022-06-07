@@ -423,7 +423,7 @@ export const mainnetTokens: TokenMetadataMap = {
     iconColors: ['#FFFFFF', '#E84142'],
     decimals: 18,
     coinGeckoId: 'wrapped-avax',
-    tokenIdentifier: null,
+    tokenIdentifier: mainnetTokenIdentifiers.WAVAX,
     nativeOnly: false,
     minAmt: 10,
   },
