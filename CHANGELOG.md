@@ -7,10 +7,13 @@ This change log is manually updated at the moment.
 ## v1.5.2 (June 7th, 2022)
 
 - feat: add AVAX, wAVAX
+- chore: bump configuration to 0.1.0-rc.25
 
 ## v1.5.1 (May 31st, 2022)
 
 - fix copy/paste in Firefox
+- bump sdk-bridge to 1.0.0-rc.19
+- support infinite token approval
 
 ## v1.5.0 (May 19th, 2022)
 
