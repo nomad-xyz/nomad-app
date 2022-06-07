@@ -136,4 +136,8 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0xE5097D9baeAFB89f9bcB78C9290d545dB5f9e9CB',
   },
+  wAVAX: {
+    domain: 'avalanche',
+    id: '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7',
+  },
 }

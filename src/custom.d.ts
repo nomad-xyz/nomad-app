@@ -34,6 +34,7 @@ declare namespace process {
     VUE_APP_MOONBASEALPHA_RPC: string
     VUE_APP_MILKOMEDA_TESTNET_RPC: string
     VUE_APP_XDAI_RPC: string
+    VUE_APP_AVALANCHE_RPC: string
     VUE_APP_NOMAD_ENVIRONMENT: string
     VUE_APP_SENTRY_DSN: string
     BASE_URL: string
