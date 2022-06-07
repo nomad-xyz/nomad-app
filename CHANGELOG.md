@@ -7,6 +7,7 @@ This change log is manually updated at the moment.
 ## v1.5.2 (June 7th, 2022)
 
 - feat: add AVAX, wAVAX
+- chore: bump configuration to 0.1.0-rc.25
 
 ## v1.5.1 (May 31st, 2022)
 
