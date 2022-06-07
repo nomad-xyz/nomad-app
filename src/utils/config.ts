@@ -14,6 +14,7 @@ const {
   VUE_APP_MOONBASEALPHA_RPC,
   VUE_APP_MILKOMEDA_TESTNET_RPC,
   VUE_APP_XDAI_RPC,
+  VUE_APP_AVALANCHE_RPC,
 } = process.env
 
 const rpcs: { [key: string]: string[] } = {
@@ -32,6 +33,7 @@ const rpcs: { [key: string]: string[] } = {
   milkomedatestnet: [VUE_APP_MILKOMEDA_TESTNET_RPC],
   xdai: [VUE_APP_XDAI_RPC],
   evmostestnet: [VUE_APP_EVMOS_TESTNET_RPC],
+  avalanche: [VUE_APP_AVALANCHE_RPC],
 }
 
 export const getConnextConfigFromConfig = (
