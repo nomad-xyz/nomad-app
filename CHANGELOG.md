@@ -5,6 +5,7 @@ This change log is manually updated at the moment.
 ## Unreleased
 
 - fix copy/paste in Firefox
+- feat: segment page tracking
 
 ## v1.5.0 (May 19th, 2022)
 
