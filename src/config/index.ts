@@ -16,7 +16,9 @@ const {
 const environment = VUE_APP_NOMAD_ENVIRONMENT
 
 const configuration = await import('@nomad-xyz/configuration')
-export const config = configuration.getBuiltin(environment)
+const conf = configuration.getBuiltin(environment)
+conf.bridgeGui.ethereum.connections?.push('evmos')
+export const config = conf
 
 export const isProduction = environment === 'production'
 export const tokens = isProduction ? mainnetTokens : testnetTokens
