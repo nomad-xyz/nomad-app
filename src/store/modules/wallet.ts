@@ -52,21 +52,24 @@ const mutations = <MutationTree<WalletState>>{
     localStorage.setItem('wallet_address', address)
   },
 
-  [types.ADD_USER_TOKEN](state: WalletState, symbol: string) {
-    console.log('{dispatch} add user token: ', symbol)
-    state.tokens.unshift(symbol)
-    console.log(state.tokens)
-    localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
+  [types.ADD_USER_TOKEN](state: WalletState, key: string) {
+    console.log('{dispatch} add user token: ', key)
+    const index = state.tokens.indexOf(key)
+    if (index < 0) {
+      state.tokens.unshift(key)
+      localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
+    }
   },
 
-  [types.REMOVE_USER_TOKEN](state: WalletState, symbol: string) {
-    console.log('{dispatch} remove user token: ', symbol)
-    const index = state.tokens.indexOf(symbol)
+  [types.REMOVE_USER_TOKEN](state: WalletState, key: string) {
+    console.log('{dispatch} remove user token: ', key)
+    const copy = state.tokens
+    const index = copy.indexOf(key)
     if (index > -1) {
-      state.tokens = state.tokens.splice(index, 1); // 2nd parameter means remove one item only
+      copy.splice(index, 1); // 2nd parameter means remove one item only
+      state.tokens = copy
+      localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
     }
-    console.log(state.tokens)
-    localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
   },
 }
 

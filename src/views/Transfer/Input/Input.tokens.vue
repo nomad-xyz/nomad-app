@@ -27,7 +27,7 @@
 
       <!-- token list -->
       <div class="tokens-container">
-        <div v-if="tab === 1">
+        <div>
           <div v-for="token in tokenMatch" :key="token.symbol">
             <div
               class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
@@ -56,7 +56,7 @@
                 {{ token.nativeNetwork }}
               </nomad-button>
 
-              <n-switch v-if="!token.default" :value="token.show" @click.stop="manageToken(token)" />
+              <n-switch v-if="!token.default" :value="showToken(token)" @click.stop="manageToken(token)" />
             </div>
           </div>
 
@@ -72,27 +72,6 @@
             <div class="uppercase ml-2">See all tokens (45)</div>
           </div>
         </div>
-
-        <!-- <div v-else>
-          <div v-for="token in tokenMatch" :key="token.symbol">
-            <div
-              class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
-              @click="select(token)"
-            >
-              <div class="flex flex-row items-center">
-                <div class="bg-black bg-opacity-50 rounded-lg p-2">
-                  <img :src="token.icon" class="h-6 w-6" />
-                </div>
-                <div class="flex flex-col ml-2">
-                  <n-text>{{ token.symbol }}</n-text>
-                  <n-text class="opacity-60 text-xs">{{ token.name }}</n-text>
-                </div>
-              </div>
-
-              <n-switch v-if="!token.default" :value="token.show" @click.stop="manageToken(token)" />
-            </div>
-          </div>
-        </div> -->
       </div>
 
       <n-button
@@ -108,7 +87,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { NModal, NCard, NText, NButton, NIcon, NSwitch } from 'naive-ui'
 import { RepeatOutline } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
@@ -117,22 +96,6 @@ import Search from '@/components/Search.vue'
 import { networks, tokens } from '@/config'
 import { TokenMetadata } from '@/config/types'
 import { useStore } from '@/store'
-
-function filterSearch(tokens: TokenMetadata[], searchText: string) {
-  return tokens.filter((t) => {
-    const search = searchText.toLowerCase()
-    const symbol = t.symbol.toLowerCase()
-    const name = t.name.toLowerCase()
-
-    if (symbol.includes(search)) return true
-    if (name.includes(search)) return true
-    if (t.tokenIdentifier) {
-      const address = (t.tokenIdentifier.id as string).toLowerCase()
-      if (address === search) return true
-    }
-    return false
-  })
-}
 
 export default defineComponent({
   emits: ['selectToken', 'hide'],
@@ -162,6 +125,7 @@ export default defineComponent({
     return {
       network: computed(() => networks[store.state.userInput.originNetwork]),
       tokens: Object.values(tokens),
+      userTokens: computed(() => store.state.wallet.tokens),
       store,
     }
   },
@@ -206,17 +170,28 @@ export default defineComponent({
 
     manageToken(token: TokenMetadata) {
       console.log(token)
+      if (this.showToken(token)) {
+        this.store.dispatch('removeUserToken', token.key)
+      } else {
+        this.store.dispatch('addUserToken', token.key)
+      }
+    },
+
+    showToken(token: TokenMetadata): boolean {
+      const show = token.show || !!this.userTokens.find((key) => key === token.key)
+      console.log(show)
+      return show
     }
   },
 
   computed: {
     tokenMatch(): TokenMetadata[] {
       const tokenArr = Object.values(tokens)
-      if (!this.searchText && this.tab === 1) return tokenArr.filter((t) => t.show)
-      if (!this.searchText && this.tab === 2) return tokenArr
+      if (!this.searchText && this.tab === 1) return tokenArr.filter((t) => this.showToken(t))
+      if (!this.searchText && this.tab === 2) return tokenArr.filter((t) => !t.default)
       return tokenArr.filter((t) => {
         const search = this.searchText.toLowerCase()
-        const symbol = t.symbol.toLowerCase()
+        const symbol = t.key.toLowerCase()
         const name = t.name.toLowerCase()
 
         if (symbol.includes(search)) return true
