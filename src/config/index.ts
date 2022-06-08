@@ -1,7 +1,7 @@
 import { testnetTokens, mainnetTokens } from './tokens'
 import {
-  getNetworksFromConfig,
-  getConnextConfigFromConfig,
+  getNetworksConfig,
+  getConnextConfig,
 } from '@/utils/config'
 
 const {
@@ -15,19 +15,10 @@ const {
 
 const environment = VUE_APP_NOMAD_ENVIRONMENT
 
-const configuration = await import('@nomad-xyz/configuration')
-const conf = configuration.getBuiltin(environment)
-if (conf.bridgeGui.ethereum) {
-  conf.bridgeGui.ethereum.connections?.push('evmos')
-}
-export const config = conf
-
 export const isProduction = environment === 'production'
 export const tokens = isProduction ? mainnetTokens : testnetTokens
-export const networks = getNetworksFromConfig(config, tokens)
-export const connextConfig = getConnextConfigFromConfig(config, [
-  VUE_APP_ETHEREUM_RPC,
-])
+export const networks = getNetworksConfig(tokens)
+export const connextConfig = getConnextConfig([VUE_APP_ETHEREUM_RPC])
 export const proofsS3 = VUE_APP_PROOFS_S3
 export const connextScanURL = VUE_APP_CONNEXTSCAN_URL
 export const nomadAPI = VUE_APP_NOMAD_API
