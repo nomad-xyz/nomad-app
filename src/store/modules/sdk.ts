@@ -4,14 +4,13 @@ import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { TXData } from './transactions'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-const { networks, proofsS3, isProduction } = await import('@/config')
+import { networks, proofsS3, isProduction } from '@/config'
 import { getBalance, getNativeBalance, getERC20Balance } from '@/utils/balance'
 import { isNativeToken, getNetworkByDomainID } from '@/utils'
 import { NetworkMetadata, NetworkName } from '@/config/types'
-import { config } from '@/utils/config'
 
 const nomadSDK = await import('@nomad-xyz/sdk-bridge')
-const nomad = new nomadSDK.BridgeContext(config)
+export const nomad = await nomadSDK.BridgeContext.fetch(process.env.VUE_APP_NOMAD_ENVIRONMENT)
 
 export interface SendData {
   isNative: boolean
