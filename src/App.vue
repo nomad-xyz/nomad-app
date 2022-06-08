@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import * as Sentry from "@sentry/browser";
+import * as Sentry from '@sentry/browser'
 import { useStore } from '@/store'
 
 import { RouterView } from 'vue-router'
@@ -64,7 +64,7 @@ export default defineComponent({
       destinationNetwork: computed(
         () => store.state.userInput.destinationNetwork
       ),
-      address: computed(() => store.state.wallet.address)
+      address: computed(() => store.state.wallet.address),
     }
   },
 
@@ -90,8 +90,12 @@ export default defineComponent({
       if (newAddr) {
         Sentry.setUser({ id: newAddr })
       }
-    }
-  }
+    },
+    $route(to) {
+      // track page changes
+      window.analytics.page(to)
+    },
+  },
 })
 </script>
 
