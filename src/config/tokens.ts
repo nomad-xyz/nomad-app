@@ -40,7 +40,7 @@ import AAVEIcon from '@/assets/token-logos/AAVE.svg'
 import HBOTIcon from '@/assets/token-logos/HBOT.png'
 import GELIcon from '@/assets/token-logos/GEL.png'
 import APEIcon from '@/assets/token-logos/APE.png'
-// import TICIcon from '@/assets/token-logos/TIC.png'
+import TICIcon from '@/assets/token-logos/TIC.png'
 
 // SHARED TOKEN ICONS (both testnet + mainnet)
 import USDTIcon from '@/assets/token-logos/USDT.png'
@@ -704,19 +704,19 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     show: false,
   },
-  // TIC: {
-  //   key: 'TIC',
-  //   nativeNetwork: 'avalanche',
-  //   symbol: 'TIC',
-  //   name: 'Elastic Swap',
-  //   icon: TICIcon,
-  //   iconColors: ['#D29DFD', '#5560D4'],
-  //   decimals: 18,
-  //   coinGeckoId: 'elasticswap',
-  //   tokenIdentifier: mainnetTokenIdentifiers.TIC,
-  //   nativeOnly: false,
-  //   show: false,
-  // },
+  TIC: {
+    key: 'TIC',
+    nativeNetwork: 'avalanche',
+    symbol: 'TIC',
+    name: 'Elastic Swap',
+    icon: TICIcon,
+    iconColors: ['#D29DFD', '#5560D4'],
+    decimals: 18,
+    coinGeckoId: 'elasticswap',
+    tokenIdentifier: mainnetTokenIdentifiers.TIC,
+    nativeOnly: false,
+    show: false,
+  },
   HBOT: {
     key: 'HBOT',
     nativeNetwork: 'ethereum',
