@@ -27,6 +27,7 @@ interface ProviderRpcError extends Error {
 export interface WalletState {
   connected: boolean
   address: string
+  tokens: string[]
 }
 
 type TokenPayload = {
@@ -37,6 +38,7 @@ type TokenPayload = {
 const state = (): WalletState => ({
   connected: false,
   address: localStorage.getItem('wallet_address') || '',
+  tokens: JSON.parse(localStorage.getItem('user_tokens')!) || [],
 })
 
 const mutations = <MutationTree<WalletState>>{
@@ -49,6 +51,26 @@ const mutations = <MutationTree<WalletState>>{
     console.log('{dispatch} set wallet address: ', address)
     state.address = address
     localStorage.setItem('wallet_address', address)
+  },
+
+  [types.ADD_USER_TOKEN](state: WalletState, key: string) {
+    console.log('{dispatch} add user token: ', key)
+    const index = state.tokens.indexOf(key)
+    if (index < 0) {
+      state.tokens.unshift(key)
+      localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
+    }
+  },
+
+  [types.REMOVE_USER_TOKEN](state: WalletState, key: string) {
+    console.log('{dispatch} remove user token: ', key)
+    const copy = state.tokens
+    const index = copy.indexOf(key)
+    if (index > -1) {
+      copy.splice(index, 1); // 2nd parameter means remove one item only
+      state.tokens = copy
+      localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
+    }
   },
 }
 
@@ -245,6 +267,14 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     return !!wasAdded
   },
+
+  addUserToken({ commit }, symbol: string) {
+    commit(types.ADD_USER_TOKEN, symbol)
+  },
+
+  removeUserToken({ commit }, symbol: string) {
+    commit(types.REMOVE_USER_TOKEN, symbol)
+  }
 }
 
 const getters = <GetterTree<WalletState, RootState>>{

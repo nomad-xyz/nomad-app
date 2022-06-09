@@ -215,6 +215,7 @@ export function getNetworkDomainIDByName(networkName: string): number {
 // TOKEN
 
 export const nullToken: TokenMetadata = {
+  key: '',
   nativeNetwork: 'ethereum',
   symbol: '',
   name: '',
@@ -223,7 +224,6 @@ export const nullToken: TokenMetadata = {
   coinGeckoId: '',
   tokenIdentifier: null,
   nativeOnly: false,
-  minAmt: 0,
 }
 
 export function getTokenBySymbol(symbol: string): TokenMetadata {

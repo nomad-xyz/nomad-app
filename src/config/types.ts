@@ -7,6 +7,7 @@ export type TokenMetadataMap = { [key: string]: TokenMetadata }
 export type NetworkMap = { [key: string]: NetworkMetadata }
 
 export type TokenMetadata = {
+  key: string // must match key
   nativeNetwork: NetworkName
   symbol: string
   name: string
@@ -16,12 +17,13 @@ export type TokenMetadata = {
   coinGeckoId: string
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
-  minAmt: number
   wrappedAsset?: string
+  default?: boolean
+  show?: boolean // native tokens and blue chip assets
 }
 
 export type NetworkMetadata = {
-  name: NetworkName
+  name: NetworkName // must match key
   displayName: string
   connections: NetworkName[]
   chainID: number // for wallet

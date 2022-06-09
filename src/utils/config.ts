@@ -89,8 +89,8 @@ export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
     const icon = nativeToken ? nativeToken.icon : ''
 
     networks[networkName] = {
-      icon,
       name,
+      icon,
       rpcUrl,
       chainID,
       domainID,
