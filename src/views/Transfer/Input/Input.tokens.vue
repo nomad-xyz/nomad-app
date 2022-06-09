@@ -195,6 +195,36 @@ export default defineComponent({
       if (this.store.state.userInput.destinationNetwork === 'avalanche') {
         return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
+    },
+    userTokenList(): TokenMetadata[] {
+      return this.tokens.filter((t) => this.showToken(t))
+    },
+    tokenOptions(): TokenMetadata[] {
+      return this.tokens.filter((t) => !t.default)
+    },
+    searchMatch(): TokenMetadata[] {
+      return this.tokens.filter((t) => {
+        const search = this.searchText.toLowerCase()
+        const symbol = t.key.toLowerCase()
+        const name = t.name.toLowerCase()
+
+        if (symbol.includes(search)) return true
+        if (name.includes(search)) return true
+        if (t.tokenIdentifier) {
+          const address = (t.tokenIdentifier.id as string).toLowerCase()
+          if (address === search) return true
+        }
+        return false
+      })
+    },
+    tokenMatch(): TokenMetadata[] {
+      const { destinationNetwork } = this.store.state.userInput
+      if (destinationNetwork === 'avalanche') {
+        return this.tokens.filter(t => t.symbol === 'HBOT')
+      }
+      if (this.searchText) return this.searchMatch
+      if (this.tab === 1) return this.userTokenList
+      if (this.tab === 2) return this.tokenOptions
       return this.tokens
     },
     userTokenList(): TokenMetadata[] {
