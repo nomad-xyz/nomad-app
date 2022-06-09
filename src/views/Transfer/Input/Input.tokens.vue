@@ -11,7 +11,7 @@
           :class="{ 'opacity-100': tab === 1 }"
           @click="tab = 1"
         >
-          Your List (10)
+          Your List ({{ userTokenList.length }})
         </div>
         <div
           class="opacity-70 cursor-pointer py-2"
@@ -62,14 +62,14 @@
 
           <!-- expand list -->
           <div
-            v-if="tab === 1"
+            v-if="tab === 1 && !searchText"
             class="flex flex-row items-center p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
             @click="tab = 2"
           >
             <div class="bg-black bg-opacity-50 rounded-lg p-2">
               <span class="flex justify-center items-center h-6 w-6">. . .</span>
             </div>
-            <div class="uppercase ml-2">See all tokens (45)</div>
+            <div class="uppercase ml-2">See all tokens ({{ tokens.length }})</div>
           </div>
         </div>
       </div>
@@ -169,7 +169,6 @@ export default defineComponent({
     },
 
     manageToken(token: TokenMetadata) {
-      console.log(token)
       if (this.showToken(token)) {
         this.store.dispatch('removeUserToken', token.key)
       } else {
@@ -178,18 +177,19 @@ export default defineComponent({
     },
 
     showToken(token: TokenMetadata): boolean {
-      const show = token.show || !!this.userTokens.find((key) => key === token.key)
-      console.log(show)
-      return show
+      return token.show || this.userTokens.some((key) => key === token.key)
     }
   },
 
   computed: {
-    tokenMatch(): TokenMetadata[] {
-      const tokenArr = Object.values(tokens)
-      if (!this.searchText && this.tab === 1) return tokenArr.filter((t) => this.showToken(t))
-      if (!this.searchText && this.tab === 2) return tokenArr.filter((t) => !t.default)
-      return tokenArr.filter((t) => {
+    userTokenList(): TokenMetadata[] {
+      return this.tokens.filter((t) => this.showToken(t))
+    },
+    tokenOptions(): TokenMetadata[] {
+      return this.tokens.filter((t) => !t.default)
+    },
+    searchMatch(): TokenMetadata[] {
+      return this.tokens.filter((t) => {
         const search = this.searchText.toLowerCase()
         const symbol = t.key.toLowerCase()
         const name = t.name.toLowerCase()
@@ -202,6 +202,12 @@ export default defineComponent({
         }
         return false
       })
+    },
+    tokenMatch(): TokenMetadata[] {
+      if (this.searchText) return this.searchMatch
+      if (this.tab === 1) return this.userTokenList
+      if (this.tab === 2) return this.tokenOptions
+      return this.tokens
     },
   },
 })
