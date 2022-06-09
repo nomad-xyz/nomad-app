@@ -42,6 +42,7 @@ import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
 // import NetworkAlert from '@/components/NetworkAlert.vue'
 import { getNetworkByDomainID } from '@/utils'
+import analytics from '@/services/analytics'
 
 export default defineComponent({
   components: {
@@ -93,7 +94,7 @@ export default defineComponent({
     },
     $route(to) {
       // track page changes
-      window.analytics.page(to)
+      analytics.page(to.name)
     },
   },
 })
