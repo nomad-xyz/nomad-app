@@ -4,6 +4,8 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+- feat: segment page tracking
+
 ## v1.5.2 (June 7th, 2022)
 
 - feat: add AVAX, wAVAX
