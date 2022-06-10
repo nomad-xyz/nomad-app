@@ -12,6 +12,7 @@ This change log is manually updated at the moment.
 ## v1.6.1 (June 23, 2022)
 
 - add: link to tx search in nav
+- feat: segment page tracking
 
 ## v1.6.0 (June 22, 2022)
 
