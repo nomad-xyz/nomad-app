@@ -3,7 +3,10 @@ import { NetworkMetadata, NetworkMap, TokenMetadataMap } from '@/config/types'
 import AVAXIcon from '@/assets/token-logos/AVAX.png'
 
 export const config = await import('@nomad-xyz/sdk-bridge').then(async({ BridgeContext }) => {
-  return (await BridgeContext.fetch(process.env.VUE_APP_NOMAD_ENVIRONMENT)).conf
+  const { conf } = (await BridgeContext.fetch(process.env.VUE_APP_NOMAD_ENVIRONMENT, false))
+  // Error: Uncaught (in promise) Unable to deserialize config from string: EOF while parsing a value at line 1 column 0
+  console.log(conf)
+  return conf
 })
 
 const {
