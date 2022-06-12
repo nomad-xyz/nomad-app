@@ -80,6 +80,16 @@ export default defineComponent({
           return
         }
       }
+      // only allow HBOT to Avalanche
+      if (destinationNetwork === 'avalanche' && token.symbol !== 'HBOT') {
+        this.notification.warning({
+          title: 'Action not supported',
+          description:
+            'HBOT is the only Nomad asset currently supported on Avalanche',
+          duration: 10000,
+        })
+        return
+      }
       const valid = await this.v$.$validate()
       if (valid) {
         this.store.dispatch('setTransferStep', TransferStep.REVIEW)
