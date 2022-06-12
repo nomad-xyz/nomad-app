@@ -11,7 +11,7 @@
       <!-- token list -->
       <div class="tokens-container">
         <div
-          v-for="token in tokens"
+          v-for="token in tokensFilter"
           :key="token.symbol"
           class="flex flex-row items-center justify-between p-2 cursor-pointer rounded-lg hover:bg-white hover:bg-opacity-5"
           :class="{ disabled: shouldSwitchToNative(token) }"
@@ -111,6 +111,15 @@ export default defineComponent({
       }
     },
   },
+
+  computed: {
+    tokensFilter() {
+      if (this.store.state.userInput.destinationNetwork === 'avalanche') {
+        return this.tokens.filter(t => t.symbol === 'HBOT')
+      }
+      return this.tokens
+    }
+  }
 })
 </script>
 
