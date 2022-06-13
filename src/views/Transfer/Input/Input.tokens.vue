@@ -220,7 +220,7 @@ export default defineComponent({
     tokenMatch(): TokenMetadata[] {
       const { destinationNetwork } = this.store.state.userInput
       if (destinationNetwork === 'avalanche') {
-        return this.tokens.filter(t => t.symbol === 'HBOT')
+        return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
       if (this.searchText) return this.searchMatch
       if (this.tab === 1) return this.userTokenList
