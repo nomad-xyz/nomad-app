@@ -4,6 +4,8 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+- transaction history
+
 ## v1.7.1 (June 23, 2022)
 
 - feature: fetch hosted config
@@ -12,7 +14,14 @@ This change log is manually updated at the moment.
 ## v1.6.1 (June 23, 2022)
 
 - add: link to tx search in nav
-- feat: segment page tracking
+
+## v1.5.3 (June 13th, 2022)
+
+- sentry user id (wallet address)
+- "Add token" upgrade
+- search token bar
+- basic segment page tracking
+- fix missing avalanche icon
 
 ## v1.6.0 (June 22, 2022)
 

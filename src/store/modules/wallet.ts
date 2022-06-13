@@ -67,7 +67,7 @@ const mutations = <MutationTree<WalletState>>{
     const copy = state.tokens
     const index = copy.indexOf(key)
     if (index > -1) {
-      copy.splice(index, 1); // 2nd parameter means remove one item only
+      copy.splice(index, 1) // 2nd parameter means remove one item only
       state.tokens = copy
       localStorage.setItem('user_tokens', JSON.stringify(state.tokens))
     }
@@ -289,7 +289,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
   removeUserToken({ commit }, symbol: string) {
     commit(types.REMOVE_USER_TOKEN, symbol)
-  }
+  },
 }
 
 const getters = <GetterTree<WalletState, RootState>>{
