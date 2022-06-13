@@ -529,6 +529,7 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'hummingbot',
     tokenIdentifier: mainnetTokenIdentifiers.HBOT,
     nativeOnly: false,
+    default: true,
     show: true,
   },
   MIM: {
