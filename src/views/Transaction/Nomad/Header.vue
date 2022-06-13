@@ -268,7 +268,6 @@ export default defineComponent({
   mounted() {
     setInterval(() => {
       this.now = Date.now()
-      this.markComplete = true
     }, 10000)
   },
   methods: {
