@@ -36,7 +36,7 @@ import USDTIcon from '@/assets/token-logos/USDT.png'
 import USDCIcon from '@/assets/token-logos/USDC.png'
 import DAIIcon from '@/assets/token-logos/DAI.png'
 import EvmosIcon from '@/assets/token-logos/EVMOS.png'
-import AVAXIcon from '@/assets/token-logos/AVAX.png'
+// import AVAXIcon from '@/assets/token-logos/AVAX.png'
 
 export const testnetTokens: TokenMetadataMap = {
   // Only for use with connext in dev environment
@@ -400,31 +400,31 @@ export const mainnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     minAmt: 10,
   },
-  AVAX: {
-    nativeNetwork: 'avalanche',
-    symbol: 'AVAX',
-    name: 'Avalanche',
-    icon: AVAXIcon,
-    iconColors: ['#fff', '#e84142'],
-    decimals: 18,
-    coinGeckoId: 'avalanche',
-    tokenIdentifier: null,
-    nativeOnly: true,
-    minAmt: 10,
-    wrappedAsset: 'wAVAX',
-  },
-  wAVAX: {
-    nativeNetwork: 'avalanche',
-    symbol: 'wAVAX',
-    name: 'Wrapped AVAX',
-    icon: AVAXIcon,
-    iconColors: ['#fff', '#e84142'],
-    decimals: 18,
-    coinGeckoId: 'wrapped-avax',
-    tokenIdentifier: mainnetTokenIdentifiers.wAVAX,
-    nativeOnly: false,
-    minAmt: 10,
-  },
+  // AVAX: {
+  //   nativeNetwork: 'avalanche',
+  //   symbol: 'AVAX',
+  //   name: 'Avalanche',
+  //   icon: AVAXIcon,
+  //   iconColors: ['#fff', '#e84142'],
+  //   decimals: 18,
+  //   coinGeckoId: 'avalanche',
+  //   tokenIdentifier: null,
+  //   nativeOnly: true,
+  //   minAmt: 10,
+  //   wrappedAsset: 'wAVAX',
+  // },
+  // wAVAX: {
+  //   nativeNetwork: 'avalanche',
+  //   symbol: 'wAVAX',
+  //   name: 'Wrapped AVAX',
+  //   icon: AVAXIcon,
+  //   iconColors: ['#fff', '#e84142'],
+  //   decimals: 18,
+  //   coinGeckoId: 'wrapped-avax',
+  //   tokenIdentifier: mainnetTokenIdentifiers.wAVAX,
+  //   nativeOnly: false,
+  //   minAmt: 10,
+  // },
   FRAX: {
     nativeNetwork: 'ethereum',
     symbol: 'FRAX',
