@@ -1,6 +1,7 @@
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 import { NomadConfig } from '@nomad-xyz/configuration'
 import { NetworkMetadata, NetworkMap, TokenMetadataMap } from '@/config/types'
+import AVAXIcon from '@/assets/token-logos/AVAX.png'
 
 const {
   VUE_APP_ETHEREUM_RPC,
@@ -96,6 +97,11 @@ export const getNetworksFromConfig = (
       optimisticSeconds,
     } as NetworkMetadata
   })
+
+  // Add avalanche icon because it doesn't have native asset listed
+  if (networks.avalanche) {
+    networks.avalanche.icon = AVAXIcon
+  }
 
   return networks
 }
