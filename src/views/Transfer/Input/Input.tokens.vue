@@ -56,7 +56,11 @@
                 {{ token.nativeNetwork }}
               </nomad-button>
 
-              <n-switch v-if="!token.default" :value="showToken(token)" @click.stop="manageToken(token)" />
+              <n-switch
+                v-if="!token.default"
+                :value="showToken(token)"
+                @click.stop="manageToken(token)"
+              />
             </div>
           </div>
 
@@ -67,9 +71,13 @@
             @click="tab = 2"
           >
             <div class="bg-black bg-opacity-50 rounded-lg p-2">
-              <span class="flex justify-center items-center h-6 w-6">. . .</span>
+              <span class="flex justify-center items-center h-6 w-6">
+                . . .
+              </span>
             </div>
-            <div class="uppercase ml-2">See all tokens ({{ tokens.length }})</div>
+            <div class="uppercase ml-2">
+              See all tokens ({{ tokens.length }})
+            </div>
           </div>
         </div>
       </div>
@@ -178,7 +186,7 @@ export default defineComponent({
 
     showToken(token: TokenMetadata): boolean {
       return token.show || this.userTokens.some((key) => key === token.key)
-    }
+    },
   },
 
   computed: {
@@ -212,7 +220,7 @@ export default defineComponent({
     tokenMatch(): TokenMetadata[] {
       const { destinationNetwork } = this.store.state.userInput
       if (destinationNetwork === 'avalanche') {
-        return this.tokens.filter(t => t.symbol === 'HBOT')
+        return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
       if (this.searchText) return this.searchMatch
       if (this.tab === 1) return this.userTokenList
