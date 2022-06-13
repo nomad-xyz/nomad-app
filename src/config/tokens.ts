@@ -30,6 +30,7 @@ import WSTRIcon from '@/assets/token-logos/WSTR.png'
 import CQTIcon from '@/assets/token-logos/CQT.png'
 import HBTCIcon from '@/assets/token-logos/HBTC.png'
 import HBOTIcon from '@/assets/token-logos/HBOT.png'
+import PBXIcon from '@/assets/token-logos/PBXIcon.png'
 
 // SHARED TOKEN ICONS (both testnet + mainnet)
 import USDTIcon from '@/assets/token-logos/USDT.png'
@@ -566,6 +567,18 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'hummingbot',
     tokenIdentifier: mainnetTokenIdentifiers.HBOT,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  PBX: {
+    nativeNetwork: 'milkomedaC1',
+    symbol: 'PBX',
+    name: 'Paribus',
+    icon: PBXIcon,
+    iconColors: ['#03b1ea', '#8660fd'],
+    decimals: 18,
+    coinGeckoId: 'paribus',
+    tokenIdentifier: mainnetTokenIdentifiers.PBX,
     nativeOnly: false,
     minAmt: 10,
   },
