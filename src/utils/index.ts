@@ -115,13 +115,13 @@ export function minutesTilConfirmation(timestamp: BigNumber): number {
 }
 
 function fallbackCopyTextToClipboard(text: string): boolean {
-  const textArea = document.createElement("textarea")
+  const textArea = document.createElement('textarea')
   textArea.value = text
 
   // Avoid scrolling to bottom
-  textArea.style.top = "0"
-  textArea.style.left = "0"
-  textArea.style.position = "fixed"
+  textArea.style.top = '0'
+  textArea.style.left = '0'
+  textArea.style.position = 'fixed'
 
   document.body.appendChild(textArea)
   textArea.focus()
@@ -142,13 +142,16 @@ function fallbackCopyTextToClipboard(text: string): boolean {
 
 export function copyTextToClipboard(text: string): boolean {
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(function() {
-      console.log('Async: Copying to clipboard was successful!')
-      return true
-    }, function(err) {
-      console.error('Async: Could not copy text: ', err)
-      return fallbackCopyTextToClipboard(text)
-    })
+    navigator.clipboard.writeText(text).then(
+      function () {
+        console.log('Async: Copying to clipboard was successful!')
+        return true
+      },
+      function (err) {
+        console.error('Async: Could not copy text: ', err)
+        return fallbackCopyTextToClipboard(text)
+      }
+    )
   }
   return fallbackCopyTextToClipboard(text)
 }

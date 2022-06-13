@@ -140,8 +140,8 @@ export default defineComponent({
         this.pageCount = 1000
         this.getHistory()
       }
-    }
-  }
+    },
+  },
 })
 </script>
 

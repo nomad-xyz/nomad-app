@@ -4,7 +4,15 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
-- feat: segment page tracking
+- transaction history
+
+## v1.5.3 (June 13th, 2022)
+
+- sentry user id (wallet address)
+- "Add token" upgrade
+- search token bar
+- basic segment page tracking
+- fix missing avalanche icon
 
 ## v1.5.2 (June 7th, 2022)
 

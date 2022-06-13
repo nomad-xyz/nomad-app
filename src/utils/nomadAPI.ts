@@ -19,21 +19,25 @@ export type IndexerTx = {
   confirmAt: number
 }
 
-export async function getUserHistory(address: string, page: number, size: number): Promise<Array<IndexerTx>> {
+export async function getUserHistory(
+  address: string,
+  page: number,
+  size: number
+): Promise<Array<IndexerTx>> {
   const skip = size * (page - 1)
   const variables = JSON.stringify({
     where: {
       OR: [
         {
           recipient: {
-            equals: address
+            equals: address,
           },
           sender: {
-            equals: address
-          }
-        }
-      ]
-    }
+            equals: address,
+          },
+        },
+      ],
+    },
   })
   const query = gql`
     query Query($where: MessagesWhereInput) {
