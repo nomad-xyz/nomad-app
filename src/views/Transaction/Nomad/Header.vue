@@ -70,7 +70,7 @@
 
   <div
     class="header transition-all duration-400 px-5 py-8"
-    :class="[status === 4 ? 'bg-[#2fbb72]' : 'bg-[#5185d0]']"
+    :class="[transferComplete ? 'bg-[#2fbb72]' : 'bg-[#5185d0]']"
   >
     <!-- loading -->
     <span class="flex flex-col items-center" v-if="!status">
@@ -78,7 +78,7 @@
       <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
     <!-- complete -->
-    <span class="flex flex-col items-center" v-else-if="status === 4">
+    <span class="flex flex-col items-center" v-else-if="transferComplete">
       <img src="@/assets/icons/check.svg" alt="check" class="mb-2" />
       <n-text class="uppercase opacity-80">Transfer complete</n-text>
     </span>
@@ -221,6 +221,7 @@ interface ComponentData {
   PROCESS_TIME_IN_MINUTES: number
   showStatus: boolean
   now: number
+  markComplete: boolean
 }
 
 export default defineComponent({
@@ -252,6 +253,7 @@ export default defineComponent({
       PROCESS_TIME_IN_MINUTES,
       showStatus: false,
       now: Date.now(),
+      markComplete: false,
     } as ComponentData),
   setup: () => {
     const store = useStore()
@@ -266,6 +268,7 @@ export default defineComponent({
   mounted() {
     setInterval(() => {
       this.now = Date.now()
+      this.markComplete = true
     }, 10000)
   },
   methods: {
@@ -280,6 +283,7 @@ export default defineComponent({
             title: 'Success',
             content: 'Transaction dispatched',
           })
+          this.markComplete = true
         }
       } catch (e: unknown) {
         const errorMessage = (e as Error).message
@@ -319,7 +323,10 @@ export default defineComponent({
     },
   },
   computed: {
-    showAlerts() {
+    transferComplete(): boolean {
+      return this.status === 4 || this.markComplete
+    },
+    showAlerts(): boolean {
       if (!this.status) return false
       return this.status >= 0 && this.status < 4
     },
@@ -331,7 +338,7 @@ export default defineComponent({
         return 2
       } else if (this.status === 2 || this.status === 3) {
         return 4
-      } else if (this.status === 4) {
+      } else if (this.transferComplete) {
         return 5
       }
       return 1
