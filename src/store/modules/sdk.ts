@@ -211,8 +211,6 @@ const actions = <ActionTree<SDKState, RootState>>{
     await dispatch('switchNetwork', destNetwork.name)
     await dispatch('registerSigner', destNetwork)
 
-    await message.process()
-
     try {
       const receipt = await message.process()
       console.log('PROCESSED!!!!')
