@@ -141,7 +141,7 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     id: '0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7',
   },
   PBX: {
-    domain: 'milkomedaC1',
+    domain: 'ethereum',
     id: '0xd528cf2e081f72908e086f8800977df826b5a483',
   },
 }

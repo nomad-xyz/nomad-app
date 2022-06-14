@@ -571,7 +571,7 @@ export const mainnetTokens: TokenMetadataMap = {
     minAmt: 10,
   },
   PBX: {
-    nativeNetwork: 'milkomedaC1',
+    nativeNetwork: 'ethereum',
     symbol: 'PBX',
     name: 'Paribus',
     icon: PBXIcon,
