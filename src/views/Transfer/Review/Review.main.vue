@@ -202,7 +202,7 @@ export default defineComponent({
   methods: {
     truncateAddr,
     nativeAssetSymbol(network: NetworkName) {
-      return networks[network].nativeToken.symbol
+      return networks[network].icon
     },
     receiveAssetSymbol() {
       const { token } = this.userInput
