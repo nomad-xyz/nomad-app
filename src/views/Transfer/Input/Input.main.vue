@@ -72,7 +72,7 @@ export default defineComponent({
     }
     const asset = tokens[token as string]
     if (asset) {
-      this.store.dispatch('setToken', token)
+      this.store.dispatch('setToken', asset)
     }
   },
 
