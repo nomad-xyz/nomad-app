@@ -4,7 +4,7 @@
     <div
       class="relative flex flex-row w-full justify-between items-center px-5 pb-7"
     >
-      <breadcrumb @click="back" />
+      <breadcrumb @click="back" class="z-10" />
       <span class="absolute w-full flex justify-center top-0 left-0 uppercase">
         Review & Bridge
       </span>
