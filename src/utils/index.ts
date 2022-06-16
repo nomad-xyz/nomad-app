@@ -227,6 +227,7 @@ export function getTokenBySymbol(symbol: string): TokenMetadata {
 // determines if the token is native to the selected origin network
 export function isNativeToken(network: string, token: TokenMetadata): boolean {
   const nativeToken = networks[network].nativeToken
+  if (!nativeToken) return false
   return nativeToken.symbol === token.symbol
 }
 

@@ -202,6 +202,12 @@ export default defineComponent({
   methods: {
     truncateAddr,
     nativeAssetSymbol(network: NetworkName) {
+      if (network === 'avalanche') {
+        return 'AVAX'
+      }
+      if (!networks[network].nativeToken) {
+        return ''
+      }
       return networks[network].nativeToken.symbol
     },
     receiveAssetSymbol() {
