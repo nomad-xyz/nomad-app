@@ -81,7 +81,7 @@ export default defineComponent({
         }
       }
       // only allow HBOT to Avalanche
-      if (destinationNetwork === 'avalanche' && token.symbol !== 'HBOT') {
+      if (destinationNetwork === 'avalanche' && token.symbol !== 'HBOT' && token.symbol !== 'wAVAX') {
         this.notification.warning({
           title: 'Action not supported',
           description:
