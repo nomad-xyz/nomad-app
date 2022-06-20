@@ -31,7 +31,7 @@
 
 # avax enabled production context:
 # `avax` branch is used to enable users to bridge back wAVAX that was accidentally enabled in production (which has since been disabled)
-[context.production-preview]
+[context.avax]
   command = "npm run build-prod"
 
 # Test production context:
