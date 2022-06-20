@@ -1,17 +1,17 @@
 <template>
   <footer
-    class="flex items-center justify-between flex-wrap max-w-screen-xl mx-auto p-6 pb-18"
+    class="flex justify-between flex-wrap max-w-screen-xl mx-auto p-6 pb-18"
   >
-    <div class="pb-5 md:pb-0">
+    <div class="flex flex-col justify-between h-[105px] pb-5 md:pb-0">
       <div class="flex items-center opacity-70 mb-2">
         <a
           v-for="s in socials"
           :key="s.href"
           :href="s.href"
           target="_blank"
-          class="mr-4"
+          class="mr-6"
         >
-          <n-icon size="18" color="rgba(255, 255, 255imti/footer-links, 0.6)">
+          <n-icon size="22" color="rgba(255, 255, 255imti/footer-links, 0.6)">
             <component :is="s.icon"></component>
           </n-icon>
         </a>
@@ -92,6 +92,10 @@ export default defineComponent({
       {
         href: 'https://github.com/nomad-xyz/nomad-monorepo',
         label: 'GitHub',
+      },
+      {
+        href: 'https://forum.nomad.xyz',
+        label: 'Forum',
       },
       {
         href: 'https://discord.gg/pqd4p9Mnre',
