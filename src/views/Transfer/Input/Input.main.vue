@@ -32,15 +32,18 @@ import { useStore } from '@/store'
 import BgBlur from './Input.bgblur.vue'
 import TransferAmount from './Input.amount.vue'
 import TransferInputs from './Input.inputs.vue'
+import TransferSteps from '../Transfer.steps.vue'
 import NomadButton from '@/components/Button.vue'
 import { useNotification } from 'naive-ui'
 import { TransferStep } from '@/store/modules/userInput'
+import { networks, tokens } from '@/config'
 
 export default defineComponent({
   components: {
     BgBlur,
     TransferAmount,
     TransferInputs,
+    TransferSteps,
     NomadButton,
   },
 
@@ -59,6 +62,17 @@ export default defineComponent({
       store,
       notification,
       v$,
+    }
+  },
+
+  mounted () {
+    const { destination, token } = this.$route.query
+    if (networks[destination as string]) {
+      this.store.dispatch('setDestinationNetwork', destination)
+    }
+    const asset = tokens[token as string]
+    if (asset) {
+      this.store.dispatch('setToken', asset)
     }
   },
 

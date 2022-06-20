@@ -1,15 +1,13 @@
 <template>
-  <div class="relative">
-    <router-link
-      :to="href"
-      class="inline-flex items-center opacity-60 hover:underline"
-    >
-      <n-icon size="15" class="absolute left-[-20px]">
-        <chevron-back />
-      </n-icon>
-      <n-text class="uppercase font-medium">{{ label }}</n-text>
-    </router-link>
-  </div>
+  <router-link
+    :to="href"
+    class="inline-flex items-center opacity-60 hover:underline p-1"
+  >
+    <n-icon size="15">
+      <chevron-back />
+    </n-icon>
+    <n-text class="uppercase font-medium">{{ label }}</n-text>
+  </router-link>
 </template>
 
 <script lang="ts">
