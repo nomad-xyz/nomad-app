@@ -15,16 +15,9 @@
       </nomad-button>
     </template>
     <div>
-      <p>
-        <b>Important</b>: Additional step required to complete Ethereum bound
-        transactions. You must return to the transaction page to submit
-        transaction to claim funds.
-      </p>
-      <p class="py-4">
-        <b>
-          IT IS RECOMMENDED YOU SUPPLY YOUR WALLET WITH AT LEAST 0.07 ETH TO
-          COVER AMPLE GAS LIMIT. ACTUAL GAS FEE WILL BE 80% LESS EXPENSIVE
-        </b>
+      <p class="mt-4">
+        <b>Important</b>: Additional step required to complete Ethereum-bound
+        transactions. You must return to the transaction page to claim funds.
       </p>
       <div class="flex flex-row">
         <a

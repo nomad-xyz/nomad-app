@@ -1,29 +1,7 @@
 <template>
-  <!-- Note about process gas fees -->
-  <n-alert
-    v-if="readyToManualProcess && showAlerts"
-    title="Important"
-    type="default"
-    class="mb-5 rounded-md"
-  >
-    <template #icon>
-      <n-icon color="#3889c5">
-        <alert-circle-outline />
-      </n-icon>
-    </template>
-    Processing gas fees will be approximately 80% cheaper than estimated.
-    Reducing the gas limit may result in a failed transaction.
-    <a
-      href="https://docs.nomad.xyz/bridge/faq.html#why-is-gas-estimate-so-high-to-get-my-funds-on-ethereum"
-      target="_blank"
-      class="underline"
-    >
-      Read more
-    </a>
-  </n-alert>
   <!-- Return to process -->
   <n-alert
-    v-else-if="requiresManualProcessing && showAlerts"
+    v-if="!readyToManualProcess && requiresManualProcessing && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"
