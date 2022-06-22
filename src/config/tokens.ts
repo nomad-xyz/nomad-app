@@ -141,11 +141,11 @@ export const testnetTokens: TokenMetadataMap = {
     symbol: 'wNEON',
     name: 'Wrapped NEON',
     icon: NEONIcon,
-    iconColors: ['#FF59FF', '#BC00DE'],
+    iconColors: ['#FF86FF', '#BC00DE'],
     decimals: 18,
     coinGeckoId: 'neon',
     tokenIdentifier: mainnetTokenIdentifiers.wNEON,
-    nativeOnly: true,
+    nativeOnly: false,
     minAmt: 10,
   },
   USDC: {
