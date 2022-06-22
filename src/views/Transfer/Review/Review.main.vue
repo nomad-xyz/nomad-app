@@ -223,13 +223,15 @@ export default defineComponent({
       try {
         await this.store.dispatch('getTransferQuote')
       } catch (e) {
-        this.notification.info({
-          title: 'Unavailable',
-          description:
-            'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.',
-          duration: 5000,
-        })
-        console.log(e)
+        if (this.protocol === 'connext') {
+          this.notification.info({
+            title: 'Unavailable',
+            description:
+              'Fast bridging with Connext is unavailable for this transaction. Please continue with Nomad.',
+            duration: 5000,
+          })
+          console.log(e)
+        }
         this.protocol = 'nomad'
       }
     },
