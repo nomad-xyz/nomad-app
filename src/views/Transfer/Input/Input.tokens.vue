@@ -195,6 +195,7 @@ export default defineComponent({
       if (this.store.state.userInput.destinationNetwork === 'avalanche') {
         return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
+      return this.tokens
     },
     userTokenList(): TokenMetadata[] {
       return this.tokens.filter((t) => this.showToken(t))
