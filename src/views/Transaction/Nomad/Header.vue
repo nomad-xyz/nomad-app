@@ -1,7 +1,7 @@
 <template>
   <!-- Return to process -->
   <n-alert
-    v-if="requiresManualProcessing && showAlerts"
+    v-if="!readyToManualProcess && requiresManualProcessing && showAlerts"
     title="Transfer pending"
     type="default"
     class="mb-5 rounded-md"

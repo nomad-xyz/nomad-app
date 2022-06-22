@@ -115,11 +115,11 @@ export default defineComponent({
   computed: {
     tokensFilter() {
       if (this.store.state.userInput.destinationNetwork === 'avalanche') {
-        return this.tokens.filter(t => t.symbol === 'HBOT')
+        return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
       return this.tokens
-    }
-  }
+    },
+  },
 })
 </script>
 

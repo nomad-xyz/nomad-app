@@ -65,7 +65,7 @@ export default defineComponent({
     }
   },
 
-  mounted () {
+  mounted() {
     const { destination, token } = this.$route.query
     if (networks[destination as string]) {
       this.store.dispatch('setDestinationNetwork', destination)
