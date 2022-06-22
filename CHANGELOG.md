@@ -4,6 +4,12 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.6.0 (June 22, 2022)
+
+- upgrade: contracts/sdk
+- remove: 1/5 processing gas fee language
+- fix: don't show connext alert if Nomad is selected
+
 ## v1.5.2 (June 7th, 2022)
 
 - feat: add AVAX, wAVAX
