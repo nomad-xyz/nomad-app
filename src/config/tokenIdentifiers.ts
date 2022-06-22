@@ -3,11 +3,11 @@ import { TokenIdentifierMap } from './types'
 // --- TESTNET TOKEN IDENTIFIERS ---
 // IMPORTANT make name same as tokens[token].symbol value
 export const testnetTokenIdentifiers: TokenIdentifierMap = {
-  WETH: {
+  rWETH: {
     domain: 'rinkeby',
     id: '0xc778417e063141139fce010982780140aa0cd5ab',
   },
-  gWETH: {
+  WETH: {
     domain: 'goerli',
     id: '0x0B1ba0af832d7C05fD64161E0Db78E85978E8082',
   },
@@ -34,6 +34,10 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
   wtEVMOS: {
     domain: 'evmostestnet',
     id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
+  },
+  wNEON: {
+    domain: 'neontestnet',
+    id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab'
   },
   //   DEV: {
   //     domain: 'moonbasealpha',
