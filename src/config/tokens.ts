@@ -7,15 +7,14 @@ import {
 import ConnextIcon from '@/assets/icons/connext.svg'
 // TESTNET TOKEN ICONS
 import rWETHIcon from '@/assets/token-logos/rWETH.png'
-import kWETHIcon from '@/assets/token-logos/kWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
-import XDAIIcon from '@/assets/token-logos/XDAI.png'
 import CARDSIcon from '@/assets/token-logos/CARDS.png'
 import C3Icon from '@/assets/token-logos/C3.png'
 import GEROIcon from '@/assets/token-logos/GERO.png'
 import renBTCIcon from '@/assets/token-logos/renBTC.png'
 import sBTCIcon from '@/assets/token-logos/sBTC.png'
 import tBTCIcon from '@/assets/token-logos/tBTC.png'
+import NEONIcon from '@/assets/token-logos/NEON.svg'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
 
@@ -50,18 +49,6 @@ export const testnetTokens: TokenMetadataMap = {
     nativeOnly: false,
     minAmt: 10,
   },
-  rWETH: {
-    nativeNetwork: 'rinkeby',
-    symbol: 'rWETH',
-    name: 'Rinkeby WETH',
-    icon: rWETHIcon,
-    iconColors: ['#eda532', '#eda532'],
-    decimals: 18,
-    coinGeckoId: 'weth',
-    tokenIdentifier: testnetTokenIdentifiers.WETH,
-    nativeOnly: false,
-    minAmt: 0.0028,
-  },
   rETH: {
     nativeNetwork: 'rinkeby',
     symbol: 'rETH',
@@ -75,21 +62,21 @@ export const testnetTokens: TokenMetadataMap = {
     minAmt: 0.0028,
     wrappedAsset: 'rWETH',
   },
-  gWETH: {
-    nativeNetwork: 'goerli',
-    symbol: 'gWETH',
-    name: 'Goerli WETH',
-    icon: gWETHIcon,
-    iconColors: ['#2980B9', '#2980B9'],
+  rWETH: {
+    nativeNetwork: 'rinkeby',
+    symbol: 'rWETH',
+    name: 'Rinkeby WETH',
+    icon: rWETHIcon,
+    iconColors: ['#eda532', '#eda532'],
     decimals: 18,
     coinGeckoId: 'weth',
-    tokenIdentifier: testnetTokenIdentifiers.gWETH,
+    tokenIdentifier: testnetTokenIdentifiers.rWETH,
     nativeOnly: false,
     minAmt: 0.0028,
   },
-  gETH: {
+  ETH: {
     nativeNetwork: 'goerli',
-    symbol: 'gETH',
+    symbol: 'ETH',
     name: 'Goerli ETH',
     icon: gWETHIcon,
     iconColors: ['#2980B9', '#2980B9'],
@@ -97,8 +84,69 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'ethereum',
     tokenIdentifier: null,
     nativeOnly: true,
+    wrappedAsset: 'WETH',
     minAmt: 0.0028,
-    wrappedAsset: 'gWETH',
+  },
+  WETH: {
+    nativeNetwork: 'goerli',
+    symbol: 'WETH',
+    name: 'Goerli WETH',
+    icon: gWETHIcon,
+    iconColors: ['#2980B9', '#2980B9'],
+    decimals: 18,
+    coinGeckoId: 'weth',
+    tokenIdentifier: testnetTokenIdentifiers.WETH,
+    nativeOnly: false,
+    minAmt: 0.0028,
+  },
+  tEVMOS: {
+    nativeNetwork: 'evmostestnet',
+    symbol: 'tEVMOS',
+    name: 'tEVMOS',
+    icon: EvmosIcon,
+    iconColors: ['#F3836F', '#EE4E32'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    wrappedAsset: 'wtEVMOS',
+    minAmt: 10,
+  },
+  wtEVMOS: {
+    nativeNetwork: 'evmostestnet',
+    symbol: 'wtEVMOS',
+    name: 'wtEVMOS',
+    icon: EvmosIcon,
+    iconColors: ['#F3836F', '#EE4E32'],
+    decimals: 18,
+    coinGeckoId: 'evmos',
+    tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
+    nativeOnly: false,
+    minAmt: 10,
+  },
+  NEON: {
+    nativeNetwork: 'neontestnet',
+    symbol: 'NEON',
+    name: 'NEON',
+    icon: NEONIcon,
+    iconColors: ['#FF59FF', '#BC00DE'],
+    decimals: 18,
+    coinGeckoId: 'neon',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    minAmt: 10,
+  },
+  wNEON: {
+    nativeNetwork: 'neontestnet',
+    symbol: 'wNEON',
+    name: 'Wrapped NEON',
+    icon: NEONIcon,
+    iconColors: ['#FF59FF', '#BC00DE'],
+    decimals: 18,
+    coinGeckoId: 'neon',
+    tokenIdentifier: mainnetTokenIdentifiers.wNEON,
+    nativeOnly: true,
+    minAmt: 10,
   },
   USDC: {
     nativeNetwork: 'goerli',
@@ -189,43 +237,6 @@ export const testnetTokens: TokenMetadataMap = {
   //   nativeOnly: false,
   //   minAmt: 10,
   // },
-  tEVMOS: {
-    nativeNetwork: 'evmostestnet',
-    symbol: 'tEVMOS',
-    name: 'tEVMOS',
-    icon: EvmosIcon,
-    iconColors: ['#454545', '#000'],
-    decimals: 18,
-    coinGeckoId: 'evmos',
-    tokenIdentifier: null,
-    nativeOnly: true,
-    minAmt: 10,
-    wrappedAsset: 'wtEVMOS',
-  },
-  wtEVMOS: {
-    nativeNetwork: 'evmostestnet',
-    symbol: 'wtEVMOS',
-    name: 'wtEVMOS',
-    icon: EvmosIcon,
-    iconColors: ['#454545', '#000'],
-    decimals: 18,
-    coinGeckoId: 'evmos',
-    tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
-    nativeOnly: false,
-    minAmt: 10,
-  },
-  gUSDC: {
-    nativeNetwork: 'goerli',
-    symbol: 'gUSDC',
-    name: 'gUSDC',
-    icon: USDCIcon,
-    iconColors: ['#fff', '#2976C9'],
-    decimals: 6,
-    coinGeckoId: 'usd-coin',
-    tokenIdentifier: testnetTokenIdentifiers.gUSDC,
-    nativeOnly: false,
-    minAmt: 10,
-  },
 }
 
 export const mainnetTokens: TokenMetadataMap = {
