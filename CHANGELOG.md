@@ -4,6 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.6.1 (June 23, 2022)
+
+- add: link to tx search in nav
+
 ## v1.6.0 (June 22, 2022)
 
 - upgrade: contracts/sdk
