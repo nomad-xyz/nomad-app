@@ -28,8 +28,7 @@
           </div>
           <nomad-button
             v-if="shouldSwitchToNative(token)"
-            primary
-            class="capitalize"
+            class="capitalize bg-black bg-opacity-30 text-white"
             @click="switchAndSelect(token)"
           >
             <n-icon size="18" class="mr-1">
