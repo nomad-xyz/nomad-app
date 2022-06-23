@@ -11,7 +11,11 @@
     <!-- right side of nav -->
     <div class="flex items-center">
       <!-- search -->
-      <router-link to="/tx" class="flex items-center mr-6 opacity-70 hover:underline hover:opacity-90">
+      <router-link
+        to="/tx"
+        v-if="showSearch"
+        class="flex items-center mr-6 opacity-70 hover:underline hover:opacity-90"
+      >
         <img src="@/assets/icons/search.svg" class="mr-1 mt-1 h-4" />
         <span class="">SEARCH</span>
       </router-link>
@@ -101,6 +105,7 @@ export default defineComponent({
       showButton: computed(() =>
         ['Bridge', 'NomadTransaction'].includes(route.name as string)
       ),
+      showSearch: computed(() => route.name !== 'Transaction'),
       store,
     }
   },
