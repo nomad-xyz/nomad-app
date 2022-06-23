@@ -1,7 +1,7 @@
 <template>
   <!-- search transaction -->
   <n-card
-    style="width: 400px; backgroundcolor: #2f2f2f"
+    style="width: 400px; backgroundColor: #2f2f2f;"
     title="Search Transaction"
     :bordered="false"
     size="huge"

@@ -9,56 +9,69 @@
     </router-link>
 
     <!-- right side of nav -->
-    <div class="flex items-center" v-if="showButton">
-      <!-- connected -->
-      <n-tooltip
-        v-if="walletConnected"
-        placement="bottom-end"
-        :show-arrow="false"
-        trigger="click"
+    <div class="flex items-center">
+      <!-- search -->
+      <router-link
+        to="/tx"
+        v-if="showSearch"
+        class="flex items-center mr-6 opacity-70 hover:underline hover:opacity-90"
       >
-        <template #trigger>
-          <nomad-button class="btn-wallet-connected" :disabled="buttonDisabled">
-            <n-text class="mr-2 btn-connected-wallet-text uppercase"
-              >Wallet</n-text
-            >
-            <n-text>
-              {{ truncatedAddress }}
-            </n-text>
-            <n-icon size="12" class="ml-2 pt-0.5">
-              <ChevronDown />
-            </n-icon>
-          </nomad-button>
-        </template>
-        <!-- user settings -->
-        <div style="min-width: 200px" class="pb-2">
-          <router-link
-            to="/tx"
-            class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
-          >
-            Search Transaction
-          </router-link>
-          <n-divider class="divider" />
-          <a
-            href="https://docs.nomad.xyz/bridge/nomad-gui.html"
-            target="_blank"
-            class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
-          >
-            Bridge Guide
-          </a>
-        </div>
-      </n-tooltip>
+        <img src="@/assets/icons/search.svg" class="mr-1 mt-1 h-4" />
+        <span class="">SEARCH</span>
+      </router-link>
 
-      <!-- connect to wallet button -->
-      <nomad-button
-        v-else
-        class="uppercase"
-        :disabled="buttonDisabled"
-        primary
-        @click="handleConnect"
-      >
-        Connect Wallet
-      </nomad-button>
+      <!-- connect wallet button -->
+      <div class="flex items-center" v-if="showButton">
+        <!-- connected -->
+        <n-tooltip
+          v-if="walletConnected"
+          placement="bottom-end"
+          :show-arrow="false"
+          trigger="click"
+        >
+          <template #trigger>
+            <nomad-button class="btn-wallet-connected" :disabled="buttonDisabled">
+              <n-text class="mr-2 btn-connected-wallet-text uppercase"
+                >Wallet</n-text
+              >
+              <n-text>
+                {{ truncatedAddress }}
+              </n-text>
+              <n-icon size="12" class="ml-2 pt-0.5">
+                <ChevronDown />
+              </n-icon>
+            </nomad-button>
+          </template>
+          <!-- user settings -->
+          <div style="min-width: 200px" class="pb-2">
+            <router-link
+              to="/tx"
+              class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
+            >
+              Search Transaction
+            </router-link>
+            <n-divider class="divider" />
+            <a
+              href="https://docs.nomad.xyz/bridge/nomad-gui.html"
+              target="_blank"
+              class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
+            >
+              Bridge Guide
+            </a>
+          </div>
+        </n-tooltip>
+
+        <!-- connect to wallet button -->
+        <nomad-button
+          v-else
+          class="uppercase"
+          :disabled="buttonDisabled"
+          primary
+          @click="handleConnect"
+        >
+          Connect Wallet
+        </nomad-button>
+      </div>
     </div>
   </nav>
 </template>
@@ -92,6 +105,7 @@ export default defineComponent({
       showButton: computed(() =>
         ['Bridge', 'NomadTransaction'].includes(route.name as string)
       ),
+      showSearch: computed(() => route.name !== 'Transaction'),
       store,
     }
   },
