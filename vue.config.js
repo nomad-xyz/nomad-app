@@ -55,6 +55,6 @@ module.exports = defineConfig({
     //     changeOrigin: true,
     //   },
     // },
-    proxy: 'https://nomad-xyz.github.io/'
+    proxy: 'https://nomad-xyz.github.io/config/'
   },
 })
