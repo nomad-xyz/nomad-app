@@ -81,6 +81,7 @@ import CopyHash from '@/components/CopyHash.vue'
 import StatusHeader from './Header.vue'
 import NotificationError from '@/components/NotificationError.vue'
 import { NetworkName } from '@/config/types'
+import { getTx } from '@/utils/nomadAPI'
 
 interface ComponentData {
   transferMessage: TransferMessage | null
@@ -255,8 +256,7 @@ export default defineComponent({
       const { optimisticSeconds } = networks[this.originNet]
 
       // fetch tx
-      const res = await fetch(`${nomadAPI}${id}`)
-      const tx = (await res.json())[0]
+      const tx = await getTx(id as string)
       console.log('tx data: ', tx)
 
       if (!tx) {
