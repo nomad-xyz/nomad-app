@@ -49,11 +49,12 @@ module.exports = defineConfig({
     })
   },
   devServer: {
-    proxy: {
-      '^/api': {
-        target: 'http://localhost:1020',
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '^/api': {
+    //     target: 'http://localhost:1020',
+    //     changeOrigin: true,
+    //   },
+    // },
+    proxy: 'https://nomad-xyz.github.io/'
   },
 })
