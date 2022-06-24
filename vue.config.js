@@ -48,13 +48,4 @@ module.exports = defineConfig({
       return args
     })
   },
-  devServer: {
-    // proxy: {
-    //   '^/api': {
-    //     target: 'http://localhost:1020',
-    //     changeOrigin: true,
-    //   },
-    // },
-    proxy: 'https://nomad-xyz.github.io/config/'
-  },
 })
