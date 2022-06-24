@@ -10,7 +10,9 @@ import { isNativeToken, getNetworkByDomainID } from '@/utils'
 import { NetworkMetadata, NetworkName } from '@/config/types'
 
 const nomadSDK = await import('@nomad-xyz/sdk-bridge')
-export const nomad = await nomadSDK.BridgeContext.fetch(process.env.VUE_APP_NOMAD_ENVIRONMENT)
+export const nomad = await nomadSDK.BridgeContext.fetch(
+  process.env.VUE_APP_NOMAD_ENVIRONMENT
+)
 
 export interface SendData {
   isNative: boolean

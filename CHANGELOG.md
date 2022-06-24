@@ -4,6 +4,11 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.7.1 (June 23, 2022)
+
+- feature: fetch hosted config
+- style: update HBOT icon/colors
+
 ## v1.6.1 (June 23, 2022)
 
 - add: link to tx search in nav

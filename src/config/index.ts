@@ -1,8 +1,5 @@
 import { testnetTokens, mainnetTokens } from './tokens'
-import {
-  getNetworksConfig,
-  getConnextConfig,
-} from '@/utils/config'
+import { getNetworksConfig, getConnextConfig } from '@/utils/config'
 
 const {
   VUE_APP_NOMAD_ENVIRONMENT,

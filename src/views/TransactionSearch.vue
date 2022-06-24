@@ -1,7 +1,7 @@
 <template>
   <!-- search transaction -->
   <n-card
-    style="width: 400px; backgroundColor: #2f2f2f;"
+    class="search-card"
     title="Search Transaction"
     :bordered="false"
     size="huge"
@@ -129,3 +129,10 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.search-card {
+  width: 400px;
+  background-color: #2f2f2f;
+}
+</style>
