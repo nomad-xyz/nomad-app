@@ -1,7 +1,16 @@
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
-import { NomadConfig } from '@nomad-xyz/configuration'
 import { NetworkMetadata, NetworkMap, TokenMetadataMap } from '@/config/types'
 import AVAXIcon from '@/assets/token-logos/AVAX.png'
+
+export const config = await import('@nomad-xyz/sdk-bridge').then(
+  async ({ BridgeContext }) => {
+    const { conf } = await BridgeContext.fetch(
+      process.env.VUE_APP_NOMAD_ENVIRONMENT,
+      false
+    )
+    return conf
+  }
+)
 
 const {
   VUE_APP_ETHEREUM_RPC,
@@ -37,8 +46,7 @@ const rpcs: { [key: string]: string[] } = {
   avalanche: [VUE_APP_AVALANCHE_RPC],
 }
 
-export const getConnextConfigFromConfig = (
-  config: NomadConfig,
+export const getConnextConfig = (
   ethereumRPCs: string[]
 ): SdkBaseChainConfigParams => {
   const connextConfig: SdkBaseChainConfigParams = {}
@@ -63,10 +71,7 @@ export const getConnextConfigFromConfig = (
   return connextConfig
 }
 
-export const getNetworksFromConfig = (
-  config: NomadConfig,
-  tokens: TokenMetadataMap
-): NetworkMap => {
+export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
   const networks: NetworkMap = {}
 
   Object.keys(config.bridgeGui).forEach((networkName) => {

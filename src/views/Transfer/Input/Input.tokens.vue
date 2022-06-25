@@ -19,7 +19,7 @@
         >
           <div class="flex flex-row items-center">
             <div class="bg-black bg-opacity-50 rounded-lg p-2">
-              <img :src="token.icon" class="h-6" />
+              <img :src="token.icon" class="h-6 w-6" />
             </div>
             <div class="flex flex-col ml-2">
               <n-text>{{ token.symbol }}</n-text>

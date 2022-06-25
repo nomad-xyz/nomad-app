@@ -30,7 +30,10 @@
           trigger="click"
         >
           <template #trigger>
-            <nomad-button class="btn-wallet-connected" :disabled="buttonDisabled">
+            <nomad-button
+              class="btn-wallet-connected"
+              :disabled="buttonDisabled"
+            >
               <n-text class="mr-2 btn-connected-wallet-text uppercase"
                 >Wallet</n-text
               >

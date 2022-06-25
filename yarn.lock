@@ -1868,37 +1868,32 @@
   resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.24.tgz#ed334849a00b8c15ec46ab21ae05352cf2e15370"
   integrity sha512-M2XrL6fzT24XuvoCaAmNkcNdHx2NU2FUKg5/DYOjRfs0wGdCY7xEz+qaOGo5L5l2Y8Sa9u59ZaIJeivYo7xm0w==
 
-"@nomad-xyz/configuration@^0.1.0-rc.25":
-  version "0.1.0-rc.25"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/configuration/-/configuration-0.1.0-rc.25.tgz#c48df1873856ecb6b21a51d6246a16bd81720da6"
-  integrity sha512-h1j0af7qZfc5Q0XGUW1EZYph3paBG8YmkyJEa3BJH64tmZ0yZ4qjWSOa2IMNfI7d0h2/+mCcUCTyTwfHfSZpFg==
-
-"@nomad-xyz/contracts-bridge@^1.0.0-rc.3":
-  version "1.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-bridge/-/contracts-bridge-1.0.0-rc.3.tgz#245062bd7fa4599e9a199d79515b9bf2616a49bb"
-  integrity sha512-Ksdo7u2m/aZOI/XV6n6XOFlrFwUxpLnBkhwwiI3rVAyZ8l1K0woKa4+6F3eRtr6z1EoxzRTYaKWmRgHZeed4HA==
+"@nomad-xyz/contracts-bridge@^1.1.0-rc.0":
+  version "1.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-bridge/-/contracts-bridge-1.1.0-rc.0.tgz#e8f10ec52076ef3653db16f01e32f8c6ed6f75a0"
+  integrity sha512-lmx5Zx1qrZNu/7poFpBSAs4XGQ0enFk/7/We0ySti8PFVb1kOXqpi+EA7s/SWc1KZ1ygPU2/2pXhttGViKsZnw==
   dependencies:
-    "@nomad-xyz/contracts-core" "^1.0.0-rc.3"
-    "@nomad-xyz/contracts-router" "^1.0.0-rc.3"
+    "@nomad-xyz/contracts-core" "^1.1.0-rc.0"
+    "@nomad-xyz/contracts-router" "^1.1.0-rc.0"
     "@openzeppelin/contracts" "~3.4.2"
     "@openzeppelin/contracts-upgradeable" "~3.4.2"
     "@summa-tx/memview-sol" "^2.0.0"
 
-"@nomad-xyz/contracts-core@^1.0.0-rc.3":
-  version "1.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-core/-/contracts-core-1.0.0-rc.3.tgz#3de7c16646233b8707371615dedd5c9db6573ce6"
-  integrity sha512-/sltpBe3BI3pr6uBhoWjr4XOjcYSytei+rnxiTRk8Du55JeZ7Wh5yvStM0puIBFuIkemBcz4FL3AdqjGR5dxnQ==
+"@nomad-xyz/contracts-core@^1.1.0-rc.0":
+  version "1.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-core/-/contracts-core-1.1.0-rc.0.tgz#0a7279b38c6f531bed00fa7c42c8aeaeac7042d8"
+  integrity sha512-uH4n8U5njvNSU2b9iTFmJTCDk0ettqadwi8VlsgT3fuW3bPqfPVFIcOVqSaUmnw7E4lw/FdYK+UA93eklN+lZQ==
   dependencies:
     "@openzeppelin/contracts" "^3.4.2"
     "@openzeppelin/contracts-upgradeable" "~3.4.2"
     "@summa-tx/memview-sol" "^2.0.0"
 
-"@nomad-xyz/contracts-router@^1.0.0-rc.3":
-  version "1.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-router/-/contracts-router-1.0.0-rc.3.tgz#1e06e5fa4ae36e30ded6f7e43862ffeb50f70f87"
-  integrity sha512-/fOm3xgTfRKA2Xi7Aw/63b5lP9nV5Tjon7WiPJNo+J9xzTOjfka8Ro2lMkk3f0mZuKoN8MdGYmdK5wMCFyoTvg==
+"@nomad-xyz/contracts-router@^1.1.0-rc.0":
+  version "1.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/contracts-router/-/contracts-router-1.1.0-rc.0.tgz#5db9ab5131fb3bd883b169513a8f199832ab2b8b"
+  integrity sha512-n5cbPWlp7mo+als8BidlQAQ88lgu3S5H60iYHwpbE+Ncj5t0onbKkzqNfKtc+PuLg32kk/196QZI/CPuDpmynA==
   dependencies:
-    "@nomad-xyz/contracts-core" "^1.0.0-rc.3"
+    "@nomad-xyz/contracts-core" "^1.1.0-rc.0"
     "@openzeppelin/contracts" "~3.4.2"
     "@openzeppelin/contracts-upgradeable" "~3.4.2"
     "@summa-tx/memview-sol" "^2.0.0"
@@ -1911,24 +1906,24 @@
     ethers "^5.4.6"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk-bridge@^1.0.0-rc.21":
-  version "1.0.0-rc.21"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.0.0-rc.21.tgz#1839aa3f42fd1d277dc6fdc78a68ecd149909bdc"
-  integrity sha512-Lgor21tGB72Io65cPEVuo8cwPCu/G7FSPh/J9Z6PUcua31yu1G7scDTezeT1Erw463KS44z0eOvIXR0WhTfpfA==
+"@nomad-xyz/sdk-bridge@^1.1.0-rc.0":
+  version "1.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk-bridge/-/sdk-bridge-1.1.0-rc.0.tgz#786da1dfe19d61e11a7ead4269cc2d8761936265"
+  integrity sha512-vchE3Vz4bSOZIeOs2v12jzlaYK3WcU3SptjKvuNJfUl+IhxwPvdDyVlAw3SSs3lU4PK0kF2gDC3TRL7ndcLrKA==
   dependencies:
     "@nomad-xyz/configuration" "^0.1.0-rc.23"
-    "@nomad-xyz/contracts-bridge" "^1.0.0-rc.3"
-    "@nomad-xyz/sdk" "^2.0.0-rc.21"
+    "@nomad-xyz/contracts-bridge" "^1.1.0-rc.0"
+    "@nomad-xyz/sdk" "^2.1.0-rc.0"
     ethers "^5.0.0"
     web3 "^1.6.1"
 
-"@nomad-xyz/sdk@^2.0.0-rc.21":
-  version "2.0.0-rc.21"
-  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk/-/sdk-2.0.0-rc.21.tgz#68e14938532a41849812fd5c16458c4e75d0ee17"
-  integrity sha512-1s9mqjdROcdwVybMIgyih8VijWL+KOMprRbFMfa8/4p5TkhXGFC0bLYLHU6/X95er1xYZgwlc0OHu0OrHtEm7A==
+"@nomad-xyz/sdk@^2.1.0-rc.0":
+  version "2.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@nomad-xyz/sdk/-/sdk-2.1.0-rc.0.tgz#d8918c099f0a00733701c403329531cc90143ed0"
+  integrity sha512-Vg1PtVc8tB7Zgf49Elk9RgLJUKCkJfLa/fQ1QOv3fadHjDyLHjVlxllNeb8SW+q92cafc/2zg4K+J6PhgVMIeA==
   dependencies:
     "@nomad-xyz/configuration" "^0.1.0-rc.23"
-    "@nomad-xyz/contracts-core" "^1.0.0-rc.3"
+    "@nomad-xyz/contracts-core" "^1.1.0-rc.0"
     "@nomad-xyz/multi-provider" "^1.0.0-rc.5"
     axios "^0.27.2"
     ethers "^5.0.0"

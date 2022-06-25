@@ -1,6 +1,6 @@
 {
   "name": "bridge-web-app",
-  "version": "1.6.1",
+  "version": "1.7.1",
   "private": true,
   "description": "Token Bridge UI",
   "license": "Apache 2.0",
@@ -20,9 +20,8 @@
   },
   "dependencies": {
     "@connext/nxtp-sdk": "^0.1.36",
-    "@nomad-xyz/configuration": "^0.1.0-rc.25",
-    "@nomad-xyz/contracts-bridge": "^1.0.0-rc.3",
-    "@nomad-xyz/sdk-bridge": "^1.0.0-rc.21",
+    "@nomad-xyz/contracts-bridge": "^1.1.0-rc.0",
+    "@nomad-xyz/sdk-bridge": "^1.1.0-rc.0",
     "@sentry/vue": "^6.19.3",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@vicons/ionicons5": "^0.11.0",

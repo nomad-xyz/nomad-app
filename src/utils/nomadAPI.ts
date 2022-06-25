@@ -137,7 +137,8 @@ export async function getTx(txID: string): Promise<IndexerTx> {
         processed
         createdAt
       }
-    }`
+    }
+  `
   return await request(`${nomadAPI}graphql`, query, variables).then(
     async (res) => {
       // const tx = (await res.data)
