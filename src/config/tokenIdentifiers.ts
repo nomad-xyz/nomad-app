@@ -3,37 +3,29 @@ import { TokenIdentifierMap } from './types'
 // --- TESTNET TOKEN IDENTIFIERS ---
 // IMPORTANT make name same as tokens[token].symbol value
 export const testnetTokenIdentifiers: TokenIdentifierMap = {
-  WETH: {
+  rWETH: {
     domain: 'rinkeby',
     id: '0xc778417e063141139fce010982780140aa0cd5ab',
-  },
-  kWETH: {
-    domain: 'kovan',
-    id: '0xd0a1e359811322d97991e03f863a0c30c2cf029c',
   },
   gWETH: {
     domain: 'goerli',
     id: '0x0B1ba0af832d7C05fD64161E0Db78E85978E8082',
   },
   WBTC: {
-    domain: 'kovan',
-    id: '0xe0f131fb595000d7e54049efe5c40dca9572469c',
+    domain: 'goerli',
+    id: '0xaDcf53aD759054Dee4139d7aD206cC11788A466D',
   },
   USDC: {
+    domain: 'goerli',
+    id: '0x07865c6E87B9F70255377e024ace6630C1Eaa37F',
+  },
+  rUSDC: {
     domain: 'rinkeby',
     id: '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b',
   },
-  USDT: {
-    domain: 'kovan',
-    id: '0x13512979ade267ab5100878e2e0f485b568328a4',
-  },
-  DAI: {
-    domain: 'kovan',
-    id: '0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD',
-  },
   TEST: {
-    domain: 'kovan',
-    id: '0xe71678794fff8846bff855f716b0ce9d9a78e844',
+    domain: 'goerli',
+    id: '0x8a1Cad3703E0beAe0e0237369B4fcD04228d1682',
   },
   WXDAI: {
     domain: 'xdai',
@@ -42,6 +34,10 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
   wtEVMOS: {
     domain: 'evmostestnet',
     id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
+  },
+  wtNEON: {
+    domain: 'neontestnet',
+    id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab'
   },
   //   DEV: {
   //     domain: 'moonbasealpha',

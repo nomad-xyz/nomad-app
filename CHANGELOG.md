@@ -22,6 +22,7 @@ This change log is manually updated at the moment.
 - search token bar
 - basic segment page tracking
 - fix missing avalanche icon
+- feat: segment page tracking
 
 ## v1.6.0 (June 22, 2022)
 
