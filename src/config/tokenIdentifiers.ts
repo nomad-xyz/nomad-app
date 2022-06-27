@@ -7,7 +7,7 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'rinkeby',
     id: '0xc778417e063141139fce010982780140aa0cd5ab',
   },
-  WETH: {
+  gWETH: {
     domain: 'goerli',
     id: '0x0B1ba0af832d7C05fD64161E0Db78E85978E8082',
   },
