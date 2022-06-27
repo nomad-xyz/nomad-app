@@ -8,8 +8,15 @@
     "
   >
     {{ warning }}
+    We apologize for any inconvenience, please
+    <a href="https://discord.gg/nomadxyz" class="underline" target="_blank">
+      join Discord
+    </a>
+    for updates.
+
     <br />
     <br />
+
     Need support?
     <a href="https://discord.gg/nomadxyz" class="underline" target="_blank">
       Join Discord
@@ -30,10 +37,7 @@ export default defineComponent({
 
   data: () => ({
     showWarning: false,
-    warning: `Moonbeam network is experiencing downtime. Moonbeam developers are
-      working towards a resolution, estimated to be shipped within hours.
-      Bridging to and from moonbeam is not available at this time.
-      We appreciate your patience.`,
+    warning: `The Moonbeam Network has gone into Maintenance Mode to deploy time-sensitive network fixes. Bridging to and from moonbeam is not available at this time.`,
     network: 'moonbeam',
   }),
 
