@@ -21,7 +21,7 @@
 
       <!-- Network-specific App Alert -->
       <!-- uncomment, update warning text and network -->
-      <!-- <network-alert /> -->
+      <network-alert />
 
       <!-- page view -->
       <router-view></router-view>
@@ -39,7 +39,7 @@ import Nav from '@/components/Layout/Nav.vue'
 import Footer from '@/components/Layout/Footer.vue'
 import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
-// import NetworkAlert from '@/components/NetworkAlert.vue'
+import NetworkAlert from '@/components/NetworkAlert.vue'
 import { getNetworkByDomainID } from '@/utils'
 
 export default defineComponent({
@@ -49,6 +49,7 @@ export default defineComponent({
     Footer,
     CardAlert,
     TermsModal,
+    NetworkAlert,
   },
 
   data: () => ({
