@@ -30,7 +30,10 @@ export default defineComponent({
 
   data: () => ({
     showWarning: false,
-    warning: 'some text',
+    warning: `Moonbeam network is experiencing downtime. Moonbeam developers are
+      working towards a resolution, estimated to be shipped within hours.
+      Bridging to and from moonbeam is not available at this time.
+      We appreciate your patience.`,
     network: 'rinkeby',
   }),
 
