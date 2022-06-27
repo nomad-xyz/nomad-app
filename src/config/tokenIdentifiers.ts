@@ -35,7 +35,7 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'evmostestnet',
     id: '0xEE8003bdB024a4195D433c555d55AA663B8C022C',
   },
-  wNEON: {
+  wtNEON: {
     domain: 'neontestnet',
     id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab'
   },
