@@ -34,7 +34,7 @@ export default defineComponent({
       working towards a resolution, estimated to be shipped within hours.
       Bridging to and from moonbeam is not available at this time.
       We appreciate your patience.`,
-    network: 'rinkeby',
+    network: 'moonbeam',
   }),
 
   setup: () => {
