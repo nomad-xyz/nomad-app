@@ -51,7 +51,7 @@
     :class="[status === 4 ? 'bg-[#2fbb72]' : 'bg-[#5185d0]']"
   >
     <!-- loading -->
-    <span class="flex flex-col items-center" v-if="!status">
+    <span class="flex flex-col items-center" v-if="!statusAvailable">
       <n-spin stroke="#fff" class="mb-3" />
       <n-text class="uppercase opacity-60">Loading . . .</n-text>
     </span>
@@ -360,6 +360,12 @@ export default defineComponent({
       // check if network is one that needs manual processing
       return now.gt(this.confirmAt) && this.requiresManualProcessing
     },
+    statusAvailable(): boolean {
+      if (this.status === undefined) {
+        return false
+      }
+      return this.status >= 0
+    }
   },
 })
 </script>
