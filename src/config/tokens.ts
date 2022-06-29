@@ -162,6 +162,7 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'neon',
     tokenIdentifier: null,
     nativeOnly: true,
+    wrappedAsset: 'wtNEON',
     default: true,
     show: true,
   },
