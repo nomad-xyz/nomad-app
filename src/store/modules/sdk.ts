@@ -165,6 +165,11 @@ const actions = <ActionTree<SDKState, RootState>>{
     const originDomain = nomad.resolveDomain(originNetwork)
     const destDomain = nomad.resolveDomain(destNetwork)
 
+    let overrides
+    if (originDomain === 5001 || originDomain === 5551) {
+      overrides = { gasLimit: 3600000 }
+    }
+
     let transferMessage
     try {
       // if ETH Helper contract exists, native token must be wrapped
@@ -176,7 +181,9 @@ const actions = <ActionTree<SDKState, RootState>>{
           originDomain,
           destDomain,
           amnt,
-          recipient
+          recipient,
+          false,
+          overrides,
         )
       } else {
         console.log('send ERC-20')
@@ -185,7 +192,9 @@ const actions = <ActionTree<SDKState, RootState>>{
           destDomain,
           asset,
           amnt,
-          recipient
+          recipient,
+          false,
+          overrides,
         )
       }
       console.log('tx sent!!!!!!!!!!!!', transferMessage)
