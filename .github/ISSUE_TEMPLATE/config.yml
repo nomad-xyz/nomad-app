@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: Bridge FAQ
-    url: https://docs.nomad.xyz/bridge/faq.html
+    url: https://docs.nomad.xyz/token-bridge/faq
     about: Have a bridging question? Check out our frequently asked questions!
   - name: Support
     url: https://discord.gg/nomadxyz

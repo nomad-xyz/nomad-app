@@ -22,7 +22,7 @@
       <div class="flex flex-row">
         <a
           class="underline"
-          href="https://docs.nomad.xyz/bridge/nomad-gui.html#completing-a-transfer-ethereum-destination-only"
+          href="https://docs.nomad.xyz/token-bridge/how-to-bridge#completing-a-transfer-ethereum-destination-only"
           target="_blank"
         >
           Learn more

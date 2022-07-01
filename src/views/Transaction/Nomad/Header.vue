@@ -14,7 +14,7 @@
     Return to this page once bridging is complete to collect your funds on
     {{ getDisplayName(destinationNetwork) }}.
     <a
-      href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
+      href="https://docs.nomad.xyz/token-bridge/how-to-bridge#completing-a-transfer-ethereum-destination-only"
       target="_blank"
       class="underline"
     >
@@ -38,7 +38,7 @@
     funds will be deposited in your account automatically once bridging is
     complete.
     <a
-      href="https://docs.nomad.xyz/bridge/nomad-gui.html#bridging-through-nomad"
+      href="https://docs.nomad.xyz/token-bridge/how-to-bridge"
       target="_blank"
       class="underline"
     >
