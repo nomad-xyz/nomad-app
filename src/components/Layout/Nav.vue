@@ -55,7 +55,7 @@
             </router-link>
             <n-divider class="divider" />
             <a
-              href="https://docs.nomad.xyz/bridge/nomad-gui.html"
+              href="https://docs.nomad.xyz/token-bridge/how-to-bridge"
               target="_blank"
               class="nav-link rounded-lg hover:bg-white hover:bg-opacity-5 px-2"
             >
