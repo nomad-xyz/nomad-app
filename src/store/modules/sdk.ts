@@ -275,6 +275,8 @@ const getters = <GetterTree<SDKState, RootState>>{
     () => async (network: string, token: TokenIdentifier) => {
       return await nomad.resolveRepresentation(network, token)
     },
+
+  getDomains: () => () => nomad.domainNumbers
 }
 
 export default {

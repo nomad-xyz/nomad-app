@@ -20,6 +20,7 @@ export type IndexerTx = {
 }
 
 export async function getUserHistory(
+  domains: number[],
   address: string,
   page: number,
   size: number
@@ -27,6 +28,12 @@ export async function getUserHistory(
   const skip = size * (page - 1)
   const variables = JSON.stringify({
     where: {
+      destination: {
+        in: domains,
+      },
+      origin: {
+        in: domains,
+      },
       OR: [
         {
           recipient: {

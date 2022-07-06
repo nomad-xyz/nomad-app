@@ -84,6 +84,7 @@ export default defineComponent({
       size: 7,
       page: ref(1),
       pageCount: ref(1000),
+      domains: store.getters.getDomains(),
       walletConnected: computed(() => store.state.wallet.connected),
       address: computed(() => store.state.wallet.address),
     }
@@ -110,7 +111,7 @@ export default defineComponent({
       if (!this.address) return
 
       const pageNum = page || this.page
-      const history = await getUserHistory(this.address, pageNum, this.size)
+      const history = await getUserHistory(this.domains, this.address, pageNum, this.size)
       if (!history.length) {
         this.pageCount = this.page
         return
