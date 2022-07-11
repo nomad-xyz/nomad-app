@@ -32,6 +32,8 @@ export async function getUserHistory(
           recipient: {
             equals: address,
           },
+        },
+        {
           sender: {
             equals: address,
           },
