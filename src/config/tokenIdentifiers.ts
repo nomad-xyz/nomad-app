@@ -37,7 +37,7 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
   },
   wtNEON: {
     domain: 'neontestnet',
-    id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab'
+    id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab',
   },
   //   DEV: {
   //     domain: 'moonbasealpha',

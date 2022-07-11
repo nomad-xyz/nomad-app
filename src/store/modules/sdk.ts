@@ -183,7 +183,7 @@ const actions = <ActionTree<SDKState, RootState>>{
           amnt,
           recipient,
           false,
-          overrides,
+          overrides
         )
       } else {
         console.log('send ERC-20')
@@ -194,7 +194,7 @@ const actions = <ActionTree<SDKState, RootState>>{
           amnt,
           recipient,
           false,
-          overrides,
+          overrides
         )
       }
       console.log('tx sent!!!!!!!!!!!!', transferMessage)
@@ -276,7 +276,7 @@ const getters = <GetterTree<SDKState, RootState>>{
       return await nomad.resolveRepresentation(network, token)
     },
 
-  getDomains: () => () => nomad.domainNumbers
+  getDomains: () => () => nomad.domainNumbers,
 }
 
 export default {

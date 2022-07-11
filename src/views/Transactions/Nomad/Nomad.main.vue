@@ -81,7 +81,7 @@ export default defineComponent({
 
     return {
       store,
-      size: 7,
+      size: 5,
       page: ref(1),
       pageCount: ref(1000),
       domains: store.getters.getDomains(),
@@ -111,7 +111,12 @@ export default defineComponent({
       if (!this.address) return
 
       const pageNum = page || this.page
-      const history = await getUserHistory(this.domains, this.address, pageNum, this.size)
+      const history = await getUserHistory(
+        this.domains,
+        this.address,
+        pageNum,
+        this.size
+      )
       if (!history.length) {
         this.pageCount = this.page
         return
@@ -129,7 +134,7 @@ export default defineComponent({
 
     toTx(tx: any) {
       const originNetwork = getNetworkByDomainID(tx.origin).name
-      this.$router.push(`/tx/nomad/${originNetwork}/${tx.tx}`)
+      this.$router.push(`/tx/nomad/${originNetwork}/${tx.dispatchTx}`)
     },
   },
 

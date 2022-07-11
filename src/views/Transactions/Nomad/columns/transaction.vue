@@ -11,7 +11,7 @@
       </n-icon>
     </div>
     <div class="flex flex-col">
-      <copy-hash :address="tx.tx" />
+      <copy-hash :address="tx.dispatchTx" />
       <div v-if="tx.state === 4">Complete</div>
       <div v-else-if="manualProcess">Action required</div>
       <div v-else>Pending</div>
