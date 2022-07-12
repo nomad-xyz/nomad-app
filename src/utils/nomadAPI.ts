@@ -12,14 +12,16 @@ export type IndexerTx = {
   relayedAt: number
   processedAt: number
   receivedAt: number
-  tx: string
+  dispatchTx: string
   amount: string
+  decimals: number
   tokenDomain: number
   tokenId: string
   confirmAt: number
 }
 
 export async function getUserHistory(
+  domains: number[],
   address: string,
   page: number,
   size: number
@@ -27,6 +29,15 @@ export async function getUserHistory(
   const skip = size * (page - 1)
   const variables = JSON.stringify({
     where: {
+      destination: {
+        in: domains,
+      },
+      origin: {
+        in: domains,
+      },
+      tokenDomain: {
+        in: domains,
+      },
       OR: [
         {
           recipient: {
@@ -70,7 +81,7 @@ export async function getUserHistory(
         tokenId
         body
         leafIndex
-        tx
+        dispatchTx
         gasAtDispatch
         gasAtUpdate
         gasAtRelay
@@ -92,7 +103,7 @@ export async function getUserHistory(
 export async function getTx(txID: string): Promise<IndexerTx> {
   const variables = JSON.stringify({
     where: {
-      tx: {
+      dispatchTx: {
         equals: txID,
       },
     },
@@ -126,7 +137,7 @@ export async function getTx(txID: string): Promise<IndexerTx> {
         tokenId
         body
         leafIndex
-        tx
+        dispatchTx
         gasAtDispatch
         gasAtUpdate
         gasAtRelay
