@@ -6,7 +6,7 @@ import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber } from 'ethers'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
-import { networks } from '@/config'
+import { networks, isProduction } from '@/config'
 import { getNetworkByChainID, nullToken } from '@/utils'
 import { TokenIdentifier } from '@nomad-xyz/sdk-bridge'
 import { NetworkName } from '@/config/types'
@@ -62,11 +62,26 @@ const actions = <ActionTree<WalletState, RootState>>{
       return
     }
 
+    // configure non-infura rpcs
+    const {
+      VUE_APP_INFURA_KEY,
+      VUE_APP_MOONBEAM_RPC,
+      VUE_APP_EVMOS_RPC,
+      VUE_APP_EVMOS_TESTNET_RPC,
+    } = process.env
+    const mainnetRpcs = {
+      1284: VUE_APP_MOONBEAM_RPC,
+      9001: VUE_APP_EVMOS_RPC,
+    }
+    const testnetRpcs = {
+      9000: VUE_APP_EVMOS_TESTNET_RPC,
+    }
     const providerOptions = {
       walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-          infuraId: process.env.VUE_APP_INFURA_KEY, // required
+          rpc: isProduction ? mainnetRpcs : testnetRpcs,
+          infuraId: VUE_APP_INFURA_KEY, // required
         },
         // display: {
         //   description: 'Supported: LedgerLive',

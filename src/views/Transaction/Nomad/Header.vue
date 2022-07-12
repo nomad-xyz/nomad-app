@@ -365,7 +365,7 @@ export default defineComponent({
         return false
       }
       return this.status >= 0
-    }
+    },
   },
 })
 </script>
