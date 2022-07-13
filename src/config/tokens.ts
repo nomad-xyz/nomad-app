@@ -29,18 +29,18 @@ import WSTRIcon from '@/assets/token-logos/WSTR.png'
 import CQTIcon from '@/assets/token-logos/CQT.png'
 import HBTCIcon from '@/assets/token-logos/HBTC.png'
 import HBOTIcon from '@/assets/token-logos/HBOT.svg'
-import MIMIcon from '@/assets/token-logos/MIM.png'
-import CROIcon from '@/assets/token-logos/CRO.png'
-import UNIIcon from '@/assets/token-logos/UNI.png'
-import SHIBIcon from '@/assets/token-logos/SHIB.png'
-import LINKIcon from '@/assets/token-logos/LINK.png'
-import MKRIcon from '@/assets/token-logos/MKR.png'
-import COMPIcon from '@/assets/token-logos/COMP.png'
-import AAVEIcon from '@/assets/token-logos/AAVE.svg'
 import PBXIcon from '@/assets/token-logos/PBXIcon.png'
-import GELIcon from '@/assets/token-logos/GEL.png'
-import APEIcon from '@/assets/token-logos/APE.png'
-import TICIcon from '@/assets/token-logos/TIC.png'
+// import MIMIcon from '@/assets/token-logos/MIM.png'
+// import CROIcon from '@/assets/token-logos/CRO.png'
+// import UNIIcon from '@/assets/token-logos/UNI.png'
+// import SHIBIcon from '@/assets/token-logos/SHIB.png'
+// import LINKIcon from '@/assets/token-logos/LINK.png'
+// import MKRIcon from '@/assets/token-logos/MKR.png'
+// import COMPIcon from '@/assets/token-logos/COMP.png'
+// import AAVEIcon from '@/assets/token-logos/AAVE.svg'
+// import GELIcon from '@/assets/token-logos/GEL.png'
+// import APEIcon from '@/assets/token-logos/APE.png'
+// import TICIcon from '@/assets/token-logos/TIC.png'
 
 // SHARED TOKEN ICONS (both testnet + mainnet)
 import USDTIcon from '@/assets/token-logos/USDT.png'
@@ -62,7 +62,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'dai',
     tokenIdentifier: testnetTokenIdentifiers.TEST,
     nativeOnly: false,
-    show: false,
   },
   rETH: {
     key: 'rETH',
@@ -76,8 +75,6 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'rWETH',
-    default: true,
-    show: true,
   },
   rWETH: {
     key: 'rWETH',
@@ -90,8 +87,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.rWETH,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   gETH: {
     key: 'gETH',
@@ -105,8 +100,6 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'gWETH',
-    default: true,
-    show: true,
   },
   gWETH: {
     key: 'gWETH',
@@ -119,8 +112,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.gWETH,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   tEVMOS: {
     key: 'tEVMOS',
@@ -134,8 +125,6 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'wtEVMOS',
-    default: true,
-    show: true,
   },
   wtEVMOS: {
     key: 'wtEVMOS',
@@ -148,8 +137,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'evmos',
     tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   tNEON: {
     key: 'tNEON',
@@ -163,8 +150,6 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'wtNEON',
-    default: true,
-    show: true,
   },
   wtNEON: {
     key: 'wtNEON',
@@ -177,8 +162,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'neon',
     tokenIdentifier: mainnetTokenIdentifiers.wtNEON,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   USDC: {
     key: 'USDC',
@@ -191,8 +174,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'usd-coin',
     tokenIdentifier: testnetTokenIdentifiers.USDC,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   rUSDC: {
     key: 'rUSDC',
@@ -205,8 +186,6 @@ export const testnetTokens: TokenMetadataMap = {
     coinGeckoId: 'usd-coin',
     tokenIdentifier: testnetTokenIdentifiers.rUSDC,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   // xDai: {
   //   key: 'xDai',
@@ -290,8 +269,6 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'WETH',
-    default: true,
-    show: true,
   },
   WETH: {
     key: 'WETH',
@@ -304,8 +281,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'weth',
     tokenIdentifier: mainnetTokenIdentifiers.WETH,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   EVMOS: {
     key: 'EVMOS',
@@ -319,8 +294,6 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'wEVMOS',
-    default: true,
-    show: true,
   },
   wEVMOS: {
     key: 'wEVMOS',
@@ -333,8 +306,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'evmos',
     tokenIdentifier: mainnetTokenIdentifiers.wEVMOS,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   GLMR: {
     key: 'GLMR',
@@ -348,8 +319,6 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'WGLMR',
-    default: true,
-    show: true,
   },
   WGLMR: {
     key: 'WGLMR',
@@ -362,8 +331,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'moonbeam',
     tokenIdentifier: mainnetTokenIdentifiers.WGLMR,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   milkADA: {
     key: 'milkADA',
@@ -377,8 +344,6 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: null,
     nativeOnly: true,
     wrappedAsset: 'wADA',
-    default: true,
-    show: true,
   },
   wADA: {
     key: 'wADA',
@@ -391,8 +356,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'cardano',
     tokenIdentifier: mainnetTokenIdentifiers.WADA,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   WBTC: {
     key: 'WBTC',
@@ -405,8 +368,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'wrapped-bitcoin',
     tokenIdentifier: mainnetTokenIdentifiers.WBTC,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   USDC: {
     key: 'USDC',
@@ -419,8 +380,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'usd-coin',
     tokenIdentifier: mainnetTokenIdentifiers.USDC,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   USDT: {
     key: 'USDT',
@@ -433,8 +392,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'tether',
     tokenIdentifier: mainnetTokenIdentifiers.USDT,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   DAI: {
     key: 'DAI',
@@ -447,8 +404,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'dai',
     tokenIdentifier: mainnetTokenIdentifiers.DAI,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   // AVAX: {
   //   nativeNetwork: 'avalanche',
@@ -486,8 +441,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'frax',
     tokenIdentifier: mainnetTokenIdentifiers.FRAX,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   FXS: {
     key: 'FXS',
@@ -500,8 +453,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'frax-share',
     tokenIdentifier: mainnetTokenIdentifiers.FXS,
     nativeOnly: false,
-    default: true,
-    show: true,
   },
   HBOT: {
     key: 'HBOT',
@@ -514,21 +465,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'hummingbot',
     tokenIdentifier: mainnetTokenIdentifiers.HBOT,
     nativeOnly: false,
-    default: true,
-    show: true,
-  },
-  MIM: {
-    key: 'MIM',
-    nativeNetwork: 'ethereum',
-    symbol: 'MIM',
-    name: 'Magic Internet Money',
-    icon: MIMIcon,
-    iconColors: ['#eae9fd', '#9795F9'],
-    decimals: 18,
-    coinGeckoId: 'magic-internet-money',
-    tokenIdentifier: mainnetTokenIdentifiers.MIM,
-    nativeOnly: false,
-    show: false,
   },
   WSTR: {
     key: 'WSTR',
@@ -541,7 +477,6 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'wrapped-star',
     tokenIdentifier: mainnetTokenIdentifiers.WSTR,
     nativeOnly: false,
-    show: false,
   },
   CQT: {
     key: 'CQT',
@@ -639,136 +574,6 @@ export const mainnetTokens: TokenMetadataMap = {
     tokenIdentifier: mainnetTokenIdentifiers.HBTC,
     nativeOnly: false,
   },
-  CRO: {
-    key: 'CRO',
-    nativeNetwork: 'ethereum',
-    symbol: 'CRO',
-    name: 'Cronos Coin',
-    icon: CROIcon,
-    iconColors: ['#6879B7', '#1F3277'],
-    decimals: 8,
-    coinGeckoId: 'cronos',
-    tokenIdentifier: mainnetTokenIdentifiers.CRO,
-    nativeOnly: false,
-    show: false,
-  },
-  UNI: {
-    key: 'UNI',
-    nativeNetwork: 'ethereum',
-    symbol: 'UNI',
-    name: 'Uniswap',
-    icon: UNIIcon,
-    iconColors: ['#FECFDD', '#FF007A'],
-    decimals: 18,
-    coinGeckoId: 'uniswap',
-    tokenIdentifier: mainnetTokenIdentifiers.UNI,
-    nativeOnly: false,
-    show: false,
-  },
-  SHIB: {
-    key: 'SHIB',
-    nativeNetwork: 'ethereum',
-    symbol: 'SHIB',
-    name: 'Shiba Inu',
-    icon: SHIBIcon,
-    iconColors: ['#FFAD33', '#FF7A00'],
-    decimals: 18,
-    coinGeckoId: 'shiba-inu',
-    tokenIdentifier: mainnetTokenIdentifiers.SHIB,
-    nativeOnly: false,
-    show: false,
-  },
-  LINK: {
-    key: 'LINK',
-    nativeNetwork: 'ethereum',
-    symbol: 'LINK',
-    name: 'Chainlink',
-    icon: LINKIcon,
-    iconColors: ['#A8BDF1', '#275ADD'],
-    decimals: 18,
-    coinGeckoId: 'chainlink',
-    tokenIdentifier: mainnetTokenIdentifiers.LINK,
-    nativeOnly: false,
-    show: false,
-  },
-  MKR: {
-    key: 'MKR',
-    nativeNetwork: 'ethereum',
-    symbol: 'MKR',
-    name: 'Maker',
-    icon: MKRIcon,
-    iconColors: ['#D1EEEB', '#1BAB9B'],
-    decimals: 18,
-    coinGeckoId: 'maker',
-    tokenIdentifier: mainnetTokenIdentifiers.MKR,
-    nativeOnly: false,
-    show: false,
-  },
-  COMP: {
-    key: 'COMP',
-    nativeNetwork: 'ethereum',
-    symbol: 'COMP',
-    name: 'Compound',
-    icon: COMPIcon,
-    iconColors: ['#CCF6E9', '#00D395'],
-    decimals: 18,
-    coinGeckoId: 'compound',
-    tokenIdentifier: mainnetTokenIdentifiers.COMP,
-    nativeOnly: false,
-    show: false,
-  },
-  AAVE: {
-    key: 'AAVE',
-    nativeNetwork: 'ethereum',
-    symbol: 'AAVE',
-    name: 'Aave',
-    icon: AAVEIcon,
-    iconColors: ['#2EBAC6', '#B6509E'],
-    decimals: 18,
-    coinGeckoId: 'aave',
-    tokenIdentifier: mainnetTokenIdentifiers.AAVE,
-    nativeOnly: false,
-    show: false,
-  },
-  TIC: {
-    key: 'TIC',
-    nativeNetwork: 'avalanche',
-    symbol: 'TIC',
-    name: 'Elastic Swap',
-    icon: TICIcon,
-    iconColors: ['#D29DFD', '#5560D4'],
-    decimals: 18,
-    coinGeckoId: 'elasticswap',
-    tokenIdentifier: mainnetTokenIdentifiers.TIC,
-    nativeOnly: false,
-    show: false,
-  },
-  GEL: {
-    key: 'GEL',
-    nativeNetwork: 'ethereum',
-    symbol: 'GEL',
-    name: 'Gelato',
-    icon: GELIcon,
-    iconColors: ['#FFCCA4', '#FF7886'],
-    decimals: 18,
-    coinGeckoId: 'gelato',
-    tokenIdentifier: mainnetTokenIdentifiers.GEL,
-    nativeOnly: false,
-    show: false,
-  },
-  APE: {
-    key: 'APE',
-    nativeNetwork: 'ethereum',
-    symbol: 'APE',
-    name: 'ApeCoin',
-    icon: APEIcon,
-    iconColors: ['#99B9F7', '#0251ED'],
-    decimals: 9,
-    coinGeckoId: 'apecoin',
-    tokenIdentifier: mainnetTokenIdentifiers.APE,
-    nativeOnly: false,
-    show: false,
-  },
   PBX: {
     key: 'PBX',
     nativeNetwork: 'ethereum',
@@ -780,6 +585,126 @@ export const mainnetTokens: TokenMetadataMap = {
     coinGeckoId: 'paribus',
     tokenIdentifier: mainnetTokenIdentifiers.PBX,
     nativeOnly: false,
-    show: false,
   },
+  // MIM: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'MIM',
+  //   name: 'Magic Internet Money',
+  //   icon: MIMIcon,
+  //   iconColors: ['#eae9fd', '#9795F9'],
+  //   decimals: 18,
+  //   coinGeckoId: 'magic-internet-money',
+  //   tokenIdentifier: mainnetTokenIdentifiers.MIM,
+  //   nativeOnly: false,
+  // },
+  // CRO: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'CRO',
+  //   name: 'Cronos Coin',
+  //   icon: CROIcon,
+  //   iconColors: ['#6879B7', '#1F3277'],
+  //   decimals: 8,
+  //   coinGeckoId: 'cronos',
+  //   tokenIdentifier: mainnetTokenIdentifiers.CRO,
+  //   nativeOnly: false,
+  // },
+  // UNI: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'UNI',
+  //   name: 'Uniswap',
+  //   icon: UNIIcon,
+  //   iconColors: ['#FECFDD', '#FF007A'],
+  //   decimals: 18,
+  //   coinGeckoId: 'uniswap',
+  //   tokenIdentifier: mainnetTokenIdentifiers.UNI,
+  //   nativeOnly: false,
+  // },
+  // SHIB: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'SHIB',
+  //   name: 'Shiba Inu',
+  //   icon: SHIBIcon,
+  //   iconColors: ['#FFAD33', '#FF7A00'],
+  //   decimals: 18,
+  //   coinGeckoId: 'shiba-inu',
+  //   tokenIdentifier: mainnetTokenIdentifiers.SHIB,
+  //   nativeOnly: false,
+  // },
+  // LINK: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'LINK',
+  //   name: 'Chainlink',
+  //   icon: LINKIcon,
+  //   iconColors: ['#A8BDF1', '#275ADD'],
+  //   decimals: 18,
+  //   coinGeckoId: 'chainlink',
+  //   tokenIdentifier: mainnetTokenIdentifiers.LINK,
+  //   nativeOnly: false,
+  // },
+  // MKR: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'MKR',
+  //   name: 'Maker',
+  //   icon: MKRIcon,
+  //   iconColors: ['#D1EEEB', '#1BAB9B'],
+  //   decimals: 18,
+  //   coinGeckoId: 'maker',
+  //   tokenIdentifier: mainnetTokenIdentifiers.MKR,
+  //   nativeOnly: false,
+  // },
+  // COMP: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'COMP',
+  //   name: 'Compound',
+  //   icon: COMPIcon,
+  //   iconColors: ['#CCF6E9', '#00D395'],
+  //   decimals: 18,
+  //   coinGeckoId: 'compound',
+  //   tokenIdentifier: mainnetTokenIdentifiers.COMP,
+  //   nativeOnly: false,
+  // },
+  // AAVE: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'AAVE',
+  //   name: 'Aave',
+  //   icon: AAVEIcon,
+  //   iconColors: ['#2EBAC6', '#B6509E'],
+  //   decimals: 18,
+  //   coinGeckoId: 'aave',
+  //   tokenIdentifier: mainnetTokenIdentifiers.AAVE,
+  //   nativeOnly: false,
+  // },
+  // TIC: {
+  //   nativeNetwork: 'avalanche',
+  //   symbol: 'TIC',
+  //   name: 'Elastic Swap',
+  //   icon: TICIcon,
+  //   iconColors: ['#D29DFD', '#5560D4'],
+  //   decimals: 18,
+  //   coinGeckoId: 'elasticswap',
+  //   tokenIdentifier: mainnetTokenIdentifiers.TIC,
+  //   nativeOnly: false,
+  // },
+  // GEL: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'GEL',
+  //   name: 'Gelato',
+  //   icon: GELIcon,
+  //   iconColors: ['#FFCCA4', '#FF7886'],
+  //   decimals: 18,
+  //   coinGeckoId: 'gelato',
+  //   tokenIdentifier: mainnetTokenIdentifiers.GEL,
+  //   nativeOnly: false,
+  // },
+  // APE: {
+  //   nativeNetwork: 'ethereum',
+  //   symbol: 'APE',
+  //   name: 'ApeCoin',
+  //   icon: APEIcon,
+  //   iconColors: ['#99B9F7', '#0251ED'],
+  //   decimals: 9,
+  //   coinGeckoId: 'apecoin',
+  //   tokenIdentifier: mainnetTokenIdentifiers.APE,
+  //   nativeOnly: false,
+  // },
 }

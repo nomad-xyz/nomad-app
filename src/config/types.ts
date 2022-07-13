@@ -7,7 +7,7 @@ export type TokenMetadataMap = { [key: string]: TokenMetadata }
 export type NetworkMap = { [key: string]: NetworkMetadata }
 
 export type TokenMetadata = {
-  key: string // must match key
+  key: NetworkName // must match key
   nativeNetwork: NetworkName
   symbol: string
   name: string
@@ -18,8 +18,6 @@ export type TokenMetadata = {
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
   wrappedAsset?: string
-  default?: boolean
-  show?: boolean // native tokens and blue chip assets
 }
 
 export type NetworkMetadata = {
