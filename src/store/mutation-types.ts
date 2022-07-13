@@ -1,8 +1,6 @@
 // wallet
 export const SET_WALLET_CONNECTION = 'wallet/SET_WALLET_CONNECTION'
 export const SET_WALLET_ADDRESS = 'wallet/SET_WALLET_ADDRESS'
-export const ADD_USER_TOKEN = 'wallet/ADD_USER_TOKEN'
-export const REMOVE_USER_TOKEN = 'wallet/REMOVE_USER_TOKEN'
 
 // userInput
 export const SET_TRANSFER_STEP = 'userInput/SET_TRANSFER_STEP'
