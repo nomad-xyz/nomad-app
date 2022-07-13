@@ -1,5 +1,5 @@
 <template>
-  <n-modal :show="show" class="bg-card" @maskClick="close">
+  <n-modal :show="show" class="bg-card" @maskClick="this.$emit('hide')">
     <n-card class="w-11/12 max-w-sm">
       <!-- header -->
       <div class="uppercase mb-5">SELECT TOKEN</div>
@@ -42,7 +42,7 @@
         color="#3B3B3B"
         text-color="#fff"
         class="w-full mt-3 uppercase"
-        @click="close"
+        @click="$emit('hide')"
       >
         Cancel
       </n-button>
@@ -120,13 +120,6 @@ export default defineComponent({
     updateSearch(text: string) {
       this.searchText = text
     },
-
-    close() {
-      this.$emit('hide')
-      setTimeout(() => {
-        this.searchText = ''
-      }, 500)
-    },
   },
 
   computed: {
@@ -144,7 +137,6 @@ export default defineComponent({
         const search = this.searchText.toLowerCase()
         const symbol = t.key.toLowerCase()
         const name = t.name.toLowerCase()
-
         if (symbol.includes(search)) return true
         if (name.includes(search)) return true
         if (t.tokenIdentifier) {
