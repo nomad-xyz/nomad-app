@@ -68,7 +68,7 @@ export async function getUserHistory(
         tokenId
         body
         leafIndex
-        tx
+        dispatchTx
         gasAtDispatch
         gasAtUpdate
         gasAtRelay
@@ -90,7 +90,7 @@ export async function getUserHistory(
 export async function getTx(txID: string): Promise<IndexerTx> {
   const variables = JSON.stringify({
     where: {
-      tx: {
+      dispatchTx: {
         equals: txID,
       },
     },
@@ -124,7 +124,7 @@ export async function getTx(txID: string): Promise<IndexerTx> {
         tokenId
         body
         leafIndex
-        tx
+        dispatchTx
         gasAtDispatch
         gasAtUpdate
         gasAtRelay
