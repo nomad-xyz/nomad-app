@@ -65,12 +65,12 @@ const actions = <ActionTree<WalletState, RootState>>{
     // configure non-infura rpcs
     const {
       VUE_APP_INFURA_KEY,
-      VUE_APP_MOONBEAM_RPC,
+      VUE_APP_MOONBEAM_WSS_RPC,
       VUE_APP_EVMOS_RPC,
       VUE_APP_EVMOS_TESTNET_RPC,
     } = process.env
     const mainnetRpcs = {
-      1284: VUE_APP_MOONBEAM_RPC,
+      1284: VUE_APP_MOONBEAM_WSS_RPC,
       9001: VUE_APP_EVMOS_RPC,
     }
     const testnetRpcs = {
