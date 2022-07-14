@@ -3,7 +3,8 @@
  * This is also a good module to look at for how to write a Vuex module
  */
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { providers, BigNumber } from 'ethers'
+import { BigNumber } from 'ethers'
+import Web3 from "web3";
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks, isProduction } from '@/config'
@@ -104,14 +105,17 @@ const actions = <ActionTree<WalletState, RootState>>{
     try {
       connection = await web3Modal.connect()
     } catch (errMsg: unknown) {
+      console.log(errMsg)
       // NOTE: just swallow this error, don't need to
       // alert sentry if the modal was closed by the user
       if (errMsg === 'Modal closed by user') {
         return
       }
     }
-    web3 = new providers.Web3Provider(connection, 'any')
-    const signer = web3.getSigner()
+    // web3 = new providers.Web3Provider(connection, 'any')
+    // const provider = await web3Modal.connect();
+    const web3 = new Web3(connection);
+    const signer = connection.getSigner();
 
     console.log('connection', connection)
     console.log('signer', signer)
