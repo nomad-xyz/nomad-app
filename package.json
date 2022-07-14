@@ -7,7 +7,7 @@
   "author": "Illusory Systems Inc.",
   "scripts": {
     "build": "vue-cli-service build --mode debug",
-    "build-dev": "vue-cli-service build --mode production",
+    "build-dev": "vue-cli-service build --mode development",
     "build-prod": "vue-cli-service build --mode production",
     "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",

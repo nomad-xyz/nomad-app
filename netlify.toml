@@ -38,7 +38,7 @@
 # All deploys generated from a pull/merge request
 # will inherit these settings.
 [context.deploy-preview.environment]
-  command = "npm run build-prod"
+  command = "npm run build-dev"
 
 # Branch deploy context:
 # All deploys that are not from a pull/merge request

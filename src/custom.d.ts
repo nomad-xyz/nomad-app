@@ -25,7 +25,6 @@ declare namespace process {
     SERVER_PORT: number
     VUE_APP_ETHEREUM_RPC: string
     VUE_APP_MOONBEAM_RPC: string
-    VUE_APP_MOONBEAM_WSS_RPC: string
     VUE_APP_MILKOMEDA_RPC: string
     VUE_APP_EVMOS_RPC: string
     VUE_APP_RINKEBY_RPC: string
