@@ -4,7 +4,10 @@ This change log is manually updated at the moment.
 
 ## Unreleased
 
+## v1.8.0 (July 14, 2022)
+
 - transaction history
+- token search
 
 ## v1.7.1 (June 23, 2022)
 
