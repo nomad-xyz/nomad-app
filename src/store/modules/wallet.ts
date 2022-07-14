@@ -268,7 +268,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
 const getters = <GetterTree<WalletState, RootState>>{
   getSigner: () => () => {
-    return web3.getSigner()
+    return connection.getSigner()
   },
 }
 
