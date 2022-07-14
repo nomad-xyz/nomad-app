@@ -5,8 +5,7 @@
       <div class="uppercase mb-5">SELECT TOKEN</div>
 
       <!-- search bar -->
-      <!-- TODO: search by token symbol or address -->
-      <!-- <search class="mb-3" /> -->
+      <search @input="updateSearch" class="mb-3" />
 
       <!-- token list -->
       <div class="tokens-container">
@@ -38,6 +37,7 @@
           </nomad-button>
         </div>
       </div>
+
       <n-button
         color="#3B3B3B"
         text-color="#fff"
@@ -55,6 +55,7 @@ import { defineComponent, computed } from 'vue'
 import { NModal, NCard, NText, NButton, NIcon } from 'naive-ui'
 import { RepeatOutline } from '@vicons/ionicons5'
 import NomadButton from '@/components/Button.vue'
+import Search from '@/components/Search.vue'
 
 import { networks, tokens } from '@/config'
 import { TokenMetadata } from '@/config/types'
@@ -78,6 +79,7 @@ export default defineComponent({
     NIcon,
     RepeatOutline,
     NomadButton,
+    Search,
   },
 
   setup: () => {
@@ -90,10 +92,15 @@ export default defineComponent({
     }
   },
 
+  data: () => ({
+    searchText: '',
+  }),
+
   methods: {
     select(token: TokenMetadata) {
       if (this.shouldSwitchToNative(token)) return
       this.$emit('selectToken', token)
+      this.$emit('hide')
     },
 
     shouldSwitchToNative(token: TokenMetadata): boolean {
@@ -109,6 +116,10 @@ export default defineComponent({
         this.$emit('hide')
       }
     },
+
+    updateSearch(text: string) {
+      this.searchText = text
+    },
   },
 
   computed: {
@@ -116,7 +127,24 @@ export default defineComponent({
       if (this.store.state.userInput.destinationNetwork === 'avalanche') {
         return this.tokens.filter((t) => t.symbol === 'HBOT')
       }
+      if (this.searchText.length) {
+        return this.searchMatch
+      }
       return this.tokens
+    },
+    searchMatch(): TokenMetadata[] {
+      return this.tokens.filter((t) => {
+        const search = this.searchText.toLowerCase()
+        const symbol = t.key.toLowerCase()
+        const name = t.name.toLowerCase()
+        if (symbol.includes(search)) return true
+        if (name.includes(search)) return true
+        if (t.tokenIdentifier) {
+          const address = (t.tokenIdentifier.id as string).toLowerCase()
+          if (address === search) return true
+        }
+        return false
+      })
     },
   },
 })

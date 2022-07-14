@@ -15,7 +15,7 @@
         class="flex flex-row items-center justify-between cursor-pointer"
         @click="this.showSelectOriginNetwork = true"
       >
-        <n-text class="opacity-50">Origin</n-text>
+        <n-text class="opacity-50 mr-1">Origin</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base">
             <span v-if="originNetwork">
@@ -31,7 +31,7 @@
 
       <!-- origin address -->
       <div class="flex flex-row justify-between">
-        <n-text class="opacity-50">Address</n-text>
+        <n-text class="opacity-50 mr-1">Address</n-text>
         <n-text>{{ truncateAddr(originAddr) || '—' }}</n-text>
       </div>
     </div>
@@ -53,7 +53,7 @@
         class="flex flex-row items-center justify-between cursor-pointer"
         @click="this.showSelectDestinationNetwork = true"
       >
-        <n-text class="opacity-50">Destination</n-text>
+        <n-text class="opacity-50 mr-1">Destination</n-text>
         <div class="flex flex-row items-center max-w-[300]">
           <n-text class="font-bold text-base">
             <span v-if="destinationNetwork">
@@ -76,7 +76,7 @@
         >
           * invalid
         </p>
-        <n-text class="opacity-50">Address</n-text>
+        <n-text class="opacity-50 mr-1">Address</n-text>
         <div class="flex flex-row">
           <n-text>
             {{ truncateAddr(destinationAddr) || '—' }}

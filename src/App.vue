@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import * as Sentry from '@sentry/browser'
 import { useStore } from '@/store'
 
 import { RouterView } from 'vue-router'
@@ -41,6 +42,7 @@ import CardAlert from '@/components/CardAlert.vue'
 import TermsModal from '@/views/TermsModal.vue'
 // import NetworkAlert from '@/components/NetworkAlert.vue'
 import { getNetworkByDomainID } from '@/utils'
+import analytics from '@/services/analytics'
 
 export default defineComponent({
   components: {
@@ -64,10 +66,14 @@ export default defineComponent({
       destinationNetwork: computed(
         () => store.state.userInput.destinationNetwork
       ),
+      address: computed(() => store.state.wallet.address),
     }
   },
 
   async mounted() {
+    if (this.address) {
+      Sentry.setUser({ id: this.address })
+    }
     const store = useStore()
 
     // instantiate Nomad & Connext
@@ -80,6 +86,18 @@ export default defineComponent({
   },
 
   methods: { getNetworkByDomainID },
+
+  watch: {
+    address(newAddr) {
+      if (newAddr) {
+        Sentry.setUser({ id: newAddr })
+      }
+    },
+    $route(to) {
+      // track page changes
+      analytics.page(to.name)
+    },
+  },
 })
 </script>
 

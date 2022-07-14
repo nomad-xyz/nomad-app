@@ -12,14 +12,16 @@ export type IndexerTx = {
   relayedAt: number
   processedAt: number
   receivedAt: number
-  tx: string
+  dispatchTx: string
   amount: string
+  decimals: number
   tokenDomain: number
   tokenId: string
   confirmAt: number
 }
 
 export async function getUserHistory(
+  domains: number[],
   address: string,
   page: number,
   size: number
@@ -27,11 +29,22 @@ export async function getUserHistory(
   const skip = size * (page - 1)
   const variables = JSON.stringify({
     where: {
+      destination: {
+        in: domains,
+      },
+      origin: {
+        in: domains,
+      },
+      tokenDomain: {
+        in: domains,
+      },
       OR: [
         {
           recipient: {
             equals: address,
           },
+        },
+        {
           sender: {
             equals: address,
           },

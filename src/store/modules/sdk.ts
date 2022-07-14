@@ -165,6 +165,11 @@ const actions = <ActionTree<SDKState, RootState>>{
     const originDomain = nomad.resolveDomain(originNetwork)
     const destDomain = nomad.resolveDomain(destNetwork)
 
+    let overrides
+    if (originDomain === 5001 || originDomain === 5551) {
+      overrides = { gasLimit: 3600000 }
+    }
+
     let transferMessage
     try {
       // if ETH Helper contract exists, native token must be wrapped
@@ -176,7 +181,9 @@ const actions = <ActionTree<SDKState, RootState>>{
           originDomain,
           destDomain,
           amnt,
-          recipient
+          recipient,
+          false,
+          overrides
         )
       } else {
         console.log('send ERC-20')
@@ -185,7 +192,9 @@ const actions = <ActionTree<SDKState, RootState>>{
           destDomain,
           asset,
           amnt,
-          recipient
+          recipient,
+          false,
+          overrides
         )
       }
       console.log('tx sent!!!!!!!!!!!!', transferMessage)
@@ -207,46 +216,13 @@ const actions = <ActionTree<SDKState, RootState>>{
       hash
     )
 
+    // switch network and register signer
     const destNetwork = getNetworkByDomainID(message.destination)
-    const originNetwork = getNetworkByDomainID(message.origin)
     await dispatch('switchNetwork', destNetwork.name)
-    // register signer
     await dispatch('registerSigner', destNetwork)
 
-    // get proof
-    const res = await fetch(
-      `${proofsS3}${originNetwork.name}_${message.leafIndex.toString()}`
-    )
-    if (!res) throw new Error('Not able to fetch proof')
-    const data = (await res.json()) as any
-    console.log('proof: ', data)
-
-    // get replica contract
-    const replica = nomad.getReplicaFor(message.origin, message.destination)
-
-    if (!replica) {
-      throw new Error('missing replica, unable to process transaction')
-    }
-
-    // connect signer
-    const signer = nomad.getSigner(message.destination)
-    if (!signer) {
-      throw new Error('missing signer, unable to process transaction')
-    }
-    replica.connect(signer)
-
     try {
-      await replica.callStatic.proveAndProcess(
-        data.message as BytesLike,
-        data.proof.path,
-        data.proof.index
-      )
-      // prove and process
-      const receipt = await replica.proveAndProcess(
-        data.message as BytesLike,
-        data.proof.path,
-        data.proof.index
-      )
+      const receipt = await message.process()
       console.log('PROCESSED!!!!')
       return receipt
     } catch (e) {
@@ -299,6 +275,8 @@ const getters = <GetterTree<SDKState, RootState>>{
     () => async (network: string, token: TokenIdentifier) => {
       return await nomad.resolveRepresentation(network, token)
     },
+
+  getDomains: () => () => nomad.domainNumbers,
 }
 
 export default {
