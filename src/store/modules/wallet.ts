@@ -4,6 +4,7 @@
  */
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber } from 'ethers'
+import Web3 from "web3";
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks, isProduction } from '@/config'
@@ -103,15 +104,17 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     try {
       connection = await web3Modal.connect()
-    } catch (errMsg: unknown) {
+    } catch (err: unknown) {
       // NOTE: just swallow this error, don't need to
       // alert sentry if the modal was closed by the user
-      if (errMsg === 'Modal closed by user') {
+      if ((err as any).message === 'Modal closed by user') {
         return
       }
+      throw err
     }
-    web3 = new providers.Web3Provider(connection, 'any')
-    const signer = web3.getSigner()
+    web3 = new Web3(connection);
+    const provider = new providers.Web3Provider(connection, 'any')
+    const signer = provider.getSigner();
 
     console.log('connection', connection)
     console.log('signer', signer)
@@ -145,7 +148,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
 
     // set network, if supported
-    const { chainId } = await web3.ready
+    const { chainId } = connection
     const network = getNetworkByChainID(chainId)
     if (network) {
       dispatch('setWalletNetwork', network.name)
@@ -264,7 +267,8 @@ const actions = <ActionTree<WalletState, RootState>>{
 
 const getters = <GetterTree<WalletState, RootState>>{
   getSigner: () => () => {
-    return web3.getSigner()
+    const provider = new providers.Web3Provider(connection, 'any')
+    return provider.getSigner();
   },
 }
 
