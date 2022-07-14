@@ -3,7 +3,7 @@
  * This is also a good module to look at for how to write a Vuex module
  */
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
-import { BigNumber } from 'ethers'
+import { BigNumber, providers } from 'ethers'
 import Web3 from "web3";
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
@@ -112,10 +112,9 @@ const actions = <ActionTree<WalletState, RootState>>{
         return
       }
     }
-    // web3 = new providers.Web3Provider(connection, 'any')
-    // const provider = await web3Modal.connect();
     web3 = new Web3(connection);
-    const signer = connection.getSigner();
+    const provider = new providers.Web3Provider(connection, 'any')
+    const signer = provider.getSigner();
 
     console.log('connection', connection)
     console.log('signer', signer)
@@ -149,7 +148,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
 
     // set network, if supported
-    const { chainId } = await connection.ready
+    const { chainId } = connection
     const network = getNetworkByChainID(chainId)
     if (network) {
       dispatch('setWalletNetwork', network.name)
@@ -268,7 +267,8 @@ const actions = <ActionTree<WalletState, RootState>>{
 
 const getters = <GetterTree<WalletState, RootState>>{
   getSigner: () => () => {
-    return connection.getSigner()
+    const provider = new providers.Web3Provider(connection, 'any')
+    return provider.getSigner();
   },
 }
 
