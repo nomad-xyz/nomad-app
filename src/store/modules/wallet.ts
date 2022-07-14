@@ -192,7 +192,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     }
 
     // if provider does not exist yet, no need to handle right now
-    if (!web3 || !web3.provider) return
+    if (!web3 || !connection) return
 
     const network = networks[networkName]
     const hexChainId = '0x' + network.chainID.toString(16)
@@ -206,7 +206,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // switch chains
     try {
-      await web3.provider.request({
+      await connection.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: hexChainId }],
       })
@@ -214,7 +214,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     } catch (switchError: unknown) {
       // This error code indicates that the chain has not been added to their wallet.
       if ((switchError as ProviderRpcError).code === 4902) {
-        await web3.provider.request({
+        await connection.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
@@ -249,7 +249,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     const symbol = await token.symbol()
     const decimals = await token.decimals()
 
-    const wasAdded = await web3.provider.request({
+    const wasAdded = await connection.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20',
