@@ -149,7 +149,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     dispatch('setDestinationAddress', address, { root: true }) // initialize destination address
 
     // set network, if supported
-    const { chainId } = await web3.ready
+    const { chainId } = await connection.ready
     const network = getNetworkByChainID(chainId)
     if (network) {
       dispatch('setWalletNetwork', network.name)
