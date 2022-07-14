@@ -149,7 +149,8 @@ const actions = <ActionTree<WalletState, RootState>>{
 
     // set network, if supported
     const { chainId } = connection
-    const network = getNetworkByChainID(chainId)
+    const chainIdNum = BigNumber.from(chainId).toNumber()
+    const network = getNetworkByChainID(chainIdNum)
     if (network) {
       dispatch('setWalletNetwork', network.name)
     } else {
