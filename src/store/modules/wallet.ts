@@ -114,7 +114,7 @@ const actions = <ActionTree<WalletState, RootState>>{
     }
     // web3 = new providers.Web3Provider(connection, 'any')
     // const provider = await web3Modal.connect();
-    const web3 = new Web3(connection);
+    web3 = new Web3(connection);
     const signer = connection.getSigner();
 
     console.log('connection', connection)
