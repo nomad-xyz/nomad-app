@@ -14,7 +14,7 @@ import GEROIcon from '@/assets/token-logos/GERO.png'
 import renBTCIcon from '@/assets/token-logos/renBTC.png'
 import sBTCIcon from '@/assets/token-logos/sBTC.png'
 import tBTCIcon from '@/assets/token-logos/tBTC.png'
-import NEONIcon from '@/assets/token-logos/NEON.svg'
+// import NEONIcon from '@/assets/token-logos/NEON.svg'
 // import DEVIcon from '@/assets/token-logos/DEV.png'
 // import wADAIcon from '@/assets/token-logos/wADA.png'
 
@@ -138,31 +138,31 @@ export const testnetTokens: TokenMetadataMap = {
     tokenIdentifier: testnetTokenIdentifiers.wtEVMOS,
     nativeOnly: false,
   },
-  tNEON: {
-    key: 'tNEON',
-    nativeNetwork: 'neontestnet',
-    symbol: 'tNEON',
-    name: 'test NEON',
-    icon: NEONIcon,
-    iconColors: ['#FF59FF', '#BC00DE'],
-    decimals: 18,
-    coinGeckoId: 'neon',
-    tokenIdentifier: null,
-    nativeOnly: true,
-    wrappedAsset: 'wtNEON',
-  },
-  wtNEON: {
-    key: 'wtNEON',
-    nativeNetwork: 'neontestnet',
-    symbol: 'wtNEON',
-    name: 'Wrapped test NEON',
-    icon: NEONIcon,
-    iconColors: ['#FF86FF', '#BC00DE'],
-    decimals: 18,
-    coinGeckoId: 'neon',
-    tokenIdentifier: mainnetTokenIdentifiers.wtNEON,
-    nativeOnly: false,
-  },
+  // tNEON: {
+  //   key: 'tNEON',
+  //   nativeNetwork: 'neontestnet',
+  //   symbol: 'tNEON',
+  //   name: 'test NEON',
+  //   icon: NEONIcon,
+  //   iconColors: ['#FF59FF', '#BC00DE'],
+  //   decimals: 18,
+  //   coinGeckoId: 'neon',
+  //   tokenIdentifier: null,
+  //   nativeOnly: true,
+  //   wrappedAsset: 'wtNEON',
+  // },
+  // wtNEON: {
+  //   key: 'wtNEON',
+  //   nativeNetwork: 'neontestnet',
+  //   symbol: 'wtNEON',
+  //   name: 'Wrapped test NEON',
+  //   icon: NEONIcon,
+  //   iconColors: ['#FF86FF', '#BC00DE'],
+  //   decimals: 18,
+  //   coinGeckoId: 'neon',
+  //   tokenIdentifier: mainnetTokenIdentifiers.wtNEON,
+  //   nativeOnly: false,
+  // },
   USDC: {
     key: 'USDC',
     nativeNetwork: 'goerli',
