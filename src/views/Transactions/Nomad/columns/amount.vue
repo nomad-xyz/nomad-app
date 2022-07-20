@@ -45,13 +45,13 @@ export default defineComponent({
   },
   methods: {
     getAmount() {
-      const { amount, decimals, tokenDomain, tokenId } = this.tx
+      const { amount, tokenDomain, tokenId } = this.tx
       const tokenIdentifier = {
         domain: getNetworkByDomainID(tokenDomain).name,
         id: fromBytes32(tokenId),
       }
       this.token = getTokenByTokenID(tokenIdentifier)!
-      this.amt = toDecimals(BigNumber.from(amount), decimals, 6)
+      this.amt = toDecimals(BigNumber.from(amount), this.token.decimals, 6)
     },
   },
 })
