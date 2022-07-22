@@ -39,6 +39,10 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'neontestnet',
     id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab',
   },
+  wMATIC: {
+    domain: 'polygonmumbai',
+    id: '0x9c3c9283d3e44854697cd22d3faa240cfb032889',
+  }
   //   DEV: {
   //     domain: 'moonbasealpha',
   //     id: '0x0000000000000000000000000000000000000802',
