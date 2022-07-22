@@ -8,6 +8,7 @@ import ConnextIcon from '@/assets/icons/connext.svg'
 // TESTNET TOKEN ICONS
 import rWETHIcon from '@/assets/token-logos/rWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
+import MATICIcon from '@/assets/token-logos/MATIC.png'
 import CARDSIcon from '@/assets/token-logos/CARDS.png'
 import C3Icon from '@/assets/token-logos/C3.png'
 import GEROIcon from '@/assets/token-logos/GERO.png'
@@ -111,6 +112,31 @@ export const testnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'weth',
     tokenIdentifier: testnetTokenIdentifiers.gWETH,
+    nativeOnly: false,
+  },
+  MATIC: {
+    key: 'MATIC',
+    nativeNetwork: 'polygonmumbai',
+    symbol: 'MATIC',
+    name: 'MATIC',
+    icon: MATICIcon,
+    iconColors: ['#b490ef', '#8247E5'],
+    decimals: 18,
+    coinGeckoId: 'polygon',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    wrappedAsset: 'wMATIC',
+  },
+  wMATIC: {
+    key: 'wMATIC',
+    nativeNetwork: 'polygonmumbai',
+    symbol: 'wMATIC',
+    name: 'Wrapped MATIC',
+    icon: MATICIcon,
+    iconColors: ['#b490ef', '#8247E5'],
+    decimals: 18,
+    coinGeckoId: 'polygon',
+    tokenIdentifier: testnetTokenIdentifiers.wMATIC,
     nativeOnly: false,
   },
   tEVMOS: {
