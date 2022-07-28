@@ -92,6 +92,10 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0',
   },
+  SDL: {
+    domain: 'evmos',
+    id: '0x3344e55C6DDE2A01F4ED893f97bAC1f99EC24f8B'
+  },
   MIM: {
     domain: 'ethereum',
     id: '0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3',
