@@ -29,7 +29,8 @@ import WSTRIcon from '@/assets/token-logos/WSTR.png'
 import CQTIcon from '@/assets/token-logos/CQT.png'
 import HBTCIcon from '@/assets/token-logos/HBTC.png'
 import HBOTIcon from '@/assets/token-logos/HBOT.svg'
-import PBXIcon from '@/assets/token-logos/PBXIcon.png'
+import PBXIcon from '@/assets/token-logos/PBX.png'
+import SDLIcon from '@/assets/token-logos/SDL.svg'
 // import MIMIcon from '@/assets/token-logos/MIM.png'
 // import CROIcon from '@/assets/token-logos/CRO.png'
 // import UNIIcon from '@/assets/token-logos/UNI.png'
@@ -464,6 +465,18 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'hummingbot',
     tokenIdentifier: mainnetTokenIdentifiers.HBOT,
+    nativeOnly: false,
+  },
+  SDL: {
+    key: 'SDL',
+    nativeNetwork: 'evmos',
+    symbol: 'SDL',
+    name: 'Saddle DAO',
+    icon: SDLIcon,
+    iconColors: ['#440ffc', '#3510b6'],
+    decimals: 18,
+    coinGeckoId: 'saddle-finance',
+    tokenIdentifier: mainnetTokenIdentifiers.SDL,
     nativeOnly: false,
   },
   WSTR: {
