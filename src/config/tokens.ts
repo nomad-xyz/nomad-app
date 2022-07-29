@@ -12,8 +12,6 @@ import renBTCIcon from '@/assets/token-logos/renBTC.png'
 import sBTCIcon from '@/assets/token-logos/sBTC.png'
 import tBTCIcon from '@/assets/token-logos/tBTC.png'
 import NEONIcon from '@/assets/token-logos/NEON.svg'
-// import DEVIcon from '@/assets/token-logos/DEV.png'
-// import wADAIcon from '@/assets/token-logos/wADA.png'
 
 // MAINNET TOKEN ICONS
 import wETHIcon from '@/assets/token-logos/WETH.png'
@@ -213,45 +211,43 @@ export const testnetTokens: TokenMetadataMap = {
   //   default: true,
   //   show: true,
   // },
-  // DEV: {
-  //   key: '',
-  //   nativeNetwork: 'moonbasealpha',
-  //   symbol: 'DEV',
-  //   name: 'Moonbase DEV',
-  //   icon: DEVIcon,
-  //   iconColors: ['#53CBC8', '#e84195'],
-  //   decimals: 18,
-  //   coinGeckoId: 'moonbeam',
-  //   tokenIdentifier: null,
-  //   nativeOnly: true,
-  //
-  // },
-  // milkADA: {
-  //   key: '',
-  //   nativeNetwork: 'milkomedaC1testnet',
-  //   symbol: 'mADA',
-  //   name: 'milkADA',
-  //   icon: wADAIcon,
-  //   iconColors: ['#6684CD', '#0033AC'],
-  //   decimals: 18,
-  //   coinGeckoId: 'cardano',
-  //   tokenIdentifier: null,
-  //   nativeOnly: true,
-  //
-  //   wrappedAsset: 'wADA',
-  // },
-  // wADA: {
-  //   key: '',
-  //   nativeNetwork: 'milkomedaC1testnet',
-  //   symbol: 'wADA',
-  //   name: 'wADA',
-  //   icon: wADAIcon,
-  //   iconColors: ['#6684CD', '#0033AC'],
-  //   decimals: 18,
-  //   coinGeckoId: 'cardano',
-  //   tokenIdentifier: testnetTokenIdentifiers.wADA,
-  //   nativeOnly: false,
-  // },
+  DEV: {
+    key: 'DEV',
+    nativeNetwork: 'moonbasealpha',
+    symbol: 'DEV',
+    name: 'Moonbase DEV',
+    icon: DEVIcon,
+    iconColors: ['#53CBC8', '#e84195'],
+    decimals: 18,
+    coinGeckoId: 'moonbeam',
+    tokenIdentifier: null,
+    nativeOnly: true,
+  },
+  milkADA: {
+    key: 'milkADA',
+    nativeNetwork: 'milkomedaC1testnet',
+    symbol: 'mADA',
+    name: 'milkADA',
+    icon: wADAIcon,
+    iconColors: ['#6684CD', '#0033AC'],
+    decimals: 18,
+    coinGeckoId: 'cardano',
+    tokenIdentifier: null,
+    nativeOnly: true,
+    wrappedAsset: 'wADA',
+  },
+  wADA: {
+    key: 'wADA',
+    nativeNetwork: 'milkomedaC1testnet',
+    symbol: 'wADA',
+    name: 'wADA',
+    icon: wADAIcon,
+    iconColors: ['#6684CD', '#0033AC'],
+    decimals: 18,
+    coinGeckoId: 'cardano',
+    tokenIdentifier: testnetTokenIdentifiers.wADA,
+    nativeOnly: false,
+  },
 }
 
 export const mainnetTokens: TokenMetadataMap = {

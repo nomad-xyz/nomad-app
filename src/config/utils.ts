@@ -1,5 +1,7 @@
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 import { NetworkMetadata, NetworkMap, TokenMetadataMap } from '@/config/types'
+import { testnetTokens, mainnetTokens } from './tokens'
+import { isProduction } from '.'
 import AVAXIcon from '@/assets/token-logos/AVAX.png'
 
 export const config = await import('@nomad-xyz/sdk-bridge').then(
@@ -46,6 +48,8 @@ const rpcs: { [key: string]: string[] } = {
   avalanche: [VUE_APP_AVALANCHE_RPC],
 }
 
+const tokenMap: TokenMetadataMap = isProduction ? mainnetTokens : testnetTokens
+
 export const getConnextConfig = (
   ethereumRPCs: string[]
 ): SdkBaseChainConfigParams => {
@@ -71,13 +75,13 @@ export const getConnextConfig = (
   return connextConfig
 }
 
-export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
+export const getNetworksConfig = (): NetworkMap => {
   const networks: NetworkMap = {}
 
   Object.keys(config.bridgeGui).forEach((networkName) => {
     const { displayName, nativeTokenSymbol, connections, manualProcessing } =
       config.bridgeGui[networkName]
-    const nativeToken = tokens[nativeTokenSymbol]
+    const nativeToken = tokenMap[nativeTokenSymbol]
     const { name, domain: domainID } = config.protocol.networks[networkName]
     const { chainId: chainID, blockExplorer } =
       config.protocol.networks[networkName].specs
@@ -109,4 +113,15 @@ export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
   }
 
   return networks
+}
+
+export const getTokens  = (): TokenMetadataMap => {
+  const supported: TokenMetadataMap = {}
+  for (const k of Object.keys(tokenMap)) {
+    const token = tokenMap[k]
+    if (config.networks.includes(token.nativeNetwork)) {
+      supported[k] = token
+    }
+  }
+  return supported
 }
