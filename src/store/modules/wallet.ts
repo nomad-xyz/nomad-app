@@ -4,7 +4,7 @@
  */
 import { MutationTree, ActionTree, GetterTree } from 'vuex'
 import { providers, BigNumber } from 'ethers'
-import Web3 from "web3";
+import Web3 from 'web3'
 import { RootState } from '@/store'
 import * as types from '@/store/mutation-types'
 import { networks, isProduction } from '@/config'
@@ -112,9 +112,9 @@ const actions = <ActionTree<WalletState, RootState>>{
       }
       throw err
     }
-    web3 = new Web3(connection);
+    web3 = new Web3(connection)
     const provider = new providers.Web3Provider(connection, 'any')
-    const signer = provider.getSigner();
+    const signer = provider.getSigner()
 
     console.log('connection', connection)
     console.log('signer', signer)
@@ -269,7 +269,7 @@ const actions = <ActionTree<WalletState, RootState>>{
 const getters = <GetterTree<WalletState, RootState>>{
   getSigner: () => () => {
     const provider = new providers.Web3Provider(connection, 'any')
-    return provider.getSigner();
+    return provider.getSigner()
   },
 }
 

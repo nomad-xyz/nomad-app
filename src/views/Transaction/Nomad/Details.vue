@@ -164,7 +164,7 @@ export default defineComponent({
     // get token
     this.tokenId = {
       domain: message.token.domain,
-      id: fromBytes32(message.token.id)
+      id: fromBytes32(message.token.id),
     }
     const token = await this.store.getters.resolveRepresentation(
       message.origin,
@@ -240,7 +240,10 @@ export default defineComponent({
       } catch (error: unknown) {
         let text = ''
         if (this.tokenId) {
-          const token = await this.store.getters.resolveRepresentation(this.destNet, this.tokenId)
+          const token = await this.store.getters.resolveRepresentation(
+            this.destNet,
+            this.tokenId
+          )
           text = `Please try adding this token manually: ${token.address}`
         }
         this.notification.warning({
