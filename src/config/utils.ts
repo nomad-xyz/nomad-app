@@ -1,6 +1,10 @@
 import { SdkBaseChainConfigParams } from '@connext/nxtp-sdk'
 import { NetworkMetadata, NetworkMap, TokenMetadataMap } from '@/config/types'
-import AVAXIcon from '@/assets/token-logos/AVAX.png'
+import { testnetTokens, mainnetTokens } from './tokens'
+
+const environment = process.env.VUE_APP_NOMAD_ENVIRONMENT
+const isProduction = environment === 'production'
+const tokenMap: TokenMetadataMap = isProduction ? mainnetTokens : testnetTokens
 
 export const config = await import('@nomad-xyz/sdk-bridge').then(
   async ({ BridgeContext }) => {
@@ -71,13 +75,13 @@ export const getConnextConfig = (
   return connextConfig
 }
 
-export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
+export const getNetworksConfig = (): NetworkMap => {
   const networks: NetworkMap = {}
 
   Object.keys(config.bridgeGui).forEach((networkName) => {
     const { displayName, nativeTokenSymbol, connections, manualProcessing } =
       config.bridgeGui[networkName]
-    const nativeToken = tokens[nativeTokenSymbol]
+    const nativeToken = tokenMap[nativeTokenSymbol]
     const { name, domain: domainID } = config.protocol.networks[networkName]
     const { chainId: chainID, blockExplorer } =
       config.protocol.networks[networkName].specs
@@ -103,10 +107,16 @@ export const getNetworksConfig = (tokens: TokenMetadataMap): NetworkMap => {
     } as NetworkMetadata
   })
 
-  // Add avalanche icon because it doesn't have native asset listed
-  if (networks.avalanche) {
-    networks.avalanche.icon = AVAXIcon
-  }
-
   return networks
+}
+
+export const getTokens  = (): TokenMetadataMap => {
+  const supported: TokenMetadataMap = {}
+  for (const k of Object.keys(tokenMap)) {
+    const token = tokenMap[k]
+    if (!token.hide && config.networks.includes(token.nativeNetwork)) {
+      supported[k] = token
+    }
+  }
+  return supported
 }

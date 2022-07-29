@@ -39,14 +39,14 @@ export const testnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'neontestnet',
     id: '0xf8ad328e98f85fccbf09e43b16dcbbda7e84beab',
   },
-  //   DEV: {
-  //     domain: 'moonbasealpha',
-  //     id: '0x0000000000000000000000000000000000000802',
-  //   },
-  //   wADA: {
-  //   domain: 'milkomedaC1testnet',
-  //   id: '0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9',
-  //   },
+  DEV: {
+    domain: 'moonbasealpha',
+    id: '0x0000000000000000000000000000000000000802',
+  },
+  wADA: {
+    domain: 'milkomedaC1testnet',
+    id: '0x65a51E52eCD17B641f8F0D1d56a6c9738951FDC9',
+  },
 }
 
 // --- MAINNET TOKEN IDENTIFIERS ---

@@ -1,5 +1,4 @@
-import { testnetTokens, mainnetTokens } from './tokens'
-import { getNetworksConfig, getConnextConfig } from '@/utils/config'
+import { getNetworksConfig, getConnextConfig, getTokens } from '@/config/utils'
 
 const {
   VUE_APP_NOMAD_ENVIRONMENT,
@@ -13,8 +12,8 @@ const {
 const environment = VUE_APP_NOMAD_ENVIRONMENT
 
 export const isProduction = environment === 'production'
-export const tokens = isProduction ? mainnetTokens : testnetTokens
-export const networks = getNetworksConfig(tokens)
+export const tokens = getTokens()
+export const networks = getNetworksConfig()
 export const connextConfig = getConnextConfig([VUE_APP_ETHEREUM_RPC])
 export const proofsS3 = VUE_APP_PROOFS_S3
 export const connextScanURL = VUE_APP_CONNEXTSCAN_URL
