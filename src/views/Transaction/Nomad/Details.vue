@@ -75,7 +75,7 @@ import { TokenIdentifier, TransferMessage } from '@nomad-xyz/sdk-bridge'
 import { NText, NDivider, NTime, useNotification } from 'naive-ui'
 import { useStore } from '@/store'
 import { fromBytes32, toNetworkName, truncateAddr } from '@/utils'
-import { nomadAPI, networks } from '@/config'
+import { networks } from '@/config'
 import Detail from '@/views/Transaction/Detail.vue'
 import CopyHash from '@/components/CopyHash.vue'
 import StatusHeader from './Header.vue'
@@ -162,10 +162,13 @@ export default defineComponent({
     this.originAddr = message.receipt.from
     this.destAddr = fromBytes32(message.to)
     // get token
-    this.tokenId = message.token
+    this.tokenId = {
+      domain: message.token.domain,
+      id: fromBytes32(message.token.id)
+    }
     const token = await this.store.getters.resolveRepresentation(
       message.origin,
-      message.token
+      this.tokenId
     )
     if (token) {
       try {
@@ -237,8 +240,8 @@ export default defineComponent({
       } catch (error: unknown) {
         let text = ''
         if (this.tokenId) {
-          const tokenAddr = fromBytes32(this.tokenId!.id as string)
-          text = `Please try adding this token manually: ${tokenAddr}`
+          const token = await this.store.getters.resolveRepresentation(this.destNet, this.tokenId)
+          text = `Please try adding this token manually: ${token.address}`
         }
         this.notification.warning({
           title: 'Error adding token to your wallet',
