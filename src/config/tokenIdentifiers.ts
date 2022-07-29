@@ -110,18 +110,6 @@ export const mainnetTokenIdentifiers: TokenIdentifierMap = {
     domain: 'ethereum',
     id: '0xD417144312DbF50465b1C641d016962017Ef6240',
   },
-  CARDS: {
-    domain: 'ethereum',
-    id: '0x3d6f0dea3ac3c607b3998e6ce14b6350721752d9',
-  },
-  C3: {
-    domain: 'ethereum',
-    id: '0xf1a91c7d44768070f711c68f33a7ca25c8d30268',
-  },
-  GERO: {
-    domain: 'ethereum',
-    id: '0x3431f91b3a388115f00c5ba9fdb899851d005fb5',
-  },
   renBTC: {
     domain: 'ethereum',
     id: '0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D',
