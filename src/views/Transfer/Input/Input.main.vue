@@ -1,6 +1,6 @@
 <template>
   <!-- BRIDGE TOKENS card -->
-  <div>
+  <div class="w-full">
     <!-- color blur section -->
     <div class="bridge">
       <bg-blur class="absolute inset-0 w-full h-full z-negative" />

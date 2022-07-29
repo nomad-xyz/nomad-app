@@ -18,6 +18,7 @@ export type TokenMetadata = {
   tokenIdentifier: TokenIdentifier | null
   nativeOnly: boolean
   wrappedAsset?: string
+  hide?: boolean
 }
 
 export type NetworkMetadata = {
