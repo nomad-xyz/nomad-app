@@ -8,9 +8,6 @@ import ConnextIcon from '@/assets/icons/connext.svg'
 // TESTNET TOKEN ICONS
 import rWETHIcon from '@/assets/token-logos/rWETH.png'
 import gWETHIcon from '@/assets/token-logos/gWETH.png'
-import CARDSIcon from '@/assets/token-logos/CARDS.png'
-import C3Icon from '@/assets/token-logos/C3.png'
-import GEROIcon from '@/assets/token-logos/GERO.png'
 import renBTCIcon from '@/assets/token-logos/renBTC.png'
 import sBTCIcon from '@/assets/token-logos/sBTC.png'
 import tBTCIcon from '@/assets/token-logos/tBTC.png'
@@ -501,42 +498,6 @@ export const mainnetTokens: TokenMetadataMap = {
     decimals: 18,
     coinGeckoId: 'covalent',
     tokenIdentifier: mainnetTokenIdentifiers.CQT,
-    nativeOnly: false,
-  },
-  CARDS: {
-    key: 'CARDS',
-    nativeNetwork: 'ethereum',
-    symbol: 'CARDS',
-    name: 'Card Starter',
-    icon: CARDSIcon,
-    iconColors: ['#9AB4F1', '#0344de'],
-    decimals: 18,
-    coinGeckoId: 'cardstarter',
-    tokenIdentifier: mainnetTokenIdentifiers.CARDS,
-    nativeOnly: false,
-  },
-  C3: {
-    key: 'C3',
-    nativeNetwork: 'ethereum',
-    symbol: 'C3',
-    name: 'CHARLI3',
-    icon: C3Icon,
-    iconColors: ['#F4ACAB', '#E5302E'],
-    decimals: 18,
-    coinGeckoId: 'charli3',
-    tokenIdentifier: mainnetTokenIdentifiers.C3,
-    nativeOnly: false,
-  },
-  GERO: {
-    key: 'GERO',
-    nativeNetwork: 'ethereum',
-    symbol: 'GERO',
-    name: 'GeroWallet',
-    icon: GEROIcon,
-    iconColors: ['#54E09D', '#00A4AB'],
-    decimals: 18,
-    coinGeckoId: 'gerowallet',
-    tokenIdentifier: mainnetTokenIdentifiers.GERO,
     nativeOnly: false,
   },
   renBTC: {
