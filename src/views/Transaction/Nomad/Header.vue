@@ -362,9 +362,15 @@ export default defineComponent({
       if (!this.confirmAt || !this.now || !this.destinationNetwork) return false
       // get timestamp in seconds
       const now = BigNumber.from(this.now).div(1000)
+      // considered old if 1 hour past confirmAt time
+      const old = this.confirmAt.add(BigNumber.from(60 * 60))
       // check if confirmAt time has passed
       // check if network is one that needs manual processing
-      return now.gt(this.confirmAt) && this.requiresManualProcessing
+      if (now.gt(this.confirmAt) && this.requiresManualProcessing) {
+        return true
+      }
+      console.log('2 hours', now.gt(old), this.status)
+      return now.gt(old) && !this.requiresManualProcessing
     },
     statusAvailable(): boolean {
       if (this.status === undefined) {
