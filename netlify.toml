@@ -53,7 +53,7 @@
 
 # Temp branch for C3, CARDS and GERO context:
 # Branch for testing staging contracts (testnet)
-[context.temp-assets]
+[context.temp]
   command = "npm run build-prod"
 
 # This is our public dev branch which deploys a publicly accessible site
