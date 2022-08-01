@@ -52,8 +52,7 @@
   command = "npm run build-staging"
 
 # Temp branch for C3, CARDS and GERO context:
-# Branch for testing staging contracts (testnet)
-[context.temp]
+[context.cardano-assets]
   command = "npm run build-prod"
 
 # This is our public dev branch which deploys a publicly accessible site
