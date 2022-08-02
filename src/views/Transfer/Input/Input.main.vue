@@ -14,10 +14,9 @@
     <div class="drawer py-5 px-8">
       <transfer-inputs class="bridge-inputs" />
       <nomad-button
-        class="w-full uppercase mt-6 bg-white text-black h-11 flex justify-center"
-        @click="next"
+        class="cursor-not-allowed w-full uppercase mt-6 bg-white text-black h-11 flex justify-center"
       >
-        Next
+        Bridging Unavailable
       </nomad-button>
     </div>
   </div>

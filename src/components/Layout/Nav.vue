@@ -21,8 +21,8 @@
       </router-link>
 
       <!-- connect wallet button -->
-      <div class="flex items-center" v-if="showButton">
-        <!-- connected -->
+      <!-- <div class="flex items-center" v-if="showButton">
+        connected
         <n-tooltip
           v-if="walletConnected"
           placement="bottom-end"
@@ -45,7 +45,7 @@
               </n-icon>
             </nomad-button>
           </template>
-          <!-- user settings -->
+          user settings
           <div style="min-width: 200px" class="pb-2">
             <router-link
               to="/tx"
@@ -64,7 +64,7 @@
           </div>
         </n-tooltip>
 
-        <!-- connect to wallet button -->
+        connect to wallet button
         <nomad-button
           v-else
           class="uppercase"
@@ -74,7 +74,7 @@
         >
           Connect Wallet
         </nomad-button>
-      </div>
+      </div> -->
     </div>
   </nav>
 </template>
@@ -90,12 +90,12 @@ import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
-    NText,
-    NIcon,
-    NTooltip,
-    NDivider,
-    ChevronDown,
-    NomadButton,
+    // NText,
+    // NIcon,
+    // NTooltip,
+    // NDivider,
+    // ChevronDown,
+    // NomadButton,
   },
   data: () => ({
     buttonDisabled: false,
