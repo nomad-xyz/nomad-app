@@ -19,6 +19,12 @@
         </span>
       </card-alert>
 
+      <card-alert
+        title="Attention: White Hat Hacker Friends"
+      >
+        Please return ETH or ERC-20 tokens to this wallet address: <a href="https://etherscan.io/address/0x94a84433101a10aeda762968f6995c574d1bf154" class="link hover:underline">0x94A84433101A10aEda762968f6995c574D1bF154</a>
+      </card-alert>
+
       <!-- Network-specific App Alert -->
       <!-- uncomment, update warning text and network -->
       <!-- <network-alert /> -->
